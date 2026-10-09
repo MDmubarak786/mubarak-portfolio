@@ -3,14 +3,14 @@ import "../styles/variants.css";
 import { Font } from "astro:assets";
 interface Props { title: string; fonts: string[]; n: number }
 const { title, fonts, n } = Astro.props;
-const names = ["Metro", "Sleeve", "Night street", "Cutaway", "Terminal", "Comic", "Scorecard", "Logbook", "Mission", "Kolam"];
+const names = ["Metro", "Sleeve", "Night street", "Cutaway", "Terminal", "Comic", "Scorecard", "Logbook", "Mission", "Kolam", "Room", "Dusk", "Greenhouse", "Deep", "Sky", "Plaster"];
 ---
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="robots" content="noindex" />
     <title>{title}</title>
-    {fonts.map((f) => <Font cssVariable={f} preload />)}
+    {fonts.map((f) => <Font cssVariable={f as any} preload />)}
   </head>
   <body>
     <nav class="fixed top-2 left-1/2 -translate-x-1/2 z-[99] flex flex-wrap justify-center gap-0.5 rounded-full bg-black/70 backdrop-blur px-2 py-1 text-[11px] text-white/85 border border-white/10 max-w-[96vw]" aria-label="Variants">

@@ -1,0 +1,67 @@
+---
+/** A layered CSS/SVG dream room: walls, arches, a water floor with reflections, drifting orbs, grain. Parallax follows the pointer. */
+interface Props { kind: "room" | "dusk" | "greenhouse" | "deep" | "sky" | "plaster" }
+const { kind } = Astro.props;
+---
+<div class:list={["scene", `scene-${kind}`]} aria-hidden="true" data-scene>
+  <div class="sky-layer" data-depth="0.02"></div>
+  <div class="far" data-depth="0.05">
+    <span class="arch a1"></span><span class="arch a2"></span><span class="window"></span>
+    <span class="hill h1"></span><span class="hill h2"></span>
+  </div>
+  <div class="mid" data-depth="0.1">
+    <span class="curtain c1"></span><span class="curtain c2"></span><span class="curtain c3"></span>
+    <span class="monolith"></span><span class="stairs"></span><span class="plant p1"></span><span class="plant p2"></span><span class="cloud k1"></span><span class="cloud k2"></span>
+  </div>
+  <div class="near" data-depth="0.16"><span class="chair"></span><span class="cushion"></span><span class="rock"></span></div>
+  <div class="water"></div>
+  <span class="orb o1" data-depth="0.22"></span><span class="orb o2" data-depth="0.3"></span><span class="orb o3" data-depth="0.26"></span>
+  <svg class="grain"><filter id="g"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch" /><feColorMatrix type="saturate" values="0" /></filter><rect width="100%" height="100%" filter="url(#g)" /></svg>
+</div>
+<style>
+  .scene { position:absolute; inset:0; overflow:hidden; --wall:#e9d9d5; --wall2:#f3e6e2; --shade:#cdb6b1; --accent:#d9b7c8; --water:#d6c9d8; --sky:#f1dede; --dark:#2a2024; }
+  .scene-dusk { --wall:#e7b89a; --wall2:#f4d3b6; --shade:#c98d6d; --accent:#f08a5d; --water:#e6b48f; --sky:#f8d8c0; --dark:#3a2418; }
+  .scene-greenhouse { --wall:#d9e6d6; --wall2:#eef4ea; --shade:#b7cbb2; --accent:#8fb996; --water:#cfe0d4; --sky:#eaf2e6; --dark:#1f3326; }
+  .scene-deep { --wall:#c9d6ea; --wall2:#dde6f3; --shade:#a9bbd8; --accent:#8fb3e6; --water:#b8cbe9; --sky:#d7e3f5; --dark:#1b2a44; }
+  .scene-sky { --wall:#dfe7f3; --wall2:#f2f6fb; --shade:#c3d0e4; --accent:#f7cbb0; --water:#dbe6f4; --sky:#eaf1fb; --dark:#2a3340; }
+  .scene-plaster { --wall:#ece8e6; --wall2:#f7f4f2; --shade:#d2cccb; --accent:#cfc3dc; --water:#e4dfe6; --sky:#f3f0ef; --dark:#2b2628; }
+  .sky-layer { position:absolute; inset:0; background: linear-gradient(180deg, var(--sky), var(--wall) 55%, var(--wall2) 100%); }
+  .far, .mid, .near { position:absolute; inset:0; will-change: transform; }
+  .arch { position:absolute; bottom:38%; width:16vw; height:52vh; border-radius: 50% 50% 0 0 / 40% 40% 0 0; background: linear-gradient(180deg, var(--sky), var(--accent)); box-shadow: 0 0 0 2.2vw var(--wall2), inset 0 -10vh 12vh -6vh var(--shade); opacity:.95; }
+  .a1 { left:4vw } .a2 { left:28vw; width:12vw; height:44vh; }
+  .window { position:absolute; right:22vw; top:8vh; width:9vw; height:30vh; background: linear-gradient(180deg, var(--sky), #fff8); box-shadow: 0 0 0 1.2vw var(--wall2), 0 0 60px var(--sky); }
+  .hill { position:absolute; bottom:38%; border-radius: 50% 50% 0 0; background: var(--accent); opacity:.55; filter: blur(2px); }
+  .h1 { left:-8vw; width:40vw; height:22vh } .h2 { right:-10vw; width:36vw; height:16vh; opacity:.4 }
+  .curtain { position:absolute; bottom:36%; width:10vw; height:70vh; background: repeating-linear-gradient(90deg, var(--wall2) 0 1.2vw, var(--shade) 1.2vw 2vw); opacity:.9; filter: blur(.3px); animation: sway 9s ease-in-out infinite alternate; }
+  .c1 { left:8vw } .c2 { left:19vw; height:60vh; animation-delay:-3s } .c3 { right:0; width:7vw; height:64vh; animation-delay:-6s }
+  @keyframes sway { to { transform: skewX(1.2deg) translateX(.4vw); } }
+  .monolith, .stairs, .plant, .cloud, .chair, .cushion, .rock { position:absolute; display:none; }
+  .stairs { left:50%; bottom:34%; width:24vw; height:14vh; transform: translateX(-50%); background: repeating-linear-gradient(180deg, var(--wall2) 0 2.2vh, var(--shade) 2.2vh 2.8vh); clip-path: polygon(0 100%, 100% 100%, 86% 0, 14% 0); display:block; }
+  .chair { display:block; right:30vw; bottom:33%; width:7vw; height:9vh; border-radius: 40% 40% 10% 10%; background: linear-gradient(180deg, var(--accent), var(--shade)); box-shadow: 0 1.5vh 2vh -1vh var(--dark); }
+  .cushion { display:block; right:40vw; bottom:32%; width:6vw; height:3vh; border-radius: 50%; background: var(--accent); }
+  .water { position:absolute; left:0; right:0; bottom:0; height:38%; background: linear-gradient(180deg, var(--water), var(--wall)); overflow:hidden; }
+  .water::before { content:""; position:absolute; inset:-100% 0 0 0; background: linear-gradient(180deg, var(--sky), var(--wall) 55%, var(--wall2)); transform: scaleY(-1); opacity:.55; filter: blur(3px); }
+  .water::after { content:""; position:absolute; inset:0; background: repeating-linear-gradient(180deg, transparent 0 6px, #fff3 6px 7px); mix-blend-mode: overlay; animation: ripple 6s linear infinite; }
+  @keyframes ripple { to { background-position: 0 140px; } }
+  .orb { position:absolute; border-radius:50%; background: radial-gradient(circle at 35% 30%, #fff9, #fff2 40%, transparent 70%), conic-gradient(from 90deg, #fbd3e2, #cfe2ff, #e5f9d8, #fbd3e2); opacity:.7; filter: blur(.3px); box-shadow: inset 0 0 20px #fff6; animation: drift 14s ease-in-out infinite alternate; }
+  .o1 { left:48vw; top:26vh; width:6vw; height:6vw } .o2 { left:62vw; top:58vh; width:3vw; height:3vw; animation-delay:-5s } .o3 { left:36vw; top:68vh; width:2vw; height:2vw; animation-delay:-9s }
+  @keyframes drift { to { transform: translate3d(1.5vw, -3vh, 0); } }
+  .grain { position:absolute; inset:0; width:100%; height:100%; opacity:.09; mix-blend-mode: multiply; pointer-events:none; }
+  /* kind variations */
+  .scene-dusk .arch, .scene-dusk .curtain, .scene-dusk .chair, .scene-dusk .cushion { display:none } .scene-dusk .monolith { display:block; left:58vw; bottom:36%; width:6vw; height:46vh; background: linear-gradient(90deg, var(--shade), var(--dark)); transform: skewY(-3deg); box-shadow: 8vw 2vh 0 -2vw #0002; } .scene-dusk .rock { display:block; left:22vw; bottom:35%; width:12vw; height:9vh; border-radius: 50% 60% 40% 50%; background: var(--shade); }
+  .scene-greenhouse .arch { background: linear-gradient(180deg, #fff, var(--sky)); } .scene-greenhouse .chair, .scene-greenhouse .cushion { display:none } .scene-greenhouse .plant { display:block; bottom:36%; width:2vw; height:40vh; background: var(--accent); border-radius: 50% 50% 0 0; } .scene-greenhouse .p1 { left:40vw; box-shadow: 3vw -6vh 0 -0.4vw var(--accent), -3vw -10vh 0 -0.6vw var(--accent) } .scene-greenhouse .p2 { right:28vw; height:28vh; box-shadow: 2vw -4vh 0 -0.5vw var(--accent) }
+  .scene-deep .arch, .scene-deep .curtain { opacity:.5 } .scene-deep .orb { opacity:.9 } .scene-deep .water { height:46% } .scene-deep .chair, .scene-deep .cushion { display:none } .scene-deep .rock { display:block; right:20vw; bottom:40%; width:14vw; height:12vh; border-radius: 60% 40% 50% 50%; background: var(--shade); opacity:.8 }
+  .scene-sky .arch, .scene-sky .curtain, .scene-sky .chair, .scene-sky .cushion { display:none } .scene-sky .cloud { display:block; width:22vw; height:8vh; border-radius: 50%; background:#fff; filter: blur(14px); opacity:.9; animation: drift 20s ease-in-out infinite alternate } .scene-sky .k1 { left:10vw; top:22vh } .scene-sky .k2 { right:12vw; top:40vh; width:16vw; animation-delay:-8s } .scene-sky .stairs { bottom:40%; height:26vh; width:14vw; background: repeating-linear-gradient(180deg, #fff 0 2.6vh, var(--shade) 2.6vh 3.2vh); clip-path: polygon(0 100%, 100% 100%, 70% 0, 30% 0) }
+  .scene-plaster .curtain { display:none } .scene-plaster .arch { background: linear-gradient(180deg, var(--wall2), var(--accent)) } .scene-plaster .chair { background: linear-gradient(180deg, #fff, var(--shade)) }
+  @media (prefers-reduced-motion: reduce) { .curtain, .orb, .water::after, .cloud { animation: none } }
+</style>
+<script>
+  const fine = matchMedia("(pointer: fine)").matches && !matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (fine) {
+    const layers = Array.from(document.querySelectorAll<HTMLElement>("[data-depth]"));
+    let tx = 0, ty = 0, cx = 0, cy = 0;
+    window.addEventListener("pointermove", (e) => { tx = (e.clientX / innerWidth - 0.5) * 2; ty = (e.clientY / innerHeight - 0.5) * 2; }, { passive: true });
+    const loop = () => { cx += (tx - cx) * 0.06; cy += (ty - cy) * 0.06; for (const l of layers) { const d = Number(l.dataset.depth) * 100; l.style.transform = `translate3d(${-cx * d}px, ${-cy * d * 0.6}px, 0)`; } requestAnimationFrame(loop); };
+    loop();
+  }
+</script>
