@@ -7,14 +7,14 @@ const { dialogClass = "", btnClass = "", btnAltClass = "", closeClass = "" } = A
 <dialog class:list={["resume-dialog w-[min(96vw,64rem)] max-w-none h-[min(92dvh,60rem)] p-0 m-auto overflow-hidden", dialogClass]} data-resume-dialog aria-label="Resume preview">
   <div class="flex h-full flex-col">
     <div class="flex flex-wrap items-center justify-between gap-3 px-4 py-3 border-b border-current/20">
-      <p class="font-semibold">Resume · {site.name}</p>
+      <p class="font-semibold text-sm sm:text-base">Resume · {site.name} <span class="font-normal opacity-70" data-resume-status>· loading the PDF…</span></p>
       <div class="flex flex-wrap gap-2">
-        <a href={site.resume} download={site.resumeName} class={btnClass}>Download PDF</a>
-        <a href={site.resume} target="_blank" rel="noopener" class={btnAltClass}>Open in new tab</a>
-        <button type="button" class={closeClass} data-resume-close aria-label="Close">Close ✕</button>
+        <a href={site.resume} download={site.resumeName} class={btnClass}>Download<span class="hidden sm:inline"> PDF</span></a>
+        <a href={site.resume} target="_blank" rel="noopener" class={btnAltClass}>Open<span class="hidden sm:inline"> in new tab</span></a>
+        <button type="button" class={closeClass} data-resume-close aria-label="Close"><span class="hidden sm:inline">Close </span>✕</button>
       </div>
     </div>
-    <iframe title="Resume PDF" class="flex-1 w-full bg-white" data-resume-frame loading="lazy"></iframe>
+    <iframe title="Resume PDF" class="flex-1 w-full bg-white" data-resume-frame loading="lazy" onload="this.closest('[data-resume-dialog]')?.querySelector('[data-resume-status]')?.remove()"></iframe>
     <p class="px-4 py-2 text-sm">If the preview is blank on your device, use <a href={site.resume} download={site.resumeName} class="underline">Download PDF</a>.</p>
   </div>
 </dialog>
