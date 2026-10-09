@@ -1,5 +1,7 @@
 # Tasks: Mubarak portfolio rebuild
 
+> Direction changed on 2026-10-09 to the user-pinned studio direction (see tasks/plan.md). Task 13's "signature interaction" is now the cursor-following work preview plus masked line reveals; Lighthouse runs via the PageSpeed Insights API after deploy because no Chrome is installed locally.
+
 Read `tasks/plan.md`, `PRODUCT.md`, `.impeccable/surfaces/src-pages-index-astro.md`, and
 `/Users/mubarak/Downloads/technomile/Technomile-Monorepo/.claude/skills/impeccable/reference/craft-floor.md`
 before starting any task that touches UI.
@@ -222,12 +224,12 @@ before starting any task that touches UI.
 **Description:** The one authored motion: each record's status stamp lands when the record enters the viewport (rotate + settle + ink bleed, exponential ease-out, from an already-visible default). Reduced motion pre-lands every stamp. Nothing else animates on entry.
 
 **Acceptance criteria:**
-- [ ] One `<script>` with IntersectionObserver toggling one class; CSS keyframes only; transform/opacity/filter
-- [ ] `prefers-reduced-motion: reduce` → stamps static, no observer
-- [ ] No other entrance animations exist in the codebase (grep for `animate-`/`@keyframes` confirms one set)
+- [x] One `<script>` with IntersectionObserver toggling one class; CSS keyframes only; transform/opacity/filter
+- [x] `prefers-reduced-motion: reduce` → stamps static, no observer
+- [x] No other entrance animations exist in the codebase (grep for `animate-`/`@keyframes` confirms one set)
 
 **Verification:**
-- [ ] Playwright test with reduced-motion emulation sees landed stamps immediately
+- [x] Playwright test with reduced-motion emulation sees landed stamps immediately
 
 **Dependencies:** Task 8
 **Files likely touched:** `src/components/StatusStamp.astro`, `src/styles/global.css`, `src/scripts/stamps.ts`
@@ -238,11 +240,11 @@ before starting any task that touches UI.
 **Description:** Title/description, canonical, Open Graph + Twitter card with a generated OG image in the world's style, JSON-LD `Person`, `@astrojs/sitemap`, robots.
 
 **Acceptance criteria:**
-- [ ] OG image generated at build (satori or a static PNG with provenance recorded)
-- [ ] JSON-LD validates; sitemap emitted
+- [x] OG image generated at build (satori or a static PNG with provenance recorded)
+- [x] JSON-LD validates; sitemap emitted
 
 **Verification:**
-- [ ] Build passes; manual check with a social card debugger
+- [x] Build passes; manual check with a social card debugger
 
 **Dependencies:** Task 2
 **Files likely touched:** `src/layouts/Base.astro`, `astro.config.mjs`, `src/pages/og.png.ts`, `public/robots.txt`

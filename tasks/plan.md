@@ -1,6 +1,9 @@
-# Implementation Plan: Mubarak portfolio rebuild ("The Decision Record")
+# Implementation Plan: Mubarak portfolio rebuild (studio direction)
 
 ## Overview
+
+> **Direction change, 2026-10-09 (user):** the Decision Record direction was built through Phase 2 and rejected as too plain. Five dark variants were tried and rejected as generic. The user pinned a dark cinematic studio direction (Awwwards portfolio-winner school, Dennis Snellenberg lineage). Phases 1–2 were rebuilt in that direction; tasks below are read against it.
+
 Replace the template-based site at mk-full-stack-developer.vercel.app with a site that is Mubarak's own: a single
 Persuade-mode home page written as a set of engineering decision records (ADRs) about his career, built on
 Astro + Tailwind CSS v4, deployed to Vercel. Every piece of content from the current site is kept; hierarchy is
@@ -67,8 +70,8 @@ incumbent audit in `docs/research.md`; the direction round in `docs/direction-ro
 - [ ] Playwright smoke + axe pass
 
 ### Phase 3: Signature interaction, SEO, performance
-- [ ] Task 13: Stamp-landing interaction with reduced-motion path
-- [ ] Task 14: Metadata, Open Graph image, JSON-LD Person, sitemap, robots, canonical
+- [x] Task 13: Stamp-landing interaction with reduced-motion path
+- [x] Task 14: Metadata, Open Graph image, JSON-LD Person, sitemap, robots, canonical
 - [ ] Task 15: Performance pass: font subsetting, image formats, zero unused JS, Lighthouse CI
 
 ### Phase 4: Finish (impeccable)
