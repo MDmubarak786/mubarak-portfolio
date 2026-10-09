@@ -45,7 +45,6 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     .year { width:3.2rem; height:3.2rem; border-radius:50%; border:4px solid #111; background:#fff; display:grid; place-items:center; font-size:.95rem; box-shadow: 3px 3px 0 #111; position:relative; z-index:1; }
     .tile { border:3px solid #111; padding: 1rem 1.1rem; background:#fff; }
     .tag { border:2px solid #111; background:#fff3b0; padding:.1rem .55rem; font-size:.95rem; }
-    .promo { margin-top: 1.25rem; }
     @media (max-width: 640px) { .origin-item { padding-left: 0; padding-top: 3.8rem; } .spine { width: 100%; height: 3.2rem; bottom:auto; align-items:flex-start; } .spine::before { display:none; } }
     .zig { background: repeating-linear-gradient(135deg, #111 0 6px, transparent 6px 12px); height: 10px; }
     details summary { list-style:none; cursor:pointer; } details summary::-webkit-details-marker { display:none; }
@@ -160,10 +159,10 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     <!-- ORIGIN -->
     <section id="origin" class="mt-16 scroll-mt-24" aria-labelledby="ch4">
       <h2 id="ch4" class="text-5xl sm:text-6xl">Chapter 4 · Origin story</h2>
-      <p class="mt-2 text-xl">From first commit to senior engineer, in order. Four issues, three promotions.</p>
+      <p class="mt-2 text-xl">Where I am now, then how I got here. Four issues, three promotions.</p>
       <ol class="mt-8 origin">
-        {[...roles].sort((a, b) => b.data.order - a.data.order).map((r, i, arr) => {
-          const promo = ["Promoted to SDE 1 within a year", "Promoted to SDE 2 within five months", "Moved to Galent as Senior Software Engineer"][i];
+        {roles.map((r, i) => {
+          const promo = ["Now", "Promoted from SDE 1 · 3 years 8 months", "Promoted to SDE 2 within five months", "Promoted to SDE 1 within a year"][i];
           return (
             <li class="origin-item">
               <div class="spine" aria-hidden="true"><span class="year bang">{r.data.start.slice(0, 4)}</span></div>
@@ -171,14 +170,13 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
                 <span class="pnum">{i + 1}</span>
                 <header class="grid gap-2 sm:grid-cols-[1fr_auto] sm:items-start">
                   <div><h3 class="text-3xl sm:text-4xl">{r.data.role}</h3><p class="text-lg">{r.data.company} · {r.data.type}</p></div>
-                  <p class="caption justify-self-start sm:justify-self-end">{fmt(r.data.start)} → {fmt(r.data.end)}</p>
+                  <div class="flex flex-wrap gap-2 justify-self-start sm:justify-self-end sm:justify-end"><p class="caption">{fmt(r.data.start)} → {fmt(r.data.end)}</p><p class="caption !bg-[#1b998b] !text-white">{promo}</p></div>
                 </header>
                 <div class:list={["mt-6 grid gap-6", r.data.groups.length > 1 && "lg:grid-cols-2"]}>
                   {r.data.groups.map((g) => <div class="tile"><p class="bang text-2xl" style={`color:${colors[i % 5]}`}>{g.name}</p><ul class="mt-2 list-disc pl-5 space-y-2 max-w-[62ch]">{g.bullets.map((b) => <li>{b}</li>)}</ul></div>)}
                 </div>
                 <ul class="mt-6 flex flex-wrap gap-2" aria-label="Worked with">{r.data.skills.map((sk) => <li class="tag">{sk}</li>)}</ul>
               </article>
-              {i < arr.length - 1 && <p class="promo"><span class="caption">↓ {promo}</span></p>}
             </li>
           );
         })}
