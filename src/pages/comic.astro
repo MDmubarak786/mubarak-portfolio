@@ -60,6 +60,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     .menu-no { display:grid; place-items:center; width:1.9rem; height:1.9rem; border:3px solid #111; background:#fff; font-family: var(--font-bangers); font-size:1rem; flex-shrink:0; box-shadow:2px 2px 0 #111; }
     .progress { position:absolute; left:0; right:0; bottom:-4px; height:4px; pointer-events:none; }
     .progress span { display:block; height:100%; background:#ff2e63; transform-origin: 0 50%; transform: scaleX(var(--p, 0)); }
+    .lede { max-width:60ch; } .lede > span { background:#fff8e7; box-shadow: -.35em 0 0 #fff8e7, .35em 0 0 #fff8e7; box-decoration-break: clone; -webkit-box-decoration-break: clone; padding:.08em 0; line-height:1.7; }
     .caption { background:#fff3b0; border: 3px solid #111; padding:.25rem .6rem; display:inline-block; transform: rotate(-1deg); font-size:1rem; }
     .caption[data-pronounce] { display:inline-flex; align-items:center; gap:.4rem; white-space:nowrap; vertical-align:middle; transform:none; line-height:1.2; padding:.15rem .55rem; }
     .bubble { background:#fff; border:3px solid #111; border-radius: 1.5rem; padding:.9rem 1.1rem; position:relative; }
@@ -183,52 +184,52 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     <!-- CHAPTER 1 -->
     <section id="migration" class="mt-16 scroll-mt-24" aria-labelledby="ch1">
       <h2 id="ch1" class="text-5xl sm:text-6xl">Chapter 1 · The Great Migration</h2>
-      <p class="mt-2 text-xl">A true story about $24,000, a deadline, and AWS Glue. Five panels, in order.</p>
-      <div class="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-6 lg:auto-rows-[minmax(15rem,auto)]">
+      <p class="mt-2 text-xl lede"><span>A true story about $24,000, a deadline, and AWS Glue. Five panels, in order.</span></p>
+      <ol class="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-6 lg:auto-rows-[minmax(15rem,auto)]">
         <!-- 1 · wide establishing panel -->
-        <article class="panel p-6 lg:col-span-4 grid gap-5 sm:grid-cols-[1fr_auto] items-center">
+        <li class="panel p-6 lg:col-span-4 grid gap-5 sm:grid-cols-[1fr_auto] items-center">
           <span class="pnum">1</span>
           <div class="space-y-4"><p class="caption">{migration[0].t}</p><p class="narr">{migration[0].s}</p><p class="sfx text-[clamp(2rem,5vw,4rem)]" style={`color:${colors[0]}`}>{sfx[0]}</p></div>
           <ComicArt kind="clock" class="w-40 sm:w-48 lg:w-56 justify-self-center" />
-        </article>
+        </li>
         <!-- 2 · the choice, spoken -->
-        <article class="panel p-6 lg:col-span-2 flex flex-col gap-4">
+        <li class="panel p-6 lg:col-span-2 flex flex-col gap-4">
           <span class="pnum">2</span>
           <p class="caption self-start">{migration[1].t}</p>
           <ComicArt kind="fork" class="w-36 self-center" />
           <p class="bubble text-base">{migration[1].s}</p>
-          <p class="sfx self-end text-[clamp(1.8rem,4vw,3rem)]" style={`color:${colors[1]}`}>{sfx[1]}</p>
-        </article>
+          <p class="sfx self-end mt-auto text-[clamp(1.8rem,4vw,3rem)]" style={`color:${colors[1]}`}>{sfx[1]}</p>
+        </li>
         <!-- 3 · the plan -->
-        <article class="panel p-6 lg:col-span-2 flex flex-col gap-4">
+        <li class="panel p-6 lg:col-span-2 flex flex-col gap-4">
           <span class="pnum">3</span>
           <p class="caption self-start">{migration[2].t}</p>
           <div class="flex items-center gap-4"><ComicArt kind="plan" class="w-28 shrink-0" /><p class="narr">{migration[2].s}</p></div>
-          <p class="sfx self-end text-[clamp(1.8rem,4vw,3rem)]" style={`color:${colors[2]}`}>{sfx[2]}</p>
-        </article>
+          <p class="sfx self-end mt-auto text-[clamp(1.8rem,4vw,3rem)]" style={`color:${colors[2]}`}>{sfx[2]}</p>
+        </li>
         <!-- 4 · the cutover -->
-        <article class="panel p-6 lg:col-span-2 flex flex-col gap-4">
+        <li class="panel p-6 lg:col-span-2 flex flex-col gap-4">
           <span class="pnum">4</span>
           <p class="caption self-start">{migration[3].t}</p>
           <ComicArt kind="switch" class="w-40 self-center" />
           <p class="narr">{migration[3].s}</p>
-          <p class="sfx self-end text-[clamp(1.8rem,4vw,3rem)]" style={`color:${colors[3]}`}>{sfx[3]}</p>
-        </article>
+          <p class="sfx self-end mt-auto text-[clamp(1.8rem,4vw,3rem)]" style={`color:${colors[3]}`}>{sfx[3]}</p>
+        </li>
         <!-- 5 · the bill, with the witness speaking -->
-        <article class="panel p-6 lg:col-span-2 flex flex-col gap-4">
+        <li class="panel p-6 lg:col-span-2 flex flex-col gap-4">
           <span class="pnum">5</span>
           <p class="caption self-start">{migration[4].t}</p>
           <div class="flex items-center gap-4"><ComicArt kind="bill" class="w-28 shrink-0" /><p class="narr">{migration[4].s}</p></div>
-          <p class="bubble text-base"><strong class="emph">“Saved us $30,000 annually in licensing fees.”</strong> <span class="text-sm">· Jason Wheeler, VP of Technology</span></p>
-          <p class="sfx self-end text-[clamp(1.8rem,4vw,3rem)]" style={`color:${colors[4]}`}>{sfx[4]}</p>
-        </article>
-      </div>
+          <p class="bubble text-base"><strong class="emph">“Saved us $30,000 annually in licensing fees.”</strong> <cite class="not-italic text-sm">· <a href="#witness-jason-wheeler" class="underline underline-offset-2">Jason Wheeler</a>, VP of Technology</cite></p>
+          <p class="sfx self-end mt-auto text-[clamp(1.8rem,4vw,3rem)]" style={`color:${colors[4]}`}>{sfx[4]}</p>
+        </li>
+      </ol>
     </section>
 
     <!-- CASE FILES -->
     <section id="cases" class="mt-16 scroll-mt-24" aria-labelledby="ch2">
       <h2 id="ch2" class="text-5xl sm:text-6xl">Chapter 2 · Case files</h2>
-      <p class="mt-2 text-xl">Eight cases. Open a file for the context, the decision and what it changed.</p>
+      <p class="mt-2 text-xl lede"><span>Eight cases. Open a file for the context, the decision and what it changed.</span></p>
       <ol class="mt-8 grid gap-7 md:grid-cols-2 items-start">
         {records.map((r, i) => {
           const headline = r.data.consequences.find((c) => c.emphasis)?.value ?? "";
@@ -262,7 +263,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     <!-- WITNESSES -->
     <section id="witnesses" class="mt-16 scroll-mt-24" aria-labelledby="ch3">
       <h2 id="ch3" class="text-5xl sm:text-6xl">Chapter 3 · Nine witnesses</h2>
-      <p class="mt-2 text-xl">Every word verbatim. Nothing paraphrased.</p>
+      <p class="mt-2 text-xl lede"><span>Every word verbatim. Nothing paraphrased.</span></p>
       <ul class="mt-8 md:columns-2 md:gap-10">
         {witnesses.map((w, i) => {
           const pull = w.data.pull ?? "";
@@ -286,7 +287,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     <!-- ORIGIN -->
     <section id="origin" class="mt-16 scroll-mt-24" aria-labelledby="ch4">
       <h2 id="ch4" class="text-5xl sm:text-6xl">Chapter 4 · Origin story</h2>
-      <p class="mt-2 text-xl">Where I am now, then how I got here. Four issues, three promotions.</p>
+      <p class="mt-2 text-xl lede"><span>Where I am now, then how I got here. Four issues, three promotions.</span></p>
       <ol class="mt-8 origin">
         {roles.map((r, i) => {
           const promo = ["Now", "Promoted from SDE 1 · 3 years 8 months", "Promoted to SDE 2 within five months", "Promoted to SDE 1 within a year"][i];
@@ -333,7 +334,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     <!-- POWERS -->
     <section id="powers" class="mt-16 scroll-mt-24" aria-labelledby="pow-h" data-page="Power-ups">
       <h2 id="pow-h" class="text-5xl sm:text-6xl">Power-ups</h2>
-      <p class="mt-2 text-xl">Nine groups of tools, collected over {site.yearsExperience} years. The AI and cloud ones are the newest.</p>
+      <p class="mt-2 text-xl lede"><span>Nine groups of tools, collected over {site.yearsExperience} years. The AI and cloud ones are the newest.</span></p>
       <ul class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {skillGroups.map(([group, items], i) => (
           <li class="panel p-5 pt-7">
@@ -349,7 +350,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     <!-- BACK ISSUES -->
     <section id="back-issues" class="mt-16 scroll-mt-24" aria-labelledby="back" data-page="Back issues">
       <h2 id="back" class="text-5xl sm:text-6xl">Back issues · 2020</h2>
-      <p class="mt-2 text-xl">Eight Flutter apps from the year I was learning mobile. Minor issues, but every one shipped with a demo.</p>
+      <p class="mt-2 text-xl lede"><span>Eight Flutter apps from the year I was learning mobile. Minor issues, but every one shipped with a demo.</span></p>
       <ul class="mt-8 grid gap-5 grid-cols-2 lg:grid-cols-4">
         {projects.map((p, i) => {
           const id = p.data.link ? ytId(p.data.link) : undefined;
