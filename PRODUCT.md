@@ -53,6 +53,8 @@ Constraints:
 
 ## Brand Commitments
 
+- Visual direction pinned by the user on 2026-10-09: dark, cinematic studio portfolio with directed motion (Awwwards portfolio-winner school). Rejected: paper/serif document worlds and bento widget grids. Future refinements keep this world.
+
 - Name: Mohammed Mubarak / Mubarak; Tamil rendering முகமது முபாரக் with pronunciation audio is part of his identity, keep it.
 - Existing MK monogram mark and logotype exist on the current site (assets to be exported from it); their use is binding only if the user says so (open).
 - Voice from the existing copy: direct, first person, outcome-led, "Hello, World! I'm Mubarak". No hype adjectives.

@@ -6,15 +6,15 @@ import Pronounce from "./Pronounce.astro";
 import { site } from "../lib/site";
 ---
 <section class="relative min-h-dvh overflow-hidden bg-bg-2" aria-label="Introduction">
-  <div class="absolute inset-0 grid place-items-center pointer-events-none">
-    <div class="relative w-[min(72vw,30rem)] sm:w-[min(48vw,34rem)] aspect-[4/5] overflow-hidden rounded-[1.5rem]" data-parallax="0.12">
+  <div class="sm:absolute sm:inset-0 grid place-items-center pointer-events-none pt-24 sm:pt-0">
+    <div class="relative w-[min(78vw,26rem)] sm:w-[min(44vw,32rem)] aspect-[4/5] overflow-hidden rounded-[1.5rem]" data-parallax="0.12">
       <Image src={portrait} alt={`Portrait of ${site.name}`} width={800} height={1000} class="w-full h-full object-cover object-top scale-[1.05]" loading="eager" fetchpriority="high" />
       <div class="absolute inset-0 bg-gradient-to-t from-bg-2/70 via-transparent to-transparent"></div>
     </div>
   </div>
 
-  <div class="relative z-10 flex flex-col min-h-dvh px-5 sm:px-8 pt-28 pb-6">
-    <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 items-center gap-6">
+  <div class="relative z-10 flex flex-col sm:min-h-dvh px-5 sm:px-8 pt-8 sm:pt-28 pb-6">
+    <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 items-center gap-8">
       <div class="justify-self-start">
         <a href="#contact" class="group inline-flex items-center gap-3 rounded-full bg-fg text-bg pl-5 pr-2 py-2 text-sm font-medium" data-reveal>
           <span class="leading-tight">Located in<br />{site.location}</span>

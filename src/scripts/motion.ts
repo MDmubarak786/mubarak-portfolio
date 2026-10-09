@@ -48,7 +48,13 @@ const start = () => {
   });
   // Sticky CTA after the hero.
   const cta = document.querySelector<HTMLElement>("[data-sticky-cta]");
-  if (cta) ScrollTrigger.create({ start: "80% top", onToggle: (self) => { if (self.isActive) cta.setAttribute("data-show", ""); else cta.removeAttribute("data-show"); } });
+  if (cta) {
+    const footer = document.getElementById("contact");
+    let pastHero = false, inFooter = false;
+    const apply = () => { if (pastHero && !inFooter) cta.setAttribute("data-show", ""); else cta.removeAttribute("data-show"); };
+    ScrollTrigger.create({ start: "80% top", onToggle: (self) => { pastHero = self.isActive; apply(); } });
+    if (footer) ScrollTrigger.create({ trigger: footer, start: "top 85%", onToggle: (self) => { inFooter = self.isActive; apply(); } });
+  }
 };
 if (document.documentElement.classList.contains("is-loading")) {
   const obs = new MutationObserver(() => { if (document.documentElement.classList.contains("is-ready")) { obs.disconnect(); start(); } });
