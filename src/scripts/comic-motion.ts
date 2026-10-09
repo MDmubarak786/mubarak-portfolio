@@ -22,12 +22,8 @@ if (!reduce) {
   gsap.from(".burst", { scale: 0, rotation: -180, duration: 0.9, ease: "elastic.out(1, 0.5)", delay: 0.6 });
   gsap.from("header + main > section:first-child .btn, header + main > section:first-child .caption", { y: 20, opacity: 0, duration: 0.5, ease: "back.out(1.7)", stagger: 0.06, delay: 0.5 });
 
-  // Panels slam in as they arrive, in batches.
-  ScrollTrigger.batch(".panel:not(header + main > section:first-child)", {
-    start: "top 88%", once: true,
-    onEnter: (els) => gsap.fromTo(els, { y: 60, scale: 0.96, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 0.7, ease: "back.out(1.4)", stagger: 0.08, clearProps: "transform" }),
-  });
-  // Sound effects pop, captions stamp, chapter titles bounce in by letter.
+  // Panels are readable by default; each slams in once as it arrives.
+  document.querySelectorAll<HTMLElement>(".panel:not([data-cover])").forEach((p) => ScrollTrigger.create({ trigger: p, start: "top 96%", once: true, onEnter: () => gsap.from(p, { y: 50, scale: 0.97, duration: 0.6, ease: "back.out(1.4)", clearProps: "transform" }) }));
   // Sound effects are readable by default; each pops once as it arrives.
   document.querySelectorAll<HTMLElement>(".sfx").forEach((el) => ScrollTrigger.create({ trigger: el, start: "top 96%", once: true, onEnter: () => gsap.from(el, { scale: 0, rotation: -30, duration: 0.8, ease: "elastic.out(1, 0.45)" }) }));
   ScrollTrigger.batch(".caption", { start: "top 92%", once: true, onEnter: (els) => gsap.fromTo(els, { scaleX: 0, transformOrigin: "left center" }, { scaleX: 1, duration: 0.45, ease: "power4.out", stagger: 0.05 }) });

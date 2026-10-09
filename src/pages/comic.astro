@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import { getCollection } from "astro:content";
+import { getCollection, getEntries } from "astro:content";
 import FinalShell from "../layouts/FinalShell.astro";
 import Calendar from "../components/final/Calendar.astro";
 import Pronounce from "../components/final/Pronounce.astro";
@@ -11,6 +11,7 @@ import { site, mailto } from "../lib/site";
 import { me, numbers, migration, stack } from "../lib/story";
 const records = (await getCollection("records")).sort((a, b) => a.data.order - b.data.order);
 const witnesses = (await getCollection("witnesses")).sort((a, b) => a.data.order - b.data.order);
+const recordWitnesses = await Promise.all(records.map((r) => getEntries(r.data.reviewedBy)));
 const roles = (await getCollection("experience")).sort((a, b) => a.data.order - b.data.order);
 const projects = (await getCollection("projects")).sort((a, b) => a.data.order - b.data.order);
 const fmt = (ym: string | null) => ym ? new Date(ym + "-01T00:00:00Z").toLocaleDateString("en-GB", { month: "short", year: "numeric", timeZone: "UTC" }) : "Now";
@@ -46,6 +47,12 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     .tile { border:3px solid #111; padding: 1rem 1.1rem; background:#fff; }
     .tag { border:2px solid #111; background:#fff3b0; padding:.1rem .55rem; font-size:.95rem; }
     @media (max-width: 640px) { .origin-item { padding-left: 0; padding-top: 3.8rem; } .spine { width: 100%; height: 3.2rem; bottom:auto; align-items:flex-start; } .spine::before { display:none; } }
+    .filetab { position:absolute; top:-16px; left:16px; background:#111; color:#fff; font-family: var(--font-bangers); letter-spacing:.06em; padding:.2rem .7rem; border:3px solid #111; }
+    .file { transition: box-shadow .15s, transform .15s; }
+    .file:hover { box-shadow: 10px 10px 0 #ff2e63; }
+    .file summary::-webkit-details-marker { display:none; }
+    .file .close-cta, .file details[open] .open-cta { display:none; }
+    .file details[open] .close-cta { display:inline-block; }
     .zig { background: repeating-linear-gradient(135deg, #111 0 6px, transparent 6px 12px); height: 10px; }
     details summary { list-style:none; cursor:pointer; } details summary::-webkit-details-marker { display:none; }
   </style>
@@ -120,15 +127,34 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     <!-- CASE FILES -->
     <section id="cases" class="mt-16 scroll-mt-24" aria-labelledby="ch2">
       <h2 id="ch2" class="text-5xl sm:text-6xl">Chapter 2 · Case files</h2>
-      <p class="mt-2 text-xl">Eight cases. Open any file for context, decision and consequences.</p>
-      <ol class="mt-6 grid gap-6 md:grid-cols-2">
-        {records.map((r, i) => <li class="panel p-5"><details class="group"><summary><p class="caption">File {String(i + 1).padStart(2, "0")} · {r.data.organisation} · {r.data.date}</p><h3 class="text-3xl mt-2">{r.data.index}</h3><p class="mt-1 text-lg">{r.data.summary}</p><p class="mt-2 bang text-xl" style={`color:${colors[i % 5]}`}>{r.data.consequences.find((c) => c.emphasis)?.value} <span class="text-sm font-sans text-[#555] group-open:hidden">· open the file ▸</span></p></summary>
-          <div class="mt-4 border-t-4 border-dashed border-[#111] pt-4 space-y-3">
-            <p><strong>Context.</strong> {r.data.context}</p>
-            <p><strong>Decision.</strong> {r.data.decision}</p>
-            <ul class="grid grid-cols-2 gap-2">{r.data.consequences.map((c) => <li class="bubble !rounded-xl after:hidden p-3"><span class="bang text-2xl block">{c.value}</span><span class="text-sm">{c.label}</span></li>)}</ul>
-            <p class="text-sm">{r.data.tags.join(" · ")}</p>
-          </div></details></li>)}
+      <p class="mt-2 text-xl">Eight cases. Open a file for the context, the decision and what it changed.</p>
+      <ol class="mt-8 grid gap-7 md:grid-cols-2 items-start">
+        {records.map((r, i) => {
+          const headline = r.data.consequences.find((c) => c.emphasis)?.value ?? "";
+          const ws = recordWitnesses[i];
+          return (
+            <li class="panel file p-6 pt-8">
+              <span class="filetab">File {String(i + 1).padStart(2, "0")}</span>
+              <details class="group">
+                <summary class="cursor-pointer">
+                  <p class="text-sm">{r.data.organisation} · {r.data.date} · {r.data.tags[0]}</p>
+                  <h3 class="text-3xl mt-1">{r.data.index}</h3>
+                  <p class="mt-2 text-lg">{r.data.summary}</p>
+                  <p class:list={["mt-3", headline.length > 24 ? "font-bold text-lg" : "bang text-3xl"]} style={`color:${colors[i % 5]}`}>{headline}</p>
+                  <span class="btn alt text-base py-1 mt-4 open-cta">Open the file ▸</span>
+                  <span class="btn alt text-base py-1 mt-4 close-cta">Close the file ▾</span>
+                </summary>
+                <div class="mt-5 border-t-4 border-dashed border-[#111] pt-5 space-y-4">
+                  <p><strong class="bang text-xl mr-1">Context.</strong> {r.data.context}</p>
+                  <p><strong class="bang text-xl mr-1">Decision.</strong> {r.data.decision}</p>
+                  <ul class="grid grid-cols-2 gap-3">{r.data.consequences.map((c) => <li class="tile !p-3"><span class:list={["block", c.value.length > 24 ? "font-bold" : "bang text-2xl"]}>{c.value}</span><span class="text-sm">{c.label}</span></li>)}</ul>
+                  {ws.length > 0 && <p class="flex flex-wrap items-center gap-2"><strong class="bang text-xl">Witnesses:</strong>{ws.map((w) => <a href={`#witness-${w.id}`} class="tag !bg-white hover:!bg-[#fff3b0]">{w.data.name}</a>)}</p>}
+                  <ul class="flex flex-wrap gap-2" aria-label="Tags">{r.data.tags.map((t) => <li class="tag">{t}</li>)}</ul>
+                </div>
+              </details>
+            </li>
+          );
+        })}
       </ol>
     </section>
 
