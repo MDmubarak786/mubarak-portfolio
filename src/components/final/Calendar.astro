@@ -1,16 +1,22 @@
 ---
 import { getContributions } from "../../lib/github";
-interface Props { empty: string; levels: string[]; ink: string }
-const { empty, levels, ink } = Astro.props;
+interface Props { empty: string; levels: string[]; ink: string; showTotal?: boolean; totalClass?: string }
+const { empty, levels, ink, showTotal = false, totalClass = "" } = Astro.props;
 const c = await getContributions();
 const offset = new Date(c.days[0].date + "T00:00:00Z").getUTCDay();
 const cells: (typeof c.days[number] | null)[] = [...Array(offset).fill(null), ...c.days];
 const weeks: (typeof cells)[] = []; for (let i = 0; i < cells.length; i += 7) weeks.push(cells.slice(i, i + 7));
 const size = 11, gap = 3, step = size + gap, w = weeks.length * step - gap, h = 7 * step - gap;
 const fill = [empty, ...levels];
+const months: { label: string; x: number }[] = [];
+weeks.forEach((wk, i) => { const d = wk.find(Boolean); if (!d) return; const dt = new Date(d.date + "T00:00:00Z"); if (dt.getUTCDate() <= 7) months.push({ label: dt.toLocaleDateString("en-US", { month: "short", timeZone: "UTC" }), x: i * step }); });
 ---
-<svg viewBox={`0 0 ${w} ${h}`} role="img" aria-label={`${c.total} contributions on GitHub in the last year`} class="block w-full h-auto">
+<svg viewBox={`0 0 ${w} ${h + 16}`} role="img" aria-label={`${c.total} contributions on GitHub in the last year`} class="block w-full h-auto">
+  {months.map((m) => <text x={m.x} y={10} font-size="10" fill={ink} opacity=".7">{m.label}</text>)}
+  <g transform="translate(0 16)">
   {weeks.map((wk, x) => wk.map((d, y) => d && <rect x={x * step} y={y * step} width={size} height={size} rx="2" fill={fill[Math.min(d.level, 4)]} stroke={ink} stroke-opacity=".15"><title>{d.count} on {d.date}</title></rect>))}
+  </g>
 </svg>
+{showTotal && <p class={totalClass}>{c.total.toLocaleString("en-US")} contributions in the last twelve months{c.source === "fallback" ? ` (snapshot ${c.fetchedAt})` : ""}</p>}
 <p class="sr-only">{c.total} contributions in the last twelve months.</p>
 <span data-total hidden>{c.total}</span>
