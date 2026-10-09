@@ -1,373 +1,363 @@
 ---
-name: Mohammed Mubarak portfolio
-description: A dark, cinematic studio portfolio for one engineer, paced by directed motion and vouched for on record.
+name: MK Comics
+description: A graphic novel of one engineer's career, drawn in ink on cream halftone, with hiring managers as the readers.
 colors:
-  bg: "#0b0b0c"
-  bg-2: "#141416"
-  fg: "#f2f2f0"
-  muted: "#9c9c98"
-  line: "rgb(242 242 240 / 0.14)"
-  line-strong: "rgb(242 242 240 / 0.32)"
-  accent: "#4f6bff"
-  white: "#ffffff"
+  cream: "#fff8e7"
+  ink: "#111111"
+  paper: "#ffffff"
+  caption-yellow: "#fff3b0"
+  signal-pink: "#ff2e63"
+  teal: "#1b998b"
+  amber: "#ffb703"
+  blue: "#3a86ff"
+  violet: "#8338ec"
+  ink-muted: "#555555"
 typography:
   display:
-    fontFamily: "Bricolage Grotesque, Arial Narrow, sans-serif"
-    fontSize: "clamp(5rem, 16vw, 15rem)"
-    fontWeight: 600
-    lineHeight: 1
-    letterSpacing: "-0.04em"
-  stat:
-    fontFamily: "Bricolage Grotesque, Arial Narrow, sans-serif"
-    fontSize: "3rem"
-    fontWeight: 600
-    lineHeight: 1
-    letterSpacing: "-0.04em"
-    fontFeature: "tnum"
+    fontFamily: "Bangers, Impact, sans-serif"
+    fontSize: "clamp(3rem, 8vw, 7rem)"
+    fontWeight: 400
+    lineHeight: 0.9
+    letterSpacing: "0.02em"
   headline:
-    fontFamily: "Bricolage Grotesque, Arial Narrow, sans-serif"
-    fontSize: "clamp(2rem, 4.6vw, 4.25rem)"
-    fontWeight: 500
-    lineHeight: 1.02
-    letterSpacing: "-0.03em"
-  title:
-    fontFamily: "Bricolage Grotesque, Arial Narrow, sans-serif"
-    fontSize: "clamp(1.6rem, 4vw, 3.5rem)"
+    fontFamily: "Bangers, Impact, sans-serif"
+    fontSize: "3rem"
     fontWeight: 400
     lineHeight: 1
-    letterSpacing: "-0.03em"
-  subtitle:
-    fontFamily: "Bricolage Grotesque, Arial Narrow, sans-serif"
-    fontSize: "1.5rem"
+    letterSpacing: "0.02em"
+  title:
+    fontFamily: "Bangers, Impact, sans-serif"
+    fontSize: "1.875rem"
     fontWeight: 400
-    lineHeight: 1.25
-    letterSpacing: "-0.025em"
-  section-label:
-    fontFamily: "Bricolage Grotesque, Arial Narrow, sans-serif"
+    lineHeight: 1.2
+    letterSpacing: "0.02em"
+  stat:
+    fontFamily: "Bangers, Impact, sans-serif"
+    fontSize: "2.25rem"
+    fontWeight: 400
+    lineHeight: 1
+    letterSpacing: "0.02em"
+  sfx:
+    fontFamily: "Bangers, Impact, sans-serif"
+    fontSize: "clamp(1.8rem, 4vw, 3rem)"
+    fontWeight: 400
+    lineHeight: 1
+    letterSpacing: "0.02em"
+  button:
+    fontFamily: "Bangers, Impact, sans-serif"
+    fontSize: "1.35rem"
+    fontWeight: 400
+    lineHeight: 1.5
+    letterSpacing: "0.04em"
+  button-sm:
+    fontFamily: "Bangers, Impact, sans-serif"
+    fontSize: "1.1rem"
+    fontWeight: 400
+    lineHeight: 1.5
+    letterSpacing: "0.04em"
+  label:
+    fontFamily: "Bangers, Impact, sans-serif"
+    fontSize: "0.95rem"
+    fontWeight: 400
+    lineHeight: 1.5
+    letterSpacing: "0.08em"
+  lede:
+    fontFamily: "Patrick Hand, cursive"
     fontSize: "1.25rem"
-    fontWeight: 500
-    lineHeight: 1.4
+    fontWeight: 400
+    lineHeight: 1.7
+    letterSpacing: "normal"
+  narration:
+    fontFamily: "Patrick Hand, cursive"
+    fontSize: "1.15rem"
+    fontWeight: 400
+    lineHeight: 1.45
     letterSpacing: "normal"
   body:
-    fontFamily: "Geist, system-ui, sans-serif"
+    fontFamily: "Patrick Hand, cursive"
+    fontSize: "1.1rem"
+    fontWeight: 400
+    lineHeight: 1.5
+    letterSpacing: "normal"
+  caption:
+    fontFamily: "Patrick Hand, cursive"
     fontSize: "1rem"
     fontWeight: 400
     lineHeight: 1.5
     letterSpacing: "normal"
-  lead:
-    fontFamily: "Geist, system-ui, sans-serif"
-    fontSize: "1.125rem"
-    fontWeight: 400
-    lineHeight: 1.556
-    letterSpacing: "normal"
   small:
-    fontFamily: "Geist, system-ui, sans-serif"
+    fontFamily: "Patrick Hand, cursive"
     fontSize: "0.875rem"
     fontWeight: 400
-    lineHeight: 1.43
-    letterSpacing: "normal"
-  label:
-    fontFamily: "Geist, system-ui, sans-serif"
-    fontSize: "0.75rem"
-    fontWeight: 400
-    lineHeight: 1.333
-    letterSpacing: "0.1em"
-  tamil:
-    fontFamily: "Noto Sans Tamil, sans-serif"
-    fontSize: "0.875rem"
-    fontWeight: 500
     lineHeight: 1.43
     letterSpacing: "normal"
 rounded:
-  none: "0px"
-  focus: "2px"
-  cell: "2.5px"
-  panel: "1rem"
-  panel-lg: "1.5rem"
-  full: "999px"
+  none: "0"
+  bubble: "1.5rem"
+  circle: "50%"
 spacing:
-  unit: "4px"
-  gutter: "20px"
-  gutter-sm: "32px"
-  row: "28px"
-  row-sm: "36px"
-  section: "80px"
-  section-sm: "112px"
-  section-tall: "112px"
-  section-tall-sm: "160px"
-  container: "80rem"
-  container-prose: "56rem"
+  hair: "0.25rem"
+  chip: "0.55rem"
+  gutter: "1.25rem"
+  panel: "1.5rem"
+  block: "2rem"
+  panel-lg: "2.5rem"
+  chapter: "4rem"
 components:
-  button-primary-round:
-    backgroundColor: "{colors.accent}"
-    textColor: "{colors.white}"
-    rounded: "{rounded.full}"
-    typography: "{typography.lead}"
-    size: "9rem"
-  button-primary-round-hover:
-    backgroundColor: "{colors.accent}"
-    textColor: "{colors.white}"
-  button-ghost-round:
-    backgroundColor: "transparent"
-    textColor: "{colors.fg}"
-    rounded: "{rounded.full}"
-    typography: "{typography.small}"
-    size: "10rem"
-  button-ghost-round-hover:
-    backgroundColor: "{colors.accent}"
-    textColor: "{colors.white}"
-  button-sticky-round:
-    backgroundColor: "{colors.fg}"
-    textColor: "{colors.bg}"
-    rounded: "{rounded.full}"
-    typography: "{typography.small}"
-    size: "5rem"
-  button-pill-outline:
-    backgroundColor: "transparent"
-    textColor: "{colors.fg}"
-    rounded: "{rounded.full}"
+  button-primary:
+    backgroundColor: "{colors.ink}"
+    textColor: "{colors.paper}"
+    typography: "{typography.button}"
+    rounded: "{rounded.none}"
+    padding: "0.5rem 1.1rem"
+  button-alt:
+    backgroundColor: "{colors.paper}"
+    textColor: "{colors.ink}"
+    typography: "{typography.button}"
+    rounded: "{rounded.none}"
+    padding: "0.5rem 1.1rem"
+  button-sm:
+    backgroundColor: "{colors.ink}"
+    textColor: "{colors.paper}"
+    typography: "{typography.button-sm}"
+    rounded: "{rounded.none}"
+    padding: "0.35rem 0.8rem"
+  panel:
+    backgroundColor: "{colors.paper}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.none}"
+    padding: "{spacing.panel}"
+  tile:
+    backgroundColor: "{colors.paper}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.none}"
+    padding: "1rem 1.1rem"
+  caption:
+    backgroundColor: "{colors.caption-yellow}"
+    textColor: "{colors.ink}"
+    typography: "{typography.caption}"
+    rounded: "{rounded.none}"
+    padding: "0.25rem 0.6rem"
+  bubble:
+    backgroundColor: "{colors.paper}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.bubble}"
+    padding: "0.9rem 1.1rem"
+  tag:
+    backgroundColor: "{colors.caption-yellow}"
+    textColor: "{colors.ink}"
+    typography: "{typography.caption}"
+    rounded: "{rounded.none}"
+    padding: "0.1rem 0.55rem"
+  filetab:
+    backgroundColor: "{colors.ink}"
+    textColor: "{colors.paper}"
+    typography: "{typography.label}"
+    rounded: "{rounded.none}"
+    padding: "0.2rem 0.7rem"
+  page-number:
+    backgroundColor: "{colors.caption-yellow}"
+    textColor: "{colors.ink}"
+    typography: "{typography.button-sm}"
+    rounded: "{rounded.none}"
+    size: "34px"
+  badge:
+    backgroundColor: "{colors.amber}"
+    textColor: "{colors.ink}"
+    typography: "{typography.label}"
+    rounded: "{rounded.circle}"
+    size: "2.4rem"
+  sfx:
+    textColor: "{colors.signal-pink}"
+    typography: "{typography.sfx}"
+  stat:
+    textColor: "{colors.signal-pink}"
+    typography: "{typography.stat}"
+  menu-button:
+    backgroundColor: "{colors.caption-yellow}"
+    textColor: "{colors.ink}"
+    typography: "{typography.button}"
+    rounded: "{rounded.none}"
+    padding: "0.3rem 0.8rem"
+  menu-item-active:
+    backgroundColor: "{colors.caption-yellow}"
+    textColor: "{colors.ink}"
     typography: "{typography.body}"
-    padding: "16px 28px"
-  button-pill-outline-hover:
-    backgroundColor: "{colors.fg}"
-    textColor: "{colors.bg}"
-  button-pill-small:
-    backgroundColor: "transparent"
-    textColor: "{colors.fg}"
-    rounded: "{rounded.full}"
-    typography: "{typography.small}"
-    padding: "6px 12px"
-  button-pill-inverse:
-    backgroundColor: "{colors.fg}"
-    textColor: "{colors.bg}"
-    rounded: "{rounded.full}"
-    typography: "{typography.small}"
-    padding: "8px 8px 8px 20px"
-  button-icon-circle:
-    backgroundColor: "transparent"
-    textColor: "{colors.fg}"
-    rounded: "{rounded.full}"
-    size: "3rem"
-  button-icon-circle-hover:
-    backgroundColor: "{colors.fg}"
-    textColor: "{colors.bg}"
-  nav-link:
-    backgroundColor: "transparent"
-    textColor: "{colors.white}"
-    typography: "{typography.small}"
-  row-work:
-    backgroundColor: "transparent"
-    textColor: "{colors.fg}"
-    typography: "{typography.title}"
-    padding: "28px 4px"
-  row-work-hover:
-    padding: "28px 24px"
-  card-witness:
-    backgroundColor: "{colors.bg-2}"
-    textColor: "{colors.fg}"
-    rounded: "{rounded.panel-lg}"
-    padding: "28px"
-    width: "min(86vw, 30rem)"
-  card-role:
-    backgroundColor: "oklch(0.3 0.07 264)"
-    textColor: "{colors.fg}"
-    rounded: "{rounded.panel}"
-    padding: "24px"
-  preview-panel:
-    backgroundColor: "oklch(var(--l, 0.46) 0.17 264)"
-    textColor: "{colors.white}"
-    rounded: "{rounded.panel}"
-    padding: "32px"
-    width: "22rem"
+    rounded: "{rounded.none}"
+    padding: "0.4rem 0.55rem"
 ---
 
-# Design System: Mohammed Mubarak portfolio
-
-<!-- Recorded from the shipped build on 2026-10-09 (Astro 7.3.8, Tailwind 4.3.3, GSAP 3.15, Lenis 1.3.26). Source of truth for tokens: src/styles/global.css @theme block; fonts: astro.config.mjs; motion: src/scripts/motion.ts. -->
+# Design System: MK Comics
 
 ## Overview
 
-**Creative North Star: "The Studio After Hours"**
+**Creative North Star: "The Inked Issue"**
 
-One person, one giant name, one room with the lights down. The site is a near-black studio in which the only things that glow are the subject's face, his name sliding past at 16vw, and a single electric blue reserved for the one thing a visitor is asked to do. Everything else is off-white type on hairlines. It belongs to the Awwwards portfolio-winner school (Dennis Snellenberg lineage) and was pinned by the user after rejecting a paper/serif document world and a bento widget grid; those two rejections are the only confirmed anti-references.
+The site is a single comic book issue: a cover, chapters, and a back cover, printed on cream halftone stock. Everything on the page is material a comic artist would draw by hand with a thick ink pen: white panels with heavy black borders and hard offset shadows, yellow narration captions, speech bubbles with tails, sound-effect lettering with a drop shadow, file tabs and page-number tiles. There is no soft shadow and no tinted line; the only grey is a muted ink for secondary lines, the only blur sits behind the sticky header and the dialog, and the only gradients are hard-stop (the halftone dots, the dashed spine, the zig-zag band, the highlighter stripe). The ink is always #111, the paper is always white or cream, and colour is applied flat.
 
-Density is low and the rhythm is editorial: a section is either a huge statement in Bricolage Grotesque or a quiet muted label followed by hairline-divided rows. Surfaces are flat and tonal (`bg` to `bg-2`), never shadowed, never bordered thicker than a pixel. Motion is directed rather than decorative: lines are revealed from behind a mask, numbers count up once, round buttons are magnetic, and a blue-tinted preview panel follows the cursor over the work list. Nothing animates on loop except the marquees and a 12-second globe. Reduced-motion users get the same page, still.
+Density is generous and legible. Text is large (body starts at 1.1rem), panels carry a lot of air (1.5rem to 2.5rem of padding), and chapters are separated by 4rem of halftone. Bangers does all the shouting (headings, buttons, labels, stats, sound effects, one weight); Patrick Hand does all the reading. The page is readable with nothing running: every piece of motion is a one-time arrival tween on content that is already visible, and reduced-motion users get the whole book still.
 
-Colour is almost entirely absent by intent. Beyond the four greys, the only chroma on the page is blue: the accent, and a single OKLCH blue family (hue 264) whose lightness steps tint the cursor preview per record, the role card inside an opened row, and the contribution graph.
+The world was chosen over, and explicitly rejects, the dark cinematic studio portfolio, a Stranger Things variant, paper and serif document worlds, and bento widget grids. Panels never tilt or rotate; tilt belongs to captions, sound effects and stickers.
 
 **Key Characteristics:**
-- Near-black ground (`#0b0b0c`) with one lifted panel tone (`#141416`); no gradients except the portrait's dark foot
-- Bricolage Grotesque at display sizes with tight negative tracking; Geist for everything readable
-- One accent (`#4f6bff`) and it is the call to action; selection, caret and focus ring also wear it
-- Hairline structure: 1px lines at 14% and 32% white; no card grids, no boxes around content
-- Round geometry for every control: pills and circles, never a rounded rectangle button
-- Motion grammar: masked line reveals (expo.out, 1.1s), count-ups, magnetic buttons, hover sweeps, one cursor-following preview
-- Fixed header in `mix-blend-mode: difference` so it survives both ground tones
+- Cream halftone ground (0.8px ink dots on a 7px grid) under white panels with 4px ink borders and 8px hard offset shadows.
+- One signal colour (pink) for the title, the masthead, the live chapter, progress, focus and selection; four more flat comic colours rotate one-per-panel.
+- Bangers at 400 for every display role, Patrick Hand at 400 for every reading role; outlined pink lettering for the two biggest headings.
+- Square corners everywhere except speech bubbles (1.5rem) and the three circles (badge, year, avatar).
+- Press-and-lift motion: buttons press into their shadow on hover, covers and the resume sheet lift away from theirs.
+- Arrival choreography only (GSAP `from` tweens, `once`, cleared after), on content that is never pre-hidden.
 
 ## Colors
 
-A four-grey tonal ladder with one electric blue; chroma is rationed to the action and to the per-record tints.
+A flat printer's palette: one cream stock, one ink, one paper white, one caption yellow, a signal pink, and four more comic colours used one at a time.
 
 ### Primary
-- **Electric Blue** (`{colors.accent}`, `#4f6bff`, oklch(59% 0.22 270)): the single call to action ("Get in touch" circle, the police-thief "Start the game" pill), the `btn-round` hover sweep fill, the emphasised consequence value inside an opened work record, the quote glyph on witness cards, text selection, the caret, and the `:focus-visible` ring. It is never used as a surface, a border, or body text. Contrast against `bg` is 4.57:1; white on it is 4.30:1 (see Accessibility in Do's and Don'ts).
+- **Signal Pink** (`signal-pink`): the issue's one voice. Fills the outlined cover title and the back-cover headline, the "COMICS" half of the masthead, the current-chapter underline and the "here" marker in the chapters menu, the reading-progress bar, focus rings, text selection, the resume sheet's shadow, the hover shadow on case files and back-issue covers, the button shadow, and the page curtain. It is also the first of the five rotating panel accents and the top step of the GitHub calendar ramp.
+
+### Secondary
+- **Teal** (`teal`), **Amber** (`amber`), **Blue** (`blue`), **Violet** (`violet`): with pink, the five-colour rotation. A panel takes exactly one of them by index (`colors[i % 5]`) for its stat value, its sound effect, its case-file headline, its origin-group title, or its power-up tab. Teal is also the "promoted" caption fill and the "rebuild" fill in the inked spot art; amber fills the edition burst sticker and the witness initials badge.
 
 ### Neutral
-- **Studio Black** (`{colors.bg}`, `#0b0b0c`): page ground, `<meta theme-color>`, scrollbar track, preloader, OG image ground.
-- **Lifted Panel** (`{colors.bg-2}`, `#141416`): the hero section, the stack band, the footer, witness cards, and the full-screen mobile menu. It is the only "surface" in the system; depth is this one step, not a shadow.
-- **Warm Off-White** (`{colors.fg}`, `#f2f2f0`): all primary text, the location pill and sticky CTA fill, the preloader dot. 17.55:1 on `bg`.
-- **Ash** (`{colors.muted}`, `#9c9c98`): secondary text, section labels, metadata, dates, the em-dash and middle-dot separators in marquees, the "& Front-End Team Lead" half of the hero title. 7.14:1 on `bg`, 6.68:1 on `bg-2`.
-- **Hairline** (`{colors.line}`, `rgb(242 242 240 / 0.14)`): every structural divider: row borders, section `border-y`, witness-card border, footer rule, consequence `dl` top rule.
-- **Hairline Strong** (`{colors.line-strong}`, `rgb(242 242 240 / 0.32)`): outlines on ghost controls (pills, circles, pronounce button), the witness pull-quote left rule, the scrollbar thumb.
-- **Pure White** (`{colors.white}`, `#ffffff`): text on the accent, the difference-blend header, and at 60%/80% alpha for captions inside the blue-tinted preview and role card.
-
-### The blue family (formulas, not tokens)
-Everything chromatic that is not the accent sits on OKLCH hue 264 and varies only in lightness and chroma. Each of the six work rows carries a lightness step `--l` (0.46, 0.40, 0.52, 0.36, 0.58, 0.44 in record order) and the cursor preview panel fills with `oklch(var(--l, 0.46) 0.17 264)`, so each record previews as a different depth of the same blue. The "Role" card inside an opened record is a fixed `oklch(0.3 0.07 264)`. The GitHub contribution graph uses a five-step ramp on the same hue (`rgb(242 242 240 / 0.07)`, then `oklch(0.45 0.12 264)`, `oklch(0.55 0.16 264)`, `oklch(0.65 0.19 264)`, `oklch(0.75 0.19 264)`). The accent itself measures oklch hue 270, six degrees away; the two are close enough to read as one blue.
+- **Cream** (`cream`): the page stock and the knockout behind running text on the halftone; also the dialog surface and the header (at 90% with blur).
+- **Ink** (`ink`): all borders, all shadows, all body text, all strokes on lettering, the halftone dots, and the primary button fill.
+- **Paper** (`paper`): panel, bubble, tile, menu, cover and alt-button fill; button text on ink.
+- **Caption Yellow** (`caption-yellow`): narration captions, tags, page-number tiles, issue-number stickers, the chapters button and the active or hovered menu item, and the highlighter under emphasised words.
+- **Ink Muted** (`ink-muted`): secondary lines inside panels (stat descriptions, school and award details, location) and the menu caption label. The only grey in the system.
 
 ### Named Rules
-**The One Blue Rule.** The accent is the action and the proof, nothing else. If a new element is neither something to click nor the emphasised number of a record, it is grey.
+**The One Accent Per Panel Rule.** A panel carries one comic colour for its lettering (stat, sound effect, file headline, group title, power-up tab), chosen by its index in the five-colour rotation. Pink is the signal for the issue as a whole; teal and amber additionally hold two fixed roles (the promoted caption; the burst and badge stickers) and both appear inside the inked spot art.
 
-**The Hairline Rule.** Structure is drawn with 1px lines at 14% white, never with filled boxes. A control that needs an edge uses 32% white; nothing uses a heavier line.
+**The Ink Is Ink Rule.** Every border, shadow, stroke and body glyph is #111. There is no tinted border, no grey line, no coloured shadow except pink on an interactive target.
+
+**The Pink Means Live Rule.** A pink offset shadow always marks something you can act on: every button at rest, the resume sheet, a hovered case file, a hovered back-issue cover. The reverse does not hold: resting case files, back-issue covers and the chapters button cast ink and only turn pink, or press, when touched.
 
 ## Typography
 
-**Display Font:** Bricolage Grotesque (with Arial Narrow, sans-serif), weights 400 / 500 / 600 loaded and used; 700 and 800 are loaded but only 700 is used, in the OG raster.
-**Body Font:** Geist (with system-ui, sans-serif), weights 400 / 500 used; 600 loaded, unused.
-**Label/Mono Font:** Geist Mono (ui-monospace) is registered and preloaded under `--font-mono` but no element applies it; the footer clock sets `tabular-nums` in Geist instead.
-**Script Font:** Noto Sans Tamil (sans-serif), weight 500, for the Tamil name under `lang="ta"`.
+**Display Font:** Bangers (with Impact, sans-serif)
+**Body Font:** Patrick Hand (with cursive)
+**Tamil name:** the system Tamil face via `lang="ta"`; neither loaded font covers Tamil.
 
-Fonts are served by Astro's fonts API (fontsource provider) as self-hosted woff2 with `font-display: swap`, latin subsets, and generated `size-adjust` fallbacks ("fallback: Arial", "fallback: Arial Bold", "fallback: Courier New"). The `--font-display` and `--font-text` faces are preloaded; Tamil and mono are not.
-
-**Character:** A wide, slightly idiosyncratic grotesque doing all the shouting at enormous sizes and negative tracking, paired with a neutral, even-textured sans that never competes. The pairing is "poster and caption": Bricolage is only ever large or quietly labelling a section; Geist carries every sentence.
+**Character:** Bangers is a comic letterer's shout, one weight, slightly tracked (0.02em), used for everything that would be hand-lettered on a comic page. Patrick Hand is the narrator's handwriting, loose and large. Only weight 400 ships for either face. The build still requests heavier weights in places (`<strong>`, `font-bold`, `.emph` at 700) and the browser synthesises them; the emphasis devices the world owns are the yellow highlighter stripe (`.emph`) and a pink fill with an ink stroke.
 
 ### Hierarchy
-- **Display** (600, `clamp(5rem, 16vw, 15rem)`, line-height 1, tracking −0.04em): the name marquee in the hero only. The contact heading "Let's work together" is its smaller sibling at 500, `clamp(2.6rem, 8vw, 7.5rem)`, line-height 0.95.
-- **Stat** (600, `3rem` → `3.75rem` at ≥640px, line-height 1, tracking −0.04em, tabular): the four count-up numbers. The cursor preview's metric uses the same recipe at `3rem`, tracking −0.025em.
-- **Headline** (500, `clamp(2rem, 4.6vw, 4.25rem)`, line-height 1.02, tracking −0.03em): the "I build the platforms…" statement. "Nine people, on record." uses `clamp(2rem, 5vw, 4.5rem)` at line-height 1.
-- **Title** (400, `clamp(1.6rem, 4vw, 3.5rem)`, line-height 1, tracking −0.03em): work-row indices. The stack marquee is the same weight at `clamp(2.5rem, 7vw, 6rem)`; the mobile-menu links at `3rem`; the preloader greeting at `2.25rem` → `3rem`.
-- **Subtitle** (400, `1.5rem` → `1.875rem` at ≥640px, line-height 1.25, tracking −0.025em): the hero job title, experience role names. Opened-record titles (`h3`) use the same size at 500. Witness pull quotes use `1.5rem` → `1.7rem` at tracking −0.02em. Consequence values use `1.5rem` at 400.
-- **Section label** (500, `1.25rem`, Bricolage, colour `muted`): "Selected work", "Experience", "Earlier work". The quiet half of the system's loud/quiet split.
-- **Body** (Geist 400, `1rem`, line-height 1.5): record context and decisions, experience bullets; the full witness note at `0.95rem` / line-height 1.625 in `fg/90`. Opened-record prose is capped at `62ch`; the intro lead at `max-w-md` (28rem).
-- **Lead** (Geist 400, `1.125rem`): the intro paragraph; "Get in touch" at 500.
-- **Small** (Geist 400, `0.875rem`): nav links, pills, metadata, dates, witness footers, the hover hint.
-- **Label** (Geist 400, `0.75rem`, uppercase, tracking 0.1em, colour `muted` or `white/60`): captions over values in the footer meta grid (Version / Local time / Name / Socials), the "Navigation" caption in the mobile menu, "Role" inside the hue card, and the preview panel's kind line. Bound to definition-list style captions above a value; never placed above a heading.
-- **Tamil** (Noto Sans Tamil 500, `0.875rem`, `lang="ta"`): the name in the pronounce button and footer.
-
-The base rule (`h1, h2, h3`: Bricolage, 600, −0.03em, line-height 0.95, `text-wrap: balance`) is what a new heading inherits before utilities; every visible heading on the page then lowers it to 500 or 400. `p` gets `text-wrap: pretty`.
+- **Display** (400, `clamp(3rem, 8vw, 7rem)`, 0.9): the cover title only. Pink fill with a 2px ink text-stroke.
+- **Headline** (400, 3rem, rising to 3.75rem from 640px, 1): chapter and section headings. The back-cover headline reaches 4.5rem from 640px and takes the pink-and-stroke treatment.
+- **Title** (400, 1.875rem, 1.2): case-file and role titles (roles rise to 2.25rem from 640px); power-up groups and origin group names at 1.5rem; back-issue titles at 1.25rem rising to 1.5rem.
+- **Stat** (400, 2.25rem rising to 3rem from 640px, 1): the by-the-numbers values, in the panel's accent with a 1.5px ink stroke and a 3px ink drop shadow.
+- **SFX** (400, `clamp(1.8rem, 4vw, 3rem)`, wide panel `clamp(2rem, 5vw, 4rem)`): sound-effect lettering, panel accent fill, 2px ink stroke, 4px ink drop shadow, tilted −8°.
+- **Button** (400, 1.35rem, 0.04em): all CTAs; small buttons drop to 1.1rem (header, skip link) or 1rem (resume dialog).
+- **Label** (400, 0.95rem, 0.08em): menu captions; file tabs at the inherited size with 0.06em; issue-number stickers at 0.85rem with 0.04em. Bangers, never uppercase-transformed (the face is already caps).
+- **Lede** (400, 1.25rem, 1.7): the one-line chapter intro, knocked out of the halftone with a cream background.
+- **Narration** (400, 1.15rem, 1.45): story text inside migration panels.
+- **Body** (400, 1.1rem, 1.5): the base size for everything else; bubbles run at 1.125rem to 1.25rem.
+- **Caption** (400, 1rem): yellow caption boxes and tags (0.95rem).
+- **Small** (400, 0.875rem): metadata lines (organisation, date, tag), consequence labels, footer. Back-issue metadata drops to 0.75rem.
 
 ### Named Rules
-**The Loud/Quiet Rule.** A section opens either with a Headline-size statement or with a muted 1.25rem Bricolage label; never with a mid-size heading, and never with an uppercase eyebrow.
+**The One Weight Rule.** Both faces load at 400 only. Hierarchy comes from size, colour, stroke and the Bangers/Patrick Hand switch, never from weight. Where the build asks for 700 today the browser fakes it; that is a defect to remove, not a device to reuse.
 
-**The No-Eyebrow Rule.** Uppercase tracked labels exist only as captions over a value (footer meta, role card, preview kind). Nothing uppercase sits above a heading.
+**The Outlined Shout Rule.** Pink fill with a 2px ink text-stroke is reserved for the cover title and the back-cover headline; stats and sound effects use their panel accent with the stroke.
 
 ## Layout
 
-The page is a single column of full-width bands with a centred content container of `80rem` (`max-w-7xl`); the contribution graph narrows to `56rem`. Horizontal gutters are `20px` on phones and `32px` from 640px up (`px-5 sm:px-8`). Marquees and the hero name escape the gutter with negative margins to run full-bleed.
+One centred column, 72rem wide, with 1.25rem of side padding (2rem from 640px), 2.5rem above the cover and 7rem below the back cover. A sticky header (cream at 90% with blur, 4px ink bottom border, 0.75rem vertical padding) carries the masthead, the chapters dropdown, extra links from 1024px, and the Hire me button; a 4px pink progress bar hangs off its bottom edge.
 
-Vertical rhythm is section padding, not margins: `80px` → `112px` (work, experience, stack, earlier work), `96px` → `128px` (witnesses), `112px` → `160px` (intro), and the footer `112px` top / `32px` bottom. Every anchored section carries `scroll-mt-10` (40px) so Lenis's `-24px` offset lands cleanly below the fixed header.
+Chapters are 4rem apart; a chapter heading is followed by its lede at 0.5rem and its content at 1.5rem to 2rem. Inside chapters, panels sit in CSS grids with 1rem to 1.75rem gutters: the migration story is a six-column grid from 1024px with one 4-column establishing panel and four 2-column panels (two columns from 768px); case files, resume facts and origin groups are two columns from 768px; power-ups are three columns from 1024px; numbers and back issues are two columns, four from 1024px; witnesses flow in two CSS columns from 768px with 2.5rem between. The origin story runs down a 3.2rem spine of year circles joined by a 4px dashed ink line, which collapses above each panel below 640px.
 
-Internal grids are asymmetric two-column at `lg` (1024px): intro `1.4fr 1fr` with a `5rem` gap, opened records `1.2fr 1fr`, earlier work `1fr 1.4fr`, experience detail `1fr 1fr`. Rows (work, experience, earlier work) are CSS grids of `1fr auto` on phones growing to `1fr auto auto` / `1.2fr 1fr auto` at 640px; the middle metadata column is hidden below 640px. Stats are a `2 × 2` grid on phones and `1 × 4` at `lg`, divided by hairlines (bottom borders on phones, right borders at `lg`).
-
-Only two breakpoints are used: `sm` (`40rem` / 640px) and `lg` (`64rem` / 1024px). The cursor preview and the witness arrow buttons exist only from `lg` and `sm` respectively; the nav collapses to a circular menu button below `sm`. The hero is `min-h-dvh`; on phones the portrait sits in flow above the title block, from 640px it is absolutely centred behind a two-column text layer.
-
-Spacing uses Tailwind's 4px unit; the recurring steps are 8, 12, 16, 20, 24, 28, 32, 36, 40, 48, 96, 112, 128 and 160px.
+Panel padding is 1.5rem (`p-6`), rising from 640px to 2.5rem on the cover and resume insert and 3rem on the back cover; the resume insert reaches 3rem from 1024px. Panels with a file tab add top padding (2rem) to clear it. Text measure is held at 46ch to 62ch. Breakpoints are Tailwind's: 640px, 768px, 1024px; the menu goes fixed-width full-bleed below 640px.
 
 ## Elevation & Depth
 
-Flat, tonal, one step. Depth is conveyed by alternating the ground (`bg`) with the lifted panel tone (`bg-2`) for the hero, stack band, footer, witness cards and mobile menu, and by hairlines. There is exactly one `box-shadow` in the system: the cursor-following preview panel carries Tailwind's `shadow-2xl` so it reads as floating over the list. The fixed header gains separation from `mix-blend-mode: difference` rather than from a background. The sticky "Let's talk" circle has no shadow; its contrast comes from an off-white fill on the dark ground.
+Depth is drawn, not lit. Every raised surface casts a hard, unblurred offset shadow in ink; the offset is the elevation. Interactive surfaces cast the same hard shadow in pink. There is no blur anywhere except the header backdrop and the dialog backdrop (`rgba(0,0,0,.6)` with 4px blur). Stacking is also drawn: the resume sheet shows a second white page behind it, offset 14px and tilted 1.5°.
 
 ### Shadow Vocabulary
-- **Preview float** (`box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25)`): the cursor preview panel only.
+- **Panel** (`box-shadow: 8px 8px 0 #111`): panels, the chapters menu list.
+- **Panel, live** (`box-shadow: 8px 8px 0 #ff2e63`): the resume sheet at rest; grows to `11px 11px` on hover. Case files go from ink to `10px 10px 0 #ff2e63` on hover.
+- **Button** (`box-shadow: 4px 4px 0 #ff2e63`): every `.btn` at rest; shrinks to `2px 2px` as the button presses.
+- **Sticker** (`box-shadow: 3px 3px 0 #111`): page-number tiles, badges, year circles, the chapters button (shrinks to `1px 1px` on press); menu numbers at `2px 2px`.
+- **Cover** (`box-shadow: 5px 5px 0 #111`): back-issue covers; lifts to `7px 7px 0 #ff2e63` on hover. The portrait casts `6px 6px 0 #111`, the avatar `4px 4px 0 #111`.
+- **Lettering** (`text-shadow: 4px 4px 0 #111`, stats `3px 3px 0 #111`): sound effects and stat values, paired with an ink text-stroke.
 
 ### Named Rules
-**The Tonal Step Rule.** A surface is either `bg` or `bg-2`; a third tone is not introduced. Blue-tinted panels (preview, role card) are the only exceptions and they sit on hue 264, varying lightness only.
+**The Hard Shadow Rule.** Shadows are solid ink or pink, offset down-right, zero blur, zero spread. A soft shadow is not in this world.
 
-**The One Float Rule.** The only element that casts a shadow is the one that is not part of the page: the cursor preview.
+**The Press And Lift Rule.** Buttons press: `translate(2px, 2px)` with the shadow shrinking by the same amount, over 0.12s. Cards lift: the resume sheet and back-issue covers move `-3px`/`-2px` with the shadow growing, over 0.15s to 0.18s. Case files grow their shadow without moving.
 
 ## Shapes
 
-Two silhouettes: the full circle/pill (`999px`) for every interactive control, and the softly rounded panel for media and cards. Pills: nav menu button, location pill, pronounce button, email and phone links, "Play Whac-a-Thief", the back link and start button on the game page, the skip link. Circles: "See the work" (10rem), "Get in touch" (9rem → 11rem), the sticky "Let's talk" (5rem), the witness arrows (3rem), the globe badge (2.25rem). Rounded panels: the portrait and witness cards at `1.5rem`, the preview panel and role card at `1rem`, the OG portrait at 28px. Contribution cells have a `2.5px` corner; the focus ring has `2px`.
+Square by default. Panels, tiles, captions, tags, buttons, tabs, page numbers and the menu are rectangles with 0 radius and an ink border of 4px (panels, page numbers, menu list, portrait, avatar, dialog), 3px (buttons, captions, bubbles, tiles, badges, file tabs, the chapters button, covers) or 2px (tags, issue numbers). Speech bubbles are the one rounded rectangle (1.5rem radius) and carry a drawn tail: a 10px triangle of ink at the bottom-left, 28px in from the edge. Circles are reserved for people and time: the witness initials badge, the origin-year markers and the back-cover avatar.
 
-Borders are always `1px` and always from the hairline tokens; the mobile menu button uses `white/40` because it sits in the difference-blend header. The portrait is clipped with `overflow: hidden` and carries a bottom gradient (`from-bg-2/70` to transparent). Nothing is skewed, clipped at an angle, or outlined thicker than a pixel; the single curved edge in the system is the preloader's SVG curtain (`Q50 20 0 0` quadratic, 18vh tall) that lifts away.
+Three signature silhouettes recur: a 22-point starburst (`clip-path` polygon) for the edition sticker; a dashed 4px ink rule (`border-top: 4px dashed #111`) that separates a case file's summary from its detail and the back cover's channels from the pitch; and a 10px zig-zag band (`repeating-linear-gradient(135deg, #111 0 6px, transparent 6px 12px)`) at the top of the back cover. The halftone itself is a 0.8px ink dot on a 7px grid, reused inside the inked spot art as a 35% wash.
+
+Tilt is a sticker property: captions sit at −1°, sound effects at −8°, the edition burst at 12°, the ghost page behind the resume sheet at 1.5°, the resume sheet's "Read it" caption at 1°, and the labels inside the spot art at ±6–8°. Panels, tiles, bubbles and buttons are never rotated.
 
 ## Components
 
-The feel is "refined and still": controls are round, quiet at rest, and reveal colour only on hover or focus, with a sweep rather than a fade.
-
 ### Buttons
-- **Shape:** full pill or circle (`999px`); no rounded-rectangle buttons exist.
-- **Primary (round accent):** `btn-round` circle, `9rem` (11rem at ≥640px), `bg-accent` with white text at `1.125rem` / 500, `data-magnetic`. Used once: "Get in touch", absolutely placed at the footer's top-right. The game page's "Start the game" is the pill variant of the same colouring (`px-6 py-3`, 500, 16px) and is a one-off.
-- **Ghost (round outline):** `btn-round` circle or pill, `1px` `line-strong` border, text `0.875rem` / 500, magnetic. "See the work" (10rem circle), "Play Whac-a-Thief" (pill `px-6 py-3`).
-- **Sticky CTA:** `btn-round` circle `5rem`, `bg-fg text-bg`, `0.875rem` / 500, fixed `bottom-6 right-6`, hidden until 80% of the first viewport has scrolled past and re-hidden when the footer reaches 85% of the viewport; enters with `opacity 0 → 1` and `translateY(16px → 0)` over `500ms`.
-- **Pill outline:** `rounded-full border border-line-strong px-7 py-4` for the email and phone links; `px-3 py-1.5 text-sm` for the pronounce button and the game page's back link.
-- **Pill inverse:** the location pill, `bg-fg text-bg pl-5 pr-2 py-2 text-sm font-medium` with a `2.25rem` `bg-bg` circle holding a globe icon that spins for 12s per turn.
-- **Icon circle:** `3rem`, `line-strong` border, Lucide arrow at 18px; the witness carousel's previous/next.
-- **Hover / Focus:** `btn-round` fills from the bottom with the accent (`::before`, `translateY(101% → 0)`, `520ms`, `cubic-bezier(0.16, 1, 0.3, 1)`); ghost text flips to white. On the accent-filled primary the sweep is accent over accent, so its hover is the magnetic pull only. Pill outlines invert to `bg-fg text-bg` over Tailwind's default `150ms cubic-bezier(0.4, 0, 0.2, 1)`. Icon circles invert the same way. Magnetic controls (`pointer: fine`, no reduced motion) follow the cursor at 0.35× its offset from centre with a `0.6s power3` tween and spring back on leave. Every control shares the global `:focus-visible` ring: `2px solid` accent, `4px` offset, `2px` radius.
+- **Shape:** square (0 radius), 3px ink border, Bangers 1.35rem at 0.04em, `0.5rem 1.1rem` padding, inline-block.
+- **Primary:** ink fill, white text, `4px 4px 0 #ff2e63` shadow.
+- **Alt:** white fill, ink text, same border and pink shadow. Used for every CTA that is not the single lead action of its group.
+- **Small (`.btn.sm`):** 1.1rem and `0.35rem 0.8rem`; the header Hire me and the skip link. Inside the resume dialog buttons drop to 1rem with the same small padding.
+- **Hover:** press `translate(2px, 2px)`, shadow to `2px 2px 0 #ff2e63`, 0.12s. **Focus:** the base 2px pink outline at 3px offset (header controls use 3px).
 
-### Links
-- **Draw underline (`link-draw`):** a `1px` `currentColor` rule 2px below the text scales from `scaleX(0)` to `1` from the left over `420ms` ease-out-expo on hover and focus-visible. Used for nav items, social links, witness names, "Demo" links, the GitHub handle.
-- **Header wordmark:** "© Mubarak" in Bricolage 600 `1.125rem`; on hover the © rotates 360° and "Mubarak" slides up to reveal the full name (`500ms`).
+### Captions (chips)
+- **Style:** caption yellow fill, 3px ink border, Patrick Hand 1rem, `0.25rem 0.6rem`, inline-block, tilted −1°. Narrates a panel or labels a fact (dates, pronouns, issue number). The promoted-role variant is teal with white text; the pronounce chip is untilted, inline-flex, with a 14px inline SVG speaker and the Tamil name.
+- **Tags:** 2px ink border, caption yellow, 0.95rem, `0.1rem 0.55rem`, square; witness tags are white and turn yellow on hover.
 
-### Cards / Containers
-- **Witness card:** `bg-bg-2`, `1px` `line` border, `1.5rem` radius, padding `28px` → `36px`, width `min(86vw, 30rem)`, `snap-start` inside a horizontal `snap-x snap-mandatory` track with a hidden scrollbar and `20px` gaps. Accent quote glyph (22px) at top; the pull quote in Bricolage 400 at `1.5rem` → `1.7rem`, line-height 1.25, tracking −0.02em; then a native `<details>` whose summary is a `small muted` draw-link ("Read the full note" / "Collapse") revealing the verbatim quote at `0.95rem` / 1.625 in `fg/90`; a hairline-topped footer with name (500) and title (muted).
-- **Role card:** inside an opened record, `1rem` radius, padding `24px`, `oklch(0.3 0.07 264)`, label caption in `white/60`.
-- **Blue preview:** see Signature Component.
-- **Portrait:** `4:5`, `1.5rem` radius, `object-top`, scaled 1.05 to hide parallax edges, dark gradient foot.
+### Panels (cards)
+- **Corner Style:** square, 4px ink border.
+- **Background:** white.
+- **Shadow Strategy:** `8px 8px 0 #111` (see Elevation). Case files switch to pink on hover.
+- **Internal Padding:** 1.5rem; 2.5rem on the cover and resume insert from 640px (resume 3rem from 1024px); 3rem on the back cover from 640px.
+- **Tiles:** a lighter inner card: 3px ink border, white, `1rem 1.1rem`, no shadow. Tabbed tiles add 2rem top padding for a file tab.
 
-### Rows (work, experience, earlier work)
-- **Structure:** `<ol>` with hairline top borders per row and a hairline bottom on the list; work and experience rows are native `<details>` with a `list-none` summary and a Lucide plus (20px) that rotates 45° over `500ms` when open.
-- **Work row:** summary padding `28px 4px` → `36px 16px`; on hover the horizontal padding slides to `24px` → `40px` over `500ms` (`transition-[padding]`), and sibling rows dim to 40% opacity over `320ms` (`.work-list:hover .work-row:not(:hover)`). Each row carries its preview lightness `--l`.
-- **Experience row:** `28px` vertical, role name at Subtitle size, company and dates in `small muted tabular` (hidden below 640px).
-- **Earlier work row:** `16px` vertical, date column `4rem` wide in `0.75rem muted tabular`, name at 500, description in `small muted`, "Demo ↗" draw-link.
+### Page-number tile and file tab
+- **Page number (`.pnum`):** a 34px square, 4px ink border, caption yellow, Bangers 1.1rem, `3px 3px 0 #111` shadow, hung 14px outside the panel's top-left corner.
+- **File tab (`.filetab`):** ink fill, white Bangers at 0.06em, `0.2rem 0.7rem`, 3px ink border, hung 16px above the panel's top edge, 16px in. Power-up tabs take the panel's accent as fill.
+
+### Speech bubble
+- **Style:** white, 3px ink border, 1.5rem radius, `0.9rem 1.1rem`, drawn tail at bottom-left. Body at 1.125rem to 1.25rem; pulled quotes inside use the yellow highlighter stripe. Witness bubbles are followed by a badge and a caption, indented 1.25rem to sit beside the tail.
+
+### Sound effect
+- **Style:** Bangers in the panel accent, 2px ink stroke, `4px 4px 0 #111` text shadow, tilted −8°, placed bottom-right of the panel with `margin-top: auto`.
+
+### Stat
+- **Style:** Bangers 2.25rem rising to 3rem, panel accent, 1.5px ink stroke, `3px 3px 0 #111` text shadow, line-height 1; followed by a 1.125rem label and a muted description.
 
 ### Navigation
-- **Header:** fixed, `z-50`, full-width, `mix-blend-mode: difference`, white text, padding `20px` with the page gutter. Left: wordmark. Right (≥640px): Work / About / Contact / LinkedIn at `0.875rem` with `32px` gaps, draw-underline on hover. Below 640px: a `2.5rem` circle with a `white/40` border and a three-line glyph (`1px` bars, 16px wide) toggling a full-screen `bg-bg-2` menu whose links are Bricolage `3rem` stacked at the bottom with a caption and a hairline-topped social row. Opening locks body scroll.
-- **Anchor scrolling:** Lenis `scrollTo` with `-24px` offset over `1.4s`.
+- **Header:** sticky, cream at 90% with backdrop blur, 4px ink bottom border; masthead in Bangers 1.5rem with "COMICS" in pink (underline 3px at 4px offset on hover); extra links in Patrick Hand 1.125rem with a 2px underline on hover and a 3px pink underline when current; Hire me as a small primary button.
+- **Chapters dropdown (`<details>`):** the summary is a yellow sticker button (Bangers 1.2rem at 0.04em, 3px ink border, `3px 3px 0 #111`, presses on hover and while open; chevron rotates 180° over 0.2s). The list is a panel (white, 4px border, 8px shadow, 0.6rem padding, 14px below the button, 18rem minimum) of items with a 1.9rem numbered square each; hover and current state are yellow with a 3px ink border, and the current item appends "here" in pink Bangers. Below 640px the list is fixed full-width; below 1024px it also lists the extra sections.
+- **Progress:** a 4px pink bar on the header's bottom edge, scaled from the left by scroll position.
+- **Current chapter:** tracked on scroll (offset 140px) and written into the button label and `aria-current`.
 
-### Stats
-- A `<dl>` with the number in `dd` at Stat size counting from 0 to its value over `1.8s` expo.out once it is 90% into view, suffix appended; label in `dt`, `small muted`, max `20ch`. Server-rendered with the final value so reduced-motion and no-JS readers see the number.
+### Resume sheet and dialog
+- **Sheet:** a white page with a 4px ink border and a pink `8px 8px` shadow, a ghost page behind it offset 14px and tilted 1.5°, a "1/2" page-number tile, and a "Read it" caption tilted 1° at the bottom-right. Hover lifts the sheet 3px, grows the shadow to 11px, and the caption scales 1.06. Focus is a 4px pink outline at 6px offset.
+- **Dialog:** cream, 4px ink border, no radius, `min(96vw, 64rem)` by `min(92dvh, 60rem)`, backdrop `rgba(0,0,0,.6)` with 4px blur; the PDF iframe sits on white.
 
-### Marquees
-- `.marquee` clips; `.marquee-track` is an inline-flex duplicated twice and translates `-50%` over `--marquee-speed` linearly forever, paused on hover, stopped entirely under reduced motion. Name marquee: 22s, Bricolage 600 at Display size, em-dash separator in `muted`, `0.35em` right padding per item. Stack marquees: two rows at 34s and 44s, the second reversed, Bricolage 400 at `clamp(2.5rem, 7vw, 6rem)`, items `px-6` with a `muted` middle dot, `hover:text-accent`. Both are `aria-hidden` with `sr-only` text alternatives.
+### Back-issue cover
+- **Style:** 3px ink border, white, `5px 5px 0 #111`, clipped; a yellow "No. n" sticker top-left (2px border, Bangers 0.85rem); a cream 55% wash with a "Watch demo" button appears on hover or focus. The whole cover lifts 2px with a 7px pink shadow.
 
-### Contribution graph
-- Inline SVG, 11px cells with 3px gaps and `2.5px` corners, five-step fill on hue 264, `role="img"` with a total in the label, per-cell `<title>`; caption in `small muted` with a tabular total and a draw-link handle.
+### GitHub calendar
+- **Style:** 11px squares on a 3px gap, 2px radius, white when empty, a four-step pink ramp (`#ffd6e0`, `#ff9ab5`, `#ff5c8a`, `#ff2e63`) by level, with an ink stroke at 15%.
 
-### Preloader
-- Fixed `z-[90]`, `bg-bg`, centred greeting (dot + word) in Bricolage `2.25rem` → `3rem`. Holds `450ms`, steps through six greetings every `140ms` (Tamil first), then lifts `translateY(-120%)` over `800ms` with `cubic-bezier(0.76, 0, 0.24, 1)` while an SVG curtain gives the bottom edge a curve; removed after 1s. About 1.2s on screen before the lift. Runs once per `sessionStorage` session and never under reduced motion. Reveals wait for `html.is-ready`.
-
-### Signature Component: cursor-following work preview
-A fixed `22rem × 16.5rem` (4:3) panel, `1rem` radius, `oklch(var(--l, 0.46) 0.17 264)` fill, white text, `32px` padding, `shadow-2xl`, `pointer-events: none`, `aria-hidden`, rendered only from `lg` and only on `pointer: fine` without reduced motion. It tracks the pointer with GSAP `quickTo` (`0.5s power3`) offset to centre under the cursor (−176px, −132px). Entering a closed row's summary writes the row's `--l`, emphasised metric (Stat size, 600), index title (`small white/80`) and kind (Label, `white/60`) into it and scales it `0.9 → 1` with opacity over `0.4s power3.out`; leaving fades it over `0.3s`; clicking the row hides it in `0.2s`. Measured contrast of its captions: the `white/60` kind line is 5.02:1 at `--l` 0.36 but 3.74:1 at 0.46 and 2.60:1 at 0.58, and the `white/80` title is 3.42:1 at 0.58; the panel is `aria-hidden` and pointer-only, but those values are under AA and are recorded here as a defect of the build, not a rule.
-
-### Motion grammar (what every component above draws from)
-- **Smooth scroll:** Lenis, `lerp 0.1`, `wheelMultiplier 1`; disabled under reduced motion.
-- **Masked line reveal (`data-split`):** GSAP SplitText into lines, each wrapped in an `overflow: hidden` line; `yPercent 110 → 0`, `1.1s`, `expo.out`, `0.08s` stagger, triggered at `top 85%`, once.
-- **Block reveal (`data-reveal`):** `y 32px → 0` with opacity, `1s`, `expo.out`, triggered at `top 90%`, once. Used sparingly: the hero's location pill and title block, the intro lead and "See the work". Section labels, rows and stats do not reveal; they are simply there.
-- **Count-up (`data-count`):** `1.8s expo.out`, `top 90%`, once, `toFixed(decimals)`.
-- **Parallax (`data-parallax`):** scrubbed `yPercent` equal to `parallax × 100` (portrait: 12) across its section from `top top` to `bottom top`.
-- **Magnetic (`data-magnetic`):** 0.35 strength, `0.6s power3` quickTo, fine pointers only.
-- **Hover sweep:** `520ms cubic-bezier(0.16, 1, 0.3, 1)`; draw underline `420ms` same ease; row dim `320ms`; padding slide and plus rotation `500ms`; wordmark swap `500ms`; default utility transitions `150ms cubic-bezier(0.4, 0, 0.2, 1)`.
-- **Preloader lift:** `800ms cubic-bezier(0.76, 0, 0.24, 1)` (declared in the theme as `--ease-in-out-quart` but written inline).
-- **Loops:** marquees 22s / 34s / 44s linear; globe 12s linear.
-- **Reduced motion:** Lenis, reveals, count-ups, parallax, magnetic, preview and the preloader are all skipped in `motion.ts` and `Preloader.astro`; `.marquee-track` animation is removed in CSS. The sticky CTA's show/hide ScrollTriggers run regardless, so the "Let's talk" circle still appears after the hero. Content renders fully in its final state.
+### Inked spot art
+- **Style:** 200×200 SVGs, 6px ink strokes with round caps and joins, flat fills from the palette (white, caption yellow, teal, amber, pink accents), a 7px halftone pattern as a 30–50% wash, and Bangers labels on tilted stickers.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** keep every interactive control a pill or a circle (`999px`); the system has no rectangular buttons.
-- **Do** draw structure with `1px` hairlines at `rgb(242 242 240 / 0.14)` and reserve `0.32` for control outlines.
-- **Do** open a section either with a Headline-size Bricolage statement (500, tracking −0.03em) or a muted `1.25rem` Bricolage label, per the Loud/Quiet Rule.
-- **Do** use the accent only for the action and the emphasised proof number; text on it is pure white.
-- **Do** reveal text with the masked line pattern (`data-split`, `1.1s expo.out`, `0.08s` stagger) and blocks with `data-reveal`; both fire once at `top 85–90%`.
-- **Do** ship every animated value server-rendered in its final state so reduced-motion and no-JS readers lose nothing.
-- **Do** keep tinted surfaces in the hue-264 blue family (chroma 0.07–0.19) and vary only lightness (`--l`); do not introduce a new hue by hand.
-- **Do** use `lang="ta"` and `font-tamil` for the Tamil name wherever it appears.
-- **Do** give every control the shared `:focus-visible` ring (`2px` accent, `4px` offset).
+- **Do** draw every surface with an ink border (4px for panels, 3px for controls, 2px for tags) and a hard offset shadow; the offset is the elevation.
+- **Do** give each panel exactly one comic colour from the five-colour rotation, and keep pink for the signals the whole issue shares (title, masthead, progress, focus, selection, live shadows).
+- **Do** set every display role in Bangers at 400 and every reading role in Patrick Hand at 400; emphasise with the yellow highlighter stripe or a pink fill with an ink stroke.
+- **Do** knock running text out of the halftone with a cream background (`.lede`) when it sits directly on the stock.
+- **Do** animate with `gsap.from`, triggered once on arrival with transforms cleared afterwards, so the page reads correctly with nothing running; gate every script and transition on `prefers-reduced-motion`.
+- **Do** press buttons into their shadow on hover and lift covers and sheets away from theirs.
+- **Do** put tilt on captions (−1°), sound effects (−8°) and stickers; keep panels, tiles, bubbles and buttons square to the page.
 
 ### Don't:
-- **Don't** add a third surface tone, a gradient fill, or a box-shadow to anything other than the cursor preview.
-- **Don't** place an uppercase tracked label above a heading; the Label role is a caption over a value only.
-- **Don't** use a mid-size heading (between `1.25rem` and `2rem`) to open a section.
-- **Don't** introduce a light theme, a serif face, a glyph/icon font, or a card grid; icons are inline Lucide SVG at 14–28px.
-- **Don't** loop any animation other than the marquees and the globe, and don't let a loop survive `prefers-reduced-motion`.
-- **Don't** apply the accent as a border, a background for text blocks, or secondary text; it is 4.57:1 on the ground and 4.28:1 on `bg-2`, which only clears AA at large sizes.
-- **Don't** fire a reveal more than once or on scroll-up; every ScrollTrigger here is `once: true`.
+- **Don't** tilt, rotate or skew a panel, at rest or in its arrival tween.
+- **Don't** pre-hide content for an entrance animation; opacity and transform start at the resting state and only the tween departs from it.
+- **Don't** use a blurred, spread or tinted shadow; shadows are solid ink or solid pink at an integer offset.
+- **Don't** use a radius on a UI surface that is not a speech bubble or a circle (badge, year, avatar); illustration (calendar cells, spot-art stickers) may round its own corners.
+- **Don't** introduce a grey, a gradient fill, or a tinted border; the only grey is `ink-muted` on secondary text, and the only gradients are hard-stop: the halftone dots, the dashed spine, the zig-zag band and the highlighter stripe.
+- **Don't** bring the dark studio, paper-document or bento-grid worlds back in any surface; the comic is the site.
