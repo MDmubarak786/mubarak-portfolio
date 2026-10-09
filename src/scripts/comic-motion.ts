@@ -16,7 +16,7 @@ if (!reduce) {
   // Cover: title letters slam in, sticker spins, buttons pop.
   const title = document.querySelector<HTMLElement>("h1");
   if (title) {
-    const chars = new SplitText(title, { type: "chars" }).chars;
+    const chars = new SplitText(title, { type: "words,chars" }).chars;
     gsap.from(chars, { y: 80, rotation: () => gsap.utils.random(-14, 14), opacity: 0, duration: 0.7, ease: "back.out(2)", stagger: 0.03, delay: 0.1 });
   }
   gsap.from(".burst", { scale: 0, rotation: -180, duration: 0.9, ease: "elastic.out(1, 0.5)", delay: 0.6 });
@@ -31,11 +31,12 @@ if (!reduce) {
   ScrollTrigger.batch(".sfx", { start: "top 90%", once: true, onEnter: (els) => gsap.fromTo(els, { scale: 0, rotation: -30 }, { scale: 1, rotation: -8, duration: 0.8, ease: "elastic.out(1, 0.45)", stagger: 0.1 }) });
   ScrollTrigger.batch(".caption", { start: "top 92%", once: true, onEnter: (els) => gsap.fromTo(els, { scaleX: 0, transformOrigin: "left center" }, { scaleX: 1, duration: 0.45, ease: "power4.out", stagger: 0.05 }) });
   document.querySelectorAll<HTMLElement>("main h2").forEach((h) => {
-    const chars = new SplitText(h, { type: "chars" }).chars;
+    const chars = new SplitText(h, { type: "words,chars" }).chars;
     gsap.from(chars, { y: "110%", rotation: 6, opacity: 0, duration: 0.6, ease: "back.out(1.8)", stagger: 0.015, scrollTrigger: { trigger: h, start: "top 88%", once: true } });
   });
   // Speech bubbles wobble in.
-  ScrollTrigger.batch(".bubble", { start: "top 90%", once: true, onEnter: (els) => gsap.fromTo(els, { scale: 0.85, opacity: 0, transformOrigin: "left bottom" }, { scale: 1, opacity: 1, duration: 0.6, ease: "elastic.out(1, 0.6)", stagger: 0.07 }) });
+  // Bubbles stay readable by default; each one only springs from its tail as it arrives.
+  document.querySelectorAll<HTMLElement>(".bubble").forEach((b) => ScrollTrigger.create({ trigger: b, start: "top 96%", once: true, onEnter: () => gsap.from(b, { scale: 0.92, transformOrigin: "left bottom", duration: 0.55, ease: "back.out(1.6)" }) }));
   // Halftone background drifts slowly with scroll.
   gsap.to("body", { backgroundPositionY: 240, ease: "none", scrollTrigger: { scrub: true } });
 }
