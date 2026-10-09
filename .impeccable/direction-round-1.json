@@ -1,0 +1,145 @@
+{
+  "title": "Choose the visual world for the new portfolio",
+  "question": "The roll assigned the Painted Signboard. Keep it, take an alternate, or re-roll.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "The Painted Signboard",
+      "kicker": "THE ROLL",
+      "lineage": "Tamil Nadu hand-painted enamel shop signs",
+      "thesis": "Your name in Tamil above English, your proof lettered in rows, your number painted large: the sign asks them to call.",
+      "palette": ["#143A8C", "#F5C518", "#D7301F", "#FAF6EE", "#0B0B0B"],
+      "materials": ["enamel on tin", "hand lettering with black drop shadow", "painted rule lines"],
+      "viewport": "One full-width painted board: Tamil name, Latin name, trade line 'Lead Software Engineer · Bangalore · since 2021', painted proof rows (1.25M monthly users · 23 languages; Tibco→AWS Glue $24k→$840/yr), and the phone/WhatsApp number painted large as the only vermilion element, a working tel:/wa.me/email action. On first scroll the board letters itself in, stroke order, one continuous emergence.",
+      "risk": "A hiring manager may read it as a designer's costume before the engineering proof lands; timid lettering or proof below the fold turns it into a poster.",
+      "raised": [
+        {"from": "challenger-cityscape", "raise": "Vermilion belongs to exactly one element: the painted number you call."},
+        {"from": "challenger-understory", "raise": "The brightest white is reserved for the focused element only."},
+        {"from": "challenger-darkroom", "raise": "The signature reveal is one continuous emergence, never scattered effects."},
+        {"from": "challenger-bbs", "raise": "A painted menu board lists every section and is always one step away."},
+        {"from": "challenger-manga", "raise": "The 96% cost-cut figure is the page's one solid-black panel."},
+        {"from": "challenger-cdrom", "raise": "Buttons are painted boards that visibly press and flatten when disabled."}
+      ],
+      "wireframe": {"cols": 12, "rows": 10, "regions": [
+        {"label": "menu board", "x": 0, "y": 0, "w": 12, "h": 1},
+        {"label": "Tamil name / Latin name", "x": 0, "y": 1, "w": 12, "h": 3, "accent": true},
+        {"label": "trade line + proof rows", "x": 0, "y": 4, "w": 8, "h": 3},
+        {"label": "painted number (call / WhatsApp / email)", "x": 8, "y": 4, "w": 4, "h": 3, "accent": true},
+        {"label": "witnesses: nine testimonials on boards", "x": 0, "y": 7, "w": 12, "h": 3}
+      ]}
+    },
+    {
+      "id": "model-pick",
+      "label": "The Decision Record",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "engineering ADRs and RFCs",
+      "thesis": "Your career as numbered decision records: context, options weighed, decision, consequences, reviewed-by.",
+      "palette": ["#F4F1EA", "#1C1B18", "#1F7A4D", "#B8441F"],
+      "materials": ["ruled document paper", "status stamps", "approver signatures"],
+      "viewport": "ADR-001 'Replace Tibco with AWS Glue' open on the page: status ACCEPTED, context, three options with pros and cons, the decision, consequences ($24k→$840/yr, delivered before contract end), reviewed-by Jason Wheeler and John Squier with their words. The index of all records sits beside it; 'Request a conversation' is the one form on the page.",
+      "risk": "The familiar destination for engineering-minded portfolios; reads dry if the records are not set with real typographic character.",
+      "wireframe": {"cols": 12, "rows": 10, "regions": [
+        {"label": "record index", "x": 0, "y": 0, "w": 3, "h": 10},
+        {"label": "ADR-001 header + status", "x": 3, "y": 0, "w": 9, "h": 2, "accent": true},
+        {"label": "context / options / decision", "x": 3, "y": 2, "w": 6, "h": 6},
+        {"label": "reviewed-by (testimonials)", "x": 9, "y": 2, "w": 3, "h": 6},
+        {"label": "request a conversation", "x": 3, "y": 8, "w": 9, "h": 2, "accent": true}
+      ]}
+    },
+    {
+      "id": "challenger-bbs",
+      "label": "The 2 a.m. Bulletin Board",
+      "verdict": "competitive",
+      "lineage": "dial-up ANSI BBS title screens",
+      "thesis": "Every section a numbered text screen; the title pours in at modem speed; presence is scarce.",
+      "palette": ["#000000", "#00AAAA", "#AA00AA", "#FFFFFF", "#0000AA"],
+      "materials": ["CP437 block glyphs", "box-drawing rules", "80×25 cell grid"],
+      "viewport": "Title art 'MUBARAK' in block characters, then a numbered menu: [1] Proof [2] Witnesses [3] Experience [4] Projects [5] Call. Keyboard-complete.",
+      "case": "Fuses cleanly: nine witnesses become message posts, proof becomes a stats screen; holds clarity (absolute reading order) but loses identification: it is the terminal costume this category already wears.",
+      "risk": "Reads as retro novelty and as the saturated 'terminal portfolio' unless the cell grid is strict and the content dense.",
+      "hero": "https://impeccable.style/worlds/cards/medium-native-ansi-bbs-nightboard-hero.webp"
+    },
+    {
+      "id": "challenger-cityscape",
+      "label": "Rain-Night Cityscape",
+      "verdict": "declined",
+      "lineage": "blue hour to rain-dark urban nocturne",
+      "thesis": "Bangalore at blue hour, your pipelines as transit veins.",
+      "palette": ["#0A1630", "#F2A93B", "#C0C6CC"],
+      "materials": ["wet streets", "window grids"],
+      "viewport": "Skyline band over street band over reflection band.",
+      "case": "Atmosphere hides the proof; hiring managers do not identify with a nocturne, and it sits next to the dark-mode default.",
+      "kept": "One material reserved for exactly one element.",
+      "risk": "Indistinguishable from the moody dark portfolio.",
+      "hero": "https://impeccable.style/worlds/cards/light-shadow-caustics-rain-night-cityscape-hero.webp"
+    },
+    {
+      "id": "challenger-understory",
+      "label": "Luminescent Understory",
+      "verdict": "declined",
+      "lineage": "alien forest at nightfall",
+      "thesis": "Paths light themselves two steps ahead of the pointer.",
+      "palette": ["#070A08", "#4EE0D6", "#B48CF2", "#9BE88A"],
+      "materials": ["spore glow", "pulsing root veins"],
+      "viewport": "A glowing vein network with labels blooming beside growths.",
+      "case": "No identification for a hiring audience; proximity-reveal navigation hides content from a 60-second scan.",
+      "kept": "The brightest value belongs only to the focused element.",
+      "risk": "Decorative glow, unreadable proof.",
+      "hero": "https://impeccable.style/worlds/cards/dream-surreal-impossible-worlds-luminescent-alien-understory-hero.webp"
+    },
+    {
+      "id": "challenger-darkroom",
+      "label": "Darkroom Safelight",
+      "verdict": "declined",
+      "lineage": "printing darkroom under amber light",
+      "thesis": "Proof develops in the tray; pull it too early and it is lost.",
+      "palette": ["#F2A41C", "#3A2A0A", "#D9D4CB"],
+      "materials": ["amber safelight", "wet silver print"],
+      "viewport": "Stations in order: compose, expose, develop, fix.",
+      "case": "Deliberateness resonates with 'presents options with pros and cons', but amber monochrome and slow emergence fight the scan.",
+      "kept": "The signature reveal is one continuous emergence.",
+      "risk": "Slow reveal reads as an artistic preloader.",
+      "hero": "https://impeccable.style/worlds/cards/signals-instruments-darkroom-safelight-bay-hero.webp"
+    },
+    {
+      "id": "challenger-manga",
+      "label": "Weekly Manga Page",
+      "verdict": "declined",
+      "lineage": "screentone manga spread",
+      "thesis": "Panels pace the story; one solid-black panel is the decisive beat.",
+      "palette": ["#111111", "#FFFFFF"],
+      "materials": ["screentone dots", "speed lines"],
+      "viewport": "Right-to-left panel grid with a bleed at the peak.",
+      "case": "Right-to-left reading and bubble dialogue cost this audience clarity; no identification.",
+      "kept": "Solid fill reserved for the one decisive beat.",
+      "risk": "Reads as fan art.",
+      "hero": "https://impeccable.style/worlds/cards/pop-culture-shelf-manga-screentone-page-hero.webp"
+    },
+    {
+      "id": "challenger-cdrom",
+      "label": "CD-ROM Console",
+      "verdict": "declined",
+      "lineage": "mid-nineties rendered multimedia console",
+      "thesis": "A fixed machine with a postcard-sized window; every button pushes in.",
+      "palette": ["#9AA3AD", "#2F8F8F", "#6B4FBF"],
+      "materials": ["brushed panels", "beveled toggles"],
+      "viewport": "Console chrome around a small content window.",
+      "case": "'No free-flowing text anywhere' cannot carry nine testimonials or the about copy.",
+      "kept": "Controls visibly press; disabled ones flatten.",
+      "risk": "Content trapped in a tiny window.",
+      "hero": "https://impeccable.style/worlds/cards/digital-design-canon-cdrom-chrome-navigation-hero.webp"
+    }
+  ],
+  "reroll": {"registers": ["safer", "bolder"]},
+  "buildPath": {"value": "code", "toggle": false},
+  "canon": true,
+  "canonCard": {
+    "label": "The category standard",
+    "thesis": "The single-column developer portfolio: hero, proof numbers, projects, testimonials, contact, executed impeccably.",
+    "palette": ["#FFFFFF", "#111827", "#2563EB"],
+    "materials": ["clean grid", "system sans"],
+    "viewport": "Photo and headline, three stat tiles, project cards, testimonial cards, contact strip.",
+    "risk": "Indistinguishable from the competition by design."
+  },
+  "steer": true
+}
