@@ -1,0 +1,21 @@
+---
+import { Icon } from "astro-icon/components";
+import { stats } from "../lib/site";
+---
+<section id="about" class="px-5 sm:px-8 py-28 sm:py-40 scroll-mt-10" aria-labelledby="about-heading">
+  <div class="grid gap-12 lg:grid-cols-[1.4fr_1fr] lg:gap-20 max-w-7xl mx-auto">
+    <h2 id="about-heading" class="font-display font-medium text-[clamp(2rem,4.6vw,4.25rem)] leading-[1.02] tracking-[-0.03em]" data-split>I build the platforms a million people use, and I own them end to end.</h2>
+    <div class="lg:pt-4 space-y-8">
+      <p class="text-lg text-muted max-w-md" data-reveal>For two years I was the sole engineer behind EF Academy’s multilingual marketing platform and its AWS integration layer: 1.25M+ monthly users, 23+ languages, Salesforce, Storyblok, Glue, Lambda. I research first, present options with real trade-offs, then ship and keep it running.</p>
+      <a href="#work" class="btn-round size-40 border border-line-strong text-sm font-medium hover:text-white" data-magnetic data-reveal>See the work <Icon name="lucide:arrow-down" size={16} class="ml-2" aria-hidden="true" /></a>
+    </div>
+  </div>
+  <dl class="mt-24 sm:mt-32 max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 border-t border-line">
+    {stats.map((s) => (
+      <div class="py-8 pr-6 border-b border-line lg:border-b-0 lg:border-r lg:last:border-r-0 lg:px-6 lg:first:pl-0" data-reveal>
+        <dd class="font-display font-semibold text-5xl sm:text-6xl tracking-[-0.04em] tabular"><span data-count={s.value} data-decimals={s.decimals}>{s.value.toFixed(s.decimals)}</span>{s.suffix}</dd>
+        <dt class="mt-3 text-sm text-muted max-w-[20ch]">{s.label}</dt>
+      </div>
+    ))}
+  </dl>
+</section>

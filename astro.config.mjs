@@ -12,53 +12,9 @@ export default defineConfig({
   adapter: vercel(),
   integrations: [icon(), sitemap()],
   fonts: [
-    {
-      // Display: a Clarendon. The face of 19th-century stamped and filed documents.
-      provider: fontProviders.fontsource(),
-      name: 'Besley',
-      cssVariable: '--font-display',
-      weights: [500, 600, 700, 800],
-      styles: ['normal', 'italic'],
-      subsets: ['latin'],
-      fallbacks: ['Georgia', 'serif'],
-    },
-    {
-      // Text: a workhorse document serif with optical sizes.
-      provider: fontProviders.fontsource(),
-      name: 'Source Serif 4',
-      cssVariable: '--font-text',
-      weights: [400, 500, 600],
-      styles: ['normal', 'italic'],
-      subsets: ['latin'],
-      fallbacks: ['Georgia', 'serif'],
-    },
-    {
-      // Tamil: his name, set in a serif that sits beside the Latin faces.
-      provider: fontProviders.fontsource(),
-      name: 'Noto Serif Tamil',
-      cssVariable: '--font-tamil',
-      weights: [500, 700],
-      styles: ['normal'],
-      subsets: ['tamil'],
-      fallbacks: ['serif'],
-    },
-    {
-      // Mono: identifiers, dates and figures only. Never a costume.
-      provider: fontProviders.fontsource(),
-      name: 'Source Code Pro',
-      cssVariable: '--font-mono',
-      weights: [400, 600],
-      styles: ['normal'],
-      subsets: ['latin'],
-      fallbacks: ['ui-monospace', 'monospace'],
-    },
-    // ---- variant round fonts (removed once a direction is chosen) ----
-    { provider: fontProviders.fontsource(), name: 'Manrope', cssVariable: '--font-manrope', weights: [400, 600, 800], subsets: ['latin'], fallbacks: ['sans-serif'] },
-    { provider: fontProviders.fontsource(), name: 'Archivo', cssVariable: '--font-archivo', weights: [500, 800, 900], subsets: ['latin'], fallbacks: ['sans-serif'] },
-    { provider: fontProviders.fontsource(), name: 'JetBrains Mono', cssVariable: '--font-jetbrains', weights: [400, 600], subsets: ['latin'], fallbacks: ['monospace'] },
-    { provider: fontProviders.fontsource(), name: 'Gloock', cssVariable: '--font-gloock', weights: [400], subsets: ['latin'], fallbacks: ['serif'] },
-    { provider: fontProviders.fontsource(), name: 'Sora', cssVariable: '--font-sora', weights: [400, 600, 800], subsets: ['latin'], fallbacks: ['sans-serif'] },
-    { provider: fontProviders.fontsource(), name: 'Unbounded', cssVariable: '--font-unbounded', weights: [500, 800], subsets: ['latin'], fallbacks: ['sans-serif'] },
-    { provider: fontProviders.fontsource(), name: 'Onest', cssVariable: '--font-onest', weights: [400, 600], subsets: ['latin'], fallbacks: ['sans-serif'] },
+    { provider: fontProviders.fontsource(), name: 'Bricolage Grotesque', cssVariable: '--font-display', weights: [400, 500, 600, 700, 800], styles: ['normal'], subsets: ['latin'], fallbacks: ['Arial Narrow', 'sans-serif'] },
+    { provider: fontProviders.fontsource(), name: 'Geist', cssVariable: '--font-text', weights: [400, 500, 600], styles: ['normal'], subsets: ['latin'], fallbacks: ['system-ui', 'sans-serif'] },
+    { provider: fontProviders.fontsource(), name: 'Geist Mono', cssVariable: '--font-mono', weights: [400, 500], styles: ['normal'], subsets: ['latin'], fallbacks: ['ui-monospace', 'monospace'] },
+    { provider: fontProviders.fontsource(), name: 'Noto Sans Tamil', cssVariable: '--font-tamil', weights: [500, 700], styles: ['normal'], subsets: ['tamil'], fallbacks: ['sans-serif'] },
   ],
 });

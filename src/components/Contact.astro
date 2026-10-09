@@ -1,28 +1,37 @@
 ---
-import { Icon } from "astro-icon/components";
-import SectionHeading from "./SectionHeading.astro";
-import ContactBlock from "./ContactBlock.astro";
-import { site } from "../lib/site";
-const channels = [
-  { icon: "lucide:mail", label: "Email", value: site.email, href: `mailto:${site.email}` },
-  { icon: "lucide:phone", label: "Phone", value: site.phoneDisplay, href: `tel:${site.phoneE164}` },
-  { icon: "simple-icons:whatsapp", label: "WhatsApp", value: site.phoneDisplay, href: site.whatsapp },
-  { icon: "simple-icons:linkedin", label: "LinkedIn", value: "mohammed-mubarak", href: site.linkedin },
-  { icon: "simple-icons:github", label: "GitHub", value: "MDmubarak786", href: site.github },
-  { icon: "simple-icons:x", label: "X", value: "@MMubarakoo7", href: site.x },
-  { icon: "simple-icons:instagram", label: "Instagram", value: "@scooby_doo.mk", href: site.instagram },
-  { icon: "simple-icons:youtube", label: "YouTube", value: "@mohammedmubarak1478", href: site.youtube },
-];
+import { Image } from "astro:assets";
+import portrait from "../assets/portrait.png";
+import { site, mailto } from "../lib/site";
+const socials = [["LinkedIn", site.linkedin], ["GitHub", site.github], ["X", site.x], ["Instagram", site.instagram], ["YouTube", site.youtube], ["WhatsApp", site.whatsapp]];
+const year = new Date().getFullYear();
 ---
-<section id="contact" data-section aria-labelledby="contact-heading" class="sheet px-5 py-6 sm:px-8 sm:py-8 xl:px-10 xl:py-10 scroll-mt-20 lg:scroll-mt-6">
-  <SectionHeading id="contact" title="Contact" lede="If you are hiring for a lead or staff role, or want to talk through an architecture problem, the fastest route is email or WhatsApp." />
-  <div class="mt-8 max-w-[70ch]"><ContactBlock /></div>
-  <dl class="mt-10 pt-8 border-t border-rule grid gap-x-8 gap-y-3 sm:grid-cols-2 max-w-[70ch]">
-    {channels.map((c) => (
-      <div class="flex items-baseline gap-3">
-        <dt class="flex items-center gap-2 w-28 shrink-0 text-sm text-ink-soft"><Icon name={c.icon} size={14} aria-hidden="true" class="shrink-0 relative top-px" />{c.label}</dt>
-        <dd class="min-w-0 [overflow-wrap:anywhere]"><a href={c.href} rel={c.href.startsWith("http") ? "noopener" : undefined} target={c.href.startsWith("http") ? "_blank" : undefined}>{c.value}</a></dd>
+<footer id="contact" class="relative bg-bg-2 px-5 sm:px-8 pt-28 pb-8 scroll-mt-10 overflow-hidden" aria-labelledby="contact-heading">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex items-center gap-5" data-reveal>
+      <Image src={portrait} alt="" width={120} height={120} class="size-16 sm:size-24 rounded-full object-cover" loading="lazy" />
+      <h2 id="contact-heading" class="font-display font-medium text-[clamp(2.6rem,8vw,7.5rem)] leading-[0.95] tracking-[-0.04em]" data-split>Let’s work together</h2>
+    </div>
+    <div class="relative mt-10 border-t border-line pt-10 flex flex-wrap items-center gap-4">
+      <a href={mailto("A conversation about a role")} class="rounded-full border border-line-strong px-7 py-4 hover:bg-fg hover:text-bg transition">{site.email}</a>
+      <a href={site.whatsapp} class="rounded-full border border-line-strong px-7 py-4 hover:bg-fg hover:text-bg transition">{site.phoneDisplay}</a>
+      <a href={mailto("Let's talk")} class="btn-round sm:absolute sm:right-10 sm:-top-14 size-36 sm:size-44 bg-accent text-white text-lg font-medium" data-magnetic>Get in touch</a>
+    </div>
+    <div class="mt-24 grid gap-10 sm:grid-cols-[1fr_auto] text-sm">
+      <div class="flex flex-wrap gap-x-10 gap-y-6">
+        <div><p class="text-muted text-xs uppercase tracking-widest">Version</p><p class="mt-2">{year} © Edition</p></div>
+        <div><p class="text-muted text-xs uppercase tracking-widest">Local time</p><p class="mt-2 tabular" data-clock>--:-- IST</p></div>
+        <div><p class="text-muted text-xs uppercase tracking-widest">Name</p><p class="mt-2 font-tamil" lang="ta">{site.tamilName}</p></div>
       </div>
-    ))}
-  </dl>
-</section>
+      <div>
+        <p class="text-muted text-xs uppercase tracking-widest">Socials</p>
+        <ul class="mt-2 flex flex-wrap gap-x-5 gap-y-2">{socials.map(([l, h]) => <li><a href={h} rel="noopener" target="_blank" class="link-draw">{l}</a></li>)}</ul>
+      </div>
+    </div>
+  </div>
+  <a href="#top" class="btn-round fixed bottom-6 right-6 z-40 size-20 bg-fg text-bg text-sm font-medium opacity-0 translate-y-4 transition-all duration-500 data-[show]:opacity-100 data-[show]:translate-y-0" data-sticky-cta data-magnetic href={mailto("Let's talk")}>Let’s talk</a>
+</footer>
+<script>
+  const el = document.querySelector("[data-clock]");
+  const tick = () => { if (el) el.textContent = new Date().toLocaleTimeString("en-IN", { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit", hour12: true }).toUpperCase() + " IST"; };
+  tick(); setInterval(tick, 20000);
+</script>

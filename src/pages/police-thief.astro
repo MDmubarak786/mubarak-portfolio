@@ -6,16 +6,16 @@ const scene = "https://prod.spline.design/OYEbvRLyo9dWqScq/scene.splinecode";
 ---
 <Base title={`Whac-a-Thief, a mini game – ${site.name}`} description="Tap the burglars, spare the cops. A mini game built in Spline.">
   <main id="main" class="min-h-dvh flex flex-col">
-    <header class="px-4 py-3 sm:px-6 flex items-center justify-between gap-4 border-b border-rule bg-paper">
-      <a href="/" class="press inline-flex items-center gap-1.5 px-2.5 py-1 text-sm no-underline hover:no-underline"><Icon name="lucide:arrow-left" size={14} aria-hidden="true" /> Back to the records</a>
+    <header class="px-4 py-3 sm:px-6 flex items-center justify-between gap-4 border-b border-line bg-bg">
+      <a href="/" class="inline-flex items-center gap-1.5 rounded-full border border-line-strong px-3 py-1.5 text-sm hover:bg-fg hover:text-bg transition"><Icon name="lucide:arrow-left" size={14} aria-hidden="true" /> Back to the records</a>
       <h1 class="text-lg">Whac-a-Thief</h1>
     </header>
     <section class="flex-1 grid place-items-center px-4 py-8" data-game>
       <div class="max-w-[52ch] text-center space-y-4" data-game-intro>
         <p>Tap the burglars to add points. Hit a cop and you lose score. It works best on a desktop or in landscape.</p>
-        <p class="text-sm text-ink-soft">The game is a 3D scene built in Spline. It loads only when you start it.</p>
-        <button type="button" class="press inline-flex items-center gap-2 px-4 py-2 font-semibold" data-game-start><Icon name="lucide:play" size={16} aria-hidden="true" /> Start the game</button>
-        <p class="text-sm text-ink-muted hidden" data-game-loading>Loading the scene…</p>
+        <p class="text-sm text-muted">The game is a 3D scene built in Spline. It loads only when you start it.</p>
+        <button type="button" class="inline-flex items-center gap-2 rounded-full bg-accent text-white px-6 py-3 font-medium" data-game-start><Icon name="lucide:play" size={16} aria-hidden="true" /> Start the game</button>
+        <p class="text-sm text-muted hidden" data-game-loading>Loading the scene…</p>
       </div>
       <div class="w-full h-[min(80dvh,56.25vw)] hidden" data-game-stage></div>
     </section>

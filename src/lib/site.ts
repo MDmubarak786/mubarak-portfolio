@@ -21,13 +21,14 @@ export const site = {
   url: "https://mk-full-stack-developer.vercel.app",
 } as const;
 
-export const sections = [
-  { id: "witnesses", label: "Witnesses" },
-  { id: "experience", label: "Experience" },
-  { id: "stack", label: "Stack" },
-  { id: "earlier-work", label: "Earlier work" },
-  { id: "contact", label: "Contact" },
-] as const;
+export const greetings = ["வணக்கம்", "Hello", "Hola", "Bonjour", "Ciao", "Olá", "नमस्ते", "こんにちは", "Hallo"];
+
+export const stats = [
+  { value: 1.25, suffix: "M+", decimals: 2, label: "monthly users on the EF Academy platform" },
+  { value: 23, suffix: "+", decimals: 0, label: "languages served from one codebase" },
+  { value: 96.5, suffix: "%", decimals: 1, label: "integration cost cut, Tibco → AWS Glue" },
+  { value: 9, suffix: "", decimals: 0, label: "leaders and clients vouching on record" },
+];
 
 export function mailto(subject: string) {
   return `mailto:${site.email}?subject=${encodeURIComponent(subject)}`;

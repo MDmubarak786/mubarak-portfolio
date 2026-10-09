@@ -1,0 +1,29 @@
+---
+import { getCollection } from "astro:content";
+import { Icon } from "astro-icon/components";
+const witnesses = (await getCollection("witnesses")).sort((a, b) => a.data.order - b.data.order);
+---
+<section id="witnesses" class="py-24 sm:py-32 scroll-mt-10" aria-labelledby="witnesses-heading">
+  <div class="px-5 sm:px-8 max-w-7xl mx-auto flex items-end justify-between gap-6">
+    <h2 id="witnesses-heading" class="font-display text-[clamp(2rem,5vw,4.5rem)] font-medium tracking-[-0.03em] leading-none" data-split>Nine people, on record.</h2>
+    <div class="hidden sm:flex gap-2">
+      <button type="button" class="size-12 rounded-full border border-line-strong grid place-items-center hover:bg-fg hover:text-bg transition" data-scroll-prev aria-label="Previous"><Icon name="lucide:arrow-left" size={18} /></button>
+      <button type="button" class="size-12 rounded-full border border-line-strong grid place-items-center hover:bg-fg hover:text-bg transition" data-scroll-next aria-label="Next"><Icon name="lucide:arrow-right" size={18} /></button>
+    </div>
+  </div>
+  <ul class="mt-12 flex gap-5 overflow-x-auto snap-x snap-mandatory px-5 sm:px-8 pb-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" data-track>
+    {witnesses.map((w) => (
+      <li id={`witness-${w.id}`} class="snap-start shrink-0 w-[min(86vw,30rem)] rounded-3xl bg-bg-2 border border-line p-7 sm:p-9 flex flex-col scroll-mt-28">
+        <Icon name="lucide:quote" size={22} class="text-accent" aria-hidden="true" />
+        <blockquote class="mt-5 space-y-3 text-[0.98rem] leading-relaxed flex-1">{w.data.quote.split(/\n\s*\n/).map((p) => <p>{p}</p>)}</blockquote>
+        <footer class="mt-6 pt-5 border-t border-line text-sm"><p class="font-medium">{w.data.name}</p><p class="text-muted">{w.data.title}{w.data.organisation ? `, ${w.data.organisation}` : ""}</p></footer>
+      </li>
+    ))}
+  </ul>
+</section>
+<script>
+  const track = document.querySelector<HTMLElement>("[data-track]");
+  const step = () => (track?.firstElementChild as HTMLElement | null)?.offsetWidth ?? 400;
+  document.querySelector("[data-scroll-prev]")?.addEventListener("click", () => track?.scrollBy({ left: -step() - 20, behavior: "smooth" }));
+  document.querySelector("[data-scroll-next]")?.addEventListener("click", () => track?.scrollBy({ left: step() + 20, behavior: "smooth" }));
+</script>

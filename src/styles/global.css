@@ -1,156 +1,72 @@
 @import "tailwindcss";
 
-/* ---------------------------------------------------------------------------
-   The Decision Record: tokens.
-   Paper ground, ink, one green for ACCEPTED stamps, one rust for rejected
-   options. Every colour on the page comes from here.
---------------------------------------------------------------------------- */
 @theme {
   --color-*: initial;
-  --color-paper: #f4f0e6;
-  --color-paper-deep: #ebe5d6;
-  --color-paper-bright: #ffffff;
-  --color-rule: #d8cfbb;
-  --color-rule-strong: #b9ad92;
-  --color-ink: #1b1914;
-  --color-ink-soft: #4a4538;
-  --color-ink-muted: #6b6452;
-  --color-stamp: #1f6f4a;
-  --color-stamp-soft: #2f8a60;
-  --color-rust: #a23a1e;
-  --color-rust-soft: #c2542f;
+  --color-bg: #0b0b0c;
+  --color-bg-2: #141416;
+  --color-fg: #f2f2f0;
+  --color-muted: #9c9c98;
+  --color-line: rgb(242 242 240 / 0.14);
+  --color-line-strong: rgb(242 242 240 / 0.32);
+  --color-accent: #4f6bff;
+  --color-accent-deep: #2f4be6;
+  --color-white: #ffffff;
+  --color-black: #000000;
 
-  --font-display: var(--font-display), Georgia, serif;
-  --font-text: var(--font-text), Georgia, serif;
-  --font-tamil: var(--font-tamil), serif;
+  --font-display: var(--font-display), "Arial Narrow", sans-serif;
+  --font-text: var(--font-text), system-ui, sans-serif;
   --font-mono: var(--font-mono), ui-monospace, monospace;
+  --font-tamil: var(--font-tamil), sans-serif;
 
-  --text-xs: 0.78rem;
-  --text-xs--line-height: 1.4;
-  --text-sm: 0.9rem;
-  --text-sm--line-height: 1.5;
-  --text-base: 1.0625rem;
-  --text-base--line-height: 1.6;
-  --text-lg: 1.25rem;
-  --text-lg--line-height: 1.45;
-  --text-xl: 1.5rem;
-  --text-xl--line-height: 1.3;
-  --text-2xl: clamp(1.6rem, 1.15rem + 1.6vw, 2rem);
-  --text-2xl--line-height: 1.15;
-  --text-3xl: clamp(2rem, 1.3rem + 2.6vw, 2.75rem);
-  --text-3xl--line-height: 1.05;
-  --text-4xl: clamp(2.4rem, 1.4rem + 3.8vw, 3.75rem);
-  --text-4xl--line-height: 1;
-
-  --ease-settle: cubic-bezier(0.16, 1, 0.3, 1);
-  --shadow-sheet: 0 1px 0 rgb(27 25 20 / 0.06), 0 10px 24px -14px rgb(27 25 20 / 0.35);
-  --shadow-press: inset 0 2px 4px rgb(27 25 20 / 0.18);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
 }
 
-/* ---------------------------------------------------------------------------
-   Base: the paper and the ink.
---------------------------------------------------------------------------- */
 @layer base {
-  :root {
-    color-scheme: light;
-    scrollbar-color: var(--color-rule-strong) var(--color-paper);
-    caret-color: var(--color-ink);
-    accent-color: var(--color-stamp);
-  }
-  html {
-    background-color: var(--color-paper);
-    color: var(--color-ink);
-    font-family: var(--font-text);
-    font-size: 100%;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-    font-kerning: normal;
-    scroll-behavior: smooth;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-  }
-  body {
-    min-height: 100dvh;
-    background-color: var(--color-paper);
-    /* Ruled paper: a faint horizontal rule every 2rem, fixed to the page. */
-    background-image: repeating-linear-gradient(
-      to bottom,
-      transparent 0,
-      transparent calc(2rem - 1px),
-      color-mix(in oklab, var(--color-rule) 55%, transparent) calc(2rem - 1px),
-      color-mix(in oklab, var(--color-rule) 55%, transparent) 2rem
-    );
-    background-attachment: fixed;
-  }
-  ::selection {
-    background-color: var(--color-ink);
-    color: var(--color-paper);
-  }
+  :root { color-scheme: dark; scrollbar-color: var(--color-line-strong) var(--color-bg); caret-color: var(--color-accent); }
+  html { background: var(--color-bg); color: var(--color-fg); font-family: var(--font-text); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  .lenis.lenis-stopped { overflow: hidden; }
+  body { min-height: 100dvh; overflow-x: clip; }
+  ::selection { background: var(--color-accent); color: var(--color-white); }
   :focus { outline: none; }
-  :focus-visible {
-    /* The brightest surface on the page belongs to the focused control only. */
-    outline: 2px solid var(--color-ink);
-    outline-offset: 2px;
-    box-shadow: 0 0 0 5px var(--color-paper-bright);
-    border-radius: 2px;
-  }
-  a {
-    color: inherit;
-    text-decoration-line: underline;
-    text-decoration-color: var(--color-rule-strong);
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.18em;
-    transition: text-decoration-color 160ms var(--ease-settle);
-  }
-  a:hover { text-decoration-color: var(--color-ink); }
-  h1, h2, h3 {
-    font-family: var(--font-display);
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    text-wrap: balance;
-  }
+  :focus-visible { outline: 2px solid var(--color-accent); outline-offset: 4px; border-radius: 2px; }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.03em; line-height: 0.95; text-wrap: balance; }
   p { text-wrap: pretty; }
-  .tabular, table, time { font-variant-numeric: tabular-nums lining-nums; }
-  code, kbd, samp, .mono { font-family: var(--font-mono); font-size: 0.92em; }
-  ::-webkit-scrollbar { width: 12px; height: 12px; }
-  ::-webkit-scrollbar-track { background: var(--color-paper); }
-  ::-webkit-scrollbar-thumb {
-    background: var(--color-rule-strong);
-    border: 3px solid var(--color-paper);
-    border-radius: 999px;
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: var(--color-bg); }
+  ::-webkit-scrollbar-thumb { background: var(--color-line-strong); border: 3px solid var(--color-bg); border-radius: 999px; }
+  .tabular { font-variant-numeric: tabular-nums; }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track { animation: none !important; }
   }
-  button { font: inherit; color: inherit; }
 }
 
-/* ---------------------------------------------------------------------------
-   Components that the world owns.
---------------------------------------------------------------------------- */
 @layer components {
-  /* A filed sheet: the main column's surface. */
-  .sheet {
-    background-color: var(--color-paper);
-    box-shadow: var(--shadow-sheet);
-    border: 1px solid var(--color-rule);
-  }
-  /* Controls that physically press. */
-  .press {
-    border: 1px solid var(--color-ink);
-    background-color: var(--color-paper);
-    transition: transform 120ms var(--ease-settle), box-shadow 120ms var(--ease-settle), background-color 120ms;
-  }
-  .press:hover { background-color: var(--color-paper-deep); }
-  .press:active { transform: translateY(1px); box-shadow: var(--shadow-press); }
-  .press[aria-disabled="true"], .press:disabled {
-    border-color: var(--color-rule);
-    color: var(--color-ink-muted);
-    box-shadow: none;
-    transform: none;
-    cursor: not-allowed;
-  }
-  /* The inset row: the current record in the index. */
-  .inset {
-    background-color: var(--color-paper-deep);
-    box-shadow: var(--shadow-press);
-  }
+  /* Underline that draws in from the left on hover. */
+  .link-draw { position: relative; }
+  .link-draw::after { content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform 420ms var(--ease-out-expo); }
+  .link-draw:hover::after, .link-draw:focus-visible::after { transform: scaleX(1); }
+
+  /* Round, filled button with a sweep on hover. */
+  .btn-round { position: relative; display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; overflow: hidden; isolation: isolate; }
+  .btn-round::before { content: ""; position: absolute; inset: -1px; border-radius: inherit; background: var(--color-accent); transform: translateY(101%); transition: transform 520ms var(--ease-out-expo); z-index: -1; }
+  .btn-round:hover::before, .btn-round:focus-visible::before { transform: translateY(0); }
+
+  /* Masked line reveal: children lines are translated up until revealed. */
+  .reveal .line { display: block; overflow: hidden; }
+  .reveal .line > span { display: block; }
+
+  /* Marquee */
+  .marquee { overflow: hidden; white-space: nowrap; }
+  .marquee-track { display: inline-flex; gap: 0; animation: marquee var(--marquee-speed, 28s) linear infinite; will-change: transform; }
+  .marquee-track[data-reverse] { animation-direction: reverse; }
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+  @keyframes marquee { to { transform: translate3d(-50%, 0, 0); } }
+
+  .work-row { border-top: 1px solid var(--color-line); transition: opacity 320ms; }
+  .work-list:hover .work-row:not(:hover) { opacity: 0.4; }
 }

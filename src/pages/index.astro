@@ -1,18 +1,18 @@
 ---
-import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
-import RecordIndex from "../components/RecordIndex.astro";
-import Record from "../components/Record.astro";
-import Witnesses from "../components/Witnesses.astro";
+import Preloader from "../components/Preloader.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import Intro from "../components/Intro.astro";
+import Work from "../components/Work.astro";
+import Testimonials from "../components/Testimonials.astro";
 import Experience from "../components/Experience.astro";
-import Stack from "../components/Stack.astro";
+import StackMarquee from "../components/StackMarquee.astro";
 import EarlierWork from "../components/EarlierWork.astro";
 import Contact from "../components/Contact.astro";
-import Footer from "../components/Footer.astro";
 import { site } from "../lib/site";
 
-const records = (await getCollection("records")).sort((a, b) => a.data.order - b.data.order);
-const description = `${site.name}, ${site.role} in ${site.location}. Six decision records on owning a 1.25M-user multilingual platform, a 96% integration cost cut, and the teams and clients who vouch for the work.`;
+const description = `${site.name}, ${site.role} in ${site.location}. Sole engineer behind a 1.25M-user multilingual platform, a 96% integration cost cut, and nine leaders vouching on record.`;
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -30,18 +30,18 @@ const jsonLd = {
 };
 ---
 <Base title={`${site.name} – ${site.role}`} description={description} path="/" jsonLd={jsonLd}>
-  <div class="lg:grid lg:grid-cols-[19rem_minmax(0,1fr)] xl:grid-cols-[21rem_minmax(0,1fr)]">
-    <RecordIndex records={records} />
-    <div class="min-w-0">
-      <main id="main" class="px-3 py-4 sm:px-6 sm:py-8 lg:px-10 lg:py-10 space-y-8 lg:space-y-12">
-        {records.map((r, i) => <Record record={r} first={i === 0} />)}
-        <Witnesses />
-        <Experience />
-        <Stack />
-        <EarlierWork />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
-  </div>
+  <Preloader />
+  <Header />
+  <main id="main" class="relative">
+    <div id="top"></div>
+    <Hero />
+    <Intro />
+    <Work />
+    <Testimonials />
+    <Experience />
+    <StackMarquee />
+    <EarlierWork />
+  </main>
+  <Contact />
+  <script src="../scripts/motion.ts"></script>
 </Base>

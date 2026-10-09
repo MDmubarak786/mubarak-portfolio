@@ -2,17 +2,12 @@
 import { Icon } from "astro-icon/components";
 import { site } from "../lib/site";
 ---
-<button type="button" class="press inline-flex items-center gap-1.5 px-2 py-1 text-sm" data-pronounce aria-label={`Hear how to pronounce ${site.name}`}>
-  <Icon name="lucide:volume-2" size={16} aria-hidden="true" />
-  <span>Pronounce</span>
+<button type="button" class="inline-flex items-center gap-2 rounded-full border border-line-strong px-3 py-1.5 text-sm hover:border-fg transition" data-pronounce aria-label={`Hear how to pronounce ${site.name}`}>
+  <Icon name="lucide:volume-2" size={14} aria-hidden="true" />
+  <span class="font-tamil" lang="ta">{site.tamilName}</span>
 </button>
 <audio preload="none" src={site.audio} data-pronounce-audio></audio>
 <script>
-  const button = document.querySelector<HTMLButtonElement>("[data-pronounce]");
   const audio = document.querySelector<HTMLAudioElement>("[data-pronounce-audio]");
-  button?.addEventListener("click", () => {
-    if (!audio) return;
-    audio.currentTime = 0;
-    void audio.play();
-  });
+  document.querySelectorAll<HTMLButtonElement>("[data-pronounce]").forEach((b) => b.addEventListener("click", () => { if (!audio) return; audio.currentTime = 0; void audio.play(); }));
 </script>

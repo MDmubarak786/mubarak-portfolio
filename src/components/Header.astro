@@ -1,0 +1,34 @@
+---
+import { site } from "../lib/site";
+const nav = [["Work", "#work"], ["About", "#about"], ["Contact", "#contact"]];
+---
+<header class="fixed inset-x-0 top-0 z-50 mix-blend-difference text-white">
+  <div class="flex items-center justify-between px-5 sm:px-8 py-5">
+    <a href="/" class="flex items-center gap-2 font-display font-semibold text-lg group" aria-label={`${site.name}, home`}>
+      <span class="inline-block transition-transform duration-500 group-hover:rotate-[360deg]">©</span>
+      <span class="overflow-hidden relative h-6">
+        <span class="block transition-transform duration-500 group-hover:-translate-y-6">Mubarak</span>
+        <span class="block absolute top-6 whitespace-nowrap transition-transform duration-500 group-hover:-translate-y-6">{site.name}</span>
+      </span>
+    </a>
+    <nav aria-label="Primary" class="hidden sm:flex items-center gap-8 text-sm">
+      {nav.map(([label, href]) => <a href={href} class="link-draw">{label}</a>)}
+      <a href={site.linkedin} rel="noopener" target="_blank" class="link-draw">LinkedIn</a>
+    </nav>
+    <button type="button" class="sm:hidden size-10 rounded-full border border-white/40 grid place-items-center" data-menu-toggle aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+      <span class="block w-4 h-px bg-white relative before:absolute before:inset-x-0 before:-top-1.5 before:h-px before:bg-white after:absolute after:inset-x-0 after:top-1.5 after:h-px after:bg-white"></span>
+    </button>
+  </div>
+</header>
+<div id="mobile-menu" class="fixed inset-0 z-40 bg-bg-2 text-fg hidden flex-col justify-end p-8 pb-16 gap-6" data-menu>
+  <p class="text-xs uppercase tracking-widest text-muted">Navigation</p>
+  {nav.map(([label, href]) => <a href={href} class="font-display text-5xl" data-menu-link>{label}</a>)}
+  <div class="flex gap-6 text-sm text-muted pt-6 border-t border-line"><a href={site.linkedin}>LinkedIn</a><a href={site.github}>GitHub</a><a href={site.x}>X</a><a href={site.instagram}>Instagram</a></div>
+</div>
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>("[data-menu-toggle]");
+  const menu = document.querySelector<HTMLElement>("[data-menu]");
+  const set = (open: boolean) => { if (!toggle || !menu) return; toggle.setAttribute("aria-expanded", String(open)); menu.classList.toggle("hidden", !open); menu.classList.toggle("flex", open); document.body.style.overflow = open ? "hidden" : ""; };
+  toggle?.addEventListener("click", () => set(toggle.getAttribute("aria-expanded") !== "true"));
+  menu?.querySelectorAll("[data-menu-link]").forEach((a) => a.addEventListener("click", () => set(false)));
+</script>
