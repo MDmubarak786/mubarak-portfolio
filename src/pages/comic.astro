@@ -5,6 +5,7 @@ import FinalShell from "../layouts/FinalShell.astro";
 import Calendar from "../components/final/Calendar.astro";
 import Pronounce from "../components/final/Pronounce.astro";
 import ResumeDialog from "../components/final/ResumeDialog.astro";
+import ComicArt from "../components/final/ComicArt.astro";
 import portrait from "../assets/portrait.jpg";
 import { site, mailto } from "../lib/site";
 import { me, numbers, migration, stack } from "../lib/story";
@@ -33,6 +34,8 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     .burst { clip-path: polygon(50% 0%, 61% 12%, 77% 6%, 80% 23%, 96% 29%, 88% 44%, 100% 56%, 85% 65%, 88% 82%, 71% 82%, 63% 97%, 50% 87%, 37% 97%, 29% 82%, 12% 82%, 15% 65%, 0% 56%, 12% 44%, 4% 29%, 20% 23%, 23% 6%, 39% 12%); }
     .emph { font-weight: 700; background: linear-gradient(transparent 55%, #fff3b0 55%); padding: 0 .1em; }
     .badge { display:inline-grid; place-items:center; width:2.4rem; height:2.4rem; border:3px solid #111; border-radius:50%; background:#ffb703; font-family: var(--font-bangers); font-size:1rem; letter-spacing:.04em; box-shadow: 3px 3px 0 #111; flex-shrink:0; }
+    .pnum { position:absolute; top:-14px; left:-14px; width:34px; height:34px; border:4px solid #111; background:#fff3b0; font-family: var(--font-bangers); font-size:1.1rem; display:grid; place-items:center; box-shadow: 3px 3px 0 #111; }
+    .narr { font-size:1.15rem; line-height:1.45; }
     .zig { background: repeating-linear-gradient(135deg, #111 0 6px, transparent 6px 12px); height: 10px; }
     details summary { list-style:none; cursor:pointer; } details summary::-webkit-details-marker { display:none; }
   </style>
@@ -62,10 +65,51 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     <!-- CHAPTER 1 -->
     <section id="migration" class="mt-16 scroll-mt-24" aria-labelledby="ch1">
       <h2 id="ch1" class="text-5xl sm:text-6xl">Chapter 1 · The Great Migration</h2>
-      <p class="mt-2 text-xl">A true story about $24,000, a deadline, and AWS Glue.</p>
-      <div class="mt-6 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {migration.map((m, i) => <article class="panel p-6 min-h-[17rem] flex flex-col" style={`transform: rotate(${(i % 2 ? 1 : -1) * 0.6}deg)`}><p class="caption self-start">Panel {i + 1} · {m.t}</p><p class="bubble mt-5">{m.s}</p><p class="sfx mt-auto self-end text-[clamp(2rem,5vw,4rem)]" style={`color:${colors[i]}`}>{sfx[i]}</p></article>)}
-        <article class="panel p-6 bg-[#ff2e63] text-white flex flex-col justify-center"><p class="bang text-5xl">THE END?</p><p class="text-xl mt-2">No. The platform still serves 1.25M people a month. Turn the page.</p></article>
+      <p class="mt-2 text-xl">A true story about $24,000, a deadline, and AWS Glue. Six panels, in order.</p>
+      <div class="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-6 lg:auto-rows-[minmax(15rem,auto)]">
+        <!-- 1 · wide establishing panel -->
+        <article class="panel p-6 lg:col-span-4 grid gap-5 sm:grid-cols-[1fr_auto] items-center" style="--tilt:-0.5deg">
+          <span class="pnum">1</span>
+          <div class="space-y-4"><p class="caption">{migration[0].t}</p><p class="narr">{migration[0].s}</p><p class="sfx text-[clamp(2rem,5vw,4rem)]" style={`color:${colors[0]}`}>{sfx[0]}</p></div>
+          <ComicArt kind="clock" class="w-40 sm:w-48 lg:w-56 justify-self-center" />
+        </article>
+        <!-- 2 · the choice, spoken -->
+        <article class="panel p-6 lg:col-span-2 flex flex-col gap-4" style="--tilt:0.6deg">
+          <span class="pnum">2</span>
+          <p class="caption self-start">{migration[1].t}</p>
+          <ComicArt kind="fork" class="w-36 self-center" />
+          <p class="bubble text-base">{migration[1].s}</p>
+          <p class="sfx self-end text-[clamp(1.8rem,4vw,3rem)]" style={`color:${colors[1]}`}>{sfx[1]}</p>
+        </article>
+        <!-- 3 · the plan -->
+        <article class="panel p-6 lg:col-span-2 flex flex-col gap-4" style="--tilt:-0.4deg">
+          <span class="pnum">3</span>
+          <p class="caption self-start">{migration[2].t}</p>
+          <div class="flex items-center gap-4"><ComicArt kind="plan" class="w-28 shrink-0" /><p class="narr">{migration[2].s}</p></div>
+          <p class="sfx self-end text-[clamp(1.8rem,4vw,3rem)]" style={`color:${colors[2]}`}>{sfx[2]}</p>
+        </article>
+        <!-- 4 · the cutover -->
+        <article class="panel p-6 lg:col-span-2 flex flex-col gap-4" style="--tilt:0.5deg">
+          <span class="pnum">4</span>
+          <p class="caption self-start">{migration[3].t}</p>
+          <ComicArt kind="switch" class="w-40 self-center" />
+          <p class="narr">{migration[3].s}</p>
+          <p class="sfx self-end text-[clamp(1.8rem,4vw,3rem)]" style={`color:${colors[3]}`}>{sfx[3]}</p>
+        </article>
+        <!-- 5 · the bill, with the witness speaking -->
+        <article class="panel p-6 lg:col-span-2 flex flex-col gap-4" style="--tilt:-0.6deg">
+          <span class="pnum">5</span>
+          <p class="caption self-start">{migration[4].t}</p>
+          <div class="flex items-center gap-4"><ComicArt kind="bill" class="w-28 shrink-0" /><p class="narr">{migration[4].s}</p></div>
+          <p class="bubble text-base"><strong class="emph">“Saved us $30,000 annually in licensing fees.”</strong> <span class="text-sm">· Jason Wheeler, VP of Technology</span></p>
+          <p class="sfx self-end text-[clamp(1.8rem,4vw,3rem)]" style={`color:${colors[4]}`}>{sfx[4]}</p>
+        </article>
+        <!-- 6 · turn the page -->
+        <a href="#cases" class="panel p-6 lg:col-span-6 bg-[#ff2e63] text-white grid gap-3 sm:grid-cols-[1fr_auto] items-center no-underline" style="--tilt:0deg">
+          <span class="pnum !bg-white !text-[#111]">6</span>
+          <span><span class="bang text-5xl block">THE END?</span><span class="text-xl block mt-1">No. The platform still serves 1.25M people a month, and there are seven more case files.</span></span>
+          <span class="btn !bg-white !text-[#111] text-xl justify-self-start sm:justify-self-end">Turn the page ↓</span>
+        </a>
       </div>
     </section>
 

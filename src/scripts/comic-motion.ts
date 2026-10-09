@@ -28,7 +28,8 @@ if (!reduce) {
     onEnter: (els) => gsap.fromTo(els, { y: 60, rotation: -3, scale: 0.94, opacity: 0 }, { y: 0, rotation: (i, el) => Number(getComputedStyle(el).getPropertyValue("--tilt") || 0), scale: 1, opacity: 1, duration: 0.7, ease: "back.out(1.6)", stagger: 0.08, clearProps: "rotation,scale" }),
   });
   // Sound effects pop, captions stamp, chapter titles bounce in by letter.
-  ScrollTrigger.batch(".sfx", { start: "top 90%", once: true, onEnter: (els) => gsap.fromTo(els, { scale: 0, rotation: -30 }, { scale: 1, rotation: -8, duration: 0.8, ease: "elastic.out(1, 0.45)", stagger: 0.1 }) });
+  // Sound effects are readable by default; each pops once as it arrives.
+  document.querySelectorAll<HTMLElement>(".sfx").forEach((el) => ScrollTrigger.create({ trigger: el, start: "top 96%", once: true, onEnter: () => gsap.from(el, { scale: 0, rotation: -30, duration: 0.8, ease: "elastic.out(1, 0.45)" }) }));
   ScrollTrigger.batch(".caption", { start: "top 92%", once: true, onEnter: (els) => gsap.fromTo(els, { scaleX: 0, transformOrigin: "left center" }, { scaleX: 1, duration: 0.45, ease: "power4.out", stagger: 0.05 }) });
   document.querySelectorAll<HTMLElement>("main h2").forEach((h) => {
     const chars = new SplitText(h, { type: "words,chars" }).chars;
