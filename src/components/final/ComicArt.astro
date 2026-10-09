@@ -1,41 +1,42 @@
 ---
 /** Hand-inked spot art for the Great Migration panels. Thick ink, flat fills, a halftone wash. */
-interface Props { kind: "clock" | "fork" | "plan" | "switch" | "bill"; class?: string; ink?: string; paper?: string; font?: string }
-const { kind, class: cls = "", ink = "#111", paper = "#fff", font = "var(--font-bangers)" } = Astro.props;
+interface Props { kind: "clock" | "fork" | "plan" | "switch" | "bill"; class?: string }
+const { kind, class: cls = "" } = Astro.props;
+const ink = "#111";
 ---
 <svg viewBox="0 0 200 200" class={cls} role="img" aria-hidden="true" fill="none" stroke={ink} stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
   <defs><pattern id={`dots-${kind}`} width="7" height="7" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.6" fill={ink} opacity=".35" /></pattern></defs>
   {kind === "clock" && <>
-    <circle cx="100" cy="104" r="72" fill={paper} /><circle cx="100" cy="104" r="72" fill={`url(#dots-${kind})`} opacity=".5" />
-    <circle cx="100" cy="104" r="58" fill={paper} />
+    <circle cx="100" cy="104" r="72" fill="#fff" /><circle cx="100" cy="104" r="72" fill={`url(#dots-${kind})`} opacity=".5" />
+    <circle cx="100" cy="104" r="58" fill="#fff" />
     <path d="M100 56v8M148 104h-8M100 152v-8M52 104h8" />
     <path d="M100 104 L100 62" stroke="#ff2e63" stroke-width="8" /><path d="M100 104 L128 118" stroke-width="8" />
     <circle cx="100" cy="104" r="6" fill={ink} />
     <path d="M62 44 L48 30M138 44l14-14" />
-    <rect x="128" y="22" width="60" height="26" rx="4" fill="#fff3b0" transform="rotate(8 158 35)" /><text x="158" y="40" font-size="12" font-family={font} text-anchor="middle" fill="#111" stroke="none" transform="rotate(8 158 35)">LICENCE ENDS</text>
+    <rect x="128" y="22" width="60" height="26" rx="4" fill="#fff3b0" transform="rotate(8 158 35)" /><text x="158" y="40" font-size="12" font-family="var(--font-bangers)" text-anchor="middle" fill={ink} stroke="none" transform="rotate(8 158 35)">LICENCE ENDS</text>
   </>}
   {kind === "fork" && <>
     <path d="M100 180 V110" stroke-width="10" /><path d="M100 110 L44 56" stroke-width="10" /><path d="M100 110 L156 56" stroke-width="10" />
-    <rect x="12" y="24" width="86" height="34" rx="4" fill={paper} transform="rotate(-8 55 41)" /><text x="55" y="47" font-size="13" font-family={font} text-anchor="middle" fill={ink} stroke="none" transform="rotate(-8 55 41)">RENEW · $24K/YR</text>
-    <rect x="102" y="24" width="86" height="34" rx="4" fill="#1b998b" transform="rotate(8 145 41)" /><text x="145" y="47" font-size="13" font-family={font} text-anchor="middle" fill="#fff" stroke="none" transform="rotate(8 145 41)">REBUILD · GLUE</text>
+    <rect x="12" y="24" width="86" height="34" rx="4" fill="#fff" transform="rotate(-8 55 41)" /><text x="55" y="47" font-size="13" font-family="var(--font-bangers)" text-anchor="middle" fill={ink} stroke="none" transform="rotate(-8 55 41)">RENEW · $24K/YR</text>
+    <rect x="102" y="24" width="86" height="34" rx="4" fill="#1b998b" transform="rotate(8 145 41)" /><text x="145" y="47" font-size="13" font-family="var(--font-bangers)" text-anchor="middle" fill="#fff" stroke="none" transform="rotate(8 145 41)">REBUILD · GLUE</text>
     <path d="M140 150 l20 -12 l-4 22" stroke="#ff2e63" />
     <ellipse cx="100" cy="184" rx="40" ry="8" fill={`url(#dots-${kind})`} stroke="none" />
   </>}
   {kind === "plan" && <>
-    <rect x="44" y="30" width="112" height="150" rx="8" fill={paper} /><rect x="76" y="18" width="48" height="22" rx="6" fill="#ffb703" />
+    <rect x="44" y="30" width="112" height="150" rx="8" fill="#fff" /><rect x="76" y="18" width="48" height="22" rx="6" fill="#ffb703" />
     <rect x="44" y="30" width="112" height="150" rx="8" fill={`url(#dots-${kind})`} opacity=".35" />
-    {[62, 92, 122, 152].map((y, i) => <><rect x="58" y={y - 10} width="20" height="20" rx="3" fill={paper} /><path d={i < 3 ? `M62 ${y} l6 6 l10 -12` : ""} stroke="#1b998b" /><path d={`M90 ${y} h50`} stroke-width="5" /></>)}
+    {[62, 92, 122, 152].map((y, i) => <><rect x="58" y={y - 10} width="20" height="20" rx="3" fill="#fff" /><path d={i < 3 ? `M62 ${y} l6 6 l10 -12` : ""} stroke="#1b998b" /><path d={`M90 ${y} h50`} stroke-width="5" /></>)}
   </>}
   {kind === "switch" && <>
     <rect x="30" y="60" width="140" height="80" rx="40" fill="#1b998b" /><rect x="30" y="60" width="140" height="80" rx="40" fill={`url(#dots-${kind})`} opacity=".3" />
-    <circle cx="130" cy="100" r="30" fill={paper} /><text x="130" y="106" font-size="16" font-family={font} text-anchor="middle" fill={ink} stroke="none">GLUE</text>
-    <text x="60" y="106" font-size="14" font-family={font} text-anchor="middle" fill="#fff" stroke="none" opacity=".8">TIBCO</text>
+    <circle cx="130" cy="100" r="30" fill="#fff" /><text x="130" y="106" font-size="16" font-family="var(--font-bangers)" text-anchor="middle" fill={ink} stroke="none">GLUE</text>
+    <text x="60" y="106" font-size="14" font-family="var(--font-bangers)" text-anchor="middle" fill="#fff" stroke="none" opacity=".8">TIBCO</text>
     <path d="M100 22 l-8 20M100 22l8 20M100 22v-6" stroke="#ff2e63" /><path d="M40 170 h120" stroke-width="4" />
   </>}
   {kind === "bill" && <>
-    <path d="M52 24 h96 v140 l-12 10 l-12 -10 l-12 10 l-12 -10 l-12 10 l-12 -10 l-12 10 l-12 -10z" fill={paper} />
+    <path d="M52 24 h96 v140 l-12 10 l-12 -10 l-12 10 l-12 -10 l-12 10 l-12 -10 l-12 10 l-12 -10z" fill="#fff" />
     <path d="M68 52 h64M68 72 h64M68 92 h40" stroke-width="4" />
-    <text x="100" y="124" font-size="18" font-family={font} text-anchor="middle" fill={ink} stroke="none">$24,000</text><path d="M62 120 L138 112" stroke="#ff2e63" />
-    <rect x="60" y="134" width="80" height="26" rx="4" fill="#1b998b" transform="rotate(-6 100 147)" /><text x="100" y="152" font-size="18" font-family={font} text-anchor="middle" fill="#fff" stroke="none" transform="rotate(-6 100 147)">$840</text>
+    <text x="100" y="124" font-size="18" font-family="var(--font-bangers)" text-anchor="middle" fill={ink} stroke="none">$24,000</text><path d="M62 120 L138 112" stroke="#ff2e63" />
+    <rect x="60" y="134" width="80" height="26" rx="4" fill="#1b998b" transform="rotate(-6 100 147)" /><text x="100" y="152" font-size="18" font-family="var(--font-bangers)" text-anchor="middle" fill="#fff" stroke="none" transform="rotate(-6 100 147)">$840</text>
   </>}
 </svg>

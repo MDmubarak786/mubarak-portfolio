@@ -3,7 +3,7 @@ import "../styles/variants.css";
 import { Font } from "astro:assets";
 import FinalsBar from "../components/final/FinalsBar.astro";
 import { site } from "../lib/site";
-interface Props { title: string; description: string; fonts: string[]; current: "comic" | "hawkins"; theme: string }
+interface Props { title: string; description: string; fonts: string[]; current: "comic"; theme: string }
 const { title, description, fonts, current, theme } = Astro.props;
 ---
 <!doctype html>
