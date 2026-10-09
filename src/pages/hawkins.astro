@@ -57,10 +57,10 @@ const year = new Date().getFullYear();
     .paper { background: var(--paper); color: var(--paper-ink); background-image: repeating-linear-gradient(0deg, rgba(26,20,16,.035) 0 1px, transparent 1px 28px); box-shadow: 0 24px 50px -20px rgba(0,0,0,.9); position:relative; }
     .paper .type { color:#6b5f52; }
     .stamp { display:inline-block; border:3px solid #c1121f; color:#c1121f; font-family: var(--font-elite); text-transform:uppercase; letter-spacing:.2em; font-size:.8rem; padding:.2rem .6rem; transform: rotate(-6deg); mix-blend-mode: multiply; opacity:.85; }
-    .btn { display:inline-block; font-family: var(--font-elite); text-transform:uppercase; letter-spacing:.14em; font-size:.9rem; padding:.65rem 1.25rem; border:2px solid var(--red); color:#ffd7d9; background: rgba(255,30,45,.08); box-shadow: 0 0 14px rgba(255,30,45,.35), inset 0 0 14px rgba(255,30,45,.12); transition: box-shadow .2s, background .2s, transform .2s; text-align:center; }
-    .btn:hover { box-shadow: 0 0 24px rgba(255,30,45,.65), inset 0 0 18px rgba(255,30,45,.2); transform: translateY(-1px); }
-    .btn.primary { background: var(--red); color:#fff; }
-    .btn.primary:hover { background:#ff3b48; }
+    .btn { display:inline-block; font-family: var(--font-elite); text-transform:uppercase; letter-spacing:.14em; font-size:.9rem; padding:.65rem 1.25rem; border:2px solid rgba(255,30,45,.75); color:#ffd7d9; background: rgba(255,30,45,.05); transition: box-shadow .2s, background .2s, transform .2s, border-color .2s; text-align:center; }
+    .btn:hover { border-color: var(--red); box-shadow: 0 0 20px rgba(255,30,45,.5), inset 0 0 16px rgba(255,30,45,.15); transform: translateY(-1px); }
+    .btn.primary { background: var(--red); border-color: var(--red); color:#fff; box-shadow: 0 0 16px rgba(255,30,45,.45), 0 10px 24px -12px rgba(255,30,45,.8); }
+    .btn.primary:hover { background:#ff3b48; box-shadow: 0 0 26px rgba(255,30,45,.7), 0 12px 28px -12px rgba(255,30,45,.9); }
     .btn.sm { font-size:.78rem; padding:.45rem .9rem; }
     .btn:focus-visible, .menu-btn:focus-visible, .skip:focus-visible, header a:focus-visible, .tape:focus-visible, .sheet:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
     .skip { position:absolute; left:1.25rem; top:-6rem; z-index:60; } .skip:focus { top:1rem; }
@@ -112,11 +112,14 @@ const year = new Date().getFullYear();
     .rec::before { content:""; width:9px; height:9px; border-radius:50%; background: var(--red); box-shadow: 0 0 8px var(--red); animation: blink 1.6s steps(2, start) infinite; }
     .narr { font-size:1.1rem; line-height:1.5; color:#e8e2ea; }
     .walkie { font-family: var(--font-elite); letter-spacing:.16em; text-transform:uppercase; font-size:.85rem; color: var(--red); text-shadow: 0 0 10px rgba(255,30,45,.5); }
-    .walkie::before { content:"▸ "; }
+    .walkie::before { content:""; display:inline-block; width:0; height:0; border-style:solid; border-width:5px 0 5px 7px; border-color: transparent transparent transparent var(--red); margin-right:.5rem; vertical-align:middle; filter: drop-shadow(0 0 4px rgba(255,30,45,.8)); }
+    .scene-t { font-family: var(--font-rozha); font-size:1.35rem; line-height:1.15; color:#fff; }
     .radio { border:1px solid var(--line); background: rgba(255,255,255,.03); padding:.9rem 1.1rem; position:relative; color:#e8e2ea; }
     .radio::before { content:""; position:absolute; left:-1px; top:12px; bottom:12px; width:3px; background: var(--red); box-shadow: 0 0 8px var(--red); }
     /* lab files */
-    .file { padding:1.5rem; }
+    .file { padding:1.5rem; margin-top:14px; }
+    .folder-tab { position:absolute; top:-15px; left:14px; height:15px; line-height:15px; background: var(--paper); color:#6b5f52; font-family: var(--font-elite); font-size:.7rem; letter-spacing:.16em; text-transform:uppercase; padding:0 .8rem; border-radius:5px 5px 0 0; }
+    .folder-tab::after { content:""; position:absolute; right:-10px; bottom:0; width:0; height:0; border-style:solid; border-width:0 0 15px 10px; border-color: transparent transparent var(--paper) transparent; }
     .file summary { list-style:none; cursor:pointer; } .file summary::-webkit-details-marker { display:none; }
     .file .close-cta, .file details[open] .open-cta { display:none; } .file details[open] .close-cta { display:inline-block; }
     .paper .btn { border-color:#1a1410; color:#1a1410; background: transparent; box-shadow:none; }
@@ -212,7 +215,7 @@ const year = new Date().getFullYear();
       <ul class="lights" aria-hidden="true">{Array.from({ length: 18 }).map((_, i) => <li style={`--bulb:${bulbs[i % 4]}; --d:${(i * 0.37) % 4}s`}></li>)}</ul>
       <div class="pt-14 sm:pt-20">
         <h1 class="title outline" data-title>STRANGER<br />STACKS</h1>
-        <p class="type text-center mt-6 tracking-[.3em]">A Chennai production · Season {year} · Starring {site.name}</p>
+        <p class="type text-center mt-6 tracking-[.3em] text-balance">A Chennai production · Season {year} · Starring {site.name}</p>
       </div>
       <div class="mt-14 grid gap-10 md:grid-cols-[auto_1fr] items-center">
         <div class="polaroid w-64 sm:w-72 justify-self-center">
@@ -233,8 +236,7 @@ const year = new Date().getFullYear();
       <ul class="grid gap-4 grid-cols-2 lg:grid-cols-4" role="list">
         {numbers.map((n) => (
           <li class="card p-5">
-            <p class="type">Reading</p>
-            <p class="glow mt-1" style="font-family: var(--font-rozha); font-size: clamp(2.2rem, 4.5vw, 3.2rem); line-height:1">{n.v}</p>
+            <p class="glow" style="font-family: var(--font-rozha); font-size: clamp(2.4rem, 4.8vw, 3.4rem); line-height:1">{n.v}</p>
             <p class="mt-2 text-lg font-medium leading-tight">{n.k}</p>
             <p class="mt-1 text-[#a9a1b1] leading-snug text-pretty">{n.d}</p>
           </li>
@@ -248,28 +250,28 @@ const year = new Date().getFullYear();
       <p class="mt-3 text-xl lede">A true story about a licence, a deadline, and AWS Glue. Five scenes, as recorded.</p>
       <ol class="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-6 lg:auto-rows-[minmax(15rem,auto)]">
         <li class="card scene lg:col-span-4 grid gap-5 sm:grid-cols-[1fr_auto] items-center">
-          <div class="space-y-4"><p class="rec">Scene 1 · {timecodes[0]}</p><p class="type">{migration[0].t}</p><p class="narr">{migration[0].s}</p><p class="walkie">{walkie[0]}</p></div>
-          <ComicArt kind="clock" ink="#f3efe6" paper="#0d0b14" font="var(--font-elite)" class="w-40 sm:w-48 lg:w-56 justify-self-center" />
+          <div class="space-y-4"><p class="rec">Scene 1 · {timecodes[0]}</p><h3 class="scene-t">{migration[0].t}</h3><p class="narr max-w-[44ch]">{migration[0].s}</p><p class="walkie">{walkie[0]}</p></div>
+          <ComicArt kind="clock" ink="#f3efe6" paper="#0d0b14" font="var(--font-elite)" class="w-44 sm:w-56 lg:w-64 justify-self-center" />
         </li>
         <li class="card scene lg:col-span-2 flex flex-col gap-4">
-          <p class="rec">Scene 2 · {timecodes[1]}</p><p class="type">{migration[1].t}</p>
+          <p class="rec">Scene 2 · {timecodes[1]}</p><h3 class="scene-t">{migration[1].t}</h3>
           <ComicArt kind="fork" ink="#f3efe6" paper="#0d0b14" font="var(--font-elite)" class="w-36 self-center" />
           <p class="radio">{migration[1].s}</p>
           <p class="walkie self-end mt-auto">{walkie[1]}</p>
         </li>
         <li class="card scene lg:col-span-2 flex flex-col gap-4">
-          <p class="rec">Scene 3 · {timecodes[2]}</p><p class="type">{migration[2].t}</p>
+          <p class="rec">Scene 3 · {timecodes[2]}</p><h3 class="scene-t">{migration[2].t}</h3>
           <div class="flex items-center gap-4"><ComicArt kind="plan" ink="#f3efe6" paper="#0d0b14" font="var(--font-elite)" class="w-28 shrink-0" /><p class="narr">{migration[2].s}</p></div>
           <p class="walkie self-end mt-auto">{walkie[2]}</p>
         </li>
         <li class="card scene lg:col-span-2 flex flex-col gap-4">
-          <p class="rec">Scene 4 · {timecodes[3]}</p><p class="type">{migration[3].t}</p>
+          <p class="rec">Scene 4 · {timecodes[3]}</p><h3 class="scene-t">{migration[3].t}</h3>
           <ComicArt kind="switch" ink="#f3efe6" paper="#0d0b14" font="var(--font-elite)" class="w-40 self-center" />
           <p class="narr">{migration[3].s}</p>
           <p class="walkie self-end mt-auto">{walkie[3]}</p>
         </li>
         <li class="card scene lg:col-span-2 flex flex-col gap-4">
-          <p class="rec">Scene 5 · {timecodes[4]}</p><p class="type">{migration[4].t}</p>
+          <p class="rec">Scene 5 · {timecodes[4]}</p><h3 class="scene-t">{migration[4].t}</h3>
           <div class="flex items-center gap-4"><ComicArt kind="bill" ink="#f3efe6" paper="#0d0b14" font="var(--font-elite)" class="w-28 shrink-0" /><p class="narr">{migration[4].s}</p></div>
           <p class="radio"><strong class="emph">“Saved us $30,000 annually in licensing fees.”</strong> <cite class="not-italic type"> · <a href="#witness-jason-wheeler" class="underline underline-offset-2">Jason Wheeler</a>, VP of Technology</cite></p>
           <p class="walkie self-end mt-auto">{walkie[4]}</p>
@@ -281,13 +283,14 @@ const year = new Date().getFullYear();
     <section id="ep2" class="mt-24 scroll-mt-24" aria-labelledby="ch2">
       <h2 id="ch2" class="h2"><span class="ep">Chapter Two</span>The Lab Files</h2>
       <p class="mt-3 text-xl lede">Eight files from the archive. Open one for the context, the decision and what it changed.</p>
-      <ol class="mt-8 grid gap-6 md:grid-cols-2 items-start">
+      <ol class="mt-10 grid gap-8 md:grid-cols-2 items-start">
         {records.map((r, i) => {
           const headline = r.data.consequences.find((c) => c.emphasis)?.value ?? "";
           const ws = recordWitnesses[i];
           return (
             <li class="paper file">
-              <div class="flex items-start justify-between gap-3"><p class="type">File {String(i + 1).padStart(2, "0")} · {r.data.organisation} · {r.data.date}</p><span class="stamp">Declassified</span></div>
+              <span class="folder-tab" aria-hidden="true">File {String(i + 1).padStart(2, "0")}</span>
+              <div class="flex items-start justify-between gap-3"><p class="type"><span class="sr-only">File {String(i + 1).padStart(2, "0")} · </span>{r.data.organisation} · {r.data.date}</p><span class="stamp">Declassified</span></div>
               <details class="group">
                 <summary>
                   <h3 class="text-2xl sm:text-3xl mt-3 leading-tight">{r.data.index}</h3>
