@@ -25,7 +25,7 @@ if (!reduce) {
   // Panels slam in as they arrive, in batches.
   ScrollTrigger.batch(".panel:not(header + main > section:first-child)", {
     start: "top 88%", once: true,
-    onEnter: (els) => gsap.fromTo(els, { y: 60, rotation: -3, scale: 0.94, opacity: 0 }, { y: 0, rotation: (i, el) => Number(getComputedStyle(el).getPropertyValue("--tilt") || 0), scale: 1, opacity: 1, duration: 0.7, ease: "back.out(1.6)", stagger: 0.08, clearProps: "rotation,scale" }),
+    onEnter: (els) => gsap.fromTo(els, { y: 60, scale: 0.96, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 0.7, ease: "back.out(1.4)", stagger: 0.08, clearProps: "transform" }),
   });
   // Sound effects pop, captions stamp, chapter titles bounce in by letter.
   // Sound effects are readable by default; each pops once as it arrives.
