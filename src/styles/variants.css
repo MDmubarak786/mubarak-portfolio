@@ -1,0 +1,8 @@
+@import "tailwindcss";
+@layer base {
+  html { background: var(--v-bg, #000); color: var(--v-fg, #fff); font-family: var(--v-font-text, system-ui, sans-serif); -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+  ::selection { background: var(--v-accent, #fff); color: var(--v-bg, #000); }
+  :focus-visible { outline: 2px solid var(--v-accent, currentColor); outline-offset: 3px; }
+  h1, h2, h3 { font-family: var(--v-font-display, inherit); text-wrap: balance; }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+}

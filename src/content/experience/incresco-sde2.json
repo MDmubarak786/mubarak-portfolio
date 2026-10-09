@@ -1,0 +1,48 @@
+{
+  "company": "Incresco",
+  "role": "Software Development Engineer 2",
+  "type": "Full-time · Bengaluru",
+  "start": "2022-10",
+  "end": "2026-05",
+  "groups": [
+    {
+      "name": "AI for Global University Systems",
+      "bullets": [
+        "Built AI document processing APIs (GPT-4 Vision + OCR) classifying 17+ document types at 95% accuracy, cutting manual data entry by 70% and improving processing speed 7×.",
+        "Designed AI qualification matching with confidence scoring for Anabin & ECCTIS compliance automation: accuracy up 35%+, compliance effort down 60%+.",
+        "Integrated OpenAI for course content generation, reducing manual effort about 80%.",
+        "Shipped production Chrome Extensions (MV3) automating student application workflows, saving admins 3–5 hours a day at 99.9% uptime."
+      ]
+    },
+    {
+      "name": "Platforms",
+      "bullets": [
+        "Built a course pricing & discount management platform (React, TypeScript, Flask); TanStack Table views cut admin lookup time 60%+, JWT-based RBAC for access.",
+        "Led Webster University's admissions portal (NestJS, React, MongoDB): JWT auth with HTTP-only cookies and CSRF protection, multi-step applications, SendGrid campaigns, Dockerised builds.",
+        "Engineered EF Academy's multilingual marketing platform (Next.js, Storyblok, AWS) serving 1.25M+ monthly users in 23+ languages.",
+        "Led the TIBCO → AWS Glue migration, cutting annual costs from $24,000 to $840 (96.5%).",
+        "Built the Prospect Uploader (Lambda + EventBridge + Salesforce CRM) handling 10,000+ leads with a validation UI.",
+        "Revamped the Incresco & Camped marketing sites (Astro + Storyblok) to 100% Lighthouse performance and accessibility.",
+        "Directed Planet SIM (IoT utilities, SignalR) and Planet Business (Firebase, REST APIs)."
+      ]
+    }
+  ],
+  "skills": [
+    "GPT-4 Vision",
+    "OCR",
+    "OpenAI",
+    "Chrome Extensions",
+    "NestJS",
+    "Flask",
+    "Next.js",
+    "Storyblok",
+    "AWS Glue",
+    "Lambda",
+    "EventBridge",
+    "Salesforce",
+    "Astro",
+    "SignalR",
+    "Firebase"
+  ],
+  "order": 2
+}

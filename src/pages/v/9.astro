@@ -1,0 +1,33 @@
+---
+import Shell from "../../layouts/StoryShell.astro";
+import { me, migration, numbers, work, voices } from "../../lib/story";
+---
+<Shell title="9 · Mission Control" fonts={["--font-chakra", "--font-mono"]} n={9}>
+  <style is:global>
+    :root { --v-bg:#03070c; --v-fg:#d7f3ff; --v-accent:#00e5ff; --v-font-text: var(--font-chakra); --v-font-display: var(--font-chakra); }
+    body { background-image: linear-gradient(rgba(0,229,255,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,255,.06) 1px, transparent 1px); background-size: 40px 40px; }
+    .panel { border:1px solid rgba(0,229,255,.35); background: rgba(0,229,255,.04); box-shadow: inset 0 0 30px rgba(0,229,255,.05); }
+    .mono { font-family: var(--font-mono); }
+    .scan { position:fixed; inset:0; pointer-events:none; background: repeating-linear-gradient(0deg, rgba(255,255,255,.02) 0 2px, transparent 2px 4px); }
+    .blink { animation: blink 1s steps(2) infinite; } @keyframes blink { 50% { opacity:.2 } }
+    .gauge { stroke-dasharray: 440; stroke-dashoffset: 440; animation: fill 2.2s ease-out forwards; } @keyframes fill { to { stroke-dashoffset: 15; } }
+  </style>
+  <div class="scan" aria-hidden="true"></div>
+  <main class="relative max-w-6xl mx-auto px-5 sm:px-8 pt-20 pb-24">
+    <header class="grid gap-6 lg:grid-cols-[1fr_auto] items-end">
+      <div><p class="mono text-[#00e5ff] text-sm">MISSION · TIBCO-TO-GLUE · STATUS: <span class="blink">NOMINAL</span></p><h1 class="mt-3 text-[clamp(2.6rem,7vw,6rem)] font-bold leading-[0.95] uppercase">Flight director:<br />{me.name}</h1><p class="mt-4 max-w-xl text-white/80">{me.intro} Every system below reported green before the contract clock hit zero.</p></div>
+      <div class="panel p-5 text-center"><p class="mono text-xs text-[#00e5ff]">T-MINUS TO CONTRACT END</p><p class="mono text-5xl mt-1" data-count>00:00:00</p><p class="mono text-xs text-[#39ff14] mt-1">CUTOVER COMPLETE</p></div>
+    </header>
+
+    <section class="mt-10 grid gap-4 md:grid-cols-5">{migration.map((m, i) => <div class="panel p-4"><p class="mono text-xs text-[#00e5ff]">STAGE {i + 1}</p><p class="font-bold mt-1">{m.t}</p><p class="text-sm text-white/70 mt-1">{m.s}</p></div>)}</section>
+
+    <section class="mt-10 grid gap-4 sm:grid-cols-4">{numbers.map((n, i) => <div class="panel p-5 flex items-center gap-4"><svg viewBox="0 0 160 160" class="size-20 -rotate-90"><circle cx="80" cy="80" r="70" fill="none" stroke="rgba(0,229,255,.2)" stroke-width="10" /><circle cx="80" cy="80" r="70" fill="none" stroke="#00e5ff" stroke-width="10" class="gauge" style={`animation-delay:${i * 150}ms`} /></svg><div><p class="mono text-3xl">{n.v}</p><p class="text-sm text-white/70">{n.k}</p></div></div>)}</section>
+
+    <section class="mt-10"><h2 class="mono text-[#00e5ff] text-sm">SUBSYSTEMS</h2><ul class="mt-3 grid gap-3 md:grid-cols-3">{work.map((w) => <li class="panel p-5"><p class="mono text-xs text-[#39ff14]">● GREEN · {w.year}</p><p class="font-bold text-lg mt-1">{w.title}</p><p class="text-sm text-white/70 mt-1">{w.out}</p></li>)}</ul></section>
+    <section class="mt-10 grid gap-4 md:grid-cols-2">{voices.slice(0, 2).map((v) => <blockquote class="panel p-5"><p class="mono text-xs text-[#00e5ff]">CAPCOM · {v.n.toUpperCase()}</p><p class="mt-2 text-lg">“{v.q}”</p><footer class="text-sm text-white/60 mt-2">{v.t}</footer></blockquote>)}</section>
+    <footer class="mt-12 panel p-8 flex flex-wrap items-center justify-between gap-4"><p class="text-2xl font-bold uppercase">Open a channel</p><a href={`mailto:${me.email}`} class="mono border border-[#00e5ff] text-[#00e5ff] px-5 py-3 hover:bg-[#00e5ff] hover:text-black transition">{me.email}</a></footer>
+  </main>
+  <script>
+    const el = document.querySelector("[data-count]"); let t = 86400 * 3; const tick = () => { if (!el) return; const h = String(Math.floor(t / 3600)).padStart(2, "0"), m = String(Math.floor((t % 3600) / 60)).padStart(2, "0"), s = String(t % 60).padStart(2, "0"); el.textContent = `${h}:${m}:${s}`; if (t > 0) { t = Math.max(0, t - 997); setTimeout(tick, 40); } }; tick();
+  </script>
+</Shell>

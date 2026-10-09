@@ -1,0 +1,43 @@
+---
+import Shell from "../../layouts/StoryShell.astro";
+import { me, numbers, work, voices, roles } from "../../lib/story";
+const dots: [number, number][] = [];
+for (let r = 0; r < 7; r++) for (let c = 0; c < 7; c++) dots.push([80 + c * 60, 80 + r * 60]);
+---
+<Shell title="10 · Kolam" fonts={["--font-baloo", "--font-mukta"]} n={10}>
+  <style is:global>
+    :root { --v-bg:#5a0f2c; --v-fg:#fff7ec; --v-accent:#ffb200; --v-font-text: var(--font-mukta); --v-font-display: var(--font-baloo); }
+    body { background-image: radial-gradient(circle at 50% -10%, #8d1b4a, #5a0f2c 55%); }
+    .kolam path { fill:none; stroke:#fff7ec; stroke-width:4; stroke-linecap:round; stroke-dasharray: 1400; stroke-dashoffset: 1400; animation: draw 3s ease-out forwards; }
+    .kolam path:nth-child(2) { stroke:#ffb200; animation-delay:.6s } .kolam path:nth-child(3) { stroke:#ff5e7e; animation-delay:1.2s } .kolam path:nth-child(4) { stroke:#56c7c3; animation-delay:1.8s }
+    @keyframes draw { to { stroke-dashoffset: 0 } }
+    .card { background:#fff7ec; color:#3a0b1e; border-radius: 1.5rem; }
+    .rangoli { background: conic-gradient(from 0deg, #ffb200, #ff5e7e, #56c7c3, #ffb200); }
+    h1, h2, h3 { font-family: var(--font-baloo); }
+  </style>
+  <main class="max-w-6xl mx-auto px-5 sm:px-8 pt-20 pb-24">
+    <header class="grid gap-8 lg:grid-cols-[1fr_1fr] items-center">
+      <div>
+        <p class="text-[#ffb200] font-bold tracking-widest uppercase text-sm">கோலம் · drawn every morning, kept every day</p>
+        <h1 class="mt-3 text-[clamp(2.8rem,7vw,6rem)] leading-[0.95] font-extrabold"><span lang="ta">{me.tamilName}</span><br />{me.name}</h1>
+        <p class="mt-4 text-lg max-w-lg">{me.intro} A kolam starts with dots, then one unbroken line joins them. That is how I build: every system connected, nothing left hanging.</p>
+        <div class="mt-6 flex flex-wrap gap-3"><a href={`mailto:${me.email}`} class="bg-[#ffb200] text-[#3a0b1e] font-extrabold px-6 py-3 rounded-full">Email me</a><a href={me.whatsapp} class="border-2 border-[#fff7ec] px-6 py-3 rounded-full font-extrabold">WhatsApp</a></div>
+      </div>
+      <svg viewBox="0 0 520 520" class="kolam w-full max-w-md mx-auto h-auto" role="img" aria-label="A kolam pattern drawing itself">
+        {dots.map(([x, y]) => <circle cx={x} cy={y} r="4" fill="#fff7ec" opacity=".8" />)}
+        <path d="M110 260 C110 140 410 140 410 260 C410 380 110 380 110 260 Z" />
+        <path d="M260 110 C140 110 140 410 260 410 C380 410 380 110 260 110 Z" />
+        <path d="M170 170 C260 80 440 260 350 350 C260 440 80 260 170 170 Z" />
+        <path d="M350 170 C440 260 260 440 170 350 C80 260 260 80 350 170 Z" />
+      </svg>
+    </header>
+
+    <section class="mt-16 grid gap-4 sm:grid-cols-4">{numbers.map((n, i) => <div class="card p-6"><p class="text-5xl font-extrabold" style={`font-family:var(--font-baloo); color:${["#8d1b4a","#0f7c78","#b36b00","#c0254f"][i]}`}>{n.v}</p><p class="font-bold">{n.k}</p><p class="text-sm opacity-75">{n.d}</p></div>)}</section>
+
+    <section class="mt-16"><h2 class="text-4xl font-extrabold">The lines I drew</h2><ul class="mt-6 grid gap-5 md:grid-cols-3">{work.map((w, i) => <li class="card p-6 relative overflow-hidden"><span class="rangoli absolute -right-8 -top-8 size-24 rounded-full opacity-60"></span><p class="text-xs uppercase tracking-widest opacity-70">{w.kind} · {w.year}</p><h3 class="text-2xl font-extrabold mt-1">{w.title}</h3><p class="text-sm mt-2">{w.body}</p><p class="font-bold mt-2">{w.out}</p></li>)}</ul></section>
+
+    <section class="mt-16 grid gap-6 md:grid-cols-2">{voices.map((v) => <blockquote class="border-l-4 border-[#ffb200] pl-5"><p class="text-xl font-semibold leading-snug">“{v.q}”</p><footer class="mt-2 text-sm opacity-80">{v.n}, {v.t}</footer></blockquote>)}</section>
+    <section class="mt-16 card p-6"><h2 class="text-2xl font-extrabold">Mornings so far</h2><ol class="mt-2 divide-y divide-[#3a0b1e]/15">{roles.map((r) => <li class="py-2 flex justify-between gap-4"><span class="font-bold">{r.r}</span><span class="opacity-70">{r.w}</span></li>)}</ol></section>
+    <footer class="mt-16 text-center"><p class="text-4xl font-extrabold" style="font-family:var(--font-baloo)">வணக்கம். Let’s draw the next one together.</p><p class="mt-3">{me.email} · {me.phoneDisplay} · {me.location}</p></footer>
+  </main>
+</Shell>

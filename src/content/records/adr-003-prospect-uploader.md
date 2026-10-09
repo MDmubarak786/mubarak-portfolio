@@ -5,7 +5,7 @@ index: "Prospect Uploader"
 status: accepted
 date: "2023"
 organisation: EF Academy
-role: Lead Software Engineer
+role: Software Development Engineer 2
 summary: CSV lead uploads into Salesforce became an AWS Lambda and EventBridge pipeline that validates in every language, alerts by email, and shows failures in a Prospect Viewer.
 context: >-
   Marketing teams upload prospect lists of 10,000+ rows into Salesforce. Rows arrive from many countries, so validation has to understand multilingual data, and a silent failure means lost leads.

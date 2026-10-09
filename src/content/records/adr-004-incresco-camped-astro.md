@@ -4,8 +4,8 @@ title: Rebuild the Incresco and Camped marketing sites on Astro and Storyblok
 index: "Incresco & Camped on Astro"
 status: accepted
 date: "2023"
-organisation: IncrescoTech
-role: Lead Software Engineer
+organisation: Incresco
+role: Software Development Engineer 2
 summary: A redesign on Astro and Storyblok with customizable page builders reached 100% Lighthouse scores and let campaigns launch across 23+ languages.
 context: >-
   The Incresco and Camped marketing sites needed a comprehensive redesign with better SEO and sitemap performance, and marketing wanted to launch campaigns in many languages without waiting on engineering.

@@ -12,13 +12,15 @@ Astro + Tailwind CSS, deployed on Vercel (user decision, 2026-10-09). Rationale 
 
 ## Users
 
+> Identity update 2026-10-09 from LinkedIn: name Mubarak Shajahan, headline “Senior Software Engineer @ Galent | Full-Stack + AI — React, Next.js, Node.js, Python, LLMs, RAG | 22K+ Followers · 10M+ Impressions”, location Chennai. New proof: AI document processing (17+ types, 95% accuracy, −70% manual entry, 7× faster), AI qualification matching (Anabin/ECCTIS, +35% accuracy, −60% effort), Chrome extensions MV3 (3–5 h/day saved, 99.9% uptime), Webster University admissions portal, course pricing platform, Outstanding Contribution award 2021. Email on LinkedIn is mohammedmubarakmk@gmail.com (old site: mohammedmubarakmkg@gmail.com), to confirm.
+
 Primary: hiring managers and engineering leaders screening candidates for Lead / Staff software engineer roles at product companies. They arrive from a CV link, LinkedIn, or a recruiter forward, usually on a laptop between meetings, with 30–90 seconds to decide whether to shortlist. Their job: confirm seniority, judgment, and ownership fast, then find a way to reach him.
 
 Secondary (not designed for, must still work): recruiters on mobile; peers arriving from GitHub or X.
 
 ## Product Purpose
 
-A personal portfolio for Mohammed Mubarak (goes by Mubarak; Tamil name முகமது முபாரக்), Lead Software Engineer at IncrescoTech, Bangalore, India. It replaces a template-based site (https://mk-full-stack-developer.vercel.app/, built on the ncdai template) with a site that is his. Success: a hiring manager understands within one viewport what he has owned and shipped, trusts it because of named third-party proof, and emails or messages him.
+A personal portfolio for Mubarak Shajahan (LinkedIn display name; formerly shown as Mohammed Mubarak; Tamil name முகமது முபாரக்), Senior Software Engineer at Galent, Chennai, India (since May 2026; before that five years at Incresco, intern to SDE 2, building AI and full-stack platforms for Global University Systems). Verified against his LinkedIn on 2026-10-09. It replaces a template-based site (https://mk-full-stack-developer.vercel.app/, built on the ncdai template) with a site that is his. Success: a hiring manager understands within one viewport what he has owned and shipped, trusts it because of named third-party proof, and emails or messages him.
 
 ## Positioning
 

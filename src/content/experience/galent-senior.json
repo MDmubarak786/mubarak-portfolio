@@ -1,0 +1,28 @@
+{
+  "company": "Galent",
+  "role": "Senior Software Engineer",
+  "type": "Full-time · Hybrid · Chennai",
+  "start": "2026-05",
+  "end": null,
+  "groups": [
+    {
+      "name": "Enterprise application modernisation",
+      "bullets": [
+        "Building AI-powered features for enterprise applications using LLMs, RAG, and agentic workflows.",
+        "Driving migration of legacy systems to a modern stack: React, TypeScript, Node.js, and cloud-native AWS services.",
+        "Re-architecting enterprise applications for scalability, performance, and long-term maintainability.",
+        "Collaborating with cross-functional teams to ship secure, production-ready releases."
+      ]
+    }
+  ],
+  "skills": [
+    "LLMs",
+    "RAG",
+    "Agentic workflows",
+    "React",
+    "TypeScript",
+    "Node.js",
+    "AWS"
+  ],
+  "order": 1
+}

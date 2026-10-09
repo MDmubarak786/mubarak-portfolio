@@ -1,0 +1,27 @@
+{
+  "company": "Incresco",
+  "role": "Software Development Engineer, intern",
+  "type": "Internship · Bengaluru",
+  "start": "2021-06",
+  "end": "2022-05",
+  "groups": [
+    {
+      "name": "Edvanza",
+      "bullets": [
+        "Ramped up through intensive bug fixing to master the project architecture before taking feature ownership.",
+        "Owned the Jobs and Learn modules end to end on iOS, Android and web (React Native, Next.js).",
+        "Merged 1,300+ pull requests within the first year.",
+        "Built the platform's marketing site with Next.js + Tailwind CSS.",
+        "Developed reusable, scalable components shared across mobile and web.",
+        "Won the Outstanding Contribution & Strong Ownership award (2021); promoted to SDE 1 within a year."
+      ]
+    }
+  ],
+  "skills": [
+    "React Native",
+    "Next.js",
+    "Tailwind CSS",
+    "Flutter"
+  ],
+  "order": 4
+}

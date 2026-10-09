@@ -4,8 +4,8 @@ title: Keep Edvanza's web and mobile apps in feature parity with one front-end t
 index: "Edvanza web + mobile parity"
 status: accepted
 date: "2022"
-organisation: IncrescoTech
-role: Software Engineer, then Junior Software Engineer
+organisation: Incresco
+role: SDE 1, after an SDE internship
 summary: Leading four front-end engineers, core Edvanza modules shipped across React and React Native with parity between web and mobile.
 context: >-
   Edvanza runs on React for the web and React Native for iOS and Android. As a junior engineer Mubarak owned the Jobs and Learn modules across all three and completed 1,300+ pull requests during ramp-up; as Software Engineer he led the four-person front-end team.

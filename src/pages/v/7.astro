@@ -1,0 +1,41 @@
+---
+import Shell from "../../layouts/StoryShell.astro";
+import { me, numbers, work, voices, roles } from "../../lib/story";
+const innings = [["2021", "SDE intern", "1,300+ PRs, Outstanding Contribution award", 1300], ["2022", "SDE 1 → SDE 2", "Led four engineers, 30+ interviews", 37], ["2024", "SDE 2", "TIBCO → AWS Glue, 96.5% saved", 96.5], ["2025", "SDE 2", "AI document processing, 95% accuracy", 95], ["2026", "Senior Software Engineer", "Galent: LLMs, RAG, agentic workflows", 1250000]];
+---
+<Shell title="7 · Scorecard" fonts={["--font-teko", "--font-barlow"]} n={7}>
+  <style is:global>
+    :root { --v-bg:#0b3d2e; --v-fg:#f5f5f0; --v-accent:#ffb703; --v-font-text: var(--font-barlow); --v-font-display: var(--font-teko); }
+    body { background-image: repeating-linear-gradient(90deg, rgba(255,255,255,.04) 0 60px, transparent 60px 120px); }
+    .board { background:#061f17; border:3px solid #ffb703; }
+    .num { font-family: var(--font-teko); line-height:.9; }
+    .led { color:#ffb703; text-shadow: 0 0 10px #ffb70388; }
+    .pitch { background: linear-gradient(#c9b27a, #b89e63); border-radius: 999px; }
+  </style>
+  <main class="max-w-6xl mx-auto px-5 sm:px-8 pt-20 pb-24">
+    <header class="board p-6 sm:p-8 grid gap-6 lg:grid-cols-[1fr_auto] items-center">
+      <div><p class="text-[#ffb703] uppercase tracking-[0.3em] text-sm font-bold">Chepauk Stadium · Test match · Day 5</p><h1 class="num mt-2 text-[clamp(3.2rem,9vw,8rem)] uppercase">Mubarak <span class="led">not out</span></h1><p class="text-lg text-white/80 max-w-xl">{me.intro} Five innings, still batting.</p></div>
+      <div class="text-center"><p class="text-xs uppercase tracking-widest text-white/60">Current score</p><p class="num led text-[6rem]">1.25M</p><p class="text-sm">users · 23 languages</p></div>
+    </header>
+
+    <section class="board mt-8 p-4 sm:p-6 overflow-x-auto">
+      <table class="w-full text-left">
+        <thead><tr class="text-xs uppercase tracking-widest text-[#ffb703]"><th class="py-2 pr-4">Innings</th><th class="py-2 pr-4">Batting as</th><th class="py-2 pr-4">How out / highlight</th><th class="py-2 text-right">Runs</th></tr></thead>
+        <tbody class="divide-y divide-white/10">{innings.map(([y, r, h, runs]) => <tr><td class="py-3 pr-4 num text-3xl">{y}</td><td class="py-3 pr-4 font-bold">{r}</td><td class="py-3 pr-4 text-white/80">{h}</td><td class="py-3 num text-3xl text-right led">{typeof runs === "number" && runs >= 1000 ? runs.toLocaleString("en-IN") : runs}</td></tr>)}</tbody>
+      </table>
+    </section>
+
+    <section class="mt-10 grid gap-4 sm:grid-cols-4">{numbers.map((n) => <div class="board p-5"><p class="num led text-6xl">{n.v}</p><p class="font-bold">{n.k}</p><p class="text-sm text-white/60">{n.d}</p></div>)}</section>
+
+    <section class="mt-12">
+      <h2 class="num text-5xl uppercase">Wagon wheel · where the runs went</h2>
+      <div class="mt-4 grid gap-6 lg:grid-cols-[auto_1fr] items-center">
+        <svg viewBox="0 0 320 320" class="w-72 h-72"><circle cx="160" cy="160" r="150" fill="#2d6a4f" stroke="#ffb703" stroke-width="3" /><rect x="150" y="110" width="20" height="100" class="pitch" fill="#c9b27a" />{work.map((w, i) => { const a = (i / work.length) * Math.PI * 2 - Math.PI / 2; const x = 160 + Math.cos(a) * 140, y = 160 + Math.sin(a) * 140; return <g><line x1="160" y1="160" x2={x} y2={y} stroke="#ffb703" stroke-width="3" /><circle cx={x} cy={y} r="6" fill="#ffb703" /></g>; })}</svg>
+        <ul class="grid gap-3 sm:grid-cols-2">{work.map((w, i) => <li class="board p-4"><p class="text-xs text-[#ffb703] uppercase tracking-widest">Shot {i + 1} · {w.kind}</p><p class="font-bold text-lg">{w.title}</p><p class="text-sm text-white/70">{w.out}</p></li>)}</ul>
+      </div>
+    </section>
+
+    <section class="mt-12 grid gap-6 md:grid-cols-2">{voices.slice(0, 2).map((v) => <blockquote class="board p-6"><p class="text-xs uppercase tracking-widest text-[#ffb703]">Commentary</p><p class="text-xl font-semibold mt-2">“{v.q}”</p><footer class="mt-3 text-sm text-white/60">{v.n}, {v.t}</footer></blockquote>)}</section>
+    <footer class="mt-14 board p-8 flex flex-wrap items-center justify-between gap-4"><p class="num text-4xl uppercase">Sign him for your side</p><a href={`mailto:${me.email}`} class="bg-[#ffb703] text-[#061f17] px-6 py-3 font-black">{me.email}</a></footer>
+  </main>
+</Shell>

@@ -23,7 +23,7 @@ typography:
     fontWeight: 600
     lineHeight: 1
     letterSpacing: "-0.04em"
-    fontVariation: "tabular-nums"
+    fontFeature: "tnum"
   headline:
     fontFamily: "Bricolage Grotesque, Arial Narrow, sans-serif"
     fontSize: "clamp(2rem, 4.6vw, 4.25rem)"
@@ -169,12 +169,12 @@ components:
     padding: "28px"
     width: "min(86vw, 30rem)"
   card-role:
-    backgroundColor: "oklch(0.28 0.08 var(--hue))"
+    backgroundColor: "oklch(0.3 0.07 264)"
     textColor: "{colors.fg}"
     rounded: "{rounded.panel}"
     padding: "24px"
   preview-panel:
-    backgroundColor: "oklch(0.42 0.16 var(--hue, 224))"
+    backgroundColor: "oklch(var(--l, 0.46) 0.17 264)"
     textColor: "{colors.white}"
     rounded: "{rounded.panel}"
     padding: "32px"
@@ -191,9 +191,9 @@ components:
 
 One person, one giant name, one room with the lights down. The site is a near-black studio in which the only things that glow are the subject's face, his name sliding past at 16vw, and a single electric blue reserved for the one thing a visitor is asked to do. Everything else is off-white type on hairlines. It belongs to the Awwwards portfolio-winner school (Dennis Snellenberg lineage) and was pinned by the user after rejecting a paper/serif document world and a bento widget grid; those two rejections are the only confirmed anti-references.
 
-Density is low and the rhythm is editorial: a section is either a huge statement in Bricolage Grotesque or a quiet muted label followed by hairline-divided rows. Surfaces are flat and tonal (`bg` to `bg-2`), never shadowed, never bordered thicker than a pixel. Motion is directed rather than decorative: lines are revealed from behind a mask, numbers count up once, round buttons are magnetic, and a hue-tinted preview panel follows the cursor over the work list. Nothing animates on loop except the marquees and a 12-second globe. Reduced-motion users get the same page, still.
+Density is low and the rhythm is editorial: a section is either a huge statement in Bricolage Grotesque or a quiet muted label followed by hairline-divided rows. Surfaces are flat and tonal (`bg` to `bg-2`), never shadowed, never bordered thicker than a pixel. Motion is directed rather than decorative: lines are revealed from behind a mask, numbers count up once, round buttons are magnetic, and a blue-tinted preview panel follows the cursor over the work list. Nothing animates on loop except the marquees and a 12-second globe. Reduced-motion users get the same page, still.
 
-Colour is almost entirely absent by intent. Beyond the four greys, the only hues on the page are the accent blue and six per-record OKLCH tints that exist to tell six pieces of work apart; they appear only inside an opened row or in the cursor preview.
+Colour is almost entirely absent by intent. Beyond the four greys, the only chroma on the page is blue: the accent, and a single OKLCH blue family (hue 264) whose lightness steps tint the cursor preview per record, the role card inside an opened row, and the contribution graph.
 
 **Key Characteristics:**
 - Near-black ground (`#0b0b0c`) with one lifted panel tone (`#141416`); no gradients except the portrait's dark foot
@@ -218,10 +218,10 @@ A four-grey tonal ladder with one electric blue; chroma is rationed to the actio
 - **Ash** (`{colors.muted}`, `#9c9c98`): secondary text, section labels, metadata, dates, the em-dash and middle-dot separators in marquees, the "& Front-End Team Lead" half of the hero title. 7.14:1 on `bg`, 6.68:1 on `bg-2`.
 - **Hairline** (`{colors.line}`, `rgb(242 242 240 / 0.14)`): every structural divider: row borders, section `border-y`, witness-card border, footer rule, consequence `dl` top rule.
 - **Hairline Strong** (`{colors.line-strong}`, `rgb(242 242 240 / 0.32)`): outlines on ghost controls (pills, circles, pronounce button), the witness pull-quote left rule, the scrollbar thumb.
-- **Pure White** (`{colors.white}`, `#ffffff`): text on the accent, the difference-blend header, and at 60%/80% alpha for captions inside hue-tinted panels.
+- **Pure White** (`{colors.white}`, `#ffffff`): text on the accent, the difference-blend header, and at 60%/80% alpha for captions inside the blue-tinted preview and role card.
 
-### Per-record tints (formula, not tokens)
-Six work records each carry a hue (`--hue`: 224, 262, 160, 28, 196, 340). Two OKLCH recipes derive their surfaces: the cursor preview panel at `oklch(0.42 0.16 var(--hue))` and the "Role" card inside an opened record at `oklch(0.28 0.08 var(--hue))`. The GitHub contribution graph uses its own five-step ramp on hue 264 (`rgb(242 242 240 / 0.07)`, then `oklch(0.45 0.12 264)` → `oklch(0.75 0.19 264)`). These are the only places chroma other than the accent appears.
+### The blue family (formulas, not tokens)
+Everything chromatic that is not the accent sits on OKLCH hue 264 and varies only in lightness and chroma. Each of the six work rows carries a lightness step `--l` (0.46, 0.40, 0.52, 0.36, 0.58, 0.44 in record order) and the cursor preview panel fills with `oklch(var(--l, 0.46) 0.17 264)`, so each record previews as a different depth of the same blue. The "Role" card inside an opened record is a fixed `oklch(0.3 0.07 264)`. The GitHub contribution graph uses a five-step ramp on the same hue (`rgb(242 242 240 / 0.07)`, then `oklch(0.45 0.12 264)`, `oklch(0.55 0.16 264)`, `oklch(0.65 0.19 264)`, `oklch(0.75 0.19 264)`). The accent itself measures oklch hue 270, six degrees away; the two are close enough to read as one blue.
 
 ### Named Rules
 **The One Blue Rule.** The accent is the action and the proof, nothing else. If a new element is neither something to click nor the emphasised number of a record, it is grey.
@@ -244,9 +244,9 @@ Fonts are served by Astro's fonts API (fontsource provider) as self-hosted woff2
 - **Stat** (600, `3rem` → `3.75rem` at ≥640px, line-height 1, tracking −0.04em, tabular): the four count-up numbers. The cursor preview's metric uses the same recipe at `3rem`, tracking −0.025em.
 - **Headline** (500, `clamp(2rem, 4.6vw, 4.25rem)`, line-height 1.02, tracking −0.03em): the "I build the platforms…" statement. "Nine people, on record." uses `clamp(2rem, 5vw, 4.5rem)` at line-height 1.
 - **Title** (400, `clamp(1.6rem, 4vw, 3.5rem)`, line-height 1, tracking −0.03em): work-row indices. The stack marquee is the same weight at `clamp(2.5rem, 7vw, 6rem)`; the mobile-menu links at `3rem`; the preloader greeting at `2.25rem` → `3rem`.
-- **Subtitle** (400, `1.5rem` → `1.875rem` at ≥640px, line-height 1.25, tracking −0.025em): the hero job title, experience role names. Opened-record titles (`h3`) use the same size at 500. Consequence values use `1.5rem` at 400.
+- **Subtitle** (400, `1.5rem` → `1.875rem` at ≥640px, line-height 1.25, tracking −0.025em): the hero job title, experience role names. Opened-record titles (`h3`) use the same size at 500. Witness pull quotes use `1.5rem` → `1.7rem` at tracking −0.02em. Consequence values use `1.5rem` at 400.
 - **Section label** (500, `1.25rem`, Bricolage, colour `muted`): "Selected work", "Experience", "Earlier work". The quiet half of the system's loud/quiet split.
-- **Body** (Geist 400, `1rem`, line-height 1.5): record context and decisions, experience bullets, witness quotes at `0.98rem` / line-height 1.625. Opened-record prose is capped at `62ch`; the intro lead at `max-w-md` (28rem).
+- **Body** (Geist 400, `1rem`, line-height 1.5): record context and decisions, experience bullets; the full witness note at `0.95rem` / line-height 1.625 in `fg/90`. Opened-record prose is capped at `62ch`; the intro lead at `max-w-md` (28rem).
 - **Lead** (Geist 400, `1.125rem`): the intro paragraph; "Get in touch" at 500.
 - **Small** (Geist 400, `0.875rem`): nav links, pills, metadata, dates, witness footers, the hover hint.
 - **Label** (Geist 400, `0.75rem`, uppercase, tracking 0.1em, colour `muted` or `white/60`): captions over values in the footer meta grid (Version / Local time / Name / Socials), the "Navigation" caption in the mobile menu, "Role" inside the hue card, and the preview panel's kind line. Bound to definition-list style captions above a value; never placed above a heading.
@@ -279,7 +279,7 @@ Flat, tonal, one step. Depth is conveyed by alternating the ground (`bg`) with t
 - **Preview float** (`box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25)`): the cursor preview panel only.
 
 ### Named Rules
-**The Tonal Step Rule.** A surface is either `bg` or `bg-2`; a third tone is not introduced. Hue-tinted panels (preview, role card) are the only exceptions and they derive from a record's `--hue`.
+**The Tonal Step Rule.** A surface is either `bg` or `bg-2`; a third tone is not introduced. Blue-tinted panels (preview, role card) are the only exceptions and they sit on hue 264, varying lightness only.
 
 **The One Float Rule.** The only element that casts a shadow is the one that is not part of the page: the cursor preview.
 
@@ -308,14 +308,14 @@ The feel is "refined and still": controls are round, quiet at rest, and reveal c
 - **Header wordmark:** "© Mubarak" in Bricolage 600 `1.125rem`; on hover the © rotates 360° and "Mubarak" slides up to reveal the full name (`500ms`).
 
 ### Cards / Containers
-- **Witness card:** `bg-bg-2`, `1px` `line` border, `1.5rem` radius, padding `28px` → `36px`, width `min(86vw, 30rem)`, `snap-start` inside a horizontal `snap-x snap-mandatory` track with a hidden scrollbar and `20px` gaps. Accent quote glyph (22px) at top, quote paragraphs at `0.98rem` / 1.625, a hairline-topped footer with name (500) and title (muted).
-- **Role card:** inside an opened record, `1rem` radius, padding `24px`, `oklch(0.28 0.08 var(--hue))`, label caption in `white/60`.
-- **Hue preview:** see Signature Component.
+- **Witness card:** `bg-bg-2`, `1px` `line` border, `1.5rem` radius, padding `28px` → `36px`, width `min(86vw, 30rem)`, `snap-start` inside a horizontal `snap-x snap-mandatory` track with a hidden scrollbar and `20px` gaps. Accent quote glyph (22px) at top; the pull quote in Bricolage 400 at `1.5rem` → `1.7rem`, line-height 1.25, tracking −0.02em; then a native `<details>` whose summary is a `small muted` draw-link ("Read the full note" / "Collapse") revealing the verbatim quote at `0.95rem` / 1.625 in `fg/90`; a hairline-topped footer with name (500) and title (muted).
+- **Role card:** inside an opened record, `1rem` radius, padding `24px`, `oklch(0.3 0.07 264)`, label caption in `white/60`.
+- **Blue preview:** see Signature Component.
 - **Portrait:** `4:5`, `1.5rem` radius, `object-top`, scaled 1.05 to hide parallax edges, dark gradient foot.
 
 ### Rows (work, experience, earlier work)
 - **Structure:** `<ol>` with hairline top borders per row and a hairline bottom on the list; work and experience rows are native `<details>` with a `list-none` summary and a Lucide plus (20px) that rotates 45° over `500ms` when open.
-- **Work row:** summary padding `28px 4px` → `36px 16px`; on hover the horizontal padding slides to `24px` → `40px` over `500ms` (`transition-[padding]`), and sibling rows dim to 40% opacity over `320ms` (`.work-list:hover .work-row:not(:hover)`). Each row carries `--hue`.
+- **Work row:** summary padding `28px 4px` → `36px 16px`; on hover the horizontal padding slides to `24px` → `40px` over `500ms` (`transition-[padding]`), and sibling rows dim to 40% opacity over `320ms` (`.work-list:hover .work-row:not(:hover)`). Each row carries its preview lightness `--l`.
 - **Experience row:** `28px` vertical, role name at Subtitle size, company and dates in `small muted tabular` (hidden below 640px).
 - **Earlier work row:** `16px` vertical, date column `4rem` wide in `0.75rem muted tabular`, name at 500, description in `small muted`, "Demo ↗" draw-link.
 
@@ -336,19 +336,19 @@ The feel is "refined and still": controls are round, quiet at rest, and reveal c
 - Fixed `z-[90]`, `bg-bg`, centred greeting (dot + word) in Bricolage `2.25rem` → `3rem`. Holds `450ms`, steps through six greetings every `140ms` (Tamil first), then lifts `translateY(-120%)` over `800ms` with `cubic-bezier(0.76, 0, 0.24, 1)` while an SVG curtain gives the bottom edge a curve; removed after 1s. About 1.2s on screen before the lift. Runs once per `sessionStorage` session and never under reduced motion. Reveals wait for `html.is-ready`.
 
 ### Signature Component: cursor-following work preview
-A fixed `22rem × 16.5rem` (4:3) panel, `1rem` radius, `oklch(0.42 0.16 var(--hue, 224))` fill, white text, `32px` padding, `shadow-2xl`, `pointer-events: none`, `aria-hidden`, rendered only from `lg` and only on `pointer: fine` without reduced motion. It tracks the pointer with GSAP `quickTo` (`0.5s power3`) offset to centre under the cursor (−176px, −132px). Entering a closed row's summary writes the row's `--hue`, emphasised metric (Stat size, 600), index title (`small white/80`) and kind (Label, `white/60`) into it and scales it `0.9 → 1` with opacity over `0.4s power3.out`; leaving fades it over `0.3s`; clicking the row hides it in `0.2s`.
+A fixed `22rem × 16.5rem` (4:3) panel, `1rem` radius, `oklch(var(--l, 0.46) 0.17 264)` fill, white text, `32px` padding, `shadow-2xl`, `pointer-events: none`, `aria-hidden`, rendered only from `lg` and only on `pointer: fine` without reduced motion. It tracks the pointer with GSAP `quickTo` (`0.5s power3`) offset to centre under the cursor (−176px, −132px). Entering a closed row's summary writes the row's `--l`, emphasised metric (Stat size, 600), index title (`small white/80`) and kind (Label, `white/60`) into it and scales it `0.9 → 1` with opacity over `0.4s power3.out`; leaving fades it over `0.3s`; clicking the row hides it in `0.2s`. Measured contrast of its captions: the `white/60` kind line is 5.02:1 at `--l` 0.36 but 3.74:1 at 0.46 and 2.60:1 at 0.58, and the `white/80` title is 3.42:1 at 0.58; the panel is `aria-hidden` and pointer-only, but those values are under AA and are recorded here as a defect of the build, not a rule.
 
 ### Motion grammar (what every component above draws from)
 - **Smooth scroll:** Lenis, `lerp 0.1`, `wheelMultiplier 1`; disabled under reduced motion.
 - **Masked line reveal (`data-split`):** GSAP SplitText into lines, each wrapped in an `overflow: hidden` line; `yPercent 110 → 0`, `1.1s`, `expo.out`, `0.08s` stagger, triggered at `top 85%`, once.
-- **Block reveal (`data-reveal`):** `y 32px → 0` with opacity, `1s`, `expo.out`, triggered at `top 90%`, once.
+- **Block reveal (`data-reveal`):** `y 32px → 0` with opacity, `1s`, `expo.out`, triggered at `top 90%`, once. Used sparingly: the hero's location pill and title block, the intro lead and "See the work". Section labels, rows and stats do not reveal; they are simply there.
 - **Count-up (`data-count`):** `1.8s expo.out`, `top 90%`, once, `toFixed(decimals)`.
 - **Parallax (`data-parallax`):** scrubbed `yPercent` equal to `parallax × 100` (portrait: 12) across its section from `top top` to `bottom top`.
 - **Magnetic (`data-magnetic`):** 0.35 strength, `0.6s power3` quickTo, fine pointers only.
 - **Hover sweep:** `520ms cubic-bezier(0.16, 1, 0.3, 1)`; draw underline `420ms` same ease; row dim `320ms`; padding slide and plus rotation `500ms`; wordmark swap `500ms`; default utility transitions `150ms cubic-bezier(0.4, 0, 0.2, 1)`.
 - **Preloader lift:** `800ms cubic-bezier(0.76, 0, 0.24, 1)` (declared in the theme as `--ease-in-out-quart` but written inline).
 - **Loops:** marquees 22s / 34s / 44s linear; globe 12s linear.
-- **Reduced motion:** Lenis, reveals, count-ups, parallax, magnetic, preview and the preloader are all skipped in `motion.ts` and `Preloader.astro`; `.marquee-track` animation is removed in CSS. Content renders fully in its final state.
+- **Reduced motion:** Lenis, reveals, count-ups, parallax, magnetic, preview and the preloader are all skipped in `motion.ts` and `Preloader.astro`; `.marquee-track` animation is removed in CSS. The sticky CTA's show/hide ScrollTriggers run regardless, so the "Let's talk" circle still appears after the hero. Content renders fully in its final state.
 
 ## Do's and Don'ts
 
@@ -359,7 +359,7 @@ A fixed `22rem × 16.5rem` (4:3) panel, `1rem` radius, `oklch(0.42 0.16 var(--hu
 - **Do** use the accent only for the action and the emphasised proof number; text on it is pure white.
 - **Do** reveal text with the masked line pattern (`data-split`, `1.1s expo.out`, `0.08s` stagger) and blocks with `data-reveal`; both fire once at `top 85–90%`.
 - **Do** ship every animated value server-rendered in its final state so reduced-motion and no-JS readers lose nothing.
-- **Do** keep hue-tinted surfaces derived from a record's `--hue` with the two OKLCH recipes; do not pick new tints by hand.
+- **Do** keep tinted surfaces in the hue-264 blue family (chroma 0.07–0.19) and vary only lightness (`--l`); do not introduce a new hue by hand.
 - **Do** use `lang="ta"` and `font-tamil` for the Tamil name wherever it appears.
 - **Do** give every control the shared `:focus-visible` ring (`2px` accent, `4px` offset).
 

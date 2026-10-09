@@ -1,0 +1,28 @@
+{
+  "company": "Incresco",
+  "role": "Software Development Engineer 1",
+  "type": "Full-time · Bengaluru",
+  "start": "2022-05",
+  "end": "2022-09",
+  "groups": [
+    {
+      "name": "Edvanza",
+      "bullets": [
+        "Led a frontend team of four developers: training, assigning tasks, mentoring and delegating.",
+        "Contributed to strategic planning and execution of key Edvanza modules aligned with business objectives.",
+        "Served as Technical Panelist, interviewing 30+ candidates across experience levels.",
+        "Reviewed 37% of all pull requests to uphold code quality and consistency.",
+        "Promoted to SDE 2 within five months."
+      ]
+    }
+  ],
+  "skills": [
+    "React",
+    "Next.js",
+    "React Native",
+    "Team leadership",
+    "Hiring",
+    "Code review"
+  ],
+  "order": 3
+}

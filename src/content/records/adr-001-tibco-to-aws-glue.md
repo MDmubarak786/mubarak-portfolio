@@ -5,7 +5,7 @@ index: "Tibco → AWS Glue"
 status: accepted
 date: "2024"
 organisation: EF Academy
-role: Lead Software Engineer, sole developer on the platform
+role: Software Development Engineer 2, sole developer on the platform
 summary: A licensed integration pipeline was replaced with AWS Glue before the licence ended, cutting the annual cost from $24,000 to $840.
 context: >-
   EF Academy's Salesforce integrations and data transformations ran on Tibco Scribe under a licence that cost $24,000 a year and had an end date. The pipelines fed daily operations, so the replacement had to finish before the contract ran out and could not interrupt the business.

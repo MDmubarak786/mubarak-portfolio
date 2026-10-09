@@ -5,7 +5,7 @@ index: "Localization in Storyblok"
 status: accepted
 date: "2023"
 organisation: EF Academy
-role: Lead Software Engineer, sole developer on the marketing platform
+role: Software Development Engineer 2, sole developer on the marketing platform
 summary: The multilingual marketing platform serving 1.25M+ monthly users across 23+ languages got a translation workflow its content teams could run without engineering.
 context: >-
   EF Academy's primary digital presence is a high-traffic, multilingual marketing site built on Next.js and Storyblok with Salesforce and AWS integrations, maintained and evolved by one engineer. Every localization project that needed an engineer in the loop slowed the content teams down.
