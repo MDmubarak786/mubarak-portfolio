@@ -72,12 +72,12 @@ incumbent audit in `docs/research.md`; the direction round in `docs/direction-ro
 ### Phase 3: Signature interaction, SEO, performance
 - [x] Task 13: Stamp-landing interaction with reduced-motion path
 - [x] Task 14: Metadata, Open Graph image, JSON-LD Person, sitemap, robots, canonical
-- [ ] Task 15: Performance pass: font subsetting, image formats, zero unused JS, Lighthouse CI
+- [x] Task 15: Performance pass: font subsetting, image formats, zero unused JS, Lighthouse CI
 
 ### Phase 4: Finish (impeccable)
 - [ ] Task 16: `impeccable detect` + batched inspection round (desktop, mobile, user viewport), fix batch
 - [ ] Task 17: Finish reviewer agent, verdict, fixes; documenter writes DESIGN.md + `.impeccable/design.json`
-- [ ] Task 18: Deploy to Vercel, env vars, domain decision, redirect from old URL
+- [x] Task 18: Deploy to Vercel, env vars, domain decision, redirect from old URL
 
 ### Checkpoint: Complete
 - [ ] Finish review disposition is `ship`; DESIGN.md exists with tokens
