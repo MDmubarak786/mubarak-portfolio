@@ -1,0 +1,126 @@
+---
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import FinalShell from "../layouts/FinalShell.astro";
+import Calendar from "../components/final/Calendar.astro";
+import Pronounce from "../components/final/Pronounce.astro";
+import portrait from "../assets/portrait.png";
+import { site, mailto } from "../lib/site";
+import { me, numbers, migration, stack } from "../lib/story";
+const records = (await getCollection("records")).sort((a, b) => a.data.order - b.data.order);
+const witnesses = (await getCollection("witnesses")).sort((a, b) => a.data.order - b.data.order);
+const roles = (await getCollection("experience")).sort((a, b) => a.data.order - b.data.order);
+const projects = (await getCollection("projects")).sort((a, b) => a.data.order - b.data.order);
+const fmt = (ym: string | null) => ym ? new Date(ym + "-01T00:00:00Z").toLocaleDateString("en-GB", { month: "short", year: "numeric", timeZone: "UTC" }) : "Now";
+const sfx = ["TICK", "HMM", "PLAN!", "SWITCH!", "KA-CHING"];
+const colors = ["#ff2e63", "#1b998b", "#ffb703", "#3a86ff", "#8338ec"];
+const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.phoneDisplay, site.whatsapp], ["Call", site.phoneDisplay, `tel:${site.phoneE164}`], ["LinkedIn", "mohammed-mubarak", site.linkedin], ["GitHub", "MDmubarak786", site.github], ["X", "@MMubarakoo7", site.x], ["Instagram", "@scooby_doo.mk", site.instagram], ["YouTube", "@mohammedmubarak1478", site.youtube]];
+---
+<FinalShell title={`${site.name} – the comic`} description={me.oneLiner} fonts={["--font-bangers", "--font-patrick"]} current="comic" theme="#fff8e7">
+  <style is:global>
+    :root { --v-bg:#fff8e7; --v-fg:#111; --v-accent:#ff2e63; --v-font-text: var(--font-patrick); --v-font-display: var(--font-bangers); }
+    body { background-image: radial-gradient(#111 0.8px, transparent 0.9px); background-size: 7px 7px; font-size: 1.1rem; }
+    h1, h2, h3, .bang { font-family: var(--font-bangers); letter-spacing:.02em; font-weight:400; }
+    .panel { background:#fff; border: 4px solid #111; box-shadow: 8px 8px 0 #111; position:relative; }
+    .caption { background:#fff3b0; border: 3px solid #111; padding:.25rem .6rem; display:inline-block; transform: rotate(-1deg); font-size:1rem; }
+    .bubble { background:#fff; border:3px solid #111; border-radius: 1.5rem; padding:.9rem 1.1rem; position:relative; }
+    .bubble::after { content:""; position:absolute; left:28px; bottom:-18px; border: 10px solid transparent; border-top-color:#111; }
+    .sfx { font-family: var(--font-bangers); -webkit-text-stroke: 2px #111; text-shadow: 4px 4px 0 #111; transform: rotate(-8deg); display:inline-block; }
+    .btn { font-family: var(--font-bangers); font-size:1.35rem; letter-spacing:.04em; background:#111; color:#fff; border:3px solid #111; padding:.5rem 1.1rem; box-shadow: 4px 4px 0 var(--v-accent); transition: transform .12s, box-shadow .12s; display:inline-block; }
+    .btn:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--v-accent); }
+    .btn.alt { background:#fff; color:#111; }
+    .burst { clip-path: polygon(50% 0%, 61% 12%, 77% 6%, 80% 23%, 96% 29%, 88% 44%, 100% 56%, 85% 65%, 88% 82%, 71% 82%, 63% 97%, 50% 87%, 37% 97%, 29% 82%, 12% 82%, 15% 65%, 0% 56%, 12% 44%, 4% 29%, 20% 23%, 23% 6%, 39% 12%); }
+    .zig { background: repeating-linear-gradient(135deg, #111 0 6px, transparent 6px 12px); height: 10px; }
+    details summary { list-style:none; cursor:pointer; } details summary::-webkit-details-marker { display:none; }
+  </style>
+  <header class="sticky top-0 z-40 bg-[#fff8e7]/90 backdrop-blur border-b-4 border-[#111]">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8 py-3 flex items-center justify-between gap-4">
+      <a href="#main" class="bang text-2xl">MK <span class="text-[#ff2e63]">COMICS</span></a>
+      <nav class="hidden sm:flex gap-6 text-lg" aria-label="Sections"><a href="#migration" class="hover:underline">Chapter 1</a><a href="#cases" class="hover:underline">Case files</a><a href="#witnesses" class="hover:underline">Witnesses</a><a href="#origin" class="hover:underline">Origin</a><a href="#contact" class="hover:underline">Contact</a></nav>
+      <a href={mailto("A role")} class="btn text-base py-1.5">Hire me</a>
+    </div>
+  </header>
+
+  <main id="main" class="max-w-6xl mx-auto px-5 sm:px-8 pt-10 pb-28">
+    <!-- COVER -->
+    <section class="panel p-6 sm:p-10 grid gap-8 md:grid-cols-[auto_1fr] items-center" aria-label="Cover">
+      <div class="relative"><Image src={portrait} alt={`Portrait of ${site.name}`} width={520} height={520} class="w-56 sm:w-72 border-4 border-[#111] object-cover" style="filter: contrast(1.15) saturate(1.3)" /><span class="burst absolute -right-8 -top-8 bg-[#ffb703] size-28 grid place-items-center bang text-xl text-center leading-none rotate-12">2026<br />EDITION</span></div>
+      <div>
+        <p class="caption">Issue #1 · Chennai, India · {site.pronouns}</p>
+        <h1 class="mt-3 text-[clamp(3rem,8vw,7rem)] leading-[0.9] text-[#ff2e63]" style="-webkit-text-stroke: 2px #111">The Full-Stack<br />+ AI Chronicles</h1>
+        <p class="mt-4 text-2xl">Starring <strong>{site.name}</strong>, Senior Software Engineer at Galent. {me.oneLiner}</p>
+        <div class="mt-5 flex flex-wrap items-center gap-3"><a href={mailto("A role")} class="btn">Email me</a><a href={site.whatsapp} class="btn alt">WhatsApp</a><a href={site.linkedin} class="btn alt">LinkedIn</a><Pronounce class="caption cursor-pointer" /></div>
+      </div>
+    </section>
+
+    <!-- NUMBERS -->
+    <section class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4" aria-label="Numbers">{numbers.map((n, i) => <div class="panel p-5" style={`transform: rotate(${i % 2 ? 0.8 : -0.8}deg)`}><p class="bang text-5xl" style={`color:${colors[i]}; -webkit-text-stroke:1.5px #111`}>{n.v}</p><p class="text-xl font-bold">{n.k}</p><p>{n.d}</p></div>)}</section>
+
+    <!-- CHAPTER 1 -->
+    <section id="migration" class="mt-16 scroll-mt-24" aria-labelledby="ch1">
+      <h2 id="ch1" class="text-5xl sm:text-6xl">Chapter 1 · The Great Migration</h2>
+      <p class="mt-2 text-xl">A true story about $24,000, a deadline, and AWS Glue.</p>
+      <div class="mt-6 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {migration.map((m, i) => <article class="panel p-6 min-h-[17rem] flex flex-col" style={`transform: rotate(${(i % 2 ? 1 : -1) * 0.6}deg)`}><p class="caption self-start">Panel {i + 1} · {m.t}</p><p class="bubble mt-5">{m.s}</p><p class="sfx mt-auto self-end text-[clamp(2rem,5vw,4rem)]" style={`color:${colors[i]}`}>{sfx[i]}</p></article>)}
+        <article class="panel p-6 bg-[#ff2e63] text-white flex flex-col justify-center"><p class="bang text-5xl">THE END?</p><p class="text-xl mt-2">No. The platform still serves 1.25M people a month. Turn the page.</p></article>
+      </div>
+    </section>
+
+    <!-- CASE FILES -->
+    <section id="cases" class="mt-16 scroll-mt-24" aria-labelledby="ch2">
+      <h2 id="ch2" class="text-5xl sm:text-6xl">Chapter 2 · Case files</h2>
+      <p class="mt-2 text-xl">Eight cases. Open any file for context, decision and consequences.</p>
+      <ol class="mt-6 grid gap-6 md:grid-cols-2">
+        {records.map((r, i) => <li class="panel p-5"><details class="group"><summary><p class="caption">File {String(i + 1).padStart(2, "0")} · {r.data.organisation} · {r.data.date}</p><h3 class="text-3xl mt-2">{r.data.index}</h3><p class="mt-1 text-lg">{r.data.summary}</p><p class="mt-2 bang text-xl" style={`color:${colors[i % 5]}`}>{r.data.consequences.find((c) => c.emphasis)?.value} <span class="text-sm font-sans text-[#555] group-open:hidden">· open the file ▸</span></p></summary>
+          <div class="mt-4 border-t-4 border-dashed border-[#111] pt-4 space-y-3">
+            <p><strong>Context.</strong> {r.data.context}</p>
+            <p><strong>Decision.</strong> {r.data.decision}</p>
+            <ul class="grid grid-cols-2 gap-2">{r.data.consequences.map((c) => <li class="bubble !rounded-xl after:hidden p-3"><span class="bang text-2xl block">{c.value}</span><span class="text-sm">{c.label}</span></li>)}</ul>
+            <p class="text-sm">{r.data.tags.join(" · ")}</p>
+          </div></details></li>)}
+      </ol>
+    </section>
+
+    <!-- WITNESSES -->
+    <section id="witnesses" class="mt-16 scroll-mt-24" aria-labelledby="ch3">
+      <h2 id="ch3" class="text-5xl sm:text-6xl">Chapter 3 · Nine witnesses</h2>
+      <p class="mt-2 text-xl">Every word verbatim. Nothing paraphrased.</p>
+      <ul class="mt-6 grid gap-8 md:grid-cols-2">
+        {witnesses.map((w) => <li id={`witness-${w.id}`}><blockquote class="bubble text-lg space-y-3">{w.data.quote.split(/\n\s*\n/).map((p) => <p>{p}</p>)}</blockquote><footer class="mt-6 ml-4"><span class="caption"><strong>{w.data.name}</strong> · {w.data.title}{w.data.organisation ? `, ${w.data.organisation}` : ""}</span></footer></li>)}
+      </ul>
+    </section>
+
+    <!-- ORIGIN -->
+    <section id="origin" class="mt-16 scroll-mt-24" aria-labelledby="ch4">
+      <h2 id="ch4" class="text-5xl sm:text-6xl">Chapter 4 · Origin story</h2>
+      <ol class="mt-6 space-y-6">
+        {roles.map((r, i) => <li class="panel p-6 grid gap-4 md:grid-cols-[14rem_1fr]"><div><p class="caption">{fmt(r.data.start)} → {fmt(r.data.end)}</p><h3 class="text-3xl mt-2">{r.data.role}</h3><p class="text-lg">{r.data.company} · {r.data.type}</p></div><div class="space-y-4">{r.data.groups.map((g) => <div><p class="bang text-2xl" style={`color:${colors[i % 5]}`}>{g.name}</p><ul class="list-disc pl-5 space-y-1">{g.bullets.map((b) => <li>{b}</li>)}</ul></div>)}<p class="text-sm">{r.data.skills.join(" · ")}</p></div></li>)}
+      </ol>
+    </section>
+
+    <!-- POWERS -->
+    <section class="mt-16" aria-labelledby="powers">
+      <h2 id="powers" class="text-5xl sm:text-6xl">Power-ups</h2>
+      <ul class="mt-6 flex flex-wrap gap-3">{stack.map((s, i) => <li class="panel px-4 py-2 bang text-xl" style={`background:${colors[i % 5]}22; transform: rotate(${(i % 3) - 1}deg)`}>{s}</li>)}</ul>
+      <div class="panel mt-8 p-6"><p class="caption">Daily strip · GitHub, the last twelve months</p><div class="mt-4"><Calendar empty="#fff" levels={["#ffd6e0", "#ff9ab5", "#ff5c8a", "#ff2e63"]} ink="#111" /></div><p class="mt-3 text-lg"><a href={site.github} class="underline">@MDmubarak786</a></p></div>
+    </section>
+
+    <!-- BACK ISSUES -->
+    <section class="mt-16" aria-labelledby="back">
+      <h2 id="back" class="text-5xl sm:text-6xl">Back issues · 2020</h2>
+      <p class="mt-2 text-xl">Eight Flutter apps from when I was learning mobile. Each has a demo on YouTube.</p>
+      <ul class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{projects.map((p) => <li class="panel p-4"><p class="caption">{fmt(p.data.period)}</p><h3 class="text-2xl mt-2">{p.data.name}</h3>{p.data.description && <p class="text-base">{p.data.description}</p>}{p.data.link && <a href={p.data.link} class="btn alt text-base mt-3 py-1">Watch demo</a>}</li>)}</ul>
+      <div class="panel mt-6 p-6 bg-[#ffb703] flex flex-wrap items-center justify-between gap-4"><div><p class="bang text-3xl">Bonus level · Whac-a-Thief</p><p class="text-lg">A mini game built in Spline. Tap the burglars, spare the cops.</p></div><a href={site.game} class="btn">Play</a></div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="mt-16 scroll-mt-24 panel p-8 sm:p-12" aria-labelledby="ch5">
+      <div class="zig mb-6"></div>
+      <h2 id="ch5" class="text-5xl sm:text-7xl text-[#ff2e63]" style="-webkit-text-stroke:2px #111">Next issue needs a publisher.</h2>
+      <p class="mt-3 text-2xl">Hiring for a senior or lead role? Write, call, or send a message.</p>
+      <div class="mt-6 flex flex-wrap gap-3"><a href={mailto("A role")} class="btn">{site.email}</a><a href={site.whatsapp} class="btn alt">WhatsApp {site.phoneDisplay}</a></div>
+      <dl class="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4 text-lg">{channels.map(([l, v, h]) => <div><dt class="bang text-xl">{l}</dt><dd><a href={h} class="underline break-all">{v}</a></dd></div>)}</dl>
+      <p class="mt-8 text-lg flex flex-wrap items-center gap-3"><Pronounce class="caption cursor-pointer" /> <span>{site.location} · © {new Date().getFullYear()} {site.name}</span></p>
+    </section>
+  </main>
+</FinalShell>

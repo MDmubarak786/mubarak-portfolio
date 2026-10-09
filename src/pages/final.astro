@@ -1,0 +1,10 @@
+---
+import "../styles/variants.css";
+const v = [["Studio", "/", "The existing dark cinematic build: preloader, name marquee, smooth scroll, cursor previews, nine quotes, live IST clock."], ["Comic", "/comic", "A graphic novel: cover, The Great Migration in panels, case files, witnesses in speech bubbles, origin story, power-ups, back issues."], ["Logbook", "/logbook", "A field engineer’s logbook: cover, contents, day-by-day entries, measurements, signatures, postings, kit list, weather log."]];
+---
+<html lang="en"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="robots" content="noindex" /><title>Three finals</title></head>
+<body class="min-h-dvh bg-[#111] text-white p-6 sm:p-12">
+  <h1 class="text-3xl font-bold">Three full portfolios</h1>
+  <p class="mt-2 text-white/70 max-w-prose">Same content, complete, in three worlds. Pick one.</p>
+  <ol class="mt-8 grid gap-4 sm:grid-cols-3">{v.map(([n, h, b]) => <li><a href={h} class="block rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition"><span class="block text-2xl font-bold">{n}</span><span class="block mt-2 text-white/70">{b}</span></a></li>)}</ol>
+</body></html>

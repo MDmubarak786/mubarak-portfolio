@@ -1,0 +1,117 @@
+---
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import FinalShell from "../layouts/FinalShell.astro";
+import Calendar from "../components/final/Calendar.astro";
+import Pronounce from "../components/final/Pronounce.astro";
+import portrait from "../assets/portrait.png";
+import { site, mailto } from "../lib/site";
+import { me, numbers, migration, stack } from "../lib/story";
+const records = (await getCollection("records")).sort((a, b) => a.data.order - b.data.order);
+const witnesses = (await getCollection("witnesses")).sort((a, b) => a.data.order - b.data.order);
+const roles = (await getCollection("experience")).sort((a, b) => a.data.order - b.data.order);
+const projects = (await getCollection("projects")).sort((a, b) => a.data.order - b.data.order);
+const fmt = (ym: string | null) => ym ? new Date(ym + "-01T00:00:00Z").toLocaleDateString("en-GB", { month: "short", year: "numeric", timeZone: "UTC" }) : "present";
+const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.phoneDisplay, site.whatsapp], ["Call", site.phoneDisplay, `tel:${site.phoneE164}`], ["LinkedIn", "mohammed-mubarak", site.linkedin], ["GitHub", "MDmubarak786", site.github], ["X", "@MMubarakoo7", site.x], ["Instagram", "@scooby_doo.mk", site.instagram], ["YouTube", "@mohammedmubarak1478", site.youtube]];
+const contents = [["#log", "Entries · The migration"], ["#entries", "Other entries · eight works"], ["#measurements", "Measurements"], ["#signatures", "Signatures · nine on record"], ["#postings", "Postings"], ["#kit", "Kit list"], ["#early", "Early experiments"], ["#write", "Write to me"]];
+---
+<FinalShell title={`${site.name} – field logbook`} description={me.oneLiner} fonts={["--font-caveat", "--font-elite"]} current="logbook" theme="#2b4a3a">
+  <style is:global>
+    :root { --v-bg:#2b4a3a; --v-fg:#1f1a14; --v-accent:#c0392b; --v-font-text: var(--font-elite); --v-font-display: var(--font-caveat); }
+    body { background-image: repeating-linear-gradient(45deg, rgba(0,0,0,.08) 0 2px, transparent 2px 6px); color: #1f1a14; }
+    .book { background:#f5efe0; background-image: linear-gradient(transparent 31px, #d8cfb8 32px); background-size: 100% 32px; box-shadow: 0 40px 80px -30px rgba(0,0,0,.7); border-radius: 4px; }
+    .hand { font-family: var(--font-caveat); font-weight: 500; }
+    .tape { position:absolute; width:90px; height:26px; background:rgba(255,230,120,.75); transform: rotate(-4deg); left:50%; margin-left:-45px; top:-12px; }
+    .photo { background:#fff; padding:10px 10px 36px; box-shadow: 0 10px 20px -10px rgba(0,0,0,.5); position:relative; }
+    .stamp { font-family: var(--font-elite); color:#c0392b; border:3px solid #c0392b; padding:.3rem .8rem; transform: rotate(-6deg); display:inline-block; letter-spacing:.1em; opacity:.85; text-transform: uppercase; }
+    .stamp.ok { color:#1f6f4a; border-color:#1f6f4a; }
+    .margin { border-left: 2px solid #c0392b; padding-left: 1rem; }
+    .btn { font-family: var(--font-elite); border:2px solid #1f1a14; padding:.5rem 1rem; background:#fff; display:inline-block; transition: background .15s, color .15s; }
+    .btn:hover { background:#1f1a14; color:#f5efe0; }
+    details summary { list-style:none; cursor:pointer; } details summary::-webkit-details-marker { display:none; }
+    .tick::before { content:"☑ "; color:#1f6f4a; }
+    .cover { background:#3b2e24; color:#f5efe0; background-image: repeating-linear-gradient(0deg, rgba(255,255,255,.05) 0 1px, transparent 1px 8px); }
+  </style>
+  <header class="sticky top-0 z-40 bg-[#2b4a3a]/95 backdrop-blur text-[#f5efe0] border-b border-white/15">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8 py-3 flex items-center justify-between gap-4 text-sm">
+      <a href="#main" class="hand text-2xl">M. Shajahan · Field log</a>
+      <nav class="hidden md:flex gap-5" aria-label="Sections">{contents.slice(0, 5).map(([h, l]) => <a href={h} class="hover:underline">{l.split(" · ")[0]}</a>)}</nav>
+      <a href={mailto("A role")} class="btn !bg-[#f5efe0] !text-[#1f1a14] py-1">Write to me</a>
+    </div>
+  </header>
+
+  <main id="main" class="max-w-6xl mx-auto px-5 sm:px-8 pt-10 pb-28 space-y-10">
+    <!-- COVER -->
+    <section class="cover rounded-md p-8 sm:p-14 grid gap-10 lg:grid-cols-[1fr_auto] items-center" aria-label="Cover">
+      <div>
+        <p class="text-xs tracking-[0.3em] uppercase opacity-80">Field log · Vol. 2021 – 2026 · Property of</p>
+        <h1 class="hand text-[clamp(3rem,8vw,7rem)] leading-none mt-3">{site.name}</h1>
+        <p class="mt-3 text-lg">Senior Software Engineer, Galent · Chennai, India · {site.pronouns}</p>
+        <p class="mt-4 max-w-xl leading-relaxed">{me.intro}</p>
+        <div class="mt-6 flex flex-wrap items-center gap-3"><a href={mailto("A role")} class="btn !bg-[#f5efe0] !text-[#1f1a14]">Email</a><a href={site.whatsapp} class="btn !bg-transparent !text-[#f5efe0] !border-[#f5efe0]">WhatsApp</a><a href={site.linkedin} class="btn !bg-transparent !text-[#f5efe0] !border-[#f5efe0]">LinkedIn</a><Pronounce class="hand text-2xl" /></div>
+      </div>
+      <div class="photo w-56 rotate-[-3deg] text-[#1f1a14]"><span class="tape"></span><Image src={portrait} alt={`Portrait of ${site.name}`} width={400} height={400} class="w-full object-cover" style="filter: sepia(.3) contrast(1.1)" /><p class="hand text-xl mt-2 text-center">Chennai, on call.</p></div>
+    </section>
+
+    <!-- CONTENTS -->
+    <section class="book p-6 sm:p-10" aria-label="Contents">
+      <h2 class="hand text-5xl">Contents</h2>
+      <ol class="mt-4 grid gap-x-10 gap-y-1 sm:grid-cols-2 text-[1.05rem]">{contents.map(([h, l], i) => <li class="flex justify-between border-b border-dotted border-[#1f1a14]/40"><a href={h} class="hover:underline">{l}</a><span>{i + 1}</span></li>)}</ol>
+    </section>
+
+    <!-- MEASUREMENTS -->
+    <section id="measurements" class="grid gap-4 sm:grid-cols-4 scroll-mt-24" aria-label="Measurements">{numbers.map((n) => <div class="book p-5"><p class="hand text-5xl">{n.v}</p><p class="font-bold text-sm uppercase tracking-wide">{n.k}</p><p class="text-sm">{n.d}</p></div>)}</section>
+
+    <!-- LOG: MIGRATION -->
+    <section id="log" class="book p-6 sm:p-12 grid gap-10 lg:grid-cols-[1fr_1.3fr] scroll-mt-24" aria-labelledby="log-h">
+      <div><p class="text-xs uppercase tracking-widest">Entry 1 · Integration layer · EF Academy</p><h2 id="log-h" class="hand text-5xl sm:text-6xl mt-2">The migration, day by day.</h2><p class="mt-4 leading-relaxed">A licence with an end date, a pipeline the business ran on, and one engineer. Progress shared every week. Nothing broke.</p><p class="stamp mt-6">Contract end: approaching</p></div>
+      <ol class="space-y-5">{migration.map((m, i) => <li class="margin"><p class="hand text-3xl text-[#c0392b]">Day {[1, 4, 9, 30, 31][i]} · {m.t}</p><p class="leading-relaxed">{m.s}</p></li>)}<li><p class="stamp ok">Delivered · no disruption</p></li></ol>
+    </section>
+
+    <!-- OTHER ENTRIES -->
+    <section id="entries" class="book p-6 sm:p-12 scroll-mt-24" aria-labelledby="entries-h">
+      <h2 id="entries-h" class="hand text-5xl sm:text-6xl">Other entries</h2>
+      <p class="mt-2">Eight pieces of work. Each entry opens to its context, decision and consequences.</p>
+      <ol class="mt-6 grid gap-x-10 gap-y-8 md:grid-cols-2">
+        {records.map((r, i) => <li><details class="group"><summary><p class="text-xs uppercase tracking-widest">Entry {i + 2} · {r.data.date} · {r.data.organisation}</p><h3 class="hand text-4xl mt-1">{r.data.index}</h3><p class="leading-relaxed">{r.data.summary}</p><p class="mt-2"><span class="stamp ok text-sm">{r.data.consequences.find((c) => c.emphasis)?.value}</span> <span class="text-sm opacity-70 group-open:hidden">· open entry</span></p></summary>
+          <div class="margin mt-4 space-y-3"><p><span class="hand text-2xl">Context.</span> {r.data.context}</p><p><span class="hand text-2xl">Decision.</span> {r.data.decision}</p><ul class="grid grid-cols-2 gap-2 text-sm">{r.data.consequences.map((c) => <li><span class="hand text-2xl block">{c.value}</span>{c.label}</li>)}</ul><p class="text-sm opacity-70">{r.data.tags.join(" · ")}</p></div></details></li>)}
+      </ol>
+    </section>
+
+    <!-- SIGNATURES -->
+    <section id="signatures" class="book p-6 sm:p-12 scroll-mt-24" aria-labelledby="sig-h">
+      <h2 id="sig-h" class="hand text-5xl sm:text-6xl">Signatures</h2>
+      <p class="mt-2">Nine people who worked beside me, in their own words. Verbatim.</p>
+      <ul class="mt-8 grid gap-10 md:grid-cols-2">{witnesses.map((w) => <li id={`witness-${w.id}`}><blockquote class="space-y-3 leading-relaxed">{w.data.quote.split(/\n\s*\n/).map((p) => <p>{p}</p>)}</blockquote><footer class="mt-3 border-t border-[#1f1a14]/40 pt-2"><p class="hand text-3xl">{w.data.name}</p><p class="text-sm">{w.data.title}{w.data.organisation ? `, ${w.data.organisation}` : ""}</p></footer></li>)}</ul>
+    </section>
+
+    <!-- POSTINGS -->
+    <section id="postings" class="book p-6 sm:p-12 scroll-mt-24" aria-labelledby="post-h">
+      <h2 id="post-h" class="hand text-5xl sm:text-6xl">Postings</h2>
+      <ol class="mt-6 space-y-8">{roles.map((r) => <li class="grid gap-4 md:grid-cols-[14rem_1fr]"><div><p class="text-xs uppercase tracking-widest">{fmt(r.data.start)} – {fmt(r.data.end)}</p><h3 class="hand text-4xl mt-1">{r.data.role}</h3><p class="text-sm">{r.data.company} · {r.data.type}</p></div><div class="space-y-4">{r.data.groups.map((g) => <div><p class="font-bold">{g.name}</p><ul class="list-disc pl-5 space-y-1 text-[1rem] leading-relaxed">{g.bullets.map((b) => <li>{b}</li>)}</ul></div>)}<p class="text-sm opacity-70">{r.data.skills.join(" · ")}</p></div></li>)}</ol>
+    </section>
+
+    <!-- KIT -->
+    <section id="kit" class="grid gap-6 lg:grid-cols-[1fr_1.2fr] scroll-mt-24" aria-labelledby="kit-h">
+      <div class="book p-6 sm:p-10"><h2 id="kit-h" class="hand text-5xl">Kit list</h2><ul class="mt-4 columns-2 gap-6 text-[1rem]">{stack.map((s) => <li class="tick">{s}</li>)}</ul></div>
+      <div class="book p-6 sm:p-10"><h2 class="hand text-5xl">Weather log · GitHub</h2><p class="text-sm mt-1">Commits over the last twelve months · <a href={site.github} class="underline">@MDmubarak786</a></p><div class="mt-4"><Calendar empty="#efe7d3" levels={["#cfe0cf", "#8fbf96", "#4d9460", "#1f6f4a"]} ink="#1f1a14" /></div></div>
+    </section>
+
+    <!-- EARLY -->
+    <section id="early" class="book p-6 sm:p-12 scroll-mt-24" aria-labelledby="early-h">
+      <h2 id="early-h" class="hand text-5xl sm:text-6xl">Early experiments · 2020</h2>
+      <p class="mt-2">Eight Flutter apps from when I was learning mobile; demos on YouTube. And one diversion built in Spline.</p>
+      <ul class="mt-6 grid gap-x-8 gap-y-3 sm:grid-cols-2">{projects.map((p) => <li class="flex justify-between gap-4 border-b border-dotted border-[#1f1a14]/40 pb-1"><span><span class="hand text-2xl">{p.data.name}</span> <span class="text-xs opacity-70">{fmt(p.data.period)}</span>{p.data.description && <span class="block text-sm">{p.data.description}</span>}</span>{p.data.link && <a href={p.data.link} class="underline text-sm shrink-0">demo</a>}</li>)}</ul>
+      <p class="mt-6"><a href={site.game} class="btn">Diversion · play Whac-a-Thief</a></p>
+    </section>
+
+    <!-- WRITE -->
+    <section id="write" class="cover rounded-md p-8 sm:p-14 scroll-mt-24" aria-labelledby="write-h">
+      <h2 id="write-h" class="hand text-5xl sm:text-7xl">Write to me. I answer the letters.</h2>
+      <p class="mt-3 text-lg">Hiring for a senior or lead role, or want to talk through an AI or platform problem?</p>
+      <div class="mt-6 flex flex-wrap gap-3"><a href={mailto("A role")} class="btn !bg-[#f5efe0] !text-[#1f1a14]">{site.email}</a><a href={site.whatsapp} class="btn !bg-transparent !text-[#f5efe0] !border-[#f5efe0]">WhatsApp {site.phoneDisplay}</a></div>
+      <dl class="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{channels.map(([l, v, h]) => <div><dt class="text-xs uppercase tracking-widest opacity-80">{l}</dt><dd><a href={h} class="underline break-all">{v}</a></dd></div>)}</dl>
+      <p class="mt-8 flex flex-wrap items-center gap-4"><Pronounce class="hand text-2xl" /><span class="text-sm opacity-80">{site.location} · © {new Date().getFullYear()} {site.name}</span></p>
+    </section>
+  </main>
+</FinalShell>

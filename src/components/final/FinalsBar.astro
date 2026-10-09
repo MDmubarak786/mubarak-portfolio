@@ -1,0 +1,8 @@
+---
+interface Props { current: "studio" | "comic" | "logbook" }
+const { current } = Astro.props;
+const items = [["studio", "Studio", "/"], ["comic", "Comic", "/comic"], ["logbook", "Logbook", "/logbook"]];
+---
+<nav class="fixed bottom-3 left-1/2 -translate-x-1/2 z-[99] flex gap-0.5 rounded-full bg-black/75 backdrop-blur px-1.5 py-1 text-[11px] text-white/85 border border-white/10" aria-label="Final variants">
+  {items.map(([k, label, href]) => <a href={href} class:list={["px-2.5 py-1 rounded-full hover:bg-white/10", k === current && "bg-white text-black hover:bg-white"]}>{label}</a>)}
+</nav>

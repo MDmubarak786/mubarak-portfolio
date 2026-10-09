@@ -10,6 +10,7 @@ import Experience from "../components/Experience.astro";
 import StackMarquee from "../components/StackMarquee.astro";
 import EarlierWork from "../components/EarlierWork.astro";
 import Contact from "../components/Contact.astro";
+import FinalsBar from "../components/final/FinalsBar.astro";
 import { site } from "../lib/site";
 
 const description = `${site.name}, ${site.role} in ${site.location}. Sole engineer behind a 1.25M-user multilingual platform, a 96% integration cost cut, and nine leaders vouching on record.`;
@@ -43,5 +44,6 @@ const jsonLd = {
     <EarlierWork />
   </main>
   <Contact />
+  <FinalsBar current="studio" />
   <script src="../scripts/motion.ts"></script>
 </Base>
