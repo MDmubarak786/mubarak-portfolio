@@ -7,7 +7,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://mk-full-stack-developer.vercel.app',
+  site: 'https://portfolio2026-cyan-rho.vercel.app',
   devToolbar: { enabled: false },
   vite: { plugins: [tailwindcss()] },
   adapter: vercel(),

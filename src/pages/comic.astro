@@ -5,7 +5,7 @@ import FinalShell from "../layouts/FinalShell.astro";
 import Calendar from "../components/final/Calendar.astro";
 import Pronounce from "../components/final/Pronounce.astro";
 import ResumeDialog from "../components/final/ResumeDialog.astro";
-import portrait from "../assets/portrait.png";
+import portrait from "../assets/portrait.jpg";
 import { site, mailto } from "../lib/site";
 import { me, numbers, migration, stack } from "../lib/story";
 const records = (await getCollection("records")).sort((a, b) => a.data.order - b.data.order);

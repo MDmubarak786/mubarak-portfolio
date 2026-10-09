@@ -28,7 +28,7 @@ export const site = {
   award: { year: "2021", title: "Outstanding contribution and strong ownership", by: "IncrescoTech" },
   yearsExperience: "4.8+",
   game: "/police-thief",
-  url: "https://mk-full-stack-developer.vercel.app",
+  url: "https://portfolio2026-cyan-rho.vercel.app",
 } as const;
 
 export const greetings = ["வணக்கம்", "Hello", "Hola", "Bonjour", "नमस्ते", "こんにちは"];
