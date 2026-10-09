@@ -1,6 +1,7 @@
 ---
 id: ADR-003
 title: Move lead uploads to a serverless Prospect Uploader with validation
+index: "Prospect Uploader"
 status: accepted
 date: "2023"
 organisation: EF Academy

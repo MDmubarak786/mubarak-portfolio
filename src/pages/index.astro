@@ -1,8 +1,32 @@
 ---
+import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
+import RecordIndex from "../components/RecordIndex.astro";
+import Record from "../components/Record.astro";
+import Witnesses from "../components/Witnesses.astro";
+import Experience from "../components/Experience.astro";
+import Stack from "../components/Stack.astro";
+import EarlierWork from "../components/EarlierWork.astro";
+import Contact from "../components/Contact.astro";
+import Footer from "../components/Footer.astro";
+import { site } from "../lib/site";
+
+const records = (await getCollection("records")).sort((a, b) => a.data.order - b.data.order);
+const description = `${site.name}, ${site.role} in ${site.location}. Six decision records on owning a 1.25M-user multilingual platform, a 96% integration cost cut, and the teams and clients who vouch for the work.`;
 ---
-<Base title="Mohammed Mubarak – Lead Software Engineer">
-  <main class="min-h-dvh grid place-items-center p-8">
-    <p class="text-lg">Scaffold placeholder. Tokens and layout arrive in Task 2.</p>
-  </main>
+<Base title={`${site.name} – ${site.role}`} description={description}>
+  <div class="lg:grid lg:grid-cols-[19rem_minmax(0,1fr)] xl:grid-cols-[21rem_minmax(0,1fr)]">
+    <RecordIndex records={records} />
+    <div class="min-w-0">
+      <main id="main" class="px-3 py-4 sm:px-6 sm:py-8 lg:px-10 lg:py-10 space-y-8 lg:space-y-12">
+        {records.map((r, i) => <Record record={r} first={i === 0} />)}
+        <Witnesses />
+        <Experience />
+        <Stack />
+        <EarlierWork />
+        <Contact />
+      </main>
+      <Footer />
+    </div>
+  </div>
 </Base>

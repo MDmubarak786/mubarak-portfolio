@@ -1,0 +1,22 @@
+---
+import { getEntries } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+interface Props { refs: { collection: "witnesses"; id: string }[] }
+const { refs } = Astro.props;
+const witnesses = (await getEntries(refs)) as CollectionEntry<"witnesses">[];
+---
+{witnesses.length > 0 && (
+  <aside class="reviewed-by border-t-2 border-ink pt-3 space-y-5" aria-label="Reviewed by">
+    <p class="font-display font-semibold">Reviewed by</p>
+    {witnesses.map((w) => (
+      <div class="space-y-1.5">
+        <blockquote class="text-sm leading-snug">“{w.data.pull ?? w.data.quote}”</blockquote>
+        <p class="text-sm">
+          <span class="font-semibold">{w.data.name}</span><br />
+          <span class="text-ink-muted">{w.data.title}{w.data.organisation ? `, ${w.data.organisation}` : ""}</span><br />
+          <a href={`#witness-${w.id}`} class="text-xs">Read the full note</a>
+        </p>
+      </div>
+    ))}
+  </aside>
+)}

@@ -1,0 +1,28 @@
+---
+import { Icon } from "astro-icon/components";
+import SectionHeading from "./SectionHeading.astro";
+import ContactBlock from "./ContactBlock.astro";
+import { site } from "../lib/site";
+const channels = [
+  { icon: "lucide:mail", label: "Email", value: site.email, href: `mailto:${site.email}` },
+  { icon: "lucide:phone", label: "Phone", value: site.phoneDisplay, href: `tel:${site.phoneE164}` },
+  { icon: "simple-icons:whatsapp", label: "WhatsApp", value: site.phoneDisplay, href: site.whatsapp },
+  { icon: "simple-icons:linkedin", label: "LinkedIn", value: "mohammed-mubarak", href: site.linkedin },
+  { icon: "simple-icons:github", label: "GitHub", value: "MDmubarak786", href: site.github },
+  { icon: "simple-icons:x", label: "X", value: "@MMubarakoo7", href: site.x },
+  { icon: "simple-icons:instagram", label: "Instagram", value: "@scooby_doo.mk", href: site.instagram },
+  { icon: "simple-icons:youtube", label: "YouTube", value: "@mohammedmubarak1478", href: site.youtube },
+];
+---
+<section id="contact" data-section aria-labelledby="contact-heading" class="sheet px-5 py-6 sm:px-8 sm:py-8 xl:px-10 xl:py-10 scroll-mt-20 lg:scroll-mt-6">
+  <SectionHeading id="contact" title="Contact" lede="If you are hiring for a lead or staff role, or want to talk through an architecture problem, the fastest route is email or WhatsApp." />
+  <div class="mt-8 max-w-[70ch]"><ContactBlock /></div>
+  <dl class="mt-10 pt-8 border-t border-rule grid gap-x-8 gap-y-3 sm:grid-cols-2 max-w-[70ch]">
+    {channels.map((c) => (
+      <div class="flex items-baseline gap-3">
+        <dt class="flex items-center gap-2 w-28 shrink-0 text-sm text-ink-soft"><Icon name={c.icon} size={14} aria-hidden="true" class="shrink-0 relative top-px" />{c.label}</dt>
+        <dd class="min-w-0 break-words"><a href={c.href} rel={c.href.startsWith("http") ? "noopener" : undefined} target={c.href.startsWith("http") ? "_blank" : undefined}>{c.value}</a></dd>
+      </div>
+    ))}
+  </dl>
+</section>

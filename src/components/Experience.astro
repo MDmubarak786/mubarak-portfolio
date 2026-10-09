@@ -1,0 +1,29 @@
+---
+import { getCollection } from "astro:content";
+import SectionHeading from "./SectionHeading.astro";
+const roles = (await getCollection("experience")).sort((a, b) => a.data.order - b.data.order);
+const fmt = (ym: string | null) => ym ? new Date(ym + "-01T00:00:00Z").toLocaleDateString("en-GB", { month: "short", year: "numeric", timeZone: "UTC" }) : "Present";
+---
+<section id="experience" data-section aria-labelledby="experience-heading" class="sheet px-5 py-6 sm:px-8 sm:py-8 xl:px-10 xl:py-10 scroll-mt-20 lg:scroll-mt-6">
+  <SectionHeading id="experience" title="Experience" lede="Three roles at IncrescoTech since June 2021, each one wider than the last." />
+  <ol class="mt-8 space-y-10">
+    {roles.map((r) => (
+      <li class="grid gap-4 lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-8">
+        <div>
+          <h3 class="text-lg leading-tight">{r.data.role}</h3>
+          <p class="text-sm text-ink-soft mt-1">{r.data.company} · {r.data.type}</p>
+          <p class="mono text-xs text-ink-muted mt-1 tabular"><time datetime={r.data.start}>{fmt(r.data.start)}</time> – <time datetime={r.data.end ?? undefined}>{fmt(r.data.end)}</time></p>
+        </div>
+        <div class="max-w-[70ch] space-y-5">
+          {r.data.groups.map((g) => (
+            <div>
+              <p class="font-semibold">{g.name}</p>
+              <ul class="mt-1.5 list-disc pl-5 space-y-1.5">{g.bullets.map((b) => <li>{b}</li>)}</ul>
+            </div>
+          ))}
+          <p class="text-sm text-ink-soft"><span class="font-semibold text-ink">Worked with:</span> {r.data.skills.join(", ")}.</p>
+        </div>
+      </li>
+    ))}
+  </ol>
+</section>

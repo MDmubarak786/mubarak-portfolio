@@ -1,6 +1,7 @@
 ---
 id: ADR-006
 title: Keep Edvanza's web and mobile apps in feature parity with one front-end team
+index: "Edvanza web + mobile parity"
 status: accepted
 date: "2022"
 organisation: IncrescoTech

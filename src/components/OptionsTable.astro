@@ -1,0 +1,28 @@
+---
+interface Option { name: string; chosen: boolean; pros: string[]; cons: string[] }
+interface Props { options: Option[] }
+const { options } = Astro.props;
+---
+<table class="w-full border-collapse text-sm">
+  <thead>
+    <tr class="text-left border-b-2 border-ink">
+      <th scope="col" class="py-2 pr-4 font-display font-semibold">Option</th>
+      <th scope="col" class="py-2 pr-4 font-display font-semibold">For</th>
+      <th scope="col" class="py-2 font-display font-semibold">Against</th>
+    </tr>
+  </thead>
+  <tbody>
+    {options.map((o) => (
+      <tr class:list={["border-b border-rule align-top", o.chosen ? "bg-paper-deep" : ""]}>
+        <th scope="row" class="py-3 pr-4 font-text font-semibold">
+          {o.name}
+          {o.chosen
+            ? <span class="block mt-1 text-xs font-normal text-stamp">Chosen</span>
+            : <span class="block mt-1 text-xs font-normal text-rust">Rejected</span>}
+        </th>
+        <td class="py-3 pr-4"><ul class="list-disc pl-4 space-y-1">{o.pros.map((p) => <li>{p}</li>)}</ul></td>
+        <td class="py-3"><ul class="list-disc pl-4 space-y-1">{o.cons.map((c) => <li>{c}</li>)}</ul></td>
+      </tr>
+    ))}
+  </tbody>
+</table>

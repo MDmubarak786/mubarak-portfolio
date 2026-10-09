@@ -1,6 +1,7 @@
 ---
 id: ADR-001
 title: Replace the Tibco Scribe integration layer with AWS Glue
+index: "Tibco → AWS Glue"
 status: accepted
 date: "2024"
 organisation: EF Academy

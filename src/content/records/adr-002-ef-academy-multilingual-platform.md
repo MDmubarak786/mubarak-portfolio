@@ -1,6 +1,7 @@
 ---
 id: ADR-002
 title: Let content teams run localization themselves inside Storyblok
+index: "Localization in Storyblok"
 status: accepted
 date: "2023"
 organisation: EF Academy

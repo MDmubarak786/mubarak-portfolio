@@ -69,13 +69,13 @@ before starting any task that touches UI.
 **Description:** Build the left rail from the FIRST VIEWPORT block: name in Latin and Tamil with pronunciation button, role, location, numbered list of records, section links (Witnesses, Experience, Stack, Earlier work, Contact), and the pinned "Request a conversation" block at its foot. Rows visibly press; the current record's row sits inset (CD-ROM raise).
 
 **Acceptance criteria:**
-- [ ] Rail is sticky on desktop ≥ 1024px, lists every record and section from the collections, and the active row reflects scroll position
-- [ ] Pronunciation button plays the audio file (small island or vanilla `<script>`), keyboard operable, labelled
-- [ ] Contact block: email (`mailto:`), call/WhatsApp (`tel:`, `wa.me`), LinkedIn, in the world's component language
+- [x] Rail is sticky on desktop ≥ 1024px, lists every record and section from the collections, and the active row reflects scroll position
+- [x] Pronunciation button plays the audio file (small island or vanilla `<script>`), keyboard operable, labelled
+- [x] Contact block: email (`mailto:`), call/WhatsApp (`tel:`, `wa.me`), LinkedIn, in the world's component language
 
 **Verification:**
-- [ ] Build and check pass
-- [ ] Manual check: keyboard tab order reaches every rail link; focus ring is the reserved brightest surface
+- [x] Build and check pass
+- [x] Manual check: keyboard tab order reaches every rail link; focus ring is the reserved brightest surface
 
 **Dependencies:** Tasks 2, 3
 **Files likely touched:** `src/components/RecordIndex.astro`, `src/components/ContactBlock.astro`, `src/components/Pronounce.astro`, `src/pages/index.astro`
@@ -86,13 +86,13 @@ before starting any task that touches UI.
 **Description:** Build the record component (header with status stamp and date, Context, Options considered as a pros/cons table, Decision, Consequences ledger with tabular figures, Reviewed-by slot) and render ADR-001 Tibco → AWS Glue as the first thing in the main column.
 
 **Acceptance criteria:**
-- [ ] ADR-001 shows: status ACCEPTED, date, context, three options with pros/cons, decision, consequences ledger with `$24,000 → $840 / year`, `96.5%`, delivered before contract end; the 96.5% line is the one solid-ink line (manga raise)
-- [ ] Rejected options use rust-red and nothing else on the page does (cityscape raise)
-- [ ] No eyebrow/kicker labels, no cards, no section numbers beyond the ADR identifier itself
+- [x] ADR-001 shows: status ACCEPTED, date, context, three options with pros/cons, decision, consequences ledger with `$24,000 → $840 / year`, `96.5%`, delivered before contract end; the 96.5% line is the one solid-ink line (manga raise)
+- [x] Rejected options use rust-red and nothing else on the page does (cityscape raise)
+- [x] No eyebrow/kicker labels, no cards, no section numbers beyond the ADR identifier itself
 
 **Verification:**
-- [ ] Build and check pass
-- [ ] Manual check: screenshot at 1440px; the record is legible with all CSS removed (semantic HTML)
+- [x] Build and check pass
+- [x] Manual check: screenshot at 1440px; the record is legible with all CSS removed (semantic HTML)
 
 **Dependencies:** Tasks 2, 3
 **Files likely touched:** `src/components/Record.astro`, `src/components/StatusStamp.astro`, `src/components/OptionsTable.astro`, `src/components/Ledger.astro`, `src/pages/index.astro`
@@ -103,13 +103,13 @@ before starting any task that touches UI.
 **Description:** The reviewed-by block renders a witness's name, title, organisation and the quoted lines relevant to this record (Jason Wheeler's $30,000 line on ADR-001). The action block appears at the end of every record and in the rail foot.
 
 **Acceptance criteria:**
-- [ ] Reviewed-by pulls from `witnesses` by slug; quote is verbatim from the source testimonial
-- [ ] Action block is a working link group, visually unmistakable as the primary action, present after each record
-- [ ] Hover/active/focus states defined for every control (craft floor States)
+- [x] Reviewed-by pulls from `witnesses` by slug; quote is verbatim from the source testimonial
+- [x] Action block is a working link group, visually unmistakable as the primary action, present after each record
+- [x] Hover/active/focus states defined for every control (craft floor States)
 
 **Verification:**
-- [ ] Build and check pass
-- [ ] Manual check: every action link resolves (mailto, tel, wa.me, LinkedIn)
+- [x] Build and check pass
+- [x] Manual check: every action link resolves (mailto, tel, wa.me, LinkedIn)
 
 **Dependencies:** Task 5
 **Files likely touched:** `src/components/ReviewedBy.astro`, `src/components/ContactBlock.astro`, `src/components/Record.astro`
@@ -120,33 +120,33 @@ before starting any task that touches UI.
 **Description:** Below 1024px the rail collapses to a sticky record index bar (name + current record + menu), records stack, and the action stays reachable without hunting.
 
 **Acceptance criteria:**
-- [ ] At 390px: no horizontal scroll, ADR-001 header and stamp visible in the first viewport, options table reflows to stacked rows
-- [ ] Sticky bar opens the full index (no modal unless focus protection is needed; a disclosure is fine)
-- [ ] Tap targets ≥ 44px
+- [x] At 390px: no horizontal scroll, ADR-001 header and stamp visible in the first viewport, options table reflows to stacked rows
+- [x] Sticky bar opens the full index (no modal unless focus protection is needed; a disclosure is fine)
+- [x] Tap targets ≥ 44px
 
 **Verification:**
-- [ ] Build and check pass
-- [ ] Manual check: screenshots at 390px and 768px from document top
+- [x] Build and check pass
+- [x] Manual check: screenshots at 390px and 768px from document top
 
 **Dependencies:** Tasks 4, 5, 6
 **Files likely touched:** `src/components/RecordIndex.astro`, `src/components/Record.astro`, `src/styles/global.css`
 **Estimated scope:** M
 
 ## Checkpoint: First viewport
-- [ ] Desktop (1440) and mobile (390) full-page screenshots captured from top, validated
-- [ ] A reader new to the site answers "what is this, why does it matter, what do I do" in 5 seconds
-- [ ] Mubarak reviews before Phase 2
+- [x] Desktop (1440) and mobile (390) full-page screenshots captured from top, validated
+- [x] A reader new to the site answers "what is this, why does it matter, what do I do" in 5 seconds
+- [x] Mubarak reviews before Phase 2
 
 ## Task 8: Records ADR-002 … ADR-005
 
 **Description:** Render the remaining records from the collection: EF Academy multilingual platform (1.25M+ users, 23+ languages, Prospect Uploader, Storyblok translation workflow), Incresco & Camped redesign (100% Lighthouse, page builders), Planet SIM & Planet Business IoT dashboards (SignalR, Firebase), Edvanza team lead (four engineers, 30+ interviews, 37% of PRs). Each has its own reviewed-by where a testimonial supports it.
 
 **Acceptance criteria:**
-- [ ] All five records render from the collection in index order; no fact appears that is not in PRODUCT.md or the live site
-- [ ] Each record ends with the action block
+- [x] All five records render from the collection in index order; no fact appears that is not in PRODUCT.md or the live site
+- [x] Each record ends with the action block
 
 **Verification:**
-- [ ] Build and check pass; Playwright smoke asserts five `article[data-record]`
+- [x] Build and check pass; Playwright smoke asserts five `article[data-record]`
 
 **Dependencies:** Tasks 5, 6
 **Files likely touched:** `src/content/records/*.mdx`, `src/pages/index.astro`
@@ -157,11 +157,11 @@ before starting any task that touches UI.
 **Description:** All nine testimonials in full, as signed reviews in the record world (name, title, organisation, full text, no "show more" truncation cards).
 
 **Acceptance criteria:**
-- [ ] Nine entries, verbatim text, readable measure (65–75ch), not a same-size card grid
-- [ ] Linked from the rail; anchors per witness
+- [x] Nine entries, verbatim text, readable measure (65–75ch), not a same-size card grid
+- [x] Linked from the rail; anchors per witness
 
 **Verification:**
-- [ ] Build and check pass; axe reports no issues on the section
+- [x] Build and check pass; axe reports no issues on the section
 
 **Dependencies:** Task 3
 **Files likely touched:** `src/components/Witnesses.astro`, `src/pages/index.astro`
@@ -172,11 +172,11 @@ before starting any task that touches UI.
 **Description:** Three roles with dates and bullets as a record appendix; the 23 stack items grouped (languages, frameworks, UI, state/data, infra, tools) as a lettered list, not chips.
 
 **Acceptance criteria:**
-- [ ] Dates in tabular figures; mono only for the dates/identifiers
-- [ ] Stack list has no icon-grid or chip costume; grouped and scannable
+- [x] Dates in tabular figures; mono only for the dates/identifiers
+- [x] Stack list has no icon-grid or chip costume; grouped and scannable
 
 **Verification:**
-- [ ] Build and check pass
+- [x] Build and check pass
 
 **Dependencies:** Task 3
 **Files likely touched:** `src/components/Experience.astro`, `src/components/Stack.astro`, `src/pages/index.astro`
@@ -187,12 +187,12 @@ before starting any task that touches UI.
 **Description:** Eight projects as a compact index with links (2020 Flutter era clearly dated); Whac-a-Thief as a linked item at the end; GitHub contribution graph fetched at build time with JSON fallback.
 
 **Acceptance criteria:**
-- [ ] Projects render from the collection; four pending entries show their names and links until details arrive
-- [ ] `src/lib/github.ts` fetches contributions with `GITHUB_TOKEN`, falls back to `src/data/contributions.json`; build never fails without the token
-- [ ] Graph is an SVG with themed cells (no third-party widget), with a text summary for screen readers
+- [x] Projects render from the collection; four pending entries show their names and links until details arrive
+- [x] `src/lib/github.ts` fetches contributions with `GITHUB_TOKEN`, falls back to `src/data/contributions.json`; build never fails without the token
+- [x] Graph is an SVG with themed cells (no third-party widget), with a text summary for screen readers
 
 **Verification:**
-- [ ] Build passes with and without `GITHUB_TOKEN`
+- [x] Build passes with and without `GITHUB_TOKEN`
 
 **Dependencies:** Task 3
 **Files likely touched:** `src/components/EarlierWork.astro`, `src/components/Contributions.astro`, `src/lib/github.ts`, `src/data/contributions.json`
@@ -203,19 +203,19 @@ before starting any task that touches UI.
 **Description:** Every channel from the live site (email, phone/WhatsApp, LinkedIn, GitHub, X, Instagram, YouTube), the repeated action, and a footer with the name in both scripts.
 
 **Acceptance criteria:**
-- [ ] All seven channels present with correct handles and working links
-- [ ] Icons are a single consistent SVG set, not emoji/unicode
+- [x] All seven channels present with correct handles and working links
+- [x] Icons are a single consistent SVG set, not emoji/unicode
 
 **Verification:**
-- [ ] Playwright asserts each link's href
+- [x] Playwright asserts each link's href
 
 **Dependencies:** Task 4
 **Files likely touched:** `src/components/Contact.astro`, `src/components/Footer.astro`, `src/pages/index.astro`
 **Estimated scope:** S
 
 ## Checkpoint: Content complete
-- [ ] Parity against docs/research.md §1: nothing missing
-- [ ] Playwright smoke + axe pass at 390 and 1440
+- [x] Parity against docs/research.md §1: nothing missing
+- [x] Playwright smoke + axe pass at 390 and 1440
 
 ## Task 13: Stamp-landing interaction
 

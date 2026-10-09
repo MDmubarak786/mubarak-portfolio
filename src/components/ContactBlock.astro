@@ -1,0 +1,28 @@
+---
+import { Icon } from "astro-icon/components";
+import { site, mailto } from "../lib/site";
+interface Props { compact?: boolean; subject?: string; heading?: string }
+const { compact = false, subject = "A conversation about a role", heading = "Request a conversation" } = Astro.props;
+const links = [
+  { href: mailto(subject), icon: "lucide:mail", label: "Email", detail: site.email },
+  { href: site.whatsapp, icon: "simple-icons:whatsapp", label: "WhatsApp", detail: site.phoneDisplay },
+  { href: `tel:${site.phoneE164}`, icon: "lucide:phone", label: "Call", detail: site.phoneDisplay },
+  { href: site.linkedin, icon: "simple-icons:linkedin", label: "LinkedIn", detail: "mohammed-mubarak" },
+];
+---
+<div class:list={["contact-block", compact ? "space-y-2" : "space-y-3"]}>
+  <p class:list={["font-display font-semibold", compact ? "text-base" : "text-lg"]}>{heading}</p>
+  <ul class:list={["grid gap-2", compact ? "grid-cols-2" : "grid-cols-2 sm:grid-cols-4"]}>
+    {links.map((l) => (
+      <li>
+        <a href={l.href} class="press flex items-center gap-2 px-3 py-2 no-underline hover:no-underline min-w-0" rel={l.href.startsWith("http") ? "noopener" : undefined} target={l.href.startsWith("http") ? "_blank" : undefined}>
+          <Icon name={l.icon} size={16} aria-hidden="true" class="shrink-0" />
+          <span class="flex flex-col leading-tight min-w-0">
+            <span class="text-sm font-semibold">{l.label}</span>
+            {!compact && <span class="text-xs text-ink-muted break-all">{l.detail}</span>}
+          </span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</div>

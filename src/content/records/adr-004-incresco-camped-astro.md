@@ -1,6 +1,7 @@
 ---
 id: ADR-004
 title: Rebuild the Incresco and Camped marketing sites on Astro and Storyblok
+index: "Incresco & Camped on Astro"
 status: accepted
 date: "2023"
 organisation: IncrescoTech

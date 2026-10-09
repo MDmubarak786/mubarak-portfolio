@@ -46,21 +46,21 @@ incumbent audit in `docs/research.md`; the direction round in `docs/direction-ro
 - [ ] Every testimonial, role, project, and stack item from the live site exists in `src/content/`
 
 ### Phase 1: First viewport (vertical slice)
-- [ ] Task 4: Record index rail (name in Latin + Tamil, pronunciation, role, numbered record list, section links)
-- [ ] Task 5: ADR record component and ADR-001 (Tibco → AWS Glue) rendered in full
-- [ ] Task 6: Reviewed-by block and "Request a conversation" action block
-- [ ] Task 7: Mobile composition: sticky index bar, record stacking, action reachability
+- [x] Task 4: Record index rail (name in Latin + Tamil, pronunciation, role, numbered record list, section links)
+- [x] Task 5: ADR record component and ADR-001 (Tibco → AWS Glue) rendered in full
+- [x] Task 6: Reviewed-by block and "Request a conversation" action block
+- [x] Task 7: Mobile composition: sticky index bar, record stacking, action reachability
 
 ### Checkpoint: First viewport
 - [ ] Desktop and mobile screenshots: a stranger can say what this is, why it matters, and what to do in 5 s
 - [ ] Review with Mubarak before proceeding
 
 ### Phase 2: The rest of the page
-- [ ] Task 8: Records ADR-002 … ADR-005 (EF Academy platform, Incresco & Camped, Planet IoT, Edvanza lead)
-- [ ] Task 9: Witnesses section: nine testimonials as signed reviews, full text, no truncation cards
-- [ ] Task 10: Experience timeline and Stack as record appendices
-- [ ] Task 11: Earlier work (eight projects, compact), game link, GitHub contribution graph
-- [ ] Task 12: Contact section with every channel, repeated action, footer
+- [x] Task 8: Records ADR-002 … ADR-005 (EF Academy platform, Incresco & Camped, Planet IoT, Edvanza lead)
+- [x] Task 9: Witnesses section: nine testimonials as signed reviews, full text, no truncation cards
+- [x] Task 10: Experience timeline and Stack as record appendices
+- [x] Task 11: Earlier work (eight projects, compact), game link, GitHub contribution graph
+- [x] Task 12: Contact section with every channel, repeated action, footer
 
 ### Checkpoint: Content complete
 - [ ] Content parity list against docs/research.md §1: nothing missing

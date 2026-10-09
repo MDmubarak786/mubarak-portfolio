@@ -1,0 +1,21 @@
+---
+import { getCollection } from "astro:content";
+import SectionHeading from "./SectionHeading.astro";
+import Contributions from "./Contributions.astro";
+const items = (await getCollection("stack")).sort((a, b) => a.data.order - b.data.order);
+const groups = [...new Set(items.map((i) => i.data.group))];
+---
+<section id="stack" data-section aria-labelledby="stack-heading" class="sheet px-5 py-6 sm:px-8 sm:py-8 xl:px-10 xl:py-10 scroll-mt-20 lg:scroll-mt-6">
+  <SectionHeading id="stack" title="Stack" lede="What I reach for, grouped by the job it does." />
+  <dl class="mt-8 grid gap-x-8 gap-y-4 sm:grid-cols-[max-content_minmax(0,1fr)] max-w-[70ch]">
+    {groups.map((g) => (
+      <>
+        <dt class="font-display font-semibold sm:text-right sm:pt-px">{g}</dt>
+        <dd class="text-ink-soft">{items.filter((i) => i.data.group === g).map((i) => i.data.id).join(" · ")}</dd>
+      </>
+    ))}
+  </dl>
+  <div class="mt-10 pt-8 border-t border-rule">
+    <Contributions />
+  </div>
+</section>

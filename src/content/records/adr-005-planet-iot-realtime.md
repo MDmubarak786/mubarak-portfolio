@@ -1,6 +1,7 @@
 ---
 id: ADR-005
 title: Push live utility data to the Planet dashboards over SignalR
+index: "Planet IoT over SignalR"
 status: accepted
 date: "2023"
 organisation: IncrescoTech

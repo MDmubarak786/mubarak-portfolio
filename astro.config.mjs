@@ -2,12 +2,14 @@
 import { defineConfig, fontProviders } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import vercel from '@astrojs/vercel';
+import icon from 'astro-icon';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://mk-full-stack-developer.vercel.app',
   vite: { plugins: [tailwindcss()] },
   adapter: vercel(),
+  integrations: [icon()],
   fonts: [
     {
       // Display: a Clarendon. The face of 19th-century stamped and filed documents.

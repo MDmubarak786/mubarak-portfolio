@@ -22,6 +22,8 @@ const records = defineCollection({
   schema: z.object({
     id: z.string().regex(/^ADR-\d{3}$/),
     title: z.string(),
+    /** Short title for the index rail. */
+    index: z.string(),
     status: z.enum(["accepted", "superseded", "proposed"]),
     date: z.string().regex(/^\d{4}(-\d{2})?$/),
     organisation: z.string(),
