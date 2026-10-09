@@ -41,12 +41,3 @@ if (!reduce) {
   // Halftone background drifts slowly with scroll.
   gsap.to("body", { backgroundPositionY: 240, ease: "none", scrollTrigger: { scrub: true } });
 }
-// Hover tilt on panels, desktop only.
-if (fine && !reduce) {
-  document.querySelectorAll<HTMLElement>(".panel").forEach((p) => {
-    const rx = gsap.quickTo(p, "rotationX", { duration: 0.5, ease: "power3" }), ry = gsap.quickTo(p, "rotationY", { duration: 0.5, ease: "power3" });
-    gsap.set(p, { transformPerspective: 900 });
-    p.addEventListener("pointermove", (e) => { const r = p.getBoundingClientRect(); ry(((e.clientX - r.left) / r.width - 0.5) * 6); rx(-((e.clientY - r.top) / r.height - 0.5) * 6); });
-    p.addEventListener("pointerleave", () => { rx(0); ry(0); });
-  });
-}
