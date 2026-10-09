@@ -36,6 +36,17 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     .badge { display:inline-grid; place-items:center; width:2.4rem; height:2.4rem; border:3px solid #111; border-radius:50%; background:#ffb703; font-family: var(--font-bangers); font-size:1rem; letter-spacing:.04em; box-shadow: 3px 3px 0 #111; flex-shrink:0; }
     .pnum { position:absolute; top:-14px; left:-14px; width:34px; height:34px; border:4px solid #111; background:#fff3b0; font-family: var(--font-bangers); font-size:1.1rem; display:grid; place-items:center; box-shadow: 3px 3px 0 #111; }
     .narr { font-size:1.15rem; line-height:1.45; }
+    .origin { position:relative; }
+    .origin-item { position:relative; padding-left: 4.5rem; padding-bottom: 2.5rem; }
+    .origin-item:last-child { padding-bottom: 0; }
+    .spine { position:absolute; left:0; top:0; bottom:0; width:3.2rem; display:flex; flex-direction:column; align-items:center; }
+    .spine::before { content:""; position:absolute; top:3.4rem; bottom:-1rem; left:50%; width:4px; margin-left:-2px; background: repeating-linear-gradient(180deg, #111 0 10px, transparent 10px 16px); }
+    .origin-item:last-child .spine::before { display:none; }
+    .year { width:3.2rem; height:3.2rem; border-radius:50%; border:4px solid #111; background:#fff; display:grid; place-items:center; font-size:.95rem; box-shadow: 3px 3px 0 #111; position:relative; z-index:1; }
+    .tile { border:3px solid #111; padding: 1rem 1.1rem; background:#fff; }
+    .tag { border:2px solid #111; background:#fff3b0; padding:.1rem .55rem; font-size:.95rem; }
+    .promo { margin-top: 1.25rem; }
+    @media (max-width: 640px) { .origin-item { padding-left: 0; padding-top: 3.8rem; } .spine { width: 100%; height: 3.2rem; bottom:auto; align-items:flex-start; } .spine::before { display:none; } }
     .zig { background: repeating-linear-gradient(135deg, #111 0 6px, transparent 6px 12px); height: 10px; }
     details summary { list-style:none; cursor:pointer; } details summary::-webkit-details-marker { display:none; }
   </style>
@@ -149,8 +160,28 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     <!-- ORIGIN -->
     <section id="origin" class="mt-16 scroll-mt-24" aria-labelledby="ch4">
       <h2 id="ch4" class="text-5xl sm:text-6xl">Chapter 4 · Origin story</h2>
-      <ol class="mt-6 space-y-6">
-        {roles.map((r, i) => <li class="panel p-6 grid gap-4 md:grid-cols-[14rem_1fr]"><div><p class="caption">{fmt(r.data.start)} → {fmt(r.data.end)}</p><h3 class="text-3xl mt-2">{r.data.role}</h3><p class="text-lg">{r.data.company} · {r.data.type}</p></div><div class="space-y-4">{r.data.groups.map((g) => <div><p class="bang text-2xl" style={`color:${colors[i % 5]}`}>{g.name}</p><ul class="list-disc pl-5 space-y-1">{g.bullets.map((b) => <li>{b}</li>)}</ul></div>)}<p class="text-sm">{r.data.skills.join(" · ")}</p></div></li>)}
+      <p class="mt-2 text-xl">From first commit to senior engineer, in order. Four issues, three promotions.</p>
+      <ol class="mt-8 origin">
+        {[...roles].sort((a, b) => b.data.order - a.data.order).map((r, i, arr) => {
+          const promo = ["Promoted to SDE 1 within a year", "Promoted to SDE 2 within five months", "Moved to Galent as Senior Software Engineer"][i];
+          return (
+            <li class="origin-item">
+              <div class="spine" aria-hidden="true"><span class="year bang">{r.data.start.slice(0, 4)}</span></div>
+              <article class="panel p-6 sm:p-8">
+                <span class="pnum">{i + 1}</span>
+                <header class="grid gap-2 sm:grid-cols-[1fr_auto] sm:items-start">
+                  <div><h3 class="text-3xl sm:text-4xl">{r.data.role}</h3><p class="text-lg">{r.data.company} · {r.data.type}</p></div>
+                  <p class="caption justify-self-start sm:justify-self-end">{fmt(r.data.start)} → {fmt(r.data.end)}</p>
+                </header>
+                <div class:list={["mt-6 grid gap-6", r.data.groups.length > 1 && "lg:grid-cols-2"]}>
+                  {r.data.groups.map((g) => <div class="tile"><p class="bang text-2xl" style={`color:${colors[i % 5]}`}>{g.name}</p><ul class="mt-2 list-disc pl-5 space-y-2 max-w-[62ch]">{g.bullets.map((b) => <li>{b}</li>)}</ul></div>)}
+                </div>
+                <ul class="mt-6 flex flex-wrap gap-2" aria-label="Worked with">{r.data.skills.map((sk) => <li class="tag">{sk}</li>)}</ul>
+              </article>
+              {i < arr.length - 1 && <p class="promo"><span class="caption">↓ {promo}</span></p>}
+            </li>
+          );
+        })}
       </ol>
     </section>
 
