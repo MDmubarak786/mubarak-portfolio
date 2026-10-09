@@ -30,7 +30,7 @@ Not "a full-stack developer with a stack list." The claims a neighbouring portfo
 - Linked from CV, LinkedIn (linkedin.com/in/mohammed-mubarak), GitHub (MDmubarak786), X (@MMubarakoo7).
 - Built with AI coding tools (Claude Code); the site should reflect current craft.
 - Production: Vercel project `portfolio2026`, https://portfolio2026-cyan-rho.vercel.app, auto-deploys from GitHub `MDmubarak786/mubarak-portfolio` on `main`. Custom domain: open.
-- Two full builds are under review at `/` (Studio) and `/comic` (Comic); eleven story samples remain under `/v` for reference, all `noindex`.
+- Three full builds are under review at `/` (Studio), `/comic` (Comic) and `/hawkins` (Hawkins, a Stranger Things rendition of the Comic structure, added 2026-10-09); eleven story samples remain under `/v` for reference, all `noindex`.
 
 ## Capabilities and Constraints
 

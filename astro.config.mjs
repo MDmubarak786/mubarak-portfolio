@@ -27,6 +27,9 @@ export default defineConfig({
     { provider: fontProviders.fontsource(), name: 'Chakra Petch', cssVariable: '--font-chakra', weights: [500, 700], subsets: ['latin'], fallbacks: ['sans-serif'] },
     { provider: fontProviders.fontsource(), name: 'Baloo Thambi 2', cssVariable: '--font-baloo', weights: [500, 700, 800], subsets: ['latin', 'tamil'], fallbacks: ['sans-serif'] },
     { provider: fontProviders.fontsource(), name: 'Mukta Malar', cssVariable: '--font-mukta', weights: [400, 600], subsets: ['latin', 'tamil'], fallbacks: ['sans-serif'] },
+    // ---- Hawkins variant ----
+    { provider: fontProviders.fontsource(), name: 'Rozha One', cssVariable: '--font-rozha', weights: [400], subsets: ['latin'], fallbacks: ['Georgia', 'serif'] },
+    { provider: fontProviders.fontsource(), name: 'Libre Franklin', cssVariable: '--font-franklin', weights: [400, 500, 700], styles: ['normal'], subsets: ['latin'], fallbacks: ['Franklin Gothic Medium', 'Arial', 'sans-serif'] },
     // ---- dream-world round (variants 11–16) ----
     { provider: fontProviders.fontsource(), name: 'Bodoni Moda', cssVariable: '--font-bodoni', weights: [400, 500], styles: ['normal', 'italic'], subsets: ['latin'], fallbacks: ['Georgia', 'serif'] },
     { provider: fontProviders.fontsource(), name: 'Hanken Grotesk', cssVariable: '--font-hanken', weights: [300, 400, 500], styles: ['normal'], subsets: ['latin'], fallbacks: ['sans-serif'] },
