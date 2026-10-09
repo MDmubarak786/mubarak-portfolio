@@ -1,0 +1,34 @@
+---
+/** In-page resume preview (native PDF viewer in an <iframe>) with download and open-in-tab. Theme via classes. */
+import { site } from "../../lib/site";
+interface Props { dialogClass?: string; btnClass?: string; btnAltClass?: string; closeClass?: string }
+const { dialogClass = "", btnClass = "", btnAltClass = "", closeClass = "" } = Astro.props;
+---
+<dialog class:list={["resume-dialog w-[min(96vw,64rem)] max-w-none h-[min(92dvh,60rem)] p-0 m-auto overflow-hidden", dialogClass]} data-resume-dialog aria-label="Resume preview">
+  <div class="flex h-full flex-col">
+    <div class="flex flex-wrap items-center justify-between gap-3 px-4 py-3 border-b border-current/20">
+      <p class="font-semibold">Resume · {site.name}</p>
+      <div class="flex flex-wrap gap-2">
+        <a href={site.resume} download={site.resumeName} class={btnClass}>Download PDF</a>
+        <a href={site.resume} target="_blank" rel="noopener" class={btnAltClass}>Open in new tab</a>
+        <button type="button" class={closeClass} data-resume-close aria-label="Close">Close ✕</button>
+      </div>
+    </div>
+    <iframe title="Resume PDF" class="flex-1 w-full bg-white" data-resume-frame loading="lazy"></iframe>
+    <p class="px-4 py-2 text-sm">If the preview is blank on your device, use <a href={site.resume} download={site.resumeName} class="underline">Download PDF</a>.</p>
+  </div>
+</dialog>
+<style>
+  .resume-dialog::backdrop { background: rgba(0,0,0,.6); backdrop-filter: blur(4px); }
+  .resume-dialog { border: 0; }
+</style>
+<script define:vars={{ src: site.resume }}>
+  const d = document.querySelector("[data-resume-dialog]");
+  const f = d?.querySelector("[data-resume-frame]");
+  const open = () => { if (!d) return; if (f && !f.src) f.src = src + "#toolbar=0&navpanes=0&view=FitH"; d.showModal(); document.body.style.overflow = "hidden"; };
+  const close = () => { d?.close(); document.body.style.overflow = ""; };
+  document.querySelectorAll("[data-resume-open]").forEach((b) => b.addEventListener("click", (e) => { e.preventDefault(); open(); }));
+  d?.querySelector("[data-resume-close]")?.addEventListener("click", close);
+  d?.addEventListener("click", (e) => { if (e.target === d) close(); });
+  d?.addEventListener("close", () => { document.body.style.overflow = ""; });
+</script>

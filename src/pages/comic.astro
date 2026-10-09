@@ -4,6 +4,7 @@ import { getCollection } from "astro:content";
 import FinalShell from "../layouts/FinalShell.astro";
 import Calendar from "../components/final/Calendar.astro";
 import Pronounce from "../components/final/Pronounce.astro";
+import ResumeDialog from "../components/final/ResumeDialog.astro";
 import portrait from "../assets/portrait.png";
 import { site, mailto } from "../lib/site";
 import { me, numbers, migration, stack } from "../lib/story";
@@ -36,7 +37,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
   <header class="sticky top-0 z-40 bg-[#fff8e7]/90 backdrop-blur border-b-4 border-[#111]">
     <div class="max-w-6xl mx-auto px-5 sm:px-8 py-3 flex items-center justify-between gap-4">
       <a href="#main" class="bang text-2xl">MK <span class="text-[#ff2e63]">COMICS</span></a>
-      <nav class="hidden sm:flex gap-6 text-lg" aria-label="Sections"><a href="#migration" class="hover:underline">Chapter 1</a><a href="#cases" class="hover:underline">Case files</a><a href="#witnesses" class="hover:underline">Witnesses</a><a href="#origin" class="hover:underline">Origin</a><a href="#contact" class="hover:underline">Contact</a></nav>
+      <nav class="hidden sm:flex gap-6 text-lg" aria-label="Sections"><a href="#migration" class="hover:underline">Chapter 1</a><a href="#cases" class="hover:underline">Case files</a><a href="#witnesses" class="hover:underline">Witnesses</a><a href="#origin" class="hover:underline">Origin</a><a href="#resume" class="hover:underline">Resume</a><a href="#contact" class="hover:underline">Contact</a></nav>
       <a href={mailto("A role")} class="btn text-base py-1.5">Hire me</a>
     </div>
   </header>
@@ -49,7 +50,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
         <p class="caption">Issue #1 · Chennai, India · {site.pronouns}</p>
         <h1 class="mt-3 text-[clamp(3rem,8vw,7rem)] leading-[0.9] text-[#ff2e63]" style="-webkit-text-stroke: 2px #111">The Full-Stack<br />+ AI Chronicles</h1>
         <p class="mt-4 text-2xl">Starring <strong>{site.name}</strong>, Senior Software Engineer at Galent. {me.oneLiner}</p>
-        <div class="mt-5 flex flex-wrap items-center gap-3"><a href={mailto("A role")} class="btn">Email me</a><a href={site.whatsapp} class="btn alt">WhatsApp</a><a href={site.linkedin} class="btn alt">LinkedIn</a><Pronounce class="caption cursor-pointer" /></div>
+        <div class="mt-5 flex flex-wrap items-center gap-3"><a href={mailto("A role")} class="btn">Email me</a><a href={site.whatsapp} class="btn alt">WhatsApp</a><a href={site.linkedin} class="btn alt">LinkedIn</a><button type="button" class="btn alt" data-resume-open>Read my resume</button><Pronounce class="caption cursor-pointer" /></div>
       </div>
     </section>
 
@@ -96,6 +97,19 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
       <ol class="mt-6 space-y-6">
         {roles.map((r, i) => <li class="panel p-6 grid gap-4 md:grid-cols-[14rem_1fr]"><div><p class="caption">{fmt(r.data.start)} → {fmt(r.data.end)}</p><h3 class="text-3xl mt-2">{r.data.role}</h3><p class="text-lg">{r.data.company} · {r.data.type}</p></div><div class="space-y-4">{r.data.groups.map((g) => <div><p class="bang text-2xl" style={`color:${colors[i % 5]}`}>{g.name}</p><ul class="list-disc pl-5 space-y-1">{g.bullets.map((b) => <li>{b}</li>)}</ul></div>)}<p class="text-sm">{r.data.skills.join(" · ")}</p></div></li>)}
       </ol>
+    </section>
+
+    <!-- RESUME -->
+    <section id="resume" class="mt-16 scroll-mt-24 panel p-6 sm:p-10 grid gap-8 lg:grid-cols-[1fr_1fr] items-center" aria-labelledby="res-h">
+      <div>
+        <p class="caption">Collector’s insert · 2 pages</p>
+        <h2 id="res-h" class="text-5xl sm:text-6xl mt-3">The official resume</h2>
+        <p class="mt-3 text-xl">{site.yearsExperience} years, the whole stack, every role with its numbers, education and the 2021 award. Read it here or take the PDF home.</p>
+        <div class="mt-5 flex flex-wrap gap-3"><button type="button" class="btn" data-resume-open>Preview</button><a href={site.resume} download={site.resumeName} class="btn alt">Download PDF</a></div>
+        <dl class="mt-6 grid grid-cols-2 gap-4 text-lg"><div><dt class="bang text-xl">Training</dt><dd>{site.education.degree}, {site.education.school} · {site.education.years} · CGPA {site.education.cgpa}</dd></div><div><dt class="bang text-xl">Medal</dt><dd>{site.award.title} · {site.award.by}, {site.award.year}</dd></div></dl>
+      </div>
+      <button type="button" class="panel !shadow-[6px_6px_0_#ff2e63] aspect-[8.5/11] w-full max-w-sm justify-self-center overflow-hidden text-left relative" data-resume-open aria-label="Open the resume preview"><iframe src={`${site.resume}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`} title="" aria-hidden="true" tabindex="-1" class="pointer-events-none w-full h-full bg-white" loading="lazy"></iframe><span class="caption absolute left-3 bottom-3">Tap to read</span></button>
+      <ResumeDialog dialogClass="bg-[#fff8e7] text-[#111] border-4 border-[#111]" btnClass="btn text-base py-1.5" btnAltClass="btn alt text-base py-1.5" closeClass="btn alt text-base py-1.5" />
     </section>
 
     <!-- POWERS -->

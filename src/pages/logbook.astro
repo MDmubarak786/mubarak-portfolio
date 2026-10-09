@@ -4,16 +4,17 @@ import { getCollection } from "astro:content";
 import FinalShell from "../layouts/FinalShell.astro";
 import Calendar from "../components/final/Calendar.astro";
 import Pronounce from "../components/final/Pronounce.astro";
+import ResumeDialog from "../components/final/ResumeDialog.astro";
 import portrait from "../assets/portrait.png";
 import { site, mailto } from "../lib/site";
-import { me, numbers, migration, stack } from "../lib/story";
+import { me, numbers, migration, skillGroups } from "../lib/story";
 const records = (await getCollection("records")).sort((a, b) => a.data.order - b.data.order);
 const witnesses = (await getCollection("witnesses")).sort((a, b) => a.data.order - b.data.order);
 const roles = (await getCollection("experience")).sort((a, b) => a.data.order - b.data.order);
 const projects = (await getCollection("projects")).sort((a, b) => a.data.order - b.data.order);
 const fmt = (ym: string | null) => ym ? new Date(ym + "-01T00:00:00Z").toLocaleDateString("en-GB", { month: "short", year: "numeric", timeZone: "UTC" }) : "present";
 const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.phoneDisplay, site.whatsapp], ["Call", site.phoneDisplay, `tel:${site.phoneE164}`], ["LinkedIn", "mohammed-mubarak", site.linkedin], ["GitHub", "MDmubarak786", site.github], ["X", "@MMubarakoo7", site.x], ["Instagram", "@scooby_doo.mk", site.instagram], ["YouTube", "@mohammedmubarak1478", site.youtube]];
-const contents = [["#log", "Entries · The migration"], ["#entries", "Other entries · eight works"], ["#measurements", "Measurements"], ["#signatures", "Signatures · nine on record"], ["#postings", "Postings"], ["#kit", "Kit list"], ["#early", "Early experiments"], ["#write", "Write to me"]];
+const contents = [["#log", "Entries · The migration"], ["#entries", "Other entries · eight works"], ["#measurements", "Measurements"], ["#signatures", "Signatures · nine on record"], ["#postings", "Postings"], ["#resume", "Papers · the resume"], ["#kit", "Kit list"], ["#early", "Early experiments"], ["#write", "Write to me"]];
 ---
 <FinalShell title={`${site.name} – field logbook`} description={me.oneLiner} fonts={["--font-caveat", "--font-elite"]} current="logbook" theme="#2b4a3a">
   <style is:global>
@@ -48,7 +49,7 @@ const contents = [["#log", "Entries · The migration"], ["#entries", "Other entr
         <h1 class="hand text-[clamp(3rem,8vw,7rem)] leading-none mt-3">{site.name}</h1>
         <p class="mt-3 text-lg">Senior Software Engineer, Galent · Chennai, India · {site.pronouns}</p>
         <p class="mt-4 max-w-xl leading-relaxed">{me.intro}</p>
-        <div class="mt-6 flex flex-wrap items-center gap-3"><a href={mailto("A role")} class="btn !bg-[#f5efe0] !text-[#1f1a14]">Email</a><a href={site.whatsapp} class="btn !bg-transparent !text-[#f5efe0] !border-[#f5efe0]">WhatsApp</a><a href={site.linkedin} class="btn !bg-transparent !text-[#f5efe0] !border-[#f5efe0]">LinkedIn</a><Pronounce class="hand text-2xl" /></div>
+        <div class="mt-6 flex flex-wrap items-center gap-3"><a href={mailto("A role")} class="btn !bg-[#f5efe0] !text-[#1f1a14]">Email</a><a href={site.whatsapp} class="btn !bg-transparent !text-[#f5efe0] !border-[#f5efe0]">WhatsApp</a><a href={site.linkedin} class="btn !bg-transparent !text-[#f5efe0] !border-[#f5efe0]">LinkedIn</a><button type="button" class="btn !bg-transparent !text-[#f5efe0] !border-[#f5efe0]" data-resume-open>Resume</button><Pronounce class="hand text-2xl" /></div>
       </div>
       <div class="photo w-56 rotate-[-3deg] text-[#1f1a14]"><span class="tape"></span><Image src={portrait} alt={`Portrait of ${site.name}`} width={400} height={400} class="w-full object-cover" style="filter: sepia(.3) contrast(1.1)" /><p class="hand text-xl mt-2 text-center">Chennai, on call.</p></div>
     </section>
@@ -91,9 +92,22 @@ const contents = [["#log", "Entries · The migration"], ["#entries", "Other entr
       <ol class="mt-6 space-y-8">{roles.map((r) => <li class="grid gap-4 md:grid-cols-[14rem_1fr]"><div><p class="text-xs uppercase tracking-widest">{fmt(r.data.start)} – {fmt(r.data.end)}</p><h3 class="hand text-4xl mt-1">{r.data.role}</h3><p class="text-sm">{r.data.company} · {r.data.type}</p></div><div class="space-y-4">{r.data.groups.map((g) => <div><p class="font-bold">{g.name}</p><ul class="list-disc pl-5 space-y-1 text-[1rem] leading-relaxed">{g.bullets.map((b) => <li>{b}</li>)}</ul></div>)}<p class="text-sm opacity-70">{r.data.skills.join(" · ")}</p></div></li>)}</ol>
     </section>
 
+    <!-- PAPERS -->
+    <section id="resume" class="book p-6 sm:p-12 grid gap-8 lg:grid-cols-[1fr_1fr] items-center scroll-mt-24" aria-labelledby="papers-h">
+      <div>
+        <p class="text-xs uppercase tracking-widest">Papers · filed with this log</p>
+        <h2 id="papers-h" class="hand text-5xl sm:text-6xl mt-2">The resume, two pages.</h2>
+        <p class="mt-3 leading-relaxed">{site.yearsExperience} years, the full kit, every posting with its numbers, schooling and the 2021 award. Read it here or take the PDF.</p>
+        <div class="mt-5 flex flex-wrap gap-3"><button type="button" class="btn" data-resume-open>Preview</button><a href={site.resume} download={site.resumeName} class="btn">Download PDF</a></div>
+        <dl class="margin mt-6 space-y-3 text-[1rem]"><div><dt class="hand text-2xl">Schooling</dt><dd>{site.education.degree}, {site.education.school} · {site.education.years} · CGPA {site.education.cgpa}</dd></div><div><dt class="hand text-2xl">Commendation</dt><dd>{site.award.title} · {site.award.by}, {site.award.year}</dd></div></dl>
+      </div>
+      <button type="button" class="photo aspect-[8.5/11] w-full max-w-sm justify-self-center overflow-hidden text-left rotate-[1.5deg]" data-resume-open aria-label="Open the resume preview"><span class="tape"></span><iframe src={`${site.resume}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`} title="" aria-hidden="true" tabindex="-1" class="pointer-events-none w-full h-[calc(100%-1.5rem)] bg-white" loading="lazy"></iframe><span class="hand text-xl block text-center mt-1">Tap to read</span></button>
+      <ResumeDialog dialogClass="bg-[#f5efe0] text-[#1f1a14] border-2 border-[#1f1a14]" btnClass="btn" btnAltClass="btn" closeClass="btn" />
+    </section>
+
     <!-- KIT -->
     <section id="kit" class="grid gap-6 lg:grid-cols-[1fr_1.2fr] scroll-mt-24" aria-labelledby="kit-h">
-      <div class="book p-6 sm:p-10"><h2 id="kit-h" class="hand text-5xl">Kit list</h2><ul class="mt-4 columns-2 gap-6 text-[1rem]">{stack.map((s) => <li class="tick">{s}</li>)}</ul></div>
+      <div class="book p-6 sm:p-10"><h2 id="kit-h" class="hand text-5xl">Kit list</h2><dl class="mt-4 space-y-3 text-[0.95rem]">{skillGroups.map(([g, items]) => <div><dt class="hand text-2xl">{g}</dt><dd class="tick">{items.join(" · ")}</dd></div>)}</dl></div>
       <div class="book p-6 sm:p-10"><h2 class="hand text-5xl">Weather log · GitHub</h2><p class="text-sm mt-1">Commits over the last twelve months · <a href={site.github} class="underline">@MDmubarak786</a></p><div class="mt-4"><Calendar empty="#efe7d3" levels={["#cfe0cf", "#8fbf96", "#4d9460", "#1f6f4a"]} ink="#1f1a14" /></div></div>
     </section>
 

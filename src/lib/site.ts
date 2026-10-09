@@ -12,7 +12,7 @@ export const site = {
   previousEmployer: "Incresco",
   location: "Chennai, Tamil Nadu, India",
   pronouns: "he/him",
-  email: "mohammedmubarakmk@gmail.com", // per LinkedIn About; the old site used mohammedmubarakmkg@gmail.com — confirm with Mubarak
+  email: "mohammedmubarakmk@gmail.com", // confirmed by LinkedIn and the resume
   phoneDisplay: "+91 79041 00495",
   phoneE164: "+917904100495",
   whatsapp: "https://wa.me/917904100495",
@@ -22,6 +22,11 @@ export const site = {
   instagram: "https://instagram.com/scooby_doo.mk",
   youtube: "https://youtube.com/@mohammedmubarak1478",
   audio: "/audio/mohammed-mubarak.mp3",
+  resume: "/resume/Mubarak-Shajahan-Resume.pdf",
+  resumeName: "Mubarak-Shajahan-Resume.pdf",
+  education: { school: "Sri Krishna College of Technology, Coimbatore", degree: "B.Tech in Information Technology", years: "2018 – 2022", cgpa: "8.01 / 10" },
+  award: { year: "2021", title: "Outstanding contribution and strong ownership", by: "IncrescoTech" },
+  yearsExperience: "4.8+",
   game: "/police-thief",
   url: "https://mk-full-stack-developer.vercel.app",
 } as const;

@@ -6,34 +6,50 @@
   "end": "2026-05",
   "groups": [
     {
-      "name": "AI for Global University Systems",
+      "name": "Global University Systems · admin, automation and AI",
       "bullets": [
-        "Built AI document processing APIs (GPT-4 Vision + OCR) classifying 17+ document types at 95% accuracy, cutting manual data entry by 70% and improving processing speed 7×.",
-        "Designed AI qualification matching with confidence scoring for Anabin & ECCTIS compliance automation: accuracy up 35%+, compliance effort down 60%+.",
-        "Integrated OpenAI for course content generation, reducing manual effort about 80%.",
-        "Shipped production Chrome Extensions (MV3) automating student application workflows, saving admins 3–5 hours a day at 99.9% uptime."
+        "Built a full-stack course pricing & discount management platform (React, TypeScript, Flask) handling hundreds of courses across regions and intakes; TanStack Table views cut admin lookup time 60%+; JWT-based RBAC for access.",
+        "Integrated OpenAI for course content generation, reducing manual effort by about 80%.",
+        "Anabin & ECCTIS automation: a Flask compliance API automating university recognition checks (H+, H-, H+/-); Playwright automation with session reuse cut latency about 40%; AI qualification matching with confidence scoring improved accuracy 35%+; audit-ready verification with screenshot pipelines and caching.",
+        "Chrome Extensions (BSBI + GISMA, Manifest V3) automating student application workflows, saving 3–5 hours per admin per day; PDF.js document extraction cut processing time 50%+; AI document classification across 17+ types at 95% accuracy; manual data entry down 70%, processing 7× faster, 99.9% uptime with local caching and retries.",
+        "AI document processing (CampusNet + BGV system): GPT-4 Vision and OCR validation APIs extracting structured data; orchestrator pipelines for multi-document classification; accuracy up 40%+ on payslips, EPFO records and certificates; fraud detection through cross-document validation with Anabin, cutting compliance effort 60%+.",
+        "Webster University application portal (NestJS, React, MongoDB): the full admissions lifecycle; JWT auth with HTTP-only cookies and CSRF protection; multi-step application with resume capability; encrypted email and SendGrid campaigns; Docker + Nginx production builds."
       ]
     },
     {
-      "name": "Platforms",
+      "name": "EF Academy",
       "bullets": [
-        "Built a course pricing & discount management platform (React, TypeScript, Flask); TanStack Table views cut admin lookup time 60%+, JWT-based RBAC for access.",
-        "Led Webster University's admissions portal (NestJS, React, MongoDB): JWT auth with HTTP-only cookies and CSRF protection, multi-step applications, SendGrid campaigns, Dockerised builds.",
-        "Engineered EF Academy's multilingual marketing platform (Next.js, Storyblok, AWS) serving 1.25M+ monthly users in 23+ languages.",
-        "Led the TIBCO → AWS Glue migration, cutting annual costs from $24,000 to $840 (96.5%).",
-        "Built the Prospect Uploader (Lambda + EventBridge + Salesforce CRM) handling 10,000+ leads with a validation UI.",
-        "Revamped the Incresco & Camped marketing sites (Astro + Storyblok) to 100% Lighthouse performance and accessibility.",
-        "Directed Planet SIM (IoT utilities, SignalR) and Planet Business (Firebase, REST APIs)."
+        "Spearheaded a high-traffic multilingual marketing site on Next.js, Storyblok and AWS serving 1.25M+ monthly users in 23+ languages.",
+        "Led the TIBCO → AWS Glue migration, cutting annual costs from $24,000 to $840 (96.5%) with automated, scalable pipelines.",
+        "Built the Prospect Uploader (AWS Lambda, EventBridge, Salesforce CRM): 10,000+ leads per CSV with multilingual support, email alerts, and a validation UI to view and edit failed records; the client's reaction was a “Wow”.",
+        "Built the Prospect Viewer to list leads, surface validation failures and alert stakeholders.",
+        "Found and rolled out a translation tool in Storyblok with the team; the client wrote to say thanks."
+      ]
+    },
+    {
+      "name": "Incresco & Camped marketing sites",
+      "bullets": [
+        "Led the Incresco revamp and built the Camped site with customizable UIs on Astro + Storyblok: 100% performance, accessibility and best-practice scores, improved SEO and sitemap generation."
+      ]
+    },
+    {
+      "name": "Planet SIM & Planet Business",
+      "bullets": [
+        "Directed Planet SIM, an IoT app for apartment utilities with real-time updates over SignalR; managed Planet Business, real-time water service tracking with Firebase auth and REST APIs."
       ]
     }
   ],
   "skills": [
+    "React",
+    "TypeScript",
+    "Flask",
+    "NestJS",
+    "MongoDB",
+    "OpenAI",
     "GPT-4 Vision",
     "OCR",
-    "OpenAI",
+    "Playwright",
     "Chrome Extensions",
-    "NestJS",
-    "Flask",
     "Next.js",
     "Storyblok",
     "AWS Glue",
@@ -42,7 +58,8 @@
     "Salesforce",
     "Astro",
     "SignalR",
-    "Firebase"
+    "Firebase",
+    "Docker"
   ],
   "order": 2
 }

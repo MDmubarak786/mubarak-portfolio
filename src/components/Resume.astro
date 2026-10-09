@@ -1,0 +1,26 @@
+---
+import { Icon } from "astro-icon/components";
+import ResumeDialog from "./final/ResumeDialog.astro";
+import { site } from "../lib/site";
+---
+<section id="resume" class="px-5 sm:px-8 py-20 sm:py-28 scroll-mt-10" aria-labelledby="resume-heading">
+  <div class="max-w-7xl mx-auto grid gap-10 lg:grid-cols-[1fr_1.2fr] items-start">
+    <div>
+      <h2 id="resume-heading" class="font-display text-[clamp(2rem,5vw,4.5rem)] font-medium tracking-[-0.03em] leading-none" data-split>Resume</h2>
+      <p class="mt-5 text-muted max-w-md">Two pages: {site.yearsExperience} years, the stack, every role with its numbers, education and the 2021 award. Preview it here or take the PDF.</p>
+      <div class="mt-7 flex flex-wrap gap-3">
+        <button type="button" class="btn-round px-6 py-3 border border-line-strong text-sm font-medium hover:text-white" data-resume-open data-magnetic><Icon name="lucide:eye" size={16} class="mr-2" aria-hidden="true" /> Preview</button>
+        <a href={site.resume} download={site.resumeName} class="btn-round px-6 py-3 bg-fg text-bg text-sm font-medium" data-magnetic><Icon name="lucide:download" size={16} class="mr-2" aria-hidden="true" /> Download PDF</a>
+      </div>
+      <dl class="mt-10 grid grid-cols-2 gap-x-6 gap-y-5 text-sm border-t border-line pt-6">
+        <div><dt class="text-muted">Education</dt><dd class="mt-1">{site.education.degree}<br />{site.education.school}<br /><span class="text-muted">{site.education.years} · CGPA {site.education.cgpa}</span></dd></div>
+        <div><dt class="text-muted">Award</dt><dd class="mt-1">{site.award.title}<br /><span class="text-muted">{site.award.by}, {site.award.year}</span></dd></div>
+      </dl>
+    </div>
+    <button type="button" class="group relative aspect-[8.5/11] w-full max-w-md justify-self-center lg:justify-self-end rounded-2xl overflow-hidden border border-line bg-bg-2 text-left" data-resume-open aria-label="Open the resume preview">
+      <iframe src={`${site.resume}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`} title="" aria-hidden="true" tabindex="-1" class="pointer-events-none w-full h-full bg-white" loading="lazy"></iframe>
+      <span class="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-bg via-bg/80 to-transparent text-sm flex items-center gap-2"><Icon name="lucide:maximize-2" size={14} aria-hidden="true" /> Click to read the full resume</span>
+    </button>
+  </div>
+  <ResumeDialog dialogClass="bg-bg-2 text-fg rounded-2xl border border-line" btnClass="rounded-full bg-fg text-bg px-4 py-2 text-sm font-medium" btnAltClass="rounded-full border border-line-strong px-4 py-2 text-sm" closeClass="rounded-full border border-line-strong px-4 py-2 text-sm hover:bg-fg hover:text-bg transition" />
+</section>

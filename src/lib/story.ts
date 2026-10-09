@@ -3,7 +3,7 @@ export const me = {
   ...site,
   since: "2021",
   oneLiner: "I build products where full-stack engineering meets AI, and I write about it for 22,000+ developers.",
-  intro: "Senior Software Engineer at Galent, Chennai: AI-powered features with LLMs, RAG and agentic workflows, and legacy systems moved to a cloud-native stack. Before that, five years at Incresco, intern to SDE 2, shipping AI and full-stack platforms for Global University Systems.",
+  intro: "Senior Software Engineer at Galent, Chennai, with 4.8+ years building full-stack (MERN) and AI-driven systems: LLMs, RAG and agentic workflows inside enterprise applications, legacy systems moved to a cloud-native AWS stack. Before that, five years at Incresco shipping AI and full-stack platforms for Global University Systems.",
 };
 export const numbers = [
   { v: "1.25M+", k: "monthly users", d: "on the multilingual platform, 23+ languages" },
@@ -42,5 +42,16 @@ export const roles = [
   { r: "Software Development Engineer 1", c: "Incresco", w: "May – Sep 2022" },
   { r: "Software Development Engineer, intern", c: "Incresco", w: "Jun 2021 – May 2022" },
 ];
-export const stack = ["React", "Next.js", "TypeScript", "Astro", "Tailwind CSS", "Node.js", "NestJS", "Flask", "FastAPI", "Express", "LLMs", "RAG", "LangChain", "OCR", "Agentic workflows", "AWS Lambda", "AWS Glue", "EventBridge", "S3", "Docker", "Terraform", "GitHub Actions", "MongoDB"];
+export const stack = ["JavaScript", "TypeScript", "Python", "React", "Next.js", "Astro", "Tailwind CSS", "NestJS", "Flask", "FastAPI", "Express", "MongoDB", "PostgreSQL", "MySQL", "DynamoDB", "Milvus", "AWS Lambda", "SQS", "EventBridge", "Step Functions", "API Gateway", "AWS Glue", "S3", "CloudFront", "Azure", "Terraform", "Docker", "GitHub Actions", "Vercel", "LLMs", "VLMs", "RAG", "Embeddings", "CLIP", "LangChain", "Agentic workflows", "OCR", "Playwright", "Datadog", "Sentry", "Salesforce API", "Storyblok"];
+export const skillGroups: [string, string[]][] = [
+  ["Languages", ["JavaScript (ES6+)", "TypeScript", "Python", "HTML5", "CSS3"]],
+  ["Frontend", ["React", "Next.js", "Astro", "Tailwind CSS"]],
+  ["Backend", ["NestJS", "Flask", "FastAPI", "Express"]],
+  ["Databases", ["MongoDB", "PostgreSQL", "MySQL", "DynamoDB", "Milvus (vector DB)"]],
+  ["Cloud & DevOps", ["AWS Lambda", "SQS", "EventBridge", "CloudFront", "Step Functions", "S3", "API Gateway", "Glue", "Secrets Manager", "Azure", "Terraform", "Docker", "GitHub Actions", "Vercel"]],
+  ["AI & automation", ["LLMs", "VLMs", "Prompt engineering", "OCR & document intelligence", "RAG", "Embeddings", "CLIP", "LangChain", "Agentic workflows", "Tool calling", "Multimodal AI"]],
+  ["Monitoring", ["Datadog", "Microsoft Clarity", "CloudWatch", "Sentry"]],
+  ["Integrations", ["Salesforce API", "GitHub API", "LinkedIn API", "Facebook API", "Cloudflare Turnstile"]],
+  ["Tools", ["Git", "GitHub", "CodeCommit", "Bitbucket", "Jira", "Confluence", "Storyblok", "Playwright"]],
+];
 export const languages = ["English", "Tamil", "Deutsch", "Español", "Français", "Italiano", "Português", "日本語", "한국어", "中文", "Türkçe", "Русский", "Tiếng Việt", "ไทย", "Bahasa", "Polski", "Nederlands", "Svenska", "Norsk", "Dansk", "Suomi", "العربية", "हिन्दी"];

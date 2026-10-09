@@ -63,6 +63,8 @@ Constraints:
 
 ## Evidence on Hand
 
+- Resume (2026-10-09, `public/resume/Mubarak-Shajahan-Resume.pdf`, previewable and downloadable on all three themes): confirms email mohammedmubarakmk@gmail.com, 4.8+ years, full skill groups, Anabin/ECCTIS compliance API, BSBI + GISMA Chrome extensions, CampusNet + BGV document pipeline with fraud detection, Webster portal, B.Tech IT at Sri Krishna College of Technology (2018–2022, CGPA 8.01), 2021 award. The PDF still lists IncrescoTech SDE 2 as current; the site follows LinkedIn (Galent since May 2026). Ask Mubarak for an updated PDF.
+
 - Full copy of the current site captured in docs/research.md section 1 (testimonials verbatim on the live site).
 - Quantified facts: 1.25M+ monthly users, 23+ languages, $24k→$840/yr (96.5%) migration saving, $30,000/yr licensing saved (per Jason Wheeler's testimonial), 100% Lighthouse on the Incresco & Camped site, 10k+ CSV leads via Prospect Uploader, 1,300+ PRs, 37% of org PRs reviewed, 30+ interviews, team of four led.
 - Absent, must not be fabricated: screenshots of the EF Academy, Incresco/Camped, or Planet apps; client logos with permission; metrics not listed above; new testimonials.

@@ -1,11 +1,11 @@
 [
   {
-    "id": "TypeScript",
+    "id": "JavaScript (ES6+)",
     "group": "Languages",
     "order": 1
   },
   {
-    "id": "JavaScript",
+    "id": "TypeScript",
     "group": "Languages",
     "order": 2
   },
@@ -15,98 +15,288 @@
     "order": 3
   },
   {
-    "id": "Node.js",
-    "group": "Runtimes",
+    "id": "HTML5",
+    "group": "Languages",
     "order": 4
   },
   {
-    "id": "Bun",
-    "group": "Runtimes",
+    "id": "CSS3",
+    "group": "Languages",
     "order": 5
   },
   {
     "id": "React",
-    "group": "Frameworks",
+    "group": "Frontend",
     "order": 6
   },
   {
     "id": "Next.js",
-    "group": "Frameworks",
+    "group": "Frontend",
     "order": 7
   },
   {
-    "id": "Tailwind CSS",
-    "group": "UI",
+    "id": "Astro",
+    "group": "Frontend",
     "order": 8
   },
   {
-    "id": "shadcn/ui",
-    "group": "UI",
+    "id": "Tailwind CSS",
+    "group": "Frontend",
     "order": 9
   },
   {
-    "id": "Radix UI",
-    "group": "UI",
+    "id": "NestJS",
+    "group": "Backend",
     "order": 10
   },
   {
-    "id": "Motion",
-    "group": "UI",
+    "id": "Flask",
+    "group": "Backend",
     "order": 11
   },
   {
-    "id": "TanStack",
-    "group": "State and data",
+    "id": "FastAPI",
+    "group": "Backend",
     "order": 12
   },
   {
-    "id": "Redux",
-    "group": "State and data",
+    "id": "Express",
+    "group": "Backend",
     "order": 13
   },
   {
-    "id": "React Router",
-    "group": "State and data",
+    "id": "MongoDB",
+    "group": "Databases",
     "order": 14
   },
   {
-    "id": "React Navigation",
-    "group": "State and data",
+    "id": "PostgreSQL",
+    "group": "Databases",
     "order": 15
   },
   {
     "id": "MySQL",
-    "group": "State and data",
+    "group": "Databases",
     "order": 16
   },
   {
-    "id": "MongoDB",
-    "group": "State and data",
+    "id": "DynamoDB",
+    "group": "Databases",
     "order": 17
   },
   {
-    "id": "Redis",
-    "group": "State and data",
+    "id": "Milvus (vector DB)",
+    "group": "Databases",
     "order": 18
   },
   {
-    "id": "Git",
-    "group": "Infrastructure",
+    "id": "AWS Lambda",
+    "group": "Cloud & DevOps",
     "order": 19
   },
   {
-    "id": "Docker",
-    "group": "Infrastructure",
+    "id": "SQS",
+    "group": "Cloud & DevOps",
     "order": 20
   },
   {
-    "id": "Figma",
-    "group": "Tools",
+    "id": "EventBridge",
+    "group": "Cloud & DevOps",
     "order": 21
   },
   {
-    "id": "ChatGPT",
-    "group": "Tools",
+    "id": "CloudFront",
+    "group": "Cloud & DevOps",
     "order": 22
+  },
+  {
+    "id": "Step Functions",
+    "group": "Cloud & DevOps",
+    "order": 23
+  },
+  {
+    "id": "S3",
+    "group": "Cloud & DevOps",
+    "order": 24
+  },
+  {
+    "id": "API Gateway",
+    "group": "Cloud & DevOps",
+    "order": 25
+  },
+  {
+    "id": "Glue",
+    "group": "Cloud & DevOps",
+    "order": 26
+  },
+  {
+    "id": "Secrets Manager",
+    "group": "Cloud & DevOps",
+    "order": 27
+  },
+  {
+    "id": "Azure",
+    "group": "Cloud & DevOps",
+    "order": 28
+  },
+  {
+    "id": "Terraform",
+    "group": "Cloud & DevOps",
+    "order": 29
+  },
+  {
+    "id": "Docker",
+    "group": "Cloud & DevOps",
+    "order": 30
+  },
+  {
+    "id": "GitHub Actions",
+    "group": "Cloud & DevOps",
+    "order": 31
+  },
+  {
+    "id": "Vercel",
+    "group": "Cloud & DevOps",
+    "order": 32
+  },
+  {
+    "id": "LLMs",
+    "group": "AI & automation",
+    "order": 33
+  },
+  {
+    "id": "VLMs",
+    "group": "AI & automation",
+    "order": 34
+  },
+  {
+    "id": "Prompt engineering",
+    "group": "AI & automation",
+    "order": 35
+  },
+  {
+    "id": "OCR & document intelligence",
+    "group": "AI & automation",
+    "order": 36
+  },
+  {
+    "id": "RAG",
+    "group": "AI & automation",
+    "order": 37
+  },
+  {
+    "id": "Embeddings",
+    "group": "AI & automation",
+    "order": 38
+  },
+  {
+    "id": "CLIP",
+    "group": "AI & automation",
+    "order": 39
+  },
+  {
+    "id": "LangChain",
+    "group": "AI & automation",
+    "order": 40
+  },
+  {
+    "id": "Agentic workflows",
+    "group": "AI & automation",
+    "order": 41
+  },
+  {
+    "id": "Tool calling",
+    "group": "AI & automation",
+    "order": 42
+  },
+  {
+    "id": "Multimodal AI",
+    "group": "AI & automation",
+    "order": 43
+  },
+  {
+    "id": "Datadog",
+    "group": "Monitoring",
+    "order": 44
+  },
+  {
+    "id": "Microsoft Clarity",
+    "group": "Monitoring",
+    "order": 45
+  },
+  {
+    "id": "CloudWatch",
+    "group": "Monitoring",
+    "order": 46
+  },
+  {
+    "id": "Sentry",
+    "group": "Monitoring",
+    "order": 47
+  },
+  {
+    "id": "Salesforce API",
+    "group": "Integrations",
+    "order": 48
+  },
+  {
+    "id": "GitHub API",
+    "group": "Integrations",
+    "order": 49
+  },
+  {
+    "id": "LinkedIn API",
+    "group": "Integrations",
+    "order": 50
+  },
+  {
+    "id": "Facebook API",
+    "group": "Integrations",
+    "order": 51
+  },
+  {
+    "id": "Cloudflare Turnstile",
+    "group": "Integrations",
+    "order": 52
+  },
+  {
+    "id": "Git",
+    "group": "Tools",
+    "order": 53
+  },
+  {
+    "id": "GitHub",
+    "group": "Tools",
+    "order": 54
+  },
+  {
+    "id": "CodeCommit",
+    "group": "Tools",
+    "order": 55
+  },
+  {
+    "id": "Bitbucket",
+    "group": "Tools",
+    "order": 56
+  },
+  {
+    "id": "Jira",
+    "group": "Tools",
+    "order": 57
+  },
+  {
+    "id": "Confluence",
+    "group": "Tools",
+    "order": 58
+  },
+  {
+    "id": "Storyblok",
+    "group": "Tools",
+    "order": 59
+  },
+  {
+    "id": "Playwright",
+    "group": "Tools",
+    "order": 60
   }
 ]

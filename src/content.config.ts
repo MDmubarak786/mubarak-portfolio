@@ -83,7 +83,7 @@ const stack = defineCollection({
   loader: file("./src/data/stack.json"),
   schema: z.object({
     id: z.string(),
-    group: z.enum(["Languages", "Runtimes", "Frameworks", "UI", "State and data", "Infrastructure", "Tools"]),
+    group: z.enum(["Languages", "Frontend", "Backend", "Databases", "Cloud & DevOps", "AI & automation", "Monitoring", "Integrations", "Tools"]),
     order: z.number(),
   }),
 });

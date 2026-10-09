@@ -6,7 +6,7 @@ status: accepted
 date: "2025"
 organisation: Incresco · Global University Systems
 role: Software Development Engineer 2
-summary: Production Manifest V3 extensions automate repetitive admin work inside existing web tools, saving admins 3–5 hours a day at 99.9% uptime.
+summary: Production Manifest V3 extensions for BSBI and GISMA automate student application workflows, with PDF.js extraction cutting processing time 50%+, saving admins 3–5 hours a day at 99.9% uptime.
 context: >-
   Admin teams worked application workflows by hand inside third-party web tools that could not be changed.
 options:

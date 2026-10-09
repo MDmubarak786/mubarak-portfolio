@@ -6,7 +6,7 @@ status: accepted
 date: "2025"
 organisation: Incresco · Global University Systems
 role: Software Development Engineer 2
-summary: AI document processing APIs classify 17+ document types at 95% accuracy, cutting manual data entry by 70% and making processing 7× faster.
+summary: GPT-4 Vision and OCR validation APIs for CampusNet and the BGV system classify 17+ document types at 95% accuracy, cut manual data entry by 70%, and catch fraud through cross-document validation.
 context: >-
   Admissions teams at Global University Systems received student documents of many kinds and keyed them in by hand. Volume grew, accuracy suffered, and compliance checks against Anabin and ECCTIS took effort nobody had.
 options:
@@ -30,8 +30,10 @@ consequences:
     emphasis: true
   - label: Manual data entry
     value: "Cut by 70%, processing 7× faster"
+  - label: Complex documents
+    value: "Accuracy up 40%+ on payslips, EPFO records, certificates"
   - label: Compliance
-    value: "Matching accuracy up 35%+, effort down 60%+"
+    value: "Fraud detection via cross-document validation; effort down 60%+"
 reviewedBy: []
 tags: [GPT-4 Vision, OCR, LLMs, Compliance]
 confirmed: false

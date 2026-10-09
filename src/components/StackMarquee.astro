@@ -2,8 +2,8 @@
 import { getCollection } from "astro:content";
 import Contributions from "./Contributions.astro";
 const items = (await getCollection("stack")).sort((a, b) => a.data.order - b.data.order).map((i) => i.data.id);
-const half = Math.ceil(items.length / 2);
-const rows = [items.slice(0, half), items.slice(half)];
+const third = Math.ceil(items.length / 3);
+const rows = [items.slice(0, third), items.slice(third, third * 2), items.slice(third * 2)];
 ---
 <section id="stack" class="py-20 sm:py-28 scroll-mt-10 border-y border-line bg-bg-2" aria-labelledby="stack-heading">
   <h2 id="stack-heading" class="sr-only">Stack</h2>
