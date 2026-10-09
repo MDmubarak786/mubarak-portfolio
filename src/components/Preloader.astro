@@ -15,15 +15,15 @@ import { greetings } from "../lib/site";
   else {
     document.documentElement.classList.add("is-loading");
     let i = 0;
-    const step = () => { i++; if (i < greetings.length && text) { text.textContent = greetings[i]; setTimeout(step, 160); } else { finish(); } };
+    const step = () => { i++; if (i < greetings.length && text) { text.textContent = greetings[i]; setTimeout(step, 140); } else { finish(); } };
     const finish = () => {
       sessionStorage.setItem("preloaded", "1");
-      el.style.transition = "transform 900ms cubic-bezier(0.76, 0, 0.24, 1)";
+      el.style.transition = "transform 800ms cubic-bezier(0.76, 0, 0.24, 1)";
       el.style.transform = "translateY(-120%)";
       document.documentElement.classList.remove("is-loading");
       document.documentElement.classList.add("is-ready");
       setTimeout(() => el.remove(), 1000);
     };
-    setTimeout(step, 650);
+    setTimeout(step, 450);
   }
 </script>

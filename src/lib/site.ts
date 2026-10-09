@@ -21,7 +21,7 @@ export const site = {
   url: "https://mk-full-stack-developer.vercel.app",
 } as const;
 
-export const greetings = ["வணக்கம்", "Hello", "Hola", "Bonjour", "Ciao", "Olá", "नमस्ते", "こんにちは", "Hallo"];
+export const greetings = ["வணக்கம்", "Hello", "Hola", "Bonjour", "नमस्ते", "こんにちは"];
 
 export const stats = [
   { value: 1.25, suffix: "M+", decimals: 2, label: "monthly users on the EF Academy platform" },
