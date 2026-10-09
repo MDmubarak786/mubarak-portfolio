@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "border-accent-on-rounded",
+        "value": "*",
+        "files": [
+          "src/pages/hawkins.astro"
+        ],
+        "createdAt": "2026-10-09T15:30:47.083Z",
+        "reason": "Claude: the .reels span circles draw VHS cassette reel hubs; the ring is the illustration, not a card accent border"
+      }
+    ]
+  }
+}
