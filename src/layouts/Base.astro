@@ -1,6 +1,11 @@
 ---
 import "../styles/global.css";
-interface Props { title: string; description?: string }
+import { Font } from "astro:assets";
+
+interface Props {
+  title: string;
+  description?: string;
+}
 const { title, description = "" } = Astro.props;
 ---
 <!doctype html>
@@ -12,8 +17,14 @@ const { title, description = "" } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
+    <Font cssVariable="--font-display" preload />
+    <Font cssVariable="--font-text" preload />
+    <Font cssVariable="--font-tamil" />
+    <Font cssVariable="--font-mono" />
+    <slot name="head" />
   </head>
   <body>
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 press px-3 py-2">Skip to the records</a>
     <slot />
   </body>
 </html>

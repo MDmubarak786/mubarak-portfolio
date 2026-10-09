@@ -29,14 +29,14 @@ before starting any task that touches UI.
 **Description:** Encode the OWN-WORLD block as tokens: paper ground with rule lines, ink, stamp green, rust red; type scale and three self-hosted faces (display with character, text with Tamil coverage, mono for identifiers only). Theme the browser surfaces the craft floor names: selection, caret, focus ring, scrollbar, underline offset, tabular numerals.
 
 **Acceptance criteria:**
-- [ ] `@theme` in `src/styles/global.css` defines every colour, font, and spacing token; no raw hex in components
-- [ ] Fonts are self-hosted and subset; `முகமது முபாரக்` renders in the chosen text face at display weight without fallback
-- [ ] `src/layouts/Base.astro` sets lang, metadata slots, skip link, themed selection/focus/scrollbar
-- [ ] Contrast of body text on paper ≥ 4.5:1, rule lines are decorative only
+- [x] `@theme` in `src/styles/global.css` defines every colour, font, and spacing token; no raw hex in components
+- [x] Fonts are self-hosted and subset; `முகமது முபாரக்` renders in the chosen text face at display weight without fallback
+- [x] `src/layouts/Base.astro` sets lang, metadata slots, skip link, themed selection/focus/scrollbar
+- [x] Contrast of body text on paper ≥ 4.5:1, rule lines are decorative only
 
 **Verification:**
-- [ ] Build succeeds; `npx astro check`
-- [ ] Manual check: screenshot of a type specimen page (temporary) at 390px and 1440px
+- [x] Build succeeds; `npx astro check`
+- [x] Manual check: screenshot of a type specimen page (temporary) at 390px and 1440px
 
 **Dependencies:** Task 1
 **Files likely touched:** `src/styles/global.css`, `src/layouts/Base.astro`, `public/fonts/*`, `astro.config.mjs`
@@ -47,22 +47,22 @@ before starting any task that touches UI.
 **Description:** Model every content type as an Astro content collection with Zod schemas and seed it with the full content of the live site (docs/research.md §1 plus the page text captured there). Nothing on the live site may be missing.
 
 **Acceptance criteria:**
-- [ ] Collections: `records` (MDX: ADR-001…005 drafted from the experience bullets and testimonials), `witnesses` (9), `experience` (3 roles), `projects` (8, four marked `details: pending`), `stack` (23 items grouped)
-- [ ] `src/content.config.ts` schemas reject a record without `status`, `date`, `options`, `decision`, `consequences`, `reviewedBy`
-- [ ] A parity script or checklist confirms every name, number, and link from the live site is present
+- [x] Collections: `records` (MDX: ADR-001…005 drafted from the experience bullets and testimonials), `witnesses` (9), `experience` (3 roles), `projects` (8, four marked `details: pending`), `stack` (23 items grouped)
+- [x] `src/content.config.ts` schemas reject a record without `status`, `date`, `options`, `decision`, `consequences`, `reviewedBy`
+- [x] A parity script or checklist confirms every name, number, and link from the live site is present
 
 **Verification:**
-- [ ] `npx astro check` passes (schema errors surface here)
-- [ ] Manual check: `astro build` logs collection counts
+- [x] `npx astro check` passes (schema errors surface here)
+- [x] Manual check: `astro build` logs collection counts
 
 **Dependencies:** Task 1
 **Files likely touched:** `src/content.config.ts`, `src/content/records/*.mdx`, `src/content/witnesses/*.json`, `src/content/experience/*.json`, `src/content/projects/*.json`, `src/content/stack.json`
 **Estimated scope:** M
 
 ## Checkpoint: Foundation
-- [ ] `astro check` and `astro build` pass
-- [ ] Type specimen shows tokens, fonts, Tamil rendering, themed browser surfaces
-- [ ] Content parity confirmed
+- [x] `astro check` and `astro build` pass
+- [x] Type specimen shows tokens, fonts, Tamil rendering, themed browser surfaces
+- [x] Content parity confirmed
 
 ## Task 4: Record index rail
 

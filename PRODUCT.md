@@ -39,7 +39,7 @@ Confirmed content the site must carry (user decision: keep everything from the c
 - About copy (existing, may be edited for hierarchy, not for facts).
 - Experience timeline: IncrescoTech, Lead Software Engineer, 10.2022–present (EF Academy; Incresco & Camped marketing site; Planet SIM & Planet Business IoT apps); Software Engineer 05.2022–09.2022 (Edvanza, led four engineers, 30+ interviews, reviewed 37% of org PRs); Junior Software Engineer 06.2021–05.2022 (Edvanza, 1,300+ PRs, Jobs and Learn modules).
 - Nine testimonials with names and titles (Andrea Devis Matheus, Chloe Sturges, Jason Wheeler, John Squier, Julieta Capogna, Dan Lawrence, James Foxon, Minon Weber, Naga Venkata Sai Kotha).
-- Stack list: TypeScript, JavaScript, Python, Node.js, Bun, React, Next.js, Tailwind CSS, shadcn/ui, Radix UI, Motion, TanStack, Redux, React Router, React Navigation, Git, Docker, MySQL, MongoDB, Redis, Figma, ChatGPT.
+- Stack list (22 items): TypeScript, JavaScript, Python, Node.js, Bun, React, Next.js, Tailwind CSS, shadcn/ui, Radix UI, Motion, TanStack, Redux, React Router, React Navigation, Git, Docker, MySQL, MongoDB, Redis, Figma, ChatGPT.
 - Eight projects (2020 Flutter era: Movie Lovers, COVID21-status, Tic Tac Toe, Fingertip, and four more behind "Show more").
 - GitHub contribution graph; brand mark and logotype (MK monogram).
 - Hero on the live site carries two titles: "Lead Software Engineer @IncrescoTech" and, under the Tamil name, "Front-End Team Lead". Both are his; content parity must keep both.
@@ -62,7 +62,7 @@ Constraints:
 - Full copy of the current site captured in docs/research.md section 1 (testimonials verbatim on the live site).
 - Quantified facts: 1.25M+ monthly users, 23+ languages, $24k→$840/yr (96.5%) migration saving, $30,000/yr licensing saved (per Jason Wheeler's testimonial), 100% Lighthouse on the Incresco & Camped site, 10k+ CSV leads via Prospect Uploader, 1,300+ PRs, 37% of org PRs reviewed, 30+ interviews, team of four led.
 - Absent, must not be fabricated: screenshots of the EF Academy, Incresco/Camped, or Planet apps; client logos with permission; metrics not listed above; new testimonials.
-- Photo and brand assets: on the live site, to be exported by the user or fetched from the deployed bundle.
+- Assets fetched from the deployed site on 2026-10-09: pronunciation audio `public/audio/mohammed-mubarak.mp3`, MK mark and logotype SVGs in `public/brand/`, portrait `src/assets/portrait.png` (his GitHub avatar, which the live site also uses). Project links are YouTube demo videos.
 
 ## Product Principles
 

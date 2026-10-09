@@ -1,0 +1,17 @@
+{
+  "company": "IncrescoTech",
+  "role": "Software Engineer",
+  "type": "Full-time",
+  "start": "2022-05",
+  "end": "2022-09",
+  "groups": [
+    { "name": "Edvanza", "bullets": [
+      "Led a team of four front-end engineers, mentoring, assigning work, and keeping cross-functional stakeholders aligned.",
+      "Delivered core Edvanza modules across React and React Native apps, ensuring feature parity between web and mobile.",
+      "Served on Incresco's technical interview panel, conducting 30+ candidate evaluations.",
+      "Reviewed 37% of organizational pull requests, offering constructive feedback to maintain quality and consistency."
+    ]}
+  ],
+  "skills": ["React", "Next.js", "React Native", "Storybook", "Team Leadership", "Code Review", "Hiring"],
+  "order": 2
+}

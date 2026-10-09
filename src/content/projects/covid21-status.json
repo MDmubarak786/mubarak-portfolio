@@ -1,0 +1,10 @@
+{
+  "name": "COVID21-status",
+  "period": "2020-10",
+  "link": "https://www.youtube.com/watch?v=idLG0FhK-AU",
+  "pending": true,
+  "order": 2,
+  "tags": [
+    "Flutter"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "Fingertip",
+  "period": "2020-09",
+  "link": "https://www.youtube.com/watch?v=8RzIVDi1Mns",
+  "pending": true,
+  "order": 4,
+  "tags": [
+    "Flutter"
+  ]
+}

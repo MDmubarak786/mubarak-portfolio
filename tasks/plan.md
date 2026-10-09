@@ -38,11 +38,11 @@ incumbent audit in `docs/research.md`; the direction round in `docs/direction-ro
 
 ### Phase 0: Foundation
 - [x] Task 1: Initialise repo and Astro + Tailwind v4 + Vercel scaffold
-- [ ] Task 2: Design tokens, fonts, base layout and browser surfaces
-- [ ] Task 3: Content collections and schemas, seeded with all incumbent content
+- [x] Task 2: Design tokens, fonts, base layout and browser surfaces
+- [x] Task 3: Content collections and schemas, seeded with all incumbent content
 
 ### Checkpoint: Foundation
-- [ ] `astro check` and `astro build` pass; an empty page renders with tokens, fonts, and themed selection/focus
+- [x] `astro check` and `astro build` pass; an empty page renders with tokens, fonts, and themed selection/focus
 - [ ] Every testimonial, role, project, and stack item from the live site exists in `src/content/`
 
 ### Phase 1: First viewport (vertical slice)

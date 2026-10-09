@@ -1,0 +1,112 @@
+[
+  {
+    "id": "TypeScript",
+    "group": "Languages",
+    "order": 1
+  },
+  {
+    "id": "JavaScript",
+    "group": "Languages",
+    "order": 2
+  },
+  {
+    "id": "Python",
+    "group": "Languages",
+    "order": 3
+  },
+  {
+    "id": "Node.js",
+    "group": "Runtimes",
+    "order": 4
+  },
+  {
+    "id": "Bun",
+    "group": "Runtimes",
+    "order": 5
+  },
+  {
+    "id": "React",
+    "group": "Frameworks",
+    "order": 6
+  },
+  {
+    "id": "Next.js",
+    "group": "Frameworks",
+    "order": 7
+  },
+  {
+    "id": "Tailwind CSS",
+    "group": "UI",
+    "order": 8
+  },
+  {
+    "id": "shadcn/ui",
+    "group": "UI",
+    "order": 9
+  },
+  {
+    "id": "Radix UI",
+    "group": "UI",
+    "order": 10
+  },
+  {
+    "id": "Motion",
+    "group": "UI",
+    "order": 11
+  },
+  {
+    "id": "TanStack",
+    "group": "State and data",
+    "order": 12
+  },
+  {
+    "id": "Redux",
+    "group": "State and data",
+    "order": 13
+  },
+  {
+    "id": "React Router",
+    "group": "State and data",
+    "order": 14
+  },
+  {
+    "id": "React Navigation",
+    "group": "State and data",
+    "order": 15
+  },
+  {
+    "id": "MySQL",
+    "group": "State and data",
+    "order": 16
+  },
+  {
+    "id": "MongoDB",
+    "group": "State and data",
+    "order": 17
+  },
+  {
+    "id": "Redis",
+    "group": "State and data",
+    "order": 18
+  },
+  {
+    "id": "Git",
+    "group": "Infrastructure",
+    "order": 19
+  },
+  {
+    "id": "Docker",
+    "group": "Infrastructure",
+    "order": 20
+  },
+  {
+    "id": "Figma",
+    "group": "Tools",
+    "order": 21
+  },
+  {
+    "id": "ChatGPT",
+    "group": "Tools",
+    "order": 22
+  }
+]
