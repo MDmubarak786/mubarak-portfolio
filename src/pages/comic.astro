@@ -31,6 +31,8 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     .btn:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--v-accent); }
     .btn.alt { background:#fff; color:#111; }
     .burst { clip-path: polygon(50% 0%, 61% 12%, 77% 6%, 80% 23%, 96% 29%, 88% 44%, 100% 56%, 85% 65%, 88% 82%, 71% 82%, 63% 97%, 50% 87%, 37% 97%, 29% 82%, 12% 82%, 15% 65%, 0% 56%, 12% 44%, 4% 29%, 20% 23%, 23% 6%, 39% 12%); }
+    .panel { transform: rotate(var(--tilt, 0deg)); }
+    @media (prefers-reduced-motion: reduce) { .strip { display:grid !important; width:auto !important; padding-right:0 !important; } .strip-panel { width:auto !important; } }
     .zig { background: repeating-linear-gradient(135deg, #111 0 6px, transparent 6px 12px); height: 10px; }
     details summary { list-style:none; cursor:pointer; } details summary::-webkit-details-marker { display:none; }
   </style>
@@ -42,9 +44,11 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     </div>
   </header>
 
+  <div class="fixed top-0 left-0 right-0 z-50 h-1.5 bg-[#111]/10 pointer-events-none" aria-hidden="true"><div class="h-full bg-[#ff2e63] origin-left scale-x-0" data-ink-progress></div></div>
+  <div class="fixed bottom-16 right-4 z-40 caption !rotate-0 text-sm hidden md:block" aria-live="polite" data-page-counter>Cover · 1 of 9</div>
   <main id="main" class="max-w-6xl mx-auto px-5 sm:px-8 pt-10 pb-28">
     <!-- COVER -->
-    <section class="panel p-6 sm:p-10 grid gap-8 md:grid-cols-[auto_1fr] items-center" aria-label="Cover">
+    <section class="panel p-6 sm:p-10 grid gap-8 md:grid-cols-[auto_1fr] items-center" aria-label="Cover" data-page="Cover" data-cover>
       <div class="relative"><Image src={portrait} alt={`Portrait of ${site.name}`} width={520} height={520} class="w-56 sm:w-72 border-4 border-[#111] object-cover" style="filter: contrast(1.15) saturate(1.3)" /><span class="burst absolute -right-8 -top-8 bg-[#ffb703] size-28 grid place-items-center bang text-xl text-center leading-none rotate-12">2026<br />EDITION</span></div>
       <div>
         <p class="caption">Issue #1 · Chennai, India · {site.pronouns}</p>
@@ -58,17 +62,18 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     <section class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4" aria-label="Numbers">{numbers.map((n, i) => <div class="panel p-5" style={`transform: rotate(${i % 2 ? 0.8 : -0.8}deg)`}><p class="bang text-5xl" style={`color:${colors[i]}; -webkit-text-stroke:1.5px #111`}>{n.v}</p><p class="text-xl font-bold">{n.k}</p><p>{n.d}</p></div>)}</section>
 
     <!-- CHAPTER 1 -->
-    <section id="migration" class="mt-16 scroll-mt-24" aria-labelledby="ch1">
+    <section id="migration" class="mt-16 scroll-mt-24 md:overflow-hidden" aria-labelledby="ch1" data-page="Chapter 1">
       <h2 id="ch1" class="text-5xl sm:text-6xl">Chapter 1 · The Great Migration</h2>
       <p class="mt-2 text-xl">A true story about $24,000, a deadline, and AWS Glue.</p>
-      <div class="mt-6 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {migration.map((m, i) => <article class="panel p-6 min-h-[17rem] flex flex-col" style={`transform: rotate(${(i % 2 ? 1 : -1) * 0.6}deg)`}><p class="caption self-start">Panel {i + 1} · {m.t}</p><p class="bubble mt-5">{m.s}</p><p class="sfx mt-auto self-end text-[clamp(2rem,5vw,4rem)]" style={`color:${colors[i]}`}>{sfx[i]}</p></article>)}
-        <article class="panel p-6 bg-[#ff2e63] text-white flex flex-col justify-center"><p class="bang text-5xl">THE END?</p><p class="text-xl mt-2">No. The platform still serves 1.25M people a month. Turn the page.</p></article>
+      <div class="ink-track mt-4 h-2 w-full max-w-md border-2 border-[#111] bg-white overflow-hidden" aria-hidden="true"><div class="ink-fill h-full bg-[#ff2e63] origin-left scale-x-0" data-strip-progress></div></div>
+      <div class="strip mt-6 grid gap-8 md:flex md:w-max md:gap-10 md:pr-[20vw]" data-strip>
+        {migration.map((m, i) => <article class="panel strip-panel p-6 min-h-[17rem] md:w-[38vw] md:min-h-[24rem] md:shrink-0 flex flex-col" style={`--tilt:${(i % 2 ? 1 : -1) * 0.6}deg`}><p class="caption self-start">Panel {i + 1} · {m.t}</p><p class="bubble mt-5">{m.s}</p><p class="sfx mt-auto self-end text-[clamp(2rem,5vw,4rem)]" style={`color:${colors[i]}`}>{sfx[i]}</p></article>)}
+        <article class="panel strip-panel p-6 bg-[#ff2e63] text-white flex flex-col justify-center md:w-[32vw] md:shrink-0"><p class="bang text-5xl">THE END?</p><p class="text-xl mt-2">No. The platform still serves 1.25M people a month. Turn the page.</p></article>
       </div>
     </section>
 
     <!-- CASE FILES -->
-    <section id="cases" class="mt-16 scroll-mt-24" aria-labelledby="ch2">
+    <section id="cases" class="mt-16 scroll-mt-24" aria-labelledby="ch2" data-page="Chapter 2">
       <h2 id="ch2" class="text-5xl sm:text-6xl">Chapter 2 · Case files</h2>
       <p class="mt-2 text-xl">Eight cases. Open any file for context, decision and consequences.</p>
       <ol class="mt-6 grid gap-6 md:grid-cols-2">
@@ -83,7 +88,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     </section>
 
     <!-- WITNESSES -->
-    <section id="witnesses" class="mt-16 scroll-mt-24" aria-labelledby="ch3">
+    <section id="witnesses" class="mt-16 scroll-mt-24" aria-labelledby="ch3" data-page="Chapter 3">
       <h2 id="ch3" class="text-5xl sm:text-6xl">Chapter 3 · Nine witnesses</h2>
       <p class="mt-2 text-xl">Every word verbatim. Nothing paraphrased.</p>
       <ul class="mt-6 grid gap-8 md:grid-cols-2">
@@ -92,7 +97,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     </section>
 
     <!-- ORIGIN -->
-    <section id="origin" class="mt-16 scroll-mt-24" aria-labelledby="ch4">
+    <section id="origin" class="mt-16 scroll-mt-24" aria-labelledby="ch4" data-page="Chapter 4">
       <h2 id="ch4" class="text-5xl sm:text-6xl">Chapter 4 · Origin story</h2>
       <ol class="mt-6 space-y-6">
         {roles.map((r, i) => <li class="panel p-6 grid gap-4 md:grid-cols-[14rem_1fr]"><div><p class="caption">{fmt(r.data.start)} → {fmt(r.data.end)}</p><h3 class="text-3xl mt-2">{r.data.role}</h3><p class="text-lg">{r.data.company} · {r.data.type}</p></div><div class="space-y-4">{r.data.groups.map((g) => <div><p class="bang text-2xl" style={`color:${colors[i % 5]}`}>{g.name}</p><ul class="list-disc pl-5 space-y-1">{g.bullets.map((b) => <li>{b}</li>)}</ul></div>)}<p class="text-sm">{r.data.skills.join(" · ")}</p></div></li>)}
@@ -100,7 +105,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     </section>
 
     <!-- RESUME -->
-    <section id="resume" class="mt-16 scroll-mt-24 panel p-6 sm:p-10 grid gap-8 lg:grid-cols-[1fr_1fr] items-center" aria-labelledby="res-h">
+    <section id="resume" class="mt-16 scroll-mt-24 panel p-6 sm:p-10 grid gap-8 lg:grid-cols-[1fr_1fr] items-center" aria-labelledby="res-h" data-page="Insert">
       <div>
         <p class="caption">Collector’s insert · 2 pages</p>
         <h2 id="res-h" class="text-5xl sm:text-6xl mt-3">The official resume</h2>
@@ -113,21 +118,21 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     </section>
 
     <!-- POWERS -->
-    <section class="mt-16" aria-labelledby="powers">
+    <section class="mt-16" aria-labelledby="powers" data-page="Power-ups">
       <h2 id="powers" class="text-5xl sm:text-6xl">Power-ups</h2>
       <ul class="mt-6 flex flex-wrap gap-3">{stack.map((s, i) => <li class="panel px-4 py-2 bang text-xl" style={`background:${colors[i % 5]}22; transform: rotate(${(i % 3) - 1}deg)`}>{s}</li>)}</ul>
       <div class="panel mt-8 p-6"><p class="caption">Daily strip · GitHub, the last twelve months</p><div class="mt-4"><Calendar empty="#fff" levels={["#ffd6e0", "#ff9ab5", "#ff5c8a", "#ff2e63"]} ink="#111" /></div><p class="mt-3 text-lg"><a href={site.github} class="underline">@MDmubarak786</a></p></div>
     </section>
 
     <!-- BACK ISSUES -->
-    <section class="mt-16" aria-labelledby="back">
+    <section class="mt-16" aria-labelledby="back" data-page="Back issues">
       <h2 id="back" class="text-5xl sm:text-6xl">Back issues · 2020</h2>
       <p class="mt-2 text-xl">Eight Flutter apps from when I was learning mobile. Each has a demo on YouTube.</p>
       <ul class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{projects.map((p) => <li class="panel p-4"><p class="caption">{fmt(p.data.period)}</p><h3 class="text-2xl mt-2">{p.data.name}</h3>{p.data.description && <p class="text-base">{p.data.description}</p>}{p.data.link && <a href={p.data.link} class="btn alt text-base mt-3 py-1">Watch demo</a>}</li>)}</ul>
     </section>
 
     <!-- CONTACT -->
-    <section id="contact" class="mt-16 scroll-mt-24 panel p-8 sm:p-12" aria-labelledby="ch5">
+    <section id="contact" class="mt-16 scroll-mt-24 panel p-8 sm:p-12" aria-labelledby="ch5" data-page="Back cover">
       <div class="zig mb-6"></div>
       <h2 id="ch5" class="text-5xl sm:text-7xl text-[#ff2e63]" style="-webkit-text-stroke:2px #111">Next issue needs a publisher.</h2>
       <p class="mt-3 text-2xl">Hiring for a senior or lead role? Write, call, or send a message.</p>
