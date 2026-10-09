@@ -28,6 +28,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     body { background-image: radial-gradient(#111 0.8px, transparent 0.9px); background-size: 7px 7px; font-size: 1.1rem; }
     h1, h2, h3, .bang { font-family: var(--font-bangers); letter-spacing:.02em; font-weight:400; }
     .panel { background:#fff; border: 4px solid #111; box-shadow: 8px 8px 0 #111; position:relative; }
+    .stat-v { font-family: var(--font-bangers); letter-spacing:.02em; line-height:1; -webkit-text-stroke:1.5px #111; text-shadow: 3px 3px 0 #111; }
     .caption { background:#fff3b0; border: 3px solid #111; padding:.25rem .6rem; display:inline-block; transform: rotate(-1deg); font-size:1rem; }
     .caption[data-pronounce] { display:inline-flex; align-items:center; gap:.4rem; white-space:nowrap; vertical-align:middle; transform:none; line-height:1.2; padding:.15rem .55rem; }
     .bubble { background:#fff; border:3px solid #111; border-radius: 1.5rem; padding:.9rem 1.1rem; position:relative; }
@@ -96,7 +97,18 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     </section>
 
     <!-- NUMBERS -->
-    <section class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4" aria-label="Numbers">{numbers.map((n, i) => <div class="panel p-5"><p class="bang text-5xl" style={`color:${colors[i]}; -webkit-text-stroke:1.5px #111`}>{n.v}</p><p class="text-xl font-bold">{n.k}</p><p>{n.d}</p></div>)}</section>
+    <section class="mt-10" aria-labelledby="num-h">
+      <h2 id="num-h" class="sr-only">By the numbers</h2>
+      <ul class="grid gap-4 sm:gap-5 grid-cols-2 lg:grid-cols-4" role="list">
+        {numbers.map((n, i) => (
+          <li class="panel p-4 sm:p-5">
+            <p class="stat-v text-4xl sm:text-5xl" style={`color:${colors[i]}`}>{n.v}</p>
+            <p class="mt-2 text-lg sm:text-xl font-bold leading-tight">{n.k}</p>
+            <p class="mt-1 text-[#555] leading-snug text-pretty">{n.d}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
 
     <!-- CHAPTER 1 -->
     <section id="migration" class="mt-16 scroll-mt-24" aria-labelledby="ch1">
