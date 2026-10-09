@@ -23,7 +23,7 @@
 }
 
 @layer base {
-  :root { color-scheme: dark; scrollbar-color: var(--color-line-strong) var(--color-bg); caret-color: var(--color-accent); }
+  :root { --curtain: #0b0b0c; color-scheme: dark; scrollbar-color: var(--color-line-strong) var(--color-bg); caret-color: var(--color-accent); }
   html { background: var(--color-bg); color: var(--color-fg); font-family: var(--font-text); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
   html.lenis, html.lenis body { height: auto; }
   .lenis.lenis-smooth { scroll-behavior: auto !important; }

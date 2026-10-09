@@ -18,7 +18,7 @@ const contents = [["#log", "Entries · The migration"], ["#entries", "Other entr
 ---
 <FinalShell title={`${site.name} – field logbook`} description={me.oneLiner} fonts={["--font-caveat", "--font-elite"]} current="logbook" theme="#2b4a3a">
   <style is:global>
-    :root { --v-bg:#2b4a3a; --v-fg:#1f1a14; --v-accent:#c0392b; --v-font-text: var(--font-elite); --v-font-display: var(--font-caveat); }
+    :root { --curtain:#2b4a3a; --v-bg:#2b4a3a; --v-fg:#1f1a14; --v-accent:#c0392b; --v-font-text: var(--font-elite); --v-font-display: var(--font-caveat); }
     body { background-image: repeating-linear-gradient(45deg, rgba(0,0,0,.08) 0 2px, transparent 2px 6px); color: #1f1a14; }
     .book { background:#f5efe0; background-image: linear-gradient(transparent 31px, #d8cfb8 32px); background-size: 100% 32px; box-shadow: 0 40px 80px -30px rgba(0,0,0,.7); border-radius: 4px; }
     .hand { font-family: var(--font-caveat); font-weight: 500; }
@@ -128,4 +128,6 @@ const contents = [["#log", "Entries · The migration"], ["#entries", "Other entr
       <p class="mt-8 flex flex-wrap items-center gap-4"><Pronounce class="hand text-2xl" /><span class="text-sm opacity-80">{site.location} · © {new Date().getFullYear()} {site.name}</span></p>
     </section>
   </main>
+  <script src="../scripts/logbook-motion.ts"></script>
+  <script src="../scripts/page-curtain.ts"></script>
 </FinalShell>
