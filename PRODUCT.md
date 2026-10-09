@@ -30,7 +30,7 @@ Not "a full-stack developer with a stack list." The claims a neighbouring portfo
 - Linked from CV, LinkedIn (linkedin.com/in/mohammed-mubarak), GitHub (MDmubarak786), X (@MMubarakoo7).
 - Built with AI coding tools (Claude Code); the site should reflect current craft.
 - Production: Vercel project `portfolio2026`, https://portfolio2026-cyan-rho.vercel.app, auto-deploys from GitHub `MDmubarak786/mubarak-portfolio` on `main`. Custom domain: open.
-- Two full builds are under review at `/` (Studio) and `/comic` (Comic); eleven story samples remain under `/v` for reference, all `noindex`.
+- The Comic build is the site at `/` (decision 2026-10-09; the Studio build, the Hawkins variant and the eleven `/v` story samples were removed, recoverable from git history). `/comic` redirects to `/`.
 
 ## Capabilities and Constraints
 
@@ -52,12 +52,12 @@ Constraints:
 - Motion is a feature, not a flourish budget: the user asked for full GSAP choreography (decision 2026-10-09, replacing the earlier "one signature interaction" constraint). Everything must still respect prefers-reduced-motion and hold 60fps on mid-range phones; no WebGL.
 - Lighthouse target 100; PageSpeed on the live Studio build: mobile 94/100/100/100, desktop 96/100/100/100.
 - Nothing cut, nothing flat: every piece of content survives, ranked by what a hiring manager needs first.
-- Open: which of the two finals ships; custom domain; updated resume PDF.
+- Open: custom domain; updated resume PDF.
 
 ## Brand Commitments
 
 - Name: Mubarak Shajahan; Tamil rendering முகமது முபாரக் with pronunciation audio is part of his identity, keep it.
-- Visual direction: the user rejected paper/serif document worlds, bento widget grids, and a quiet logbook world; dark cinematic studio motion and a comic-book world are the two finalists (2026-10-09). The chosen one becomes the standing commitment; refinements then keep that world.
+- Visual direction: the user rejected paper/serif document worlds, bento widget grids, and a quiet logbook world; the comic-book world is the standing commitment (chosen 2026-10-09 over the dark cinematic studio build and a Stranger Things variant); refinements keep that world.
 - Voice: direct, first person, outcome-led; no hype adjectives. Testimonials are never paraphrased.
 - Photography: his own portrait only; no stock imagery.
 

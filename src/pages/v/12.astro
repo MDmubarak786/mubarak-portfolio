@@ -1,6 +1,0 @@
----
-import DreamPage from "../../components/dream/DreamPage.astro";
-import { migration } from "../../lib/story";
-const story = migration.map((b, i) => ({ t: ["Dawn", "The fork", "Water rationed", "The far ridge", "Arrival"][i], s: b.s }));
----
-<DreamPage n={12} kind="dusk" eyebrow="Five years, one crossing" italic="Crossing the" plain="desert" cta="Begin the crossing" storyTitle="The|crossing" wrapped="Read the crossing" bg="#f4dcc6" fg="#3a2418" pill="rgba(255,255,255,.3)" story={story} />
