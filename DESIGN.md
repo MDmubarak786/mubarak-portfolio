@@ -346,7 +346,7 @@ A fixed `22rem × 16.5rem` (4:3) panel, `1rem` radius, `oklch(0.42 0.16 var(--hu
 - **Parallax (`data-parallax`):** scrubbed `yPercent` equal to `parallax × 100` (portrait: 12) across its section from `top top` to `bottom top`.
 - **Magnetic (`data-magnetic`):** 0.35 strength, `0.6s power3` quickTo, fine pointers only.
 - **Hover sweep:** `520ms cubic-bezier(0.16, 1, 0.3, 1)`; draw underline `420ms` same ease; row dim `320ms`; padding slide and plus rotation `500ms`; wordmark swap `500ms`; default utility transitions `150ms cubic-bezier(0.4, 0, 0.2, 1)`.
-- **Preloader lift:** `900ms cubic-bezier(0.76, 0, 0.24, 1)` (declared in the theme as `--ease-in-out-quart` but written inline).
+- **Preloader lift:** `800ms cubic-bezier(0.76, 0, 0.24, 1)` (declared in the theme as `--ease-in-out-quart` but written inline).
 - **Loops:** marquees 22s / 34s / 44s linear; globe 12s linear.
 - **Reduced motion:** Lenis, reveals, count-ups, parallax, magnetic, preview and the preloader are all skipped in `motion.ts` and `Preloader.astro`; `.marquee-track` animation is removed in CSS. Content renders fully in its final state.
 

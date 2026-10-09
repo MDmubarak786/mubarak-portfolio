@@ -15,7 +15,11 @@ const witnesses = (await getCollection("witnesses")).sort((a, b) => a.data.order
     {witnesses.map((w) => (
       <li id={`witness-${w.id}`} class="snap-start shrink-0 w-[min(86vw,30rem)] rounded-3xl bg-bg-2 border border-line p-7 sm:p-9 flex flex-col scroll-mt-28">
         <Icon name="lucide:quote" size={22} class="text-accent" aria-hidden="true" />
-        <blockquote class="mt-5 space-y-3 text-[0.98rem] leading-relaxed flex-1">{w.data.quote.split(/\n\s*\n/).map((p) => <p>{p}</p>)}</blockquote>
+        <p class="mt-5 font-display text-2xl sm:text-[1.7rem] leading-tight tracking-[-0.02em]">{w.data.pull}</p>
+        <details class="mt-5 group flex-1">
+          <summary class="list-none cursor-pointer text-sm text-muted link-draw inline-block [&::-webkit-details-marker]:hidden"><span class="group-open:hidden">Read the full note</span><span class="hidden group-open:inline">Collapse</span></summary>
+          <blockquote class="mt-4 space-y-3 text-[0.95rem] leading-relaxed text-fg/90">{w.data.quote.split(/\n\s*\n/).map((p) => <p>{p}</p>)}</blockquote>
+        </details>
         <footer class="mt-6 pt-5 border-t border-line text-sm"><p class="font-medium">{w.data.name}</p><p class="text-muted">{w.data.title}{w.data.organisation ? `, ${w.data.organisation}` : ""}</p></footer>
       </li>
     ))}

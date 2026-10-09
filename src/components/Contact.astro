@@ -7,7 +7,7 @@ const year = new Date().getFullYear();
 ---
 <footer id="contact" class="relative bg-bg-2 px-5 sm:px-8 pt-28 pb-8 scroll-mt-10 overflow-hidden" aria-labelledby="contact-heading">
   <div class="max-w-7xl mx-auto">
-    <div class="flex items-center gap-5" data-reveal>
+    <div class="flex items-center gap-5">
       <Image src={portrait} alt="" width={120} height={120} class="size-16 sm:size-24 rounded-full object-cover" loading="lazy" />
       <h2 id="contact-heading" class="font-display font-medium text-[clamp(2.6rem,8vw,7.5rem)] leading-[0.95] tracking-[-0.04em]" data-split>Let’s work together</h2>
     </div>
@@ -20,7 +20,7 @@ const year = new Date().getFullYear();
       <div class="flex flex-wrap gap-x-10 gap-y-6">
         <div><p class="text-muted text-xs uppercase tracking-widest">Version</p><p class="mt-2">{year} © Edition</p></div>
         <div><p class="text-muted text-xs uppercase tracking-widest">Local time</p><p class="mt-2 tabular" data-clock>--:-- IST</p></div>
-        <div><p class="text-muted text-xs uppercase tracking-widest">Name</p><p class="mt-2 font-tamil" lang="ta">{site.tamilName}</p></div>
+        <div><p class="text-muted text-xs uppercase tracking-widest">Name</p><p class="mt-2"><span class="font-tamil" lang="ta">{site.tamilName}</span> · {site.pronouns}</p></div>
       </div>
       <div>
         <p class="text-muted text-xs uppercase tracking-widest">Socials</p>
@@ -28,7 +28,7 @@ const year = new Date().getFullYear();
       </div>
     </div>
   </div>
-  <a href="#top" class="btn-round fixed bottom-6 right-6 z-40 size-20 bg-fg text-bg text-sm font-medium opacity-0 translate-y-4 transition-all duration-500 data-[show]:opacity-100 data-[show]:translate-y-0" data-sticky-cta data-magnetic href={mailto("Let's talk")}>Let’s talk</a>
+  <a href={mailto("Let's talk")} class="btn-round fixed bottom-6 right-6 z-40 size-20 bg-fg text-bg text-sm font-medium opacity-0 translate-y-4 transition-all duration-500 data-[show]:opacity-100 data-[show]:translate-y-0" data-sticky-cta data-magnetic>Let’s talk</a>
 </footer>
 <script>
   const el = document.querySelector("[data-clock]");

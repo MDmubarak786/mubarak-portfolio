@@ -46,16 +46,19 @@ const start = () => {
     const amt = Number(el.dataset.parallax ?? 0.1) * 100;
     gsap.to(el, { yPercent: amt, ease: "none", scrollTrigger: { trigger: el.closest("section") ?? el, start: "top top", end: "bottom top", scrub: true } });
   });
-  // Sticky CTA after the hero.
+};
+
+// --- Sticky CTA after the hero, with or without motion --------------------
+{
   const cta = document.querySelector<HTMLElement>("[data-sticky-cta]");
+  const footer = document.getElementById("contact");
   if (cta) {
-    const footer = document.getElementById("contact");
     let pastHero = false, inFooter = false;
     const apply = () => { if (pastHero && !inFooter) cta.setAttribute("data-show", ""); else cta.removeAttribute("data-show"); };
     ScrollTrigger.create({ start: "80% top", onToggle: (self) => { pastHero = self.isActive; apply(); } });
     if (footer) ScrollTrigger.create({ trigger: footer, start: "top 85%", onToggle: (self) => { inFooter = self.isActive; apply(); } });
   }
-};
+}
 if (document.documentElement.classList.contains("is-loading")) {
   const obs = new MutationObserver(() => { if (document.documentElement.classList.contains("is-ready")) { obs.disconnect(); start(); } });
   obs.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
@@ -82,7 +85,7 @@ if (fine && !reduce) {
       summary.addEventListener("pointerenter", () => {
         if (d.open) return;
         metric.textContent = d.dataset.metric ?? ""; title.textContent = d.dataset.title ?? ""; kind.textContent = d.dataset.kind ?? "";
-        preview.style.setProperty("--hue", getComputedStyle(d.closest(".work-row")!).getPropertyValue("--hue"));
+        preview.style.setProperty("--l", getComputedStyle(d.closest(".work-row")!).getPropertyValue("--l"));
         gsap.to(preview, { opacity: 1, scale: 1, duration: 0.4, ease: "power3.out", overwrite: true });
       });
       summary.addEventListener("pointerleave", () => gsap.to(preview, { opacity: 0, scale: 0.9, duration: 0.3, ease: "power3.out", overwrite: true }));
