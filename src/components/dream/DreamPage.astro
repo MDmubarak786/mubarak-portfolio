@@ -1,6 +1,7 @@
 ---
 import Shell from "../../layouts/StoryShell.astro";
 import Scene from "./Scene.astro";
+import Audio from "./Audio.astro";
 import { me, numbers, work, voices, roles } from "../../lib/story";
 interface Props { n: number; kind: "room" | "dusk" | "greenhouse" | "deep" | "sky" | "plaster"; eyebrow: string; italic: string; plain: string; cta: string; storyTitle: string; story: { t: string; s: string }[]; wrapped: string; bg: string; fg: string; pill: string }
 const { n, kind, eyebrow, italic, plain, cta, storyTitle, story, wrapped, bg, fg, pill } = Astro.props;
@@ -21,13 +22,14 @@ const { n, kind, eyebrow, italic, plain, cta, storyTitle, story, wrapped, bg, fg
     .fade { animation: fade 1.6s cubic-bezier(.2,.8,.2,1) both; } @keyframes fade { from { opacity:0; transform: translateY(14px); } }
   </style>
   <div class="dream" style={`--bg:${bg};--fg:${fg};--pill:${pill}`}>
+  <Audio />
   <script define:vars={{ bg, fg }}>document.documentElement.style.background = bg; document.documentElement.style.color = fg;</script>
   <!-- hero scene -->
   <section class="relative h-dvh overflow-hidden">
     <Scene kind={kind} />
     <header class="absolute inset-x-0 top-0 z-10 flex items-center justify-between px-6 sm:px-10 pt-6 text-sm">
       <a href="#" class="pl text-lg tracking-tight">{me.shortName.toLowerCase()}<span class="it text-xl">studio</span></a>
-      <nav class="hidden sm:flex items-center gap-7"><a href="#index" class="hover:opacity-60">Index</a><a href="#story" class="hover:opacity-60">Story</a><a href="#contact" class="hover:opacity-60">Contact</a><span class="round" aria-hidden="true"><span class="w-3 h-px bg-current"></span></span></nav>
+      <nav class="hidden sm:flex items-center gap-7"><a href="#index" class="hover:opacity-60">Index</a><a href="#story" class="hover:opacity-60">Story</a><a href="#contact" class="hover:opacity-60">Contact</a><button type="button" class="round" data-audio-toggle aria-pressed="false" aria-label="Toggle sound"><span class="eq"><i></i><i></i><i></i><i></i></span></button></nav>
     </header>
     <div class="absolute inset-0 z-10 grid place-items-center text-center px-6">
       <div class="fade">
@@ -38,7 +40,7 @@ const { n, kind, eyebrow, italic, plain, cta, storyTitle, story, wrapped, bg, fg
     </div>
     <div class="absolute inset-x-0 bottom-0 z-10 flex items-center justify-between px-6 sm:px-10 pb-6 text-xs">
       <div class="flex items-center gap-3"><span class="round"><span class="w-2 h-2 rounded-full bg-current"></span></span><a href="#story" class="pill">{wrapped}</a></div>
-      <span class="round" aria-hidden="true">◎</span>
+      <button type="button" class="round" data-audio-toggle aria-pressed="false" aria-label="Toggle sound"><span class="eq"><i></i><i></i><i></i><i></i></span></button>
       <span class="opacity-70">©2026</span>
     </div>
   </section>
