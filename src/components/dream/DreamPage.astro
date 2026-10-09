@@ -81,7 +81,7 @@ const { n, kind, eyebrow, italic, plain, cta, storyTitle, story, wrapped, bg, fg
         <h2 class="it text-[clamp(3rem,8vw,7rem)] leading-none">Say hello</h2>
         <p class="tiny opacity-70 mt-3">We look forward<br />to hearing from you</p>
         <div class="mt-6 flex flex-wrap justify-center gap-2"><a href={`mailto:${me.email}?subject=A%20role`} class="pill">Hiring ↘</a><a href={me.whatsapp} class="pill">WhatsApp ↘</a><a href={me.linkedin} class="pill">LinkedIn ↘</a></div>
-        <a href={`mailto:${me.email}`} class="pl block mt-6 text-2xl sm:text-3xl hover:opacity-60">{me.email}</a>
+        <a href={`mailto:${me.email}`} class="pl block mt-6 text-xl sm:text-3xl hover:opacity-60 [overflow-wrap:anywhere]">{me.email}</a>
         <p class="tiny opacity-60 mt-3">{me.location} · <span lang="ta" class="normal-case tracking-normal">{me.tamilName}</span></p>
       </div>
     </div>
