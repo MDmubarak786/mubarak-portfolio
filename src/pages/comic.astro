@@ -7,6 +7,7 @@ import Pronounce from "../components/final/Pronounce.astro";
 import ResumeDialog from "../components/final/ResumeDialog.astro";
 import ComicArt from "../components/final/ComicArt.astro";
 import portrait from "../assets/portrait.jpg";
+import avatar from "../assets/avatar.jpg";
 import { site, mailto } from "../lib/site";
 import { me, numbers, migration, skillGroups } from "../lib/story";
 const records = (await getCollection("records")).sort((a, b) => a.data.order - b.data.order);
@@ -270,13 +271,27 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     </section>
 
     <!-- CONTACT -->
-    <section id="contact" class="mt-16 scroll-mt-24 panel p-8 sm:p-12" aria-labelledby="ch5">
+    <section id="contact" class="mt-16 scroll-mt-24 panel p-6 sm:p-12" aria-labelledby="ch5" data-page="Back cover">
       <div class="zig mb-6"></div>
       <h2 id="ch5" class="text-5xl sm:text-7xl text-[#ff2e63]" style="-webkit-text-stroke:2px #111">Next issue needs a publisher.</h2>
-      <p class="mt-3 text-2xl">Hiring for a senior or lead role? Write, call, or send a message.</p>
-      <div class="mt-6 flex flex-wrap gap-3"><a href={mailto("A role")} class="btn">{site.email}</a><a href={site.whatsapp} class="btn alt">WhatsApp {site.phoneDisplay}</a></div>
-      <dl class="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4 text-lg">{channels.map(([l, v, h]) => <div><dt class="bang text-xl">{l}</dt><dd><a href={h} class="underline break-all">{v}</a></dd></div>)}</dl>
-      <p class="mt-8 text-lg flex flex-wrap items-center gap-3"><Pronounce class="caption cursor-pointer" /> <span>{site.location} · © {new Date().getFullYear()} {site.name}</span></p>
+      <div class="mt-8 grid gap-8 lg:grid-cols-[1.2fr_1fr] lg:items-start">
+        <div class="flex items-start gap-4 sm:gap-6">
+          <Image src={avatar} alt="" width={160} height={160} class="size-20 sm:size-28 rounded-full border-4 border-[#111] object-cover shrink-0" style="box-shadow: 4px 4px 0 #111" loading="lazy" />
+          <div class="flex-1 min-w-0">
+            <p class="bubble text-xl"><strong>Hiring for a senior or lead role?</strong> Write, call, or send a message. I read everything.</p>
+            <p class="mt-5 ml-4 text-lg flex flex-wrap items-center gap-x-3 gap-y-2"><strong>{site.name}</strong><Pronounce class="caption cursor-pointer !rotate-0" /><span class="text-base text-[#555]">{site.pronouns} · {site.location}</span></p>
+          </div>
+        </div>
+        <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap lg:flex-col">
+          <a href={mailto("A role")} class="btn text-center">Email me ▸</a>
+          <a href={site.whatsapp} class="btn alt text-center">WhatsApp ▸</a>
+          <a href={site.linkedin} rel="noopener" target="_blank" class="btn alt text-center">LinkedIn ▸</a>
+        </div>
+      </div>
+      <dl class="mt-10 pt-6 border-t-4 border-dashed border-[#111] grid gap-x-6 gap-y-4 grid-cols-2 lg:grid-cols-4">
+        {channels.map(([l, v, h]) => <div class="min-w-0"><dt class="bang text-lg">{l}</dt><dd><a href={h} class="underline [overflow-wrap:anywhere]">{v}</a></dd></div>)}
+      </dl>
+      <p class="mt-8 text-sm">© {new Date().getFullYear()} {site.name} · Built as a comic, with real numbers.</p>
     </section>
   </main>
   <script src="../scripts/comic-motion.ts"></script>
