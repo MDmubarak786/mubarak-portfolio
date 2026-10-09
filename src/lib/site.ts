@@ -27,7 +27,6 @@ export const site = {
   education: { school: "Sri Krishna College of Technology, Coimbatore", degree: "B.Tech in Information Technology", years: "2018 – 2022", cgpa: "8.01 / 10" },
   award: { year: "2021", title: "Outstanding contribution and strong ownership", by: "IncrescoTech" },
   yearsExperience: "4.8+",
-  game: "/police-thief",
   url: "https://portfolio2026-cyan-rho.vercel.app",
 } as const;
 

@@ -124,7 +124,6 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
       <h2 id="back" class="text-5xl sm:text-6xl">Back issues · 2020</h2>
       <p class="mt-2 text-xl">Eight Flutter apps from when I was learning mobile. Each has a demo on YouTube.</p>
       <ul class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{projects.map((p) => <li class="panel p-4"><p class="caption">{fmt(p.data.period)}</p><h3 class="text-2xl mt-2">{p.data.name}</h3>{p.data.description && <p class="text-base">{p.data.description}</p>}{p.data.link && <a href={p.data.link} class="btn alt text-base mt-3 py-1">Watch demo</a>}</li>)}</ul>
-      <div class="panel mt-6 p-6 bg-[#ffb703] flex flex-wrap items-center justify-between gap-4"><div><p class="bang text-3xl">Bonus level · Whac-a-Thief</p><p class="text-lg">A mini game built in Spline. Tap the burglars, spare the cops.</p></div><a href={site.game} class="btn">Play</a></div>
     </section>
 
     <!-- CONTACT -->
