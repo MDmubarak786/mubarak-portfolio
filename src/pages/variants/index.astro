@@ -1,0 +1,20 @@
+---
+import "../../styles/variants.css";
+const variants = [
+  { n: 1, name: "Aurora", blurb: "Deep navy with drifting aurora light, glass panels, soft glow. Calm, premium, current." },
+  { n: 2, name: "Signal", blurb: "Near-black, one electric lime accent, big grotesk type, grid lines, status pills. Sharp and technical." },
+  { n: 3, name: "Editorial", blurb: "Charcoal magazine spread: huge serif headline, amber accent, pull quotes, duotone portrait. Confident." },
+  { n: 4, name: "Bento", blurb: "Tile grid on midnight blue, indigo-to-pink glow, everything scannable at once. The 2026 developer default, done well." },
+  { n: 5, name: "Orbit", blurb: "Black with a slowly rotating gradient orb behind a huge display name, stack marquee, glowing cards. Maximum energy." },
+];
+---
+<html lang="en"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="robots" content="noindex" /><title>Five variants</title></head>
+<body class="min-h-dvh bg-black text-white p-6 sm:p-12">
+  <h1 class="text-3xl font-bold">Five variants, same content</h1>
+  <p class="mt-2 text-white/70 max-w-prose">Each is a simple one-page take with your real numbers, one case, three quotes, stack and contact. Pick one and I implement it fully.</p>
+  <ol class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    {variants.map((v) => (
+      <li><a href={`/variants/${v.n}`} class="block rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition"><span class="text-xs text-white/50">Variant {v.n}</span><span class="block text-2xl font-bold mt-1">{v.name}</span><span class="block mt-2 text-white/70">{v.blurb}</span></a></li>
+    ))}
+  </ol>
+</body></html>

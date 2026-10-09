@@ -13,8 +13,23 @@ import { site } from "../lib/site";
 
 const records = (await getCollection("records")).sort((a, b) => a.data.order - b.data.order);
 const description = `${site.name}, ${site.role} in ${site.location}. Six decision records on owning a 1.25M-user multilingual platform, a 96% integration cost cut, and the teams and clients who vouch for the work.`;
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: site.name,
+  alternateName: [site.shortName, site.tamilName],
+  jobTitle: site.role,
+  worksFor: { "@type": "Organization", name: site.employer },
+  address: { "@type": "PostalAddress", addressLocality: "Bangalore", addressCountry: "IN" },
+  email: `mailto:${site.email}`,
+  telephone: site.phoneE164,
+  url: site.url,
+  image: new URL("/og.png", site.url).href,
+  sameAs: [site.linkedin, site.github, site.x, site.instagram, site.youtube],
+  knowsAbout: ["TypeScript", "React", "Next.js", "Astro", "AWS Glue", "AWS Lambda", "Salesforce integration", "Storyblok", "Localization"],
+};
 ---
-<Base title={`${site.name} – ${site.role}`} description={description}>
+<Base title={`${site.name} – ${site.role}`} description={description} path="/" jsonLd={jsonLd}>
   <div class="lg:grid lg:grid-cols-[19rem_minmax(0,1fr)] xl:grid-cols-[21rem_minmax(0,1fr)]">
     <RecordIndex records={records} />
     <div class="min-w-0">

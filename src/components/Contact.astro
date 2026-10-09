@@ -21,7 +21,7 @@ const channels = [
     {channels.map((c) => (
       <div class="flex items-baseline gap-3">
         <dt class="flex items-center gap-2 w-28 shrink-0 text-sm text-ink-soft"><Icon name={c.icon} size={14} aria-hidden="true" class="shrink-0 relative top-px" />{c.label}</dt>
-        <dd class="min-w-0 break-words"><a href={c.href} rel={c.href.startsWith("http") ? "noopener" : undefined} target={c.href.startsWith("http") ? "_blank" : undefined}>{c.value}</a></dd>
+        <dd class="min-w-0 [overflow-wrap:anywhere]"><a href={c.href} rel={c.href.startsWith("http") ? "noopener" : undefined} target={c.href.startsWith("http") ? "_blank" : undefined}>{c.value}</a></dd>
       </div>
     ))}
   </dl>

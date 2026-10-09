@@ -3,13 +3,14 @@ import { defineConfig, fontProviders } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import vercel from '@astrojs/vercel';
 import icon from 'astro-icon';
+import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://mk-full-stack-developer.vercel.app',
   vite: { plugins: [tailwindcss()] },
   adapter: vercel(),
-  integrations: [icon()],
+  integrations: [icon(), sitemap()],
   fonts: [
     {
       // Display: a Clarendon. The face of 19th-century stamped and filed documents.
@@ -51,5 +52,13 @@ export default defineConfig({
       subsets: ['latin'],
       fallbacks: ['ui-monospace', 'monospace'],
     },
+    // ---- variant round fonts (removed once a direction is chosen) ----
+    { provider: fontProviders.fontsource(), name: 'Manrope', cssVariable: '--font-manrope', weights: [400, 600, 800], subsets: ['latin'], fallbacks: ['sans-serif'] },
+    { provider: fontProviders.fontsource(), name: 'Archivo', cssVariable: '--font-archivo', weights: [500, 800, 900], subsets: ['latin'], fallbacks: ['sans-serif'] },
+    { provider: fontProviders.fontsource(), name: 'JetBrains Mono', cssVariable: '--font-jetbrains', weights: [400, 600], subsets: ['latin'], fallbacks: ['monospace'] },
+    { provider: fontProviders.fontsource(), name: 'Gloock', cssVariable: '--font-gloock', weights: [400], subsets: ['latin'], fallbacks: ['serif'] },
+    { provider: fontProviders.fontsource(), name: 'Sora', cssVariable: '--font-sora', weights: [400, 600, 800], subsets: ['latin'], fallbacks: ['sans-serif'] },
+    { provider: fontProviders.fontsource(), name: 'Unbounded', cssVariable: '--font-unbounded', weights: [500, 800], subsets: ['latin'], fallbacks: ['sans-serif'] },
+    { provider: fontProviders.fontsource(), name: 'Onest', cssVariable: '--font-onest', weights: [400, 600], subsets: ['latin'], fallbacks: ['sans-serif'] },
   ],
 });

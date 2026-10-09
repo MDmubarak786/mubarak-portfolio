@@ -12,12 +12,15 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
     "@astrojs/vercel": "^11.0.13",
     "@iconify-json/lucide": "^1.2.142",
     "@iconify-json/simple-icons": "^1.2.99",
+    "@resvg/resvg-js": "^2.6.2",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.3.8",
     "astro-icon": "^1.2.0",
+    "satori": "^0.44.0",
     "tailwindcss": "^4.3.3"
   },
   "private": true,

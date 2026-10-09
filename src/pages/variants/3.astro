@@ -1,0 +1,54 @@
+---
+import { Image } from "astro:assets";
+import Shell from "../../layouts/VariantShell.astro";
+import portrait from "../../assets/portrait.png";
+import { v } from "../../lib/variant-data";
+---
+<Shell title="Variant 3 · Editorial" fonts={["--font-gloock", "--font-manrope"]} n={3}>
+  <style is:global>
+    :root { --v-bg:#121212; --v-fg:#f3efe6; --v-accent:#f5b942; --v-font-text: var(--font-manrope); --v-font-display: var(--font-gloock); }
+    .amber { color: var(--v-accent); }
+    .duo { filter: grayscale(1) contrast(1.15); mix-blend-mode: luminosity; }
+    .duo-wrap { background: linear-gradient(135deg, #f5b942, #7c2d12); }
+    .rule { border-color: rgba(243,239,230,.18); }
+    .drop::first-letter { font-family: var(--font-gloock); font-size: 4.2em; float:left; line-height:.8; padding-right:.1em; color: var(--v-accent); }
+  </style>
+  <main class="mx-auto max-w-6xl px-6 pt-28 pb-20">
+    <p class="text-xs tracking-[0.3em] uppercase text-white/60">Lead Software Engineer · Bangalore</p>
+    <h1 class="mt-5 text-[clamp(2.6rem,7vw,6rem)] leading-[1] tracking-tight max-w-5xl">Platforms used by <span class="amber italic">a million people</span>, built and kept by one engineer.</h1>
+    <div class="mt-12 grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-start border-t rule pt-10">
+      <div class="duo-wrap rounded-sm overflow-hidden max-w-sm"><Image src={portrait} alt={`Portrait of ${v.name}`} width={480} height={480} class="duo w-full object-cover" /></div>
+      <div>
+        <p class="drop text-xl leading-relaxed text-white/85">{v.sub} The work speaks in numbers, and nine people who worked beside me speak for the rest.</p>
+        <div class="mt-8 flex flex-wrap gap-4 text-sm">
+          <a href={`mailto:${v.email}`} class="underline underline-offset-8 decoration-[#f5b942] hover:text-[#f5b942]">Write to me</a>
+          <a href={v.linkedin} class="underline underline-offset-8 decoration-white/30 hover:text-[#f5b942]">LinkedIn</a>
+          <a href={v.whatsapp} class="underline underline-offset-8 decoration-white/30 hover:text-[#f5b942]">WhatsApp</a>
+        </div>
+      </div>
+    </div>
+    <dl class="mt-20 grid sm:grid-cols-2 lg:grid-cols-4 gap-y-10 border-t rule pt-10">
+      {v.stats.map((s) => <div><dd class="text-6xl amber" style="font-family: var(--font-gloock)">{s.value}</dd><dt class="mt-2 text-sm text-white/60 max-w-[18ch]">{s.label}</dt></div>)}
+    </dl>
+    <blockquote class="mt-24 border-y rule py-14 text-center">
+      <p class="text-3xl sm:text-4xl leading-tight max-w-4xl mx-auto" style="font-family: var(--font-gloock)">“{v.quotes[0].text}”</p>
+      <footer class="mt-6 text-sm text-white/60"><span class="amber">{v.quotes[0].name}</span>, {v.quotes[0].title}</footer>
+    </blockquote>
+    <section class="mt-20 grid gap-12 lg:grid-cols-[1.2fr_.8fr]">
+      <article>
+        <p class="text-xs tracking-[0.3em] uppercase text-white/60">Case · {v.caseStudy.org}</p>
+        <h2 class="mt-3 text-4xl">{v.caseStudy.title}</h2>
+        <p class="mt-5 text-lg text-white/85 leading-relaxed max-w-2xl">{v.caseStudy.body}</p>
+        <p class="mt-5 text-sm text-white/50">{v.caseStudy.tags.join(" · ")}</p>
+      </article>
+      <div class="space-y-8">
+        {v.quotes.slice(1).map((q) => <blockquote class="border-l-2 border-[#f5b942] pl-5"><p class="text-lg leading-snug">“{q.text}”</p><footer class="mt-2 text-sm text-white/60">{q.name}, {q.title}</footer></blockquote>)}
+      </div>
+    </section>
+    <section class="mt-20 border-t rule pt-10 grid gap-8 md:grid-cols-2">
+      <div><p class="text-xs tracking-[0.3em] uppercase text-white/60">Experience</p><ol class="mt-4 space-y-3">{v.roles.map((r) => <li class="flex justify-between gap-4 border-b rule pb-3"><span>{r.role}</span><span class="text-white/50 text-sm">{r.when}</span></li>)}</ol></div>
+      <div><p class="text-xs tracking-[0.3em] uppercase text-white/60">Stack</p><p class="mt-4 text-white/80 leading-relaxed">{v.stack.join(", ")}.</p></div>
+    </section>
+    <footer class="mt-24 text-center"><p class="text-5xl" style="font-family: var(--font-gloock)">{v.name}</p><p class="mt-2 text-white/60" lang="ta">{v.tamilName}</p><p class="mt-4 text-sm text-white/60">{v.email} · {v.phoneDisplay}</p></footer>
+  </main>
+</Shell>
