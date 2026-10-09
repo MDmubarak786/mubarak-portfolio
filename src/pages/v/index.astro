@@ -1,31 +1,26 @@
 ---
 import "../../styles/variants.css";
-const v = [
-  ["Namma Metro", "Your career as a Chennai transit map. Lines draw themselves on scroll; stations open the story."],
-  ["Highlife Sleeve", "A tropical record sleeve. Side A is the work, Side B the witnesses, credits are the stack."],
-  ["Night Street", "A rain-black Bangalore street of neon Tamil/English signs you climb by scrolling."],
-  ["Platform Cutaway", "An isometric cutaway of the EF Academy platform; point at a room to read what you built there."],
-  ["Terminal M", "An airport departures board: 23 languages as destinations, projects as boarding passes."],
-  ["The Migration, a comic", "Six panels tell the Tibco → AWS Glue story like a graphic novel."],
-  ["Scorecard", "A cricket scorecard: innings by year, runs as numbers, player of the match by the witnesses."],
-  ["Field Logbook", "A handwritten engineering log of the migration, with taped-in photos and stamps."],
-  ["Mission Control", "T-minus to the Tibco contract end: telemetry panels, a countdown, a clean cutover."],
-  ["Kolam", "A Tamil kolam drawn dot by dot: the site unfolds along the pattern in festival colours."],
-  ["The Room (Unseen school)", "A dreamlike blush room: arches, water floor, floating bubbles, italic serif over grotesk. Calm, surreal, premium."],
-  ["Dusk", "Sister world: a surreal desert at golden hour, long shadows, a monolith. The migration told as a crossing."],
-  ["Greenhouse", "Sister world: frosted glass, pale green light, things that grow. The platform story."],
-  ["Deep", "Sister world: pastel underwater light, caustics, floating orbs. Deep work: the AI document story."],
-  ["Sky", "Sister world: pale sky, soft clouds, floating stairs. Elevation: the career story."],
-  ["Plaster", "Sister world: white-on-white sculptural studio, lilac light, soft shadows. Craft, witnesses, contact."],
+const v: [number, string, string][] = [
+  [6, "The Migration, a comic", "Six panels tell the Tibco → AWS Glue story like a graphic novel."],
+  [7, "Scorecard", "A cricket scorecard: innings by year, runs as numbers, player of the match by the witnesses."],
+  [8, "Field Logbook", "A handwritten engineering log of the migration, with taped-in photos and stamps."],
+  [9, "Mission Control", "T-minus to the Tibco contract end: telemetry panels, a countdown, a clean cutover."],
+  [10, "Kolam", "A Tamil kolam drawn dot by dot: the site unfolds along the pattern in festival colours."],
+  [11, "The Room (Unseen school)", "A dreamlike blush room: arches, water floor, floating bubbles, italic serif over grotesk. Calm, surreal, premium."],
+  [12, "Dusk", "Sister world: a surreal desert at golden hour, long shadows, a monolith. The migration told as a crossing."],
+  [13, "Greenhouse", "Sister world: frosted glass, pale green light, things that grow. The platform story."],
+  [14, "Deep", "Sister world: pastel underwater light, caustics, floating orbs. Deep work: the AI document story."],
+  [15, "Sky", "Sister world: pale sky, soft clouds, floating stairs. Elevation: the career story."],
+  [16, "Plaster", "Sister world: white-on-white sculptural studio, lilac light, soft shadows. Craft, witnesses, contact."],
 ];
 ---
 <html lang="en"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="robots" content="noindex" /><title>Ten story variants</title></head>
 <body class="min-h-dvh bg-[#111] text-white p-6 sm:p-12">
-  <h1 class="text-3xl font-bold">Ten story worlds, same facts</h1>
+  <h1 class="text-3xl font-bold">Eleven story worlds, same facts</h1>
   <p class="mt-2 text-white/70 max-w-prose">Each one is a different governing metaphor for the same portfolio. Local only. Open each and tell me which to take to full fidelity.</p>
   <ol class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-    {v.map(([name, blurb], i) => (
-      <li><a href={`/v/${i + 1}`} class="block rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition"><span class="text-xs text-white/50">{i + 1}</span><span class="block text-2xl font-bold mt-1">{name}</span><span class="block mt-2 text-white/70">{blurb}</span></a></li>
+    {v.map(([k, name, blurb]) => (
+      <li><a href={`/v/${k}`} class="block rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition"><span class="text-xs text-white/50">{k}</span><span class="block text-2xl font-bold mt-1">{name}</span><span class="block mt-2 text-white/70">{blurb}</span></a></li>
     ))}
   </ol>
 </body></html>

@@ -18,13 +18,7 @@ export default defineConfig({
     { provider: fontProviders.fontsource(), name: 'Geist Mono', cssVariable: '--font-mono', weights: [400, 500], styles: ['normal'], subsets: ['latin'], fallbacks: ['ui-monospace', 'monospace'] },
     { provider: fontProviders.fontsource(), name: 'Noto Sans Tamil', cssVariable: '--font-tamil', weights: [500, 700], styles: ['normal'], subsets: ['tamil'], fallbacks: ['sans-serif'] },
     // ---- story-variant round fonts (local review only) ----
-    { provider: fontProviders.fontsource(), name: 'Overpass', cssVariable: '--font-overpass', weights: [400, 700, 900], subsets: ['latin'], fallbacks: ['sans-serif'] },
-    { provider: fontProviders.fontsource(), name: 'Lilita One', cssVariable: '--font-lilita', weights: [400], subsets: ['latin'], fallbacks: ['sans-serif'] },
-    { provider: fontProviders.fontsource(), name: 'Nunito', cssVariable: '--font-nunito', weights: [400, 700, 900], subsets: ['latin'], fallbacks: ['sans-serif'] },
-    { provider: fontProviders.fontsource(), name: 'Bebas Neue', cssVariable: '--font-bebas', weights: [400], subsets: ['latin'], fallbacks: ['Impact', 'sans-serif'] },
     { provider: fontProviders.fontsource(), name: 'Barlow', cssVariable: '--font-barlow', weights: [400, 600, 800], subsets: ['latin'], fallbacks: ['sans-serif'] },
-    { provider: fontProviders.fontsource(), name: 'Barlow Condensed', cssVariable: '--font-barlow-c', weights: [500, 700, 900], subsets: ['latin'], fallbacks: ['sans-serif'] },
-    { provider: fontProviders.fontsource(), name: 'Figtree', cssVariable: '--font-figtree', weights: [400, 600, 800], subsets: ['latin'], fallbacks: ['sans-serif'] },
     { provider: fontProviders.fontsource(), name: 'Bangers', cssVariable: '--font-bangers', weights: [400], subsets: ['latin'], fallbacks: ['Impact', 'sans-serif'] },
     { provider: fontProviders.fontsource(), name: 'Patrick Hand', cssVariable: '--font-patrick', weights: [400], subsets: ['latin'], fallbacks: ['cursive'] },
     { provider: fontProviders.fontsource(), name: 'Teko', cssVariable: '--font-teko', weights: [500, 700], subsets: ['latin'], fallbacks: ['sans-serif'] },

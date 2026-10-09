@@ -3,7 +3,7 @@ import "../styles/variants.css";
 import { Font } from "astro:assets";
 interface Props { title: string; fonts: string[]; n: number }
 const { title, fonts, n } = Astro.props;
-const names = ["Metro", "Sleeve", "Night street", "Cutaway", "Terminal", "Comic", "Scorecard", "Logbook", "Mission", "Kolam", "Room", "Dusk", "Greenhouse", "Deep", "Sky", "Plaster"];
+const names: [number, string][] = [[6, "Comic"], [7, "Scorecard"], [8, "Logbook"], [9, "Mission"], [10, "Kolam"], [11, "Room"], [12, "Dusk"], [13, "Greenhouse"], [14, "Deep"], [15, "Sky"], [16, "Plaster"]];
 ---
 <!doctype html>
 <html lang="en">
@@ -15,7 +15,7 @@ const names = ["Metro", "Sleeve", "Night street", "Cutaway", "Terminal", "Comic"
   <body>
     <nav class="fixed top-2 left-1/2 -translate-x-1/2 z-[99] flex flex-nowrap sm:flex-wrap sm:justify-center gap-0.5 rounded-full bg-black/70 backdrop-blur px-2 py-1 text-[11px] text-white/85 border border-white/10 max-w-[94vw] overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" aria-label="Variants">
       <a href="/v" class="px-2 py-0.5 rounded-full hover:bg-white/10">All</a>
-      {names.map((name, i) => <a href={`/v/${i + 1}`} class:list={["px-2 py-0.5 rounded-full hover:bg-white/10 whitespace-nowrap", i + 1 === n && "bg-white text-black hover:bg-white"]}>{i + 1} {name}</a>)}
+      {names.map(([k, name]) => <a href={`/v/${k}`} class:list={["px-2 py-0.5 rounded-full hover:bg-white/10 whitespace-nowrap", k === n && "bg-white text-black hover:bg-white"]}>{k} {name}</a>)}
     </nav>
     <slot />
   </body>
