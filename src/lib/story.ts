@@ -3,7 +3,7 @@ export const me = {
   ...site,
   since: "2021",
   oneLiner: "I build products where full-stack engineering meets AI, and I write about it for 22,000+ developers.",
-  intro: "Senior Software Engineer at Galent, Chennai, with 4.8+ years building full-stack (MERN) and AI-driven systems: LLMs, RAG and agentic workflows inside enterprise applications, legacy systems moved to a cloud-native AWS stack. Before that, five years at Incresco shipping AI and full-stack platforms for Global University Systems.",
+  intro: `Senior Software Engineer at Galent, Chennai, with ${site.yearsExperience} years building full-stack (MERN) and AI-driven systems: LLMs, RAG and agentic workflows inside enterprise applications, legacy systems moved to a cloud-native AWS stack. Before that, five years at Incresco shipping AI and full-stack platforms for Global University Systems.`,
 };
 export const numbers = [
   { v: "1.25M+", k: "monthly users", d: "on the multilingual platform, 23+ languages" },

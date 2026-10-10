@@ -26,7 +26,8 @@ export const site = {
   resumeName: "Mubarak-Shajahan-Resume.pdf",
   education: { school: "Sri Krishna College of Technology, Coimbatore", degree: "B.Tech in Information Technology", years: "2018 – 2022", cgpa: "8.01 / 10" },
   award: { year: "2021", title: "Outstanding contribution and strong ownership", by: "IncrescoTech" },
-  yearsExperience: "4.8+",
+  careerStart: "2021-06-21", // first day at Incresco; experience is computed from this date
+  get yearsExperience() { return experience().short; },
   url: "https://portfolio2026-cyan-rho.vercel.app",
 } as const;
 
@@ -41,4 +42,16 @@ export const stats = [
 
 export function mailto(subject: string) {
   return `mailto:${site.email}?subject=${encodeURIComponent(subject)}`;
+}
+
+/** Whole years and months since the career start, for a given day (defaults to now). */
+export function experience(now = new Date()) {
+  const start = new Date(site.careerStart + "T00:00:00Z");
+  let years = now.getUTCFullYear() - start.getUTCFullYear();
+  let months = now.getUTCMonth() - start.getUTCMonth();
+  if (now.getUTCDate() < start.getUTCDate()) months -= 1;
+  if (months < 0) { years -= 1; months += 12; }
+  const long = `${years} year${years === 1 ? "" : "s"}${months ? ` ${months} month${months === 1 ? "" : "s"}` : ""}`;
+  const short = `${years}.${Math.floor((months / 12) * 10)}+`;
+  return { years, months, long, short };
 }

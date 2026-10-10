@@ -12,6 +12,9 @@ import avatar from "../assets/avatar.jpg";
 import resumePage from "../assets/resume-p1.png";
 import { site, mailto } from "../lib/site";
 import { me, numbers, migration, skillGroups } from "../lib/story";
+import { experience } from "../lib/site";
+const exp = experience();
+const careerStartLabel = new Date(site.careerStart + "T00:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
 const records = (await getCollection("records")).sort((a, b) => a.data.order - b.data.order);
 const witnesses = (await getCollection("witnesses")).sort((a, b) => a.data.order - b.data.order);
 const recordWitnesses = await Promise.all(records.map((r) => getEntries(r.data.reviewedBy)));
@@ -177,7 +180,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
       <div>
         <p class="caption">Issue #1 · Chennai, India · {site.pronouns}</p>
         <h1 class="mt-4 text-[clamp(3rem,8vw,7rem)] leading-[0.9] text-[#ff2e63]" style="-webkit-text-stroke: 2px #111">The Full-Stack<br />+ AI Chronicles</h1>
-        <p class="mt-5 text-xl sm:text-2xl max-w-[48ch]">Starring <strong class="whitespace-nowrap">{site.name}</strong> <Pronounce class="caption cursor-pointer" />, Senior Software Engineer at Galent. {me.oneLiner}</p>
+        <p class="mt-5 text-xl sm:text-2xl max-w-[48ch]">Starring <strong class="whitespace-nowrap">{site.name}</strong> <Pronounce class="caption cursor-pointer" />, Senior Software Engineer at Galent, <span class="whitespace-nowrap" data-experience title={`Since ${careerStartLabel}`}>{exp.long}</span> into the job. {me.oneLiner}</p>
         <div class="mt-6 flex flex-wrap items-center gap-3"><a href={mailto("A role")} class="btn">Email me ▸</a><button type="button" class="btn alt" data-resume-open>Read the resume ▸</button><a href={site.linkedin} rel="noopener" target="_blank" class="btn alt">LinkedIn ▸</a><a href={site.whatsapp} rel="noopener" target="_blank" class="btn alt">WhatsApp ▸</a></div>
       </div>
     </section>
@@ -331,7 +334,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
       <div>
         <p class="caption">Collector’s insert · 2 pages</p>
         <h2 id="res-h" class="text-5xl sm:text-6xl mt-4 text-balance">The official resume</h2>
-        <p class="mt-4 text-xl max-w-[46ch]">{site.yearsExperience} years, the whole stack, every role with its numbers, education and the 2021 award. Read it here or take the PDF home.</p>
+        <p class="mt-4 text-xl max-w-[46ch]"><span data-experience>{exp.long}</span>, the whole stack, every role with its numbers, education and the 2021 award. Read it here or take the PDF home.</p>
         <div class="mt-6 flex flex-wrap gap-3"><button type="button" class="btn" data-resume-open>Read it here ▸</button><a href={site.resume} download={site.resumeName} class="btn alt">Download PDF ▸</a></div>
         <dl class="mt-8 grid gap-6 sm:grid-cols-2">
           <div class="tile tabbed relative"><dt class="filetab">Training</dt><dd class="text-lg leading-snug">{site.education.degree}<br /><span class="text-[#555]">{site.education.school}</span><br /><span class="text-[#555]">{site.education.years} · CGPA {site.education.cgpa}</span></dd></div>
@@ -349,7 +352,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     <!-- POWERS -->
     <section id="powers" class="mt-16 scroll-mt-24" aria-labelledby="pow-h" data-page="Power-ups">
       <h2 id="pow-h" class="text-5xl sm:text-6xl">Power-ups</h2>
-      <p class="mt-2 text-xl lede"><span>Nine groups of tools, collected over {site.yearsExperience} years. The AI and cloud ones are the newest.</span></p>
+      <p class="mt-2 text-xl lede"><span>Nine groups of tools, collected over <span data-experience>{exp.long}</span>. The AI and cloud ones are the newest.</span></p>
       <ul class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {skillGroups.map(([group, items], i) => (
           <li class="panel p-5 pt-7">
@@ -411,6 +414,13 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
       <p class="mt-8 text-sm">© {new Date().getFullYear()} {site.name} · Built as a comic, with real numbers.</p>
     </section>
   </main>
+  <script define:vars={{ start: site.careerStart }}>
+    const s = new Date(start + "T00:00:00Z"), n = new Date();
+    let y = n.getUTCFullYear() - s.getUTCFullYear(), m = n.getUTCMonth() - s.getUTCMonth();
+    if (n.getUTCDate() < s.getUTCDate()) m -= 1; if (m < 0) { y -= 1; m += 12; }
+    const t = `${y} year${y === 1 ? "" : "s"}${m ? ` ${m} month${m === 1 ? "" : "s"}` : ""}`;
+    document.querySelectorAll("[data-experience]").forEach((el) => { if (el.textContent !== t) el.textContent = t; });
+  </script>
   <script src="../scripts/comic-motion.ts"></script>
   <script src="../scripts/page-curtain.ts"></script>
 </FinalShell>
