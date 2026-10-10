@@ -26,20 +26,21 @@ import { greetings } from "../../lib/site";
   const el = document.querySelector("[data-preloader]");
   const text = el?.querySelector("[data-greeting]");
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const phone = matchMedia("(max-width: 767px)").matches;
   const seen = sessionStorage.getItem("preloaded") === "1";
   const ready = () => { document.documentElement.classList.remove("is-loading"); document.documentElement.classList.add("is-ready"); document.dispatchEvent(new Event("comic:ready")); };
-  if (!el) {} else if (reduce || seen) { el.remove(); ready(); }
+  if (!el) {} else if (reduce || seen || phone) { el.remove(); ready(); }
   else {
     document.documentElement.classList.add("is-loading");
     let i = 0;
-    const step = () => { i++; if (i < greetings.length && text) { text.textContent = greetings[i]; setTimeout(step, 140); } else { finish(); } };
+    const step = () => { i++; if (i < greetings.length && text) { text.textContent = greetings[i]; setTimeout(step, 120); } else { finish(); } };
     const finish = () => {
       sessionStorage.setItem("preloaded", "1");
-      el.style.transition = "transform 700ms cubic-bezier(0.76, 0, 0.24, 1)";
+      el.style.transition = "transform 600ms cubic-bezier(0.76, 0, 0.24, 1)";
       el.style.transform = "translateY(-120%)";
       ready();
-      setTimeout(() => el.remove(), 800);
+      setTimeout(() => el.remove(), 700);
     };
-    setTimeout(step, 380);
+    setTimeout(step, 320);
   }
 </script>

@@ -11,6 +11,7 @@ export default defineConfig({
   devToolbar: { enabled: false },
   vite: { plugins: [tailwindcss()] },
   adapter: vercel(),
+  build: { inlineStylesheets: 'always' },
   markdown: { shikiConfig: { theme: 'github-light' } },
   redirects: { '/comic': '/' },
   integrations: [icon(), sitemap({ changefreq: 'monthly', priority: 1, lastmod: new Date() })],
