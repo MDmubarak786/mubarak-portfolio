@@ -29,7 +29,7 @@ Not "a full-stack developer with a stack list." The claims a neighbouring portfo
 - Read in the context of a job application or recruiter outreach; compared side by side with other candidates' LinkedIn profiles and portfolios.
 - Linked from CV, LinkedIn (linkedin.com/in/mohammed-mubarak), GitHub (MDmubarak786), X (@MMubarakoo7).
 - Built with AI coding tools (Claude Code); the site should reflect current craft.
-- Production: Vercel project `portfolio2026`, https://portfolio2026-cyan-rho.vercel.app, auto-deploys from GitHub `MDmubarak786/mubarak-portfolio` on `main`. Custom domain: open.
+- Production: Vercel project `portfolio2026`, https://mk-comics.vercel.app, auto-deploys from GitHub `MDmubarak786/mubarak-portfolio` on `main`. Custom domain: open.
 - The Comic build is the site at `/` (decision 2026-10-09; the Studio build, the Hawkins variant and the eleven `/v` story samples were removed, recoverable from git history). `/comic` redirects to `/`.
 
 ## Capabilities and Constraints

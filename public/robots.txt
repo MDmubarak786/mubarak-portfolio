@@ -1,3 +1,47 @@
+# mk-comics.vercel.app — Mubarak Shajahan's portfolio. Everything here is public and may be crawled and read.
 User-agent: *
 Allow: /
-Sitemap: https://portfolio2026-cyan-rho.vercel.app/sitemap-index.xml
+
+# Search engines
+User-agent: Googlebot
+Allow: /
+User-agent: Bingbot
+Allow: /
+
+# AI assistants and their crawlers are welcome
+User-agent: GPTBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: Claude-User
+Allow: /
+User-agent: Claude-SearchBot
+Allow: /
+User-agent: anthropic-ai
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Perplexity-User
+Allow: /
+User-agent: Google-Extended
+Allow: /
+User-agent: Applebot
+Allow: /
+User-agent: Applebot-Extended
+Allow: /
+User-agent: Amazonbot
+Allow: /
+User-agent: meta-externalagent
+Allow: /
+User-agent: CCBot
+Allow: /
+User-agent: DuckAssistBot
+Allow: /
+User-agent: Bytespider
+Allow: /
+
+Sitemap: https://mk-comics.vercel.app/sitemap-index.xml

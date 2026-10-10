@@ -7,12 +7,12 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://portfolio2026-cyan-rho.vercel.app',
+  site: 'https://mk-comics.vercel.app',
   devToolbar: { enabled: false },
   vite: { plugins: [tailwindcss()] },
   adapter: vercel(),
   redirects: { '/comic': '/' },
-  integrations: [icon(), sitemap()],
+  integrations: [icon(), sitemap({ changefreq: 'monthly', priority: 1, lastmod: new Date() })],
   fonts: [
     { provider: fontProviders.fontsource(), name: 'Bangers', cssVariable: '--font-bangers', weights: [400], subsets: ['latin'], fallbacks: ['Impact', 'sans-serif'] },
     { provider: fontProviders.fontsource(), name: 'Patrick Hand', cssVariable: '--font-patrick', weights: [400], subsets: ['latin'], fallbacks: ['cursive'] },

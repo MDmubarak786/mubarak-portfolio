@@ -28,7 +28,7 @@ export const site = {
   award: { year: "2021", title: "Outstanding contribution and strong ownership", by: "IncrescoTech" },
   careerStart: "2021-06-21", // first day at Incresco; experience is computed from this date
   get yearsExperience() { return experience().short; },
-  url: "https://portfolio2026-cyan-rho.vercel.app",
+  url: "https://mk-comics.vercel.app",
 } as const;
 
 export const greetings = ["வணக்கம்", "Hello", "Hola", "Bonjour", "नमस्ते", "こんにちは"];

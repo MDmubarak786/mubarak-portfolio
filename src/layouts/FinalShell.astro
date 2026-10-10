@@ -4,6 +4,26 @@ import { Font } from "astro:assets";
 import { site } from "../lib/site";
 interface Props { title: string; description: string; fonts: string[]; theme: string }
 const { title, description, fonts, theme } = Astro.props;
+const GTM = import.meta.env.PUBLIC_GTM_ID as string | undefined;
+const GA = import.meta.env.PUBLIC_GA_ID as string | undefined;
+const CLARITY = import.meta.env.PUBLIC_CLARITY_ID as string | undefined;
+const person = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: site.name,
+  alternateName: [site.legalName, site.tamilName],
+  jobTitle: site.role,
+  description,
+  url: site.url,
+  image: new URL("/og.png", site.url).href,
+  email: `mailto:${site.email}`,
+  telephone: site.phoneE164,
+  worksFor: { "@type": "Organization", name: site.employer },
+  address: { "@type": "PostalAddress", addressLocality: "Chennai", addressRegion: "Tamil Nadu", addressCountry: "IN" },
+  alumniOf: { "@type": "CollegeOrUniversity", name: site.education.school },
+  sameAs: [site.linkedin, site.github, site.x, site.instagram, site.youtube],
+  knowsAbout: ["Full-stack engineering", "React", "Next.js", "Node.js", "Python", "AWS", "LLMs", "RAG", "Agentic workflows"],
+};
 ---
 <!doctype html>
 <html lang="en">
@@ -13,9 +33,17 @@ const { title, description, fonts, theme } = Astro.props;
     <meta name="theme-color" content={theme} /><link rel="canonical" href={site.url} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     {fonts.map((f) => <Font cssVariable={f as any} preload />)}
-    <meta property="og:title" content={title} /><meta property="og:description" content={description} /><meta property="og:image" content={new URL("/og.png", site.url).href} />
+    <meta property="og:type" content="website" /><meta property="og:url" content={site.url} /><meta property="og:site_name" content="MK Comics" /><meta property="og:title" content={title} /><meta property="og:description" content={description} /><meta property="og:image" content={new URL("/og.png", site.url).href} /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" /><meta name="twitter:site" content="@MMubarakoo7" /><meta name="twitter:creator" content="@MMubarakoo7" /><meta name="twitter:title" content={title} /><meta name="twitter:description" content={description} /><meta name="twitter:image" content={new URL("/og.png", site.url).href} />
+    <link rel="sitemap" href="/sitemap-index.xml" /><link rel="author" href="/llms.txt" />
+    <script type="application/ld+json" set:html={JSON.stringify(person)} />
+    {GTM && <script is:inline define:vars={{ GTM }}>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer',GTM);</script>}
+    {GA && <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA}`}></script>}
+    {GA && <script is:inline define:vars={{ GA }}>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config',GA,{anonymize_ip:true});</script>}
+    {CLARITY && <script is:inline define:vars={{ CLARITY }}>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script",CLARITY);</script>}
   </head>
   <body>
+    {GTM && <noscript><iframe src={`https://www.googletagmanager.com/ns.html?id=${GTM}`} height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>}
     <slot />
   </body>
 </html>
