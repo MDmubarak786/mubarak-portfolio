@@ -2,6 +2,7 @@
 title: "Prompt caching economics: what a RAG bill looks like in 2026"
 description: "Cached input now costs 5 to 10% of list price on Claude, Gemini and GPT-6. The rules, minimums and traps, plus a 10,000-call-a-day RAG bill priced on three models."
 date: 2026-10-10
+updated: 2026-10-10
 tags: ["prompt caching", "LLM pricing", "RAG", "Claude Sonnet 5.5", "Gemini 3.8 Flash", "GPT-6", "cost optimisation"]
 pillar: building
 related: adr-002-ef-academy-multilingual-platform
@@ -18,13 +19,14 @@ sources:
     url: "https://openai.com/index/better-prompt-caching-for-gpt-6/"
   - title: "The New Stack on GPT-6 caching (secondary)"
     url: "https://thenewstack.io/openai-prompt-caching-costs/"
-  - title: "BenchLM OpenAI pricing table, October 2026 (third-party aggregator)"
-    url: "https://benchlm.ai/openai/api-pricing"
+  - title: "OpenAI API pricing (GPT-6 family, cached input)"
+    url: "https://developers.openai.com/api/docs/pricing"
+draft: false
 ---
 
 The cheapest token in 2026 is the one the model has already read. In the last six weeks Anthropic cut Sonnet 5.5 cache reads to 5% of the input price, Google kept implicit caching on by default for every current Gemini model, and OpenAI shipped a GPT-6 caching system that discounts reused input by up to 90%. If you run anything with a stable system prompt and a pile of grounding documents, which is every RAG product I have touched, the design of your prompt now matters more to the bill than which model you pick.
 
-This post is the arithmetic. Prices are as of 10 October 2026 from each vendor's pricing page; the GPT-6 figures come from OpenAI's announcement and third-party trackers because OpenAI's pricing page blocked automated access while I was writing, and I say so where it matters.
+This post is the arithmetic. Prices are as of 10 October 2026 from each vendor's pricing page; the GPT-6 caching mechanics come from OpenAI's announcement and secondary coverage, and the GPT-6 prices from OpenAI's pricing page.
 
 ## The rules, per vendor
 
@@ -53,7 +55,7 @@ Explicit caching, where you create a cache object and reference it, is available
 
 ### OpenAI: automatic, 30-minute window, up to 90% off
 
-OpenAI's announcement on 22 September says GPT-6 caching reuses shared context across requests with discounts of up to 90% on cached input tokens, that cached prefixes are reused inside a 30-minute window, and that the API now exposes a caching dashboard, explicit cache breakpoints, and no longer invalidates the cache when reasoning effort changes. The New Stack's reading is that the 90% rate itself is not new; the change is how often the cache gets hit. A third-party price table lists GPT-6 Sol at $2 input, $10 output and $0.10 cached input, with the same cached rate on GPT-6.1 Sol. I could not confirm those three numbers on an OpenAI page, so treat them as an estimate until you check your own invoice.
+OpenAI's announcement on 22 September says GPT-6 caching reuses shared context across requests with discounts of up to 90% on cached input tokens, that cached prefixes are reused inside a 30-minute window, and that the API now exposes a caching dashboard, explicit cache breakpoints, and no longer invalidates the cache when reasoning effort changes. The New Stack's reading is that the 90% rate itself is not new; the change is how often the cache gets hit. OpenAI's pricing page lists GPT-6 Sol at $2 input, $0.20 cached input and $10 output, GPT-6.1 Sol at $2 / $0.10 / $10, Luna at $0.10 / $0.01 / $0.50 and Astra at $10 / $1 / $50, all per million tokens for requests up to 272K input tokens. So on the current Sol, a cache hit is 10% of input; on 6.1 Sol it is 5%, the same ratio as Sonnet 5.5.
 
 ## The worked example
 

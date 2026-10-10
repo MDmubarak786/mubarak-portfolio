@@ -2,6 +2,7 @@
 title: "Which AI model should you build on in October 2026?"
 description: "Claude 5.5, GPT-6, Gemini 3.8 and TypeSafe's Jev all shipped in five weeks. Dates, prices and limits from primary sources, and what I would actually pick for a product."
 date: 2026-10-10
+updated: 2026-10-10
 tags: ["Claude 5.5", "GPT-6", "Gemini 3.8", "TypeSafe Jev", "model selection", "LLM pricing"]
 pillar: model-watch
 related: adr-007-ai-document-processing
@@ -16,12 +17,15 @@ sources:
     url: "https://docs.typesafe.ai/primitives/choice"
   - title: "TypeSafe AI docs: quick start (Python SDK)"
     url: "https://docs.typesafe.ai/introduction/quickstart"
-  - title: "GPT-6 (Wikipedia; OpenAI's own release notes blocked automated access at time of writing)"
+  - title: "OpenAI API pricing (GPT-6 Astra, Sol, 6.1 Sol, Luna)"
+    url: "https://developers.openai.com/api/docs/pricing"
+  - title: "GPT-6 (Wikipedia; OpenAI's release notes blocked automated access at time of writing)"
     url: "https://en.wikipedia.org/wiki/GPT-6"
   - title: "Yahoo Finance on the Opus 5.5 release"
     url: "https://finance.yahoo.com/technology/ai/articles/anthropic-claude-5-5-release-185148663.html"
   - title: "Claude Sonnet 5.5 pricing and context (third-party tracker)"
     url: "https://cellcog.ai/blog/claude-sonnet-5-5-release-date/"
+draft: false
 ---
 
 Five weeks, four labs, at least nine models. If you are choosing a model for something you plan to ship this quarter, the ground moved under you in September, and most of the summaries I have read either copy the vendor's benchmark table or guess. This is the version I wanted: what actually shipped, with dates and prices from the release notes, and the decision I would make for a product team today. Everything here is as of 10 October 2026, and the models listed will be old news by December, so read the dates.
@@ -47,7 +51,7 @@ There are breaking changes. Opus 5.5 returns a 400 error if you send `thinking: 
 
 OpenAI's own release notes blocked automated access while I was writing, so this section leans on Wikipedia and a model timeline aggregator; treat the dates as approximate until you check them yourself.
 
-GPT-6 Astra, the flagship, was previewed on 3 September and opened to paid users the next day in a restricted form that declines some prompt categories, cybersecurity among them. GPT-6 Sol and GPT-6 Luna followed on 22 September, GPT-6.1 Sol on 29 September, and GPT-6 Instant on 7 October, with an "Intelligent UI" that answers with interactive widgets rather than only text. The context that explains the staggered rollout: after unsanctioned cyberattacks by OpenAI agents in July, the company delayed the release to add safeguards. I could not find published API pricing for the GPT-6 family in a primary source, which is itself a signal: if you cannot price it, you cannot plan on it yet.
+GPT-6 Astra, the flagship, was previewed on 3 September and opened to paid users the next day in a restricted form that declines some prompt categories, cybersecurity among them. GPT-6 Sol and GPT-6 Luna followed on 22 September, GPT-6.1 Sol on 29 September, and GPT-6 Instant on 7 October, with an "Intelligent UI" that answers with interactive widgets rather than only text. The context that explains the staggered rollout: after unsanctioned cyberattacks by OpenAI agents in July, the company delayed the release to add safeguards. OpenAI's pricing page lists the family at standard rates per million tokens: GPT-6 Astra $10 in / $1 cached / $50 out, GPT-6 Sol $2 / $0.20 / $10, GPT-6.1 Sol $2 / $0.10 / $10, and GPT-6 Luna $0.10 / $0.01 / $0.50, for requests up to 272K input tokens. There is no Instant row on that page, so whether Instant is a model or a mode of Sol and Luna is still unclear from primary sources.
 
 ### Google: Gemini 3.8 is a Flash-first generation
 
@@ -73,7 +77,7 @@ The chat-model race has become a pricing race, and that changes how I would arch
 
 **Cache reads are the new unit of cost.** With Sonnet 5.5 cache reads at 0.05x input, a RAG pipeline that re-sends the same 40k tokens of grounding on every call pays twenty times less for that part than it did on a model without caching. Design prompts so the stable part comes first and stays byte-identical.
 
-**Treat the GPT-6 family as a watch item until it has a price list.** The capability story is strong, the rollout is cautious, and the API economics are not public in a source I would cite.
+**GPT-6.1 Sol is the OpenAI model to price against Sonnet 5.5.** Same $2 / $10 list price and the same $0.10 cached-input rate; Luna sits in the Haiku tier at $0.10 / $0.50. Astra at $10 / $50 is the Fable-class spend.
 
 **Separate decisions from generation.** This is the Jev lesson, and it applies even if you never use Jev. Most of the "AI features" I have built over five years were really decisions: which queue does this ticket go to, is this document a passport or a bank statement, how risky is this upload. I did those with GPT-4 Vision and OCR in 2024 and hit 95% across 17 document types, but the pipeline spent most of its effort turning prose back into a label. A model that only emits values from an answer space you define removes the parsing layer and gives you a probability to threshold on.
 
@@ -125,7 +129,7 @@ If Jev's early access is not open to you, the same architecture works with Haiku
 - As of 10 October 2026: Sonnet 5.5 for default product work, Opus 5.5 for long agentic runs, Haiku 5.5 and Gemini 3.8 Flash for the high-volume, low-latency tier.
 - Price prompt caching into the design. Sonnet 5.5 cache reads dropped to $0.10 per million on 7 October.
 - Audit anything pinned to Sonnet 4.5 (retires 30 November) or Gemini 2.5 and 3.7 (being wound down or re-routed).
-- Hold GPT-6 as a watch item until API pricing is published somewhere citable.
+- GPT-6.1 Sol matches Sonnet 5.5 on list and cached price; Luna matches the Haiku tier. Astra is a $10 / $50 research-tier spend.
 - Split decisions from generation. Whether you use Jev or a schema-constrained chat model, a decision layer with a confidence threshold is cheaper, faster and easier to test.
 
 Next issue: a cost-per-decision comparison of Haiku 5.5, Sonnet 5.5 and Gemini 3.8 Flash on a document classification set, using the 17 document types from case file 07.

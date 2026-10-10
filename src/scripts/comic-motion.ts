@@ -31,9 +31,12 @@ if (!reduce) {
   // Sound effects are readable by default; each pops once as it arrives.
   document.querySelectorAll<HTMLElement>(".sfx").forEach((el) => ScrollTrigger.create({ trigger: el, start: "top 96%", once: true, onEnter: () => gsap.from(el, { scale: 0, rotation: -30, duration: 0.8, ease: "elastic.out(1, 0.45)" }) }));
   ScrollTrigger.batch(".caption", { start: "top 92%", once: true, onEnter: (els) => gsap.fromTo(els, { scaleX: 0, transformOrigin: "left center" }, { scaleX: 1, duration: 0.45, ease: "power4.out", stagger: 0.05 }) });
+  // Headings stay readable by default; the letters slam in once as each heading arrives (no pre-hidden state).
   document.querySelectorAll<HTMLElement>("main h2").forEach((h) => {
-    const chars = new SplitText(h, { type: "words,chars" }).chars;
-    gsap.from(chars, { y: "110%", rotation: 6, opacity: 0, duration: 0.6, ease: "back.out(1.8)", stagger: 0.015, scrollTrigger: { trigger: h, start: "top 88%", once: true } });
+    ScrollTrigger.create({ trigger: h, start: "top 88%", once: true, onEnter: () => {
+      const chars = new SplitText(h, { type: "words,chars" }).chars;
+      gsap.from(chars, { y: "110%", rotation: 6, opacity: 0, duration: 0.6, ease: "back.out(1.8)", stagger: 0.015, clearProps: "all" });
+    } });
   });
   // Speech bubbles wobble in.
   // Bubbles stay readable by default; each one only springs from its tail as it arrives.

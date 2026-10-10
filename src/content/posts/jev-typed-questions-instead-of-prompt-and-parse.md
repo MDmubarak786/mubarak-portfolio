@@ -22,6 +22,7 @@ sources:
     url: "https://docs.typesafe.ai/patterns"
   - title: "TypeSafe AI docs: quick start (Python SDK)"
     url: "https://docs.typesafe.ai/introduction/quickstart"
+draft: false
 ---
 
 Every "AI feature" I have shipped in the last three years had the same hidden tax. The model wrote prose, and then I wrote code to turn the prose back into a value: a regex, a JSON repair step, a retry when the schema came back broken, a fallback when the model answered a question I did not ask. The decision was a few bytes; the plumbing around it was most of the pull request.
