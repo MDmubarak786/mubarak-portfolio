@@ -1,0 +1,45 @@
+---
+/** Comic-style preloader: greetings cycle inside a speech bubble, then the page curtain lifts with a curved edge. Once per session; never with reduced motion. */
+import { greetings } from "../../lib/site";
+---
+<div class="loader fixed inset-0 z-[90] grid place-items-center" data-preloader aria-hidden="true">
+  <div class="loader-bubble">
+    <p class="loader-word" data-greeting>{greetings[0]}</p>
+    <span class="loader-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+  </div>
+  <p class="caption loader-cap">Issue #1 · printing…</p>
+  <svg class="absolute left-0 right-0 top-full w-full h-[18vh] -mt-px" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0 L100 0 L100 0 Q50 20 0 0 Z" fill="#fff8e7" /></svg>
+</div>
+<style is:global>
+  .loader { background: radial-gradient(#111 0.8px, transparent 0.9px) 0 0 / 7px 7px, #fff8e7; }
+  .loader-bubble { position:relative; background:#fff; border:4px solid #111; border-radius:2rem; padding:1.4rem 2.4rem 1.6rem; box-shadow: 8px 8px 0 #111; min-width: 16rem; text-align:center; }
+  .loader-bubble::after { content:""; position:absolute; left:2.2rem; bottom:-22px; border:12px solid transparent; border-top-color:#111; }
+  .loader-word { font-family: var(--font-bangers), "Noto Sans Tamil", "Noto Sans Devanagari", "Hiragino Sans", sans-serif; font-size: clamp(2.6rem, 8vw, 4.5rem); line-height:1; color:#ff2e63; -webkit-text-stroke: 1.5px #111; letter-spacing:.02em; }
+  .loader-dots { display:inline-flex; gap:.45rem; margin-top:.9rem; }
+  .loader-dots i { width:.6rem; height:.6rem; border-radius:50%; background:#111; animation: loader-bounce .9s ease-in-out infinite; }
+  .loader-dots i:nth-child(2) { animation-delay:.15s } .loader-dots i:nth-child(3) { animation-delay:.3s }
+  @keyframes loader-bounce { 0%, 100% { transform: translateY(0) } 50% { transform: translateY(-6px) } }
+  .loader-cap { position:absolute; left:0; right:0; bottom:12vh; width:max-content; margin-inline:auto; }
+  html.is-loading { overflow:hidden; }
+</style>
+<script define:vars={{ greetings }}>
+  const el = document.querySelector("[data-preloader]");
+  const text = el?.querySelector("[data-greeting]");
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const seen = sessionStorage.getItem("preloaded") === "1";
+  const ready = () => { document.documentElement.classList.remove("is-loading"); document.documentElement.classList.add("is-ready"); document.dispatchEvent(new Event("comic:ready")); };
+  if (!el) {} else if (reduce || seen) { el.remove(); ready(); }
+  else {
+    document.documentElement.classList.add("is-loading");
+    let i = 0;
+    const step = () => { i++; if (i < greetings.length && text) { text.textContent = greetings[i]; setTimeout(step, 140); } else { finish(); } };
+    const finish = () => {
+      sessionStorage.setItem("preloaded", "1");
+      el.style.transition = "transform 800ms cubic-bezier(0.76, 0, 0.24, 1)";
+      el.style.transform = "translateY(-120%)";
+      ready();
+      setTimeout(() => el.remove(), 1000);
+    };
+    setTimeout(step, 450);
+  }
+</script>
