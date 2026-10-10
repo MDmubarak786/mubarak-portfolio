@@ -81,7 +81,8 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     // Section tops are measured once after load and on resize, never inside the scroll handler (no forced reflow).
     let queued = false;
     let tops: number[] = [];
-    const measure = () => { tops = targets.map((t) => t.el!.offsetTop); };
+    // Measure the section box (it is laid out even while its content is skipped by content-visibility), not the heading.
+    const measure = () => { tops = targets.map((t) => (t.el!.closest("section") ?? t.el!).offsetTop); };
     const update = () => {
       queued = false;
       const y = scrollY + 140;
@@ -96,6 +97,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     addEventListener("scroll", () => { if (!queued) { queued = true; requestAnimationFrame(update); } }, { passive: true });
     addEventListener("resize", () => { measure(); update(); });
     addEventListener("load", () => requestAnimationFrame(() => { measure(); update(); }), { once: true });
+    document.addEventListener("contentvisibilityautostatechange", () => requestAnimationFrame(() => { measure(); update(); }), true);
   </script>
 
   <main id="main" class="max-w-6xl mx-auto px-5 sm:px-8 pt-10 pb-28">
@@ -128,7 +130,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     </section>
 
     <!-- CHAPTER 1 -->
-    <section id="migration" class="mt-16 scroll-mt-24" aria-labelledby="ch1">
+    <section id="migration" class="cv mt-16 scroll-mt-24" aria-labelledby="ch1">
       <h2 id="ch1" class="text-5xl sm:text-6xl">Chapter 1 · The Great Migration</h2>
       <p class="mt-2 text-xl lede"><span>A true story about $24,000, a deadline, and AWS Glue. Five panels, in order.</span></p>
       <ol class="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-6 lg:auto-rows-[minmax(15rem,auto)]">
@@ -173,7 +175,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     </section>
 
     <!-- CASE FILES -->
-    <section id="cases" class="mt-16 scroll-mt-24" aria-labelledby="ch2">
+    <section id="cases" class="cv mt-16 scroll-mt-24" aria-labelledby="ch2">
       <h2 id="ch2" class="text-5xl sm:text-6xl">Chapter 2 · Case files</h2>
       <p class="mt-2 text-xl lede"><span>Eight cases. Open a file for the context, the decision and what it changed.</span></p>
       <ol class="mt-8 grid gap-7 md:grid-cols-2 items-start">
@@ -207,7 +209,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     </section>
 
     <!-- WITNESSES -->
-    <section id="witnesses" class="mt-16 scroll-mt-24" aria-labelledby="ch3">
+    <section id="witnesses" class="cv mt-16 scroll-mt-24" aria-labelledby="ch3">
       <h2 id="ch3" class="text-5xl sm:text-6xl">Chapter 3 · Nine witnesses</h2>
       <p class="mt-2 text-xl lede"><span>Every word verbatim. Nothing paraphrased.</span></p>
       <ul class="mt-8 md:columns-2 md:gap-10">
@@ -231,7 +233,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     </section>
 
     <!-- ORIGIN -->
-    <section id="origin" class="mt-16 scroll-mt-24" aria-labelledby="ch4">
+    <section id="origin" class="cv mt-16 scroll-mt-24" aria-labelledby="ch4">
       <h2 id="ch4" class="text-5xl sm:text-6xl">Chapter 4 · Origin story</h2>
       <p class="mt-2 text-xl lede"><span>Where I am now, then how I got here. Four issues, three promotions.</span></p>
       <ol class="mt-8 origin">
@@ -258,7 +260,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     </section>
 
     <!-- RESUME -->
-    <section id="resume" class="mt-16 scroll-mt-24 panel p-6 sm:p-10 lg:p-12 grid gap-10 lg:grid-cols-[1.15fr_1fr] items-center" aria-labelledby="res-h" data-page="Collector’s insert">
+    <section id="resume" class="cv mt-16 scroll-mt-24 panel p-6 sm:p-10 lg:p-12 grid gap-10 lg:grid-cols-[1.15fr_1fr] items-center" aria-labelledby="res-h" data-page="Collector’s insert">
       <div>
         <p class="caption">Collector’s insert · 2 pages</p>
         <h2 id="res-h" class="text-5xl sm:text-6xl mt-4 text-balance">The official resume</h2>
@@ -278,7 +280,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     </section>
 
     <!-- POWERS -->
-    <section id="powers" class="mt-16 scroll-mt-24" aria-labelledby="pow-h" data-page="Power-ups">
+    <section id="powers" class="cv mt-16 scroll-mt-24" aria-labelledby="pow-h" data-page="Power-ups">
       <h2 id="pow-h" class="text-5xl sm:text-6xl">Power-ups</h2>
       <p class="mt-2 text-xl lede"><span>Nine groups of tools, collected over <span data-experience>{exp.long}</span>. The AI and cloud ones are the newest.</span></p>
       <ul class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -294,7 +296,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     </section>
 
     <!-- BACK ISSUES -->
-    <section id="back-issues" class="mt-16 scroll-mt-24" aria-labelledby="back" data-page="Back issues">
+    <section id="back-issues" class="cv mt-16 scroll-mt-24" aria-labelledby="back" data-page="Back issues">
       <h2 id="back" class="text-5xl sm:text-6xl">Back issues · 2020</h2>
       <p class="mt-2 text-xl lede"><span>Eight Flutter apps from the year I was learning mobile. Minor issues, but every one shipped with a demo.</span></p>
       <ul class="mt-8 grid gap-5 grid-cols-2 lg:grid-cols-4">
@@ -320,7 +322,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
 
     <!-- THE STRIP -->
     {posts.length > 0 && (
-      <section id="strip" class="mt-16 scroll-mt-24" aria-labelledby="strip-h" data-page="The strip">
+      <section id="strip" class="cv mt-16 scroll-mt-24" aria-labelledby="strip-h" data-page="The strip">
         <h2 id="strip-h" class="text-5xl sm:text-6xl">The weekly strip</h2>
         <p class="mt-2 text-xl lede"><span>What shipped in AI and what to build with it. New issue every week; primary sources only.</span></p>
         <ol class="mt-8 grid gap-6 md:grid-cols-3" role="list">
@@ -338,7 +340,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     )}
 
     <!-- CONTACT -->
-    <section id="contact" class="mt-16 scroll-mt-24 panel p-6 sm:p-12" aria-labelledby="ch5" data-page="Back cover">
+    <section id="contact" class="cv mt-16 scroll-mt-24 panel p-6 sm:p-12" aria-labelledby="ch5" data-page="Back cover">
       <div class="zig mb-6"></div>
       <h2 id="ch5" class="text-5xl sm:text-7xl text-[#ff2e63]" style="-webkit-text-stroke:2px #111">Next issue needs a publisher.</h2>
       <div class="mt-8 grid gap-8 lg:grid-cols-[1.2fr_1fr] lg:items-start">

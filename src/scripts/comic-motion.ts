@@ -32,21 +32,29 @@ if (!reduce) {
   else cover();
 
   // Panels are readable by default; each slams in once as it arrives.
-  document.querySelectorAll<HTMLElement>(".panel:not([data-cover])").forEach((p) => ScrollTrigger.create({ trigger: p, start: "top 96%", once: true, onEnter: () => gsap.from(p, { y: 50, scale: 0.97, duration: 0.6, ease: "back.out(1.4)", clearProps: "transform" }) }));
+  // Reveal-on-enter uses one IntersectionObserver per group instead of a ScrollTrigger per element: it is cheaper, and it
+  // keeps working inside content-visibility:auto sections, where skipped elements would measure as 0 for ScrollTrigger.
+  // `at` mirrors ScrollTrigger's "top N%": the element's top crossing N% of the viewport height.
+  const reveal = (sel: string | HTMLElement[], at: number, cb: (els: HTMLElement[]) => void) => {
+    const io = new IntersectionObserver((entries) => {
+      const hit = entries.filter((e) => e.isIntersecting).map((e) => { io.unobserve(e.target); return e.target as HTMLElement; });
+      if (hit.length) cb(hit);
+    }, { rootMargin: `0px 0px -${100 - at}% 0px` });
+    (typeof sel === "string" ? [...document.querySelectorAll<HTMLElement>(sel)] : sel).forEach((el) => io.observe(el));
+  };
+  reveal(".panel:not([data-cover])", 96, (els) => els.forEach((p) => gsap.from(p, { y: 50, scale: 0.97, duration: 0.6, ease: "back.out(1.4)", clearProps: "transform" })));
   // Sound effects are readable by default; each pops once as it arrives.
-  document.querySelectorAll<HTMLElement>(".sfx").forEach((el) => ScrollTrigger.create({ trigger: el, start: "top 96%", once: true, onEnter: () => gsap.from(el, { scale: 0, rotation: -30, duration: 0.8, ease: "elastic.out(1, 0.45)" }) }));
-  ScrollTrigger.batch([...document.querySelectorAll<HTMLElement>(".caption")].filter((el) => !(phone && el.closest("[data-cover]"))), { start: "top 92%", once: true, onEnter: (els) => gsap.fromTo(els, { scaleX: 0, transformOrigin: "left center" }, { scaleX: 1, duration: 0.45, ease: "power4.out", stagger: 0.05 }) });
+  reveal(".sfx", 96, (els) => els.forEach((el) => gsap.from(el, { scale: 0, rotation: -30, duration: 0.8, ease: "elastic.out(1, 0.45)" })));
+  reveal([...document.querySelectorAll<HTMLElement>(".caption")].filter((el) => !(phone && el.closest("[data-cover]"))), 92, (els) => gsap.fromTo(els, { scaleX: 0, transformOrigin: "left center" }, { scaleX: 1, duration: 0.45, ease: "power4.out", stagger: 0.05 }));
   // Headings stay readable by default; the letters slam in once as each heading arrives (no pre-hidden state).
-  document.querySelectorAll<HTMLElement>("main h2").forEach((h) => {
-    ScrollTrigger.create({ trigger: h, start: "top 88%", once: true, onEnter: () => {
-      // Revert the split when done: clearProps would also strip SplitText's inline-block wrappers and stack the letters.
-      const split = new SplitText(h, { type: "words,chars" });
-      gsap.from(split.chars, { y: "110%", rotation: 6, opacity: 0, duration: 0.6, ease: "back.out(1.8)", stagger: 0.015, onComplete: () => split.revert() });
-    } });
-  });
+  reveal("main h2", 88, (els) => els.forEach((h) => {
+    // Revert the split when done: clearProps would also strip SplitText's inline-block wrappers and stack the letters.
+    const split = new SplitText(h, { type: "words,chars" });
+    gsap.from(split.chars, { y: "110%", rotation: 6, opacity: 0, duration: 0.6, ease: "back.out(1.8)", stagger: 0.015, onComplete: () => split.revert() });
+  }));
   // Speech bubbles wobble in.
   // Bubbles stay readable by default; each one only springs from its tail as it arrives.
-  document.querySelectorAll<HTMLElement>(".bubble").forEach((b) => ScrollTrigger.create({ trigger: b, start: "top 96%", once: true, onEnter: () => gsap.from(b, { scale: 0.92, transformOrigin: "left bottom", duration: 0.55, ease: "back.out(1.6)" }) }));
+  reveal(".bubble", 96, (els) => els.forEach((b) => gsap.from(b, { scale: 0.92, transformOrigin: "left bottom", duration: 0.55, ease: "back.out(1.6)" })));
   // Halftone background drifts slowly with scroll.
   gsap.to("body", { backgroundPositionY: 240, ease: "none", scrollTrigger: { scrub: true } });
 }

@@ -54,8 +54,8 @@ const person = {
         if (CLARITY) add('https://www.clarity.ms/tag/' + CLARITY);
       }
       var later = function () { ('requestIdleCallback' in window ? requestIdleCallback : function (f) { setTimeout(f, 1); })(boot); };
-      if (document.readyState === 'complete') setTimeout(later, 1500); else addEventListener('load', function () { setTimeout(later, 1500); });
-      ['pointerdown', 'keydown', 'touchstart'].forEach(function (ev) { addEventListener(ev, boot, { once: true, passive: true }); });
+      if (document.readyState === 'complete') setTimeout(later, 4000); else addEventListener('load', function () { setTimeout(later, 4000); });
+      ['pointerdown', 'keydown', 'touchstart', 'scroll', 'wheel'].forEach(function (ev) { addEventListener(ev, boot, { once: true, passive: true }); });
     </script>}
   </head>
   <body>

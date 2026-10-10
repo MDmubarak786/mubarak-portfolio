@@ -72,6 +72,8 @@ header a:focus-visible, header summary:focus-visible, .skip:focus-visible { outl
 .tile { border:3px solid #111; padding: 1rem 1.1rem; background:#fff; }
 /* Marker highlight: ink text on a brand fill, so coloured headlines keep AA contrast. */
 main h2[id] { scroll-margin-top: 6rem; }
+/* Below-the-fold chapters skip style/layout/paint until they come near the viewport (first paint only pays for the cover). */
+.cv { content-visibility: auto; contain-intrinsic-size: auto 1200px; }
 .hl { display:inline; padding:.06em .35em; box-decoration-break:clone; -webkit-box-decoration-break:clone; box-shadow:2px 2px 0 #111; line-height:1.4; }
 .tile.tabbed { padding-top: 2rem; }
 .resume-dialog .btn { font-size: 1rem; padding: .35rem .8rem; }
