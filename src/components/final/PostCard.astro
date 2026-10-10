@@ -9,7 +9,7 @@ const minutes = Math.max(1, Math.round((p.body ?? "").split(/\s+/).length / 220)
 <li class="panel file p-6 pt-8">
   <span class="filetab">Issue {String(issue).padStart(2, "0")}</span>
   <p class="text-sm">{fmt(p.data.date)} · {pillarName[p.data.pillar]} · {minutes} min read</p>
-  <h3 class="text-3xl mt-2 leading-tight"><a href={`/blog/${p.id}/`} class="hover:text-[#ff2e63]">{p.data.title}</a></h3>
+  <h2 class="text-3xl mt-2 leading-tight"><a href={`/blog/${p.id}/`} class="hover:text-[#ff2e63]">{p.data.title}</a></h2>
   <p class="mt-3 text-lg">{p.data.description}</p>
   <ul class="mt-4 flex flex-wrap gap-2" aria-label="Tags">{p.data.tags.slice(0, 5).map((t) => <li class="tag">{t}</li>)}</ul>
   <a href={`/blog/${p.id}/`} class="btn alt text-base py-1 mt-5 inline-block">Read the strip ▸</a>

@@ -78,7 +78,7 @@ const toc = headings.filter((h) => h.depth === 2);
           {newer && <a href={`/blog/${newer.id}/`} class="panel p-5 block hover:shadow-[10px_10px_0_#ff2e63] sm:col-start-2"><span class="text-sm text-[#555]">Next issue</span><span class="block text-2xl bang mt-1">{newer.data.title}</span></a>}
         </nav>
       </div>
-      <aside class="lg:sticky lg:top-24 grid gap-6">
+      <div class="lg:sticky lg:top-24 grid gap-6">
         {toc.length > 1 && (
           <nav class="panel p-5" aria-labelledby="toc-h">
             <p id="toc-h" class="bang text-xl">In this issue</p>
@@ -89,7 +89,7 @@ const toc = headings.filter((h) => h.depth === 2);
           <a href={`/#file-${related.id}`} class="panel file p-5 pt-7 block"><span class="filetab">Related file</span><span class="block text-xl bang">{related.data.index}</span><span class="block mt-1 text-base">{related.data.summary}</span></a>
         )}
         <div class="panel p-5"><p class="bang text-xl">Tags</p><ul class="mt-3 flex flex-wrap gap-2">{post.data.tags.map((t) => <li class="tag">{t}</li>)}</ul></div>
-      </aside>
+      </div>
     </article>
   </main>
   <script src="../../scripts/page-curtain.ts"></script>

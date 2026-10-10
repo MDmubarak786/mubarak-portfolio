@@ -26,6 +26,8 @@ const fmt = (ym: string | null) => ym ? new Date(ym + "-01T00:00:00Z").toLocaleD
 const sfx = ["TICK", "HMM", "PLAN!", "SWITCH!", "KA-CHING"];
 const ytId = (u: string) => (u.match(/[?&]v=([\w-]+)/) ?? u.match(/youtu\.be\/([\w-]+)/))?.[1];
 const colors = ["#ff2e63", "#1b998b", "#ffb703", "#3a86ff", "#8338ec"];
+// Text colour that reads at 4.5:1 on each fill (ink everywhere except the purple).
+const onColor = ["#111", "#111", "#111", "#111", "#fff"];
 const chapters = [
   { n: "1", t: "The Great Migration", id: "migration" },
   { n: "2", t: "Case files", id: "cases" },
@@ -183,7 +185,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
                   <p class="text-sm">{r.data.organisation} · {r.data.date} · {r.data.tags[0]}</p>
                   <h3 class="text-3xl mt-1">{r.data.index}</h3>
                   <p class="mt-2 text-lg">{r.data.summary}</p>
-                  <p class:list={["mt-3", headline.length > 24 ? "font-bold text-lg" : "bang text-3xl"]} style={`color:${colors[i % 5]}`}>{headline}</p>
+                  <p class="mt-3"><span class:list={["hl", headline.length > 24 ? "font-bold text-lg" : "bang text-3xl"]} style={`background:${colors[i % 5]}; color:${onColor[i % 5]}`}>{headline}</span></p>
                   <span class="btn alt text-base py-1 mt-4 open-cta">Open the file ▸</span>
                   <span class="btn alt text-base py-1 mt-4 close-cta">Close the file ▾</span>
                 </summary>
@@ -217,7 +219,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
               </blockquote>
               <footer class="mt-6 ml-5 flex items-center gap-3">
                 <span class="badge" aria-hidden="true">{initials}</span>
-                <span class="caption"><span class="bang text-sm text-[#ff2e63] mr-2">{String(i + 1).padStart(2, "0")}/09</span><strong>{w.data.name}</strong> · {w.data.title}{w.data.organisation ? `, ${w.data.organisation}` : ""}</span>
+                <span class="caption"><span class="bang text-sm text-[#b5123b] mr-2">{String(i + 1).padStart(2, "0")}/09</span><strong>{w.data.name}</strong> · {w.data.title}{w.data.organisation ? `, ${w.data.organisation}` : ""}</span>
               </footer>
             </li>
           );
@@ -239,10 +241,10 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
                 <span class="pnum">{i + 1}</span>
                 <header class="grid gap-2 sm:grid-cols-[1fr_auto] sm:items-start">
                   <div><h3 class="text-3xl sm:text-4xl">{r.data.role}</h3><p class="text-lg">{r.data.company} · {r.data.type}</p></div>
-                  <div class="flex flex-wrap gap-2 justify-self-start sm:justify-self-end sm:justify-end"><p class="caption">{fmt(r.data.start)} → {fmt(r.data.end)}</p><p class="caption !bg-[#1b998b] !text-white">{promo}</p></div>
+                  <div class="flex flex-wrap gap-2 justify-self-start sm:justify-self-end sm:justify-end"><p class="caption">{fmt(r.data.start)} → {fmt(r.data.end)}</p><p class="caption !bg-[#1b998b]">{promo}</p></div>
                 </header>
                 <div class:list={["mt-6 grid gap-6", r.data.groups.length > 1 && "lg:grid-cols-2"]}>
-                  {r.data.groups.map((g) => <div class="tile"><p class="bang text-2xl" style={`color:${colors[i % 5]}`}>{g.name}</p><ul class="mt-2 list-disc pl-5 space-y-2 max-w-[62ch]">{g.bullets.map((b) => <li>{b}</li>)}</ul></div>)}
+                  {r.data.groups.map((g) => <div class="tile"><p class="bang text-2xl"><span class="hl" style={`background:${colors[i % 5]}; color:${onColor[i % 5]}`}>{g.name}</span></p><ul class="mt-2 list-disc pl-5 space-y-2 max-w-[62ch]">{g.bullets.map((b) => <li>{b}</li>)}</ul></div>)}
                 </div>
                 <ul class="mt-6 flex flex-wrap gap-2" aria-label="Worked with">{r.data.skills.map((sk) => <li class="tag">{sk}</li>)}</ul>
               </article>
@@ -279,7 +281,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
       <ul class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {skillGroups.map(([group, items], i) => (
           <li class="panel p-5 pt-7">
-            <span class="filetab" style={`background:${colors[i % 5]}; border-color:#111; color:#fff`}>{String(i + 1).padStart(2, "0")}</span>
+            <span class="filetab" style={`background:${colors[i % 5]}; border-color:#111; color:${onColor[i % 5]}`}>{String(i + 1).padStart(2, "0")}</span>
             <h3 class="text-2xl">{group}</h3>
             <ul class="mt-3 flex flex-wrap gap-2">{items.map((it) => <li class="tag">{it}</li>)}</ul>
           </li>

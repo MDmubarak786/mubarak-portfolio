@@ -12,7 +12,7 @@ export default defineConfig({
   vite: { plugins: [tailwindcss()] },
   adapter: vercel(),
   build: { inlineStylesheets: 'always' },
-  markdown: { shikiConfig: { theme: 'github-light' } },
+  markdown: { shikiConfig: { theme: 'github-light-high-contrast' } },
   redirects: { '/comic': '/' },
   integrations: [icon(), sitemap({ changefreq: 'monthly', priority: 1, lastmod: new Date() })],
   fonts: [
