@@ -33,7 +33,7 @@ export async function getContributions(): Promise<Contributions> {
     for (const d of days) {
       const label = new Date(d.date + "T00:00:00Z").toLocaleDateString("en-US", { month: "long", day: "numeric", timeZone: "UTC" });
       const withSuffix = label.replace(/(\d+)$/, (n) => n + ordinal(Number(n)));
-      d.count = (d.id && byId.get(d.id)) ?? byLabel.get(withSuffix) ?? byLabel.get(label) ?? (d.level > 0 ? d.level : 0);
+      d.count = (d.id ? byId.get(d.id) : undefined) ?? byLabel.get(withSuffix) ?? byLabel.get(label) ?? (d.level > 0 ? d.level : 0);
       delete d.id;
     }
     days.sort((a, b) => a.date.localeCompare(b.date));

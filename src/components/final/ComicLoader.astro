@@ -35,11 +35,11 @@ import { greetings } from "../../lib/site";
     const step = () => { i++; if (i < greetings.length && text) { text.textContent = greetings[i]; setTimeout(step, 140); } else { finish(); } };
     const finish = () => {
       sessionStorage.setItem("preloaded", "1");
-      el.style.transition = "transform 800ms cubic-bezier(0.76, 0, 0.24, 1)";
+      el.style.transition = "transform 700ms cubic-bezier(0.76, 0, 0.24, 1)";
       el.style.transform = "translateY(-120%)";
       ready();
-      setTimeout(() => el.remove(), 1000);
+      setTimeout(() => el.remove(), 800);
     };
-    setTimeout(step, 450);
+    setTimeout(step, 380);
   }
 </script>

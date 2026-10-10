@@ -13,17 +13,17 @@ if (!reduce) {
   gsap.ticker.lagSmoothing(0);
   document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach((a) => a.addEventListener("click", (e) => { const t = document.querySelector<HTMLElement>(a.getAttribute("href")!); if (!t) return; e.preventDefault(); lenis.scrollTo(t, { offset: -80, duration: 1.2 }); }));
 
-  // Cover: title letters slam in, sticker spins, buttons pop. Waits for the greeting loader when one is showing.
+  // Cover: the title is the page's largest paint, so it is split into letters right away and only ever moved by
+  // transforms (never faded from 0): the browser records it at first paint, and the slam-in plays on top of that.
+  // With the greeting loader showing, the slam waits for the lift; without it, it plays at once.
+  const title = document.querySelector<HTMLElement>("h1");
+  const chars = title ? new SplitText(title, { type: "words,chars" }).chars : [];
   const cover = () => {
-    const title = document.querySelector<HTMLElement>("h1");
-    if (title) {
-      const chars = new SplitText(title, { type: "words,chars" }).chars;
-      gsap.from(chars, { y: 80, rotation: () => gsap.utils.random(-14, 14), opacity: 0, duration: 0.7, ease: "back.out(2)", stagger: 0.03, delay: 0.1 });
-    }
-    gsap.from(".burst", { scale: 0, rotation: -180, duration: 0.9, ease: "elastic.out(1, 0.5)", delay: 0.6 });
-    gsap.from("[data-cover] .btn, [data-cover] .caption", { y: 20, opacity: 0, duration: 0.5, ease: "back.out(1.7)", stagger: 0.06, delay: 0.5 });
+    if (chars.length) gsap.from(chars, { y: 70, rotation: () => gsap.utils.random(-12, 12), duration: 0.7, ease: "back.out(2)", stagger: 0.03, clearProps: "transform" });
+    gsap.from(".burst", { scale: 0, rotation: -180, duration: 0.9, ease: "elastic.out(1, 0.5)", delay: 0.4 });
+    gsap.from("[data-cover] .btn, [data-cover] .caption", { y: 20, duration: 0.5, ease: "back.out(1.7)", stagger: 0.05, delay: 0.3, clearProps: "transform" });
   };
-  if (document.documentElement.classList.contains("is-loading")) document.addEventListener("comic:ready", () => setTimeout(cover, 350), { once: true });
+  if (document.documentElement.classList.contains("is-loading")) document.addEventListener("comic:ready", () => setTimeout(cover, 250), { once: true });
   else cover();
 
   // Panels are readable by default; each slams in once as it arrives.
