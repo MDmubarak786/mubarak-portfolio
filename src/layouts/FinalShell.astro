@@ -6,7 +6,6 @@ import { site } from "../lib/site";
 interface Props { title: string; description: string; fonts: string[]; theme: string; canonical?: string; image?: string; ogType?: string }
 const { title, description, fonts, theme, canonical = site.url, image = new URL("/og.png", site.url).href, ogType = "website" } = Astro.props;
 const GTM = import.meta.env.PUBLIC_GTM_ID as string | undefined;
-const GA = import.meta.env.PUBLIC_GA_ID as string | undefined;
 const CLARITY = import.meta.env.PUBLIC_CLARITY_ID as string | undefined;
 const person = {
   "@context": "https://schema.org",
@@ -40,19 +39,18 @@ const person = {
     <link rel="sitemap" href="/sitemap-index.xml" /><link rel="author" href="/llms.txt" /><link rel="alternate" type="application/rss+xml" title="The strip – MK Comics" href="/rss.xml" />
     <slot name="head" />
     <script type="application/ld+json" set:html={JSON.stringify(person)} />
-    {(GTM || GA || CLARITY) && <script is:inline define:vars={{ GTM, GA, CLARITY }}>
+    {(GTM || CLARITY) && <script is:inline define:vars={{ GTM, CLARITY }}>
       // Analytics load after the page is interactive so they never sit on the first-paint path.
+      // GA4 is configured inside the Tag Manager container; window.gtag pushes custom events to the same dataLayer.
       window.dataLayer = window.dataLayer || [];
       function gtag(){ dataLayer.push(arguments); }
       window.gtag = gtag;
-      if (GA) { gtag('js', new Date()); gtag('config', GA, { anonymize_ip: true }); }
       if (CLARITY) { window.clarity = window.clarity || function(){ (window.clarity.q = window.clarity.q || []).push(arguments); }; }
       var booted = false;
       function boot() {
         if (booted) return; booted = true;
         var add = function (src) { var s = document.createElement('script'); s.async = true; s.src = src; document.head.appendChild(s); };
         if (GTM) { dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); add('https://www.googletagmanager.com/gtm.js?id=' + GTM); }
-        if (GA) add('https://www.googletagmanager.com/gtag/js?id=' + GA);
         if (CLARITY) add('https://www.clarity.ms/tag/' + CLARITY);
       }
       var later = function () { ('requestIdleCallback' in window ? requestIdleCallback : function (f) { setTimeout(f, 1); })(boot); };
