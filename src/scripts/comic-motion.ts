@@ -34,8 +34,9 @@ if (!reduce) {
   // Headings stay readable by default; the letters slam in once as each heading arrives (no pre-hidden state).
   document.querySelectorAll<HTMLElement>("main h2").forEach((h) => {
     ScrollTrigger.create({ trigger: h, start: "top 88%", once: true, onEnter: () => {
-      const chars = new SplitText(h, { type: "words,chars" }).chars;
-      gsap.from(chars, { y: "110%", rotation: 6, opacity: 0, duration: 0.6, ease: "back.out(1.8)", stagger: 0.015, clearProps: "all" });
+      // Revert the split when done: clearProps would also strip SplitText's inline-block wrappers and stack the letters.
+      const split = new SplitText(h, { type: "words,chars" });
+      gsap.from(split.chars, { y: "110%", rotation: 6, opacity: 0, duration: 0.6, ease: "back.out(1.8)", stagger: 0.015, onComplete: () => split.revert() });
     } });
   });
   // Speech bubbles wobble in.
