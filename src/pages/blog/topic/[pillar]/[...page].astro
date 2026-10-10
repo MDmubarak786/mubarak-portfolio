@@ -1,0 +1,47 @@
+---
+import { getCollection } from "astro:content";
+import type { GetStaticPaths } from "astro";
+import FinalShell from "../../../../layouts/FinalShell.astro";
+import SiteHeader from "../../../../components/final/SiteHeader.astro";
+import PostCard from "../../../../components/final/PostCard.astro";
+import Pagination from "../../../../components/final/Pagination.astro";
+import { site } from "../../../../lib/site";
+
+const pillarName = { "model-watch": "Model watch", building: "Building with AI", "case-files": "From the case files" } as const;
+const pillarBlurb = { "model-watch": "What shipped across the labs, with dates, prices and limits from the release notes.", building: "Hands-on patterns and code for people shipping AI features.", "case-files": "The real projects on this site, written up long form." } as const;
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const posts = (await getCollection("posts", ({ data }) => !data.draft)).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+  return (["model-watch", "building", "case-files"] as const).flatMap((pillar) => paginate(posts.filter((p) => p.data.pillar === pillar), { params: { pillar }, pageSize: 12 }));
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+const pillar = Astro.params.pillar as keyof typeof pillarName;
+const all = (await getCollection("posts", ({ data }) => !data.draft)).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const issueNo = new Map(all.map((p, i) => [p.id, all.length - i]));
+const base = `/blog/topic/${pillar}`;
+const canonical = page.currentPage === 1 ? `${site.url}${base}/` : `${site.url}${base}/${page.currentPage}/`;
+---
+<FinalShell title={`${pillarName[pillar]} – the strip, page ${page.currentPage} – ${site.name}`} description={pillarBlurb[pillar]} fonts={["--font-bangers", "--font-patrick"]} theme="#fff8e7" canonical={canonical}>
+  <Fragment slot="head">
+    {page.url.prev && <link rel="prev" href={`${site.url}${page.url.prev}/`} />}
+    {page.url.next && <link rel="next" href={`${site.url}${page.url.next}/`} />}
+  </Fragment>
+  <SiteHeader current="blog" />
+  <main id="main" class="max-w-6xl mx-auto px-5 sm:px-8 pt-10 pb-28">
+    <section class="panel p-6 sm:p-10" aria-labelledby="topic-h">
+      <p class="caption"><a href="/blog/" class="underline">The weekly strip</a> · {page.total} issues · page {page.currentPage} of {page.lastPage}</p>
+      <h1 id="topic-h" class="mt-4 text-[clamp(2.4rem,5.5vw,4.5rem)] leading-[0.95]">{pillarName[pillar]}</h1>
+      <p class="mt-4 text-xl lede"><span>{pillarBlurb[pillar]}</span></p>
+      <nav class="mt-6 flex flex-wrap gap-3" aria-label="Topics">
+        {(Object.keys(pillarName) as (keyof typeof pillarName)[]).map((k) => <a href={`/blog/topic/${k}/`} class:list={["btn sm", k === pillar ? "" : "alt"]} aria-current={k === pillar ? "page" : undefined}>{pillarName[k]} ▸</a>)}
+        <a href="/blog/" class="btn alt sm">All issues ▸</a>
+      </nav>
+    </section>
+    <ol class="mt-10 grid gap-7 md:grid-cols-2" role="list">
+      {page.data.map((p) => <PostCard post={p} issue={issueNo.get(p.id) ?? 0} />)}
+    </ol>
+    <Pagination current={page.currentPage} last={page.lastPage} base={base} prev={page.url.prev ? `${page.url.prev}/` : undefined} next={page.url.next ? `${page.url.next}/` : undefined} />
+  </main>
+  <script src="../../../../scripts/page-curtain.ts"></script>
+</FinalShell>

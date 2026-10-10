@@ -1,0 +1,46 @@
+---
+import { getCollection } from "astro:content";
+import type { GetStaticPaths } from "astro";
+import FinalShell from "../../layouts/FinalShell.astro";
+import SiteHeader from "../../components/final/SiteHeader.astro";
+import PostCard from "../../components/final/PostCard.astro";
+import Pagination from "../../components/final/Pagination.astro";
+import { site } from "../../lib/site";
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const posts = (await getCollection("posts", ({ data }) => !data.draft)).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+  return paginate(posts, { pageSize: 12 });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+const all = (await getCollection("posts", ({ data }) => !data.draft)).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const issueNo = new Map(all.map((p, i) => [p.id, all.length - i]));
+const counts = { "model-watch": 0, building: 0, "case-files": 0 } as Record<string, number>;
+all.forEach((p) => { counts[p.data.pillar] += 1; });
+const pillarName = { "model-watch": "Model watch", building: "Building with AI", "case-files": "From the case files" } as const;
+const canonical = page.currentPage === 1 ? `${site.url}/blog/` : `${site.url}/blog/${page.currentPage}/`;
+const title = page.currentPage === 1 ? `The strip – ${site.name} on AI, models and shipping` : `The strip, page ${page.currentPage} of ${page.lastPage} – ${site.name}`;
+---
+<FinalShell title={title} description="Weekly strips from Mubarak Shajahan: what shipped across Claude, GPT, Gemini and the new AI labs, and what it changes for people building products." fonts={["--font-bangers", "--font-patrick"]} theme="#fff8e7" canonical={canonical}>
+  <Fragment slot="head">
+    {page.url.prev && <link rel="prev" href={`${site.url}${page.url.prev}/`} />}
+    {page.url.next && <link rel="next" href={`${site.url}${page.url.next}/`} />}
+  </Fragment>
+  <SiteHeader current="blog" />
+  <main id="main" class="max-w-6xl mx-auto px-5 sm:px-8 pt-10 pb-28">
+    <section class="panel p-6 sm:p-10" aria-labelledby="blog-h">
+      <p class="caption">The weekly strip · {all.length} issues · page {page.currentPage} of {page.lastPage}</p>
+      <h1 id="blog-h" class="mt-4 text-[clamp(2.6rem,6vw,5rem)] leading-[0.95] text-[#ff2e63]" style="-webkit-text-stroke: 2px #111">What shipped, and what to build with it</h1>
+      <p class="mt-4 text-xl lede"><span>One post a week on the AI models and tools that matter to people shipping products: dates, prices, limits, and what I would actually use. Primary sources only.</span></p>
+      <nav class="mt-6 flex flex-wrap gap-3" aria-label="Topics">
+        {(Object.keys(pillarName) as (keyof typeof pillarName)[]).map((k) => <a href={`/blog/topic/${k}/`} class="btn alt sm">{pillarName[k]} · {counts[k]} ▸</a>)}
+        <a href="/rss.xml" class="btn alt sm">RSS ▸</a>
+      </nav>
+    </section>
+    <ol class="mt-10 grid gap-7 md:grid-cols-2" role="list">
+      {page.data.map((p) => <PostCard post={p} issue={issueNo.get(p.id) ?? 0} />)}
+    </ol>
+    <Pagination current={page.currentPage} last={page.lastPage} base="/blog" prev={page.url.prev ? `${page.url.prev}/` : undefined} next={page.url.next ? `${page.url.next}/` : undefined} />
+  </main>
+  <script src="../../scripts/page-curtain.ts"></script>
+</FinalShell>

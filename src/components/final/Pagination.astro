@@ -1,0 +1,18 @@
+---
+/** Comic-style page controls for a paginated list. */
+interface Props { current: number; last: number; base: string; prev?: string; next?: string }
+const { current, last, base, prev, next } = Astro.props;
+const href = (n: number) => (n === 1 ? `${base}/` : `${base}/${n}/`);
+const window = Array.from({ length: last }, (_, i) => i + 1).filter((n) => n === 1 || n === last || Math.abs(n - current) <= 1);
+const items: (number | "…")[] = [];
+window.forEach((n, i) => { if (i > 0 && n - window[i - 1] > 1) items.push("…"); items.push(n); });
+---
+{last > 1 && (
+  <nav class="mt-10 flex flex-wrap items-center justify-between gap-4" aria-label="Pages">
+    <a href={prev} class:list={["btn alt", !prev && "invisible"]} aria-disabled={!prev}>◂ Newer</a>
+    <ol class="flex flex-wrap items-center gap-2" role="list">
+      {items.map((n) => n === "…" ? <li class="px-1 bang text-xl">…</li> : <li><a href={href(n)} aria-current={n === current ? "page" : undefined} class:list={["page-tile", n === current && "is-current"]}>{n}</a></li>)}
+    </ol>
+    <a href={next} class:list={["btn alt", !next && "invisible"]} aria-disabled={!next}>Older ▸</a>
+  </nav>
+)}

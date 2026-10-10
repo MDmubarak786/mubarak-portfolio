@@ -116,3 +116,8 @@ details summary { list-style:none; cursor:pointer; } details summary::-webkit-de
 .src-list { padding-left:1.4rem; list-style: decimal; }
 .src-list li { margin:.3rem 0; }
 .src-list a { text-decoration: underline; text-decoration-color:#ff2e63; text-decoration-thickness:2px; text-underline-offset:3px; }
+
+/* Pagination tiles */
+.page-tile { display:grid; place-items:center; min-width:2.6rem; height:2.6rem; padding:0 .5rem; border:3px solid #111; background:#fff; font-family: var(--font-bangers); font-size:1.15rem; letter-spacing:.04em; box-shadow: 3px 3px 0 #111; transition: transform .12s, box-shadow .12s; }
+.page-tile:hover { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 #ff2e63; }
+.page-tile.is-current { background:#fff3b0; box-shadow: 3px 3px 0 #ff2e63; }
