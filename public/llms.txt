@@ -2,24 +2,33 @@
 
 > Personal portfolio of Mubarak Shajahan (Mohammed Mubarak, முகமது முபாரக்), Senior Software Engineer at Galent, Chennai, India. Full-stack + AI: React, Next.js, Node.js, Python, AWS, LLMs, RAG, agentic workflows. The site is written as a comic book; every number and quote on it is real.
 
-## Who
-- Senior Software Engineer at Galent (May 2026 – present). Before that five years at Incresco (June 2021 – May 2026): Software Development Engineer → SDE 1 → SDE 2, building AI and full-stack platforms for Global University Systems.
-- Career start: 21 June 2021. B.Tech in Information Technology, Sri Krishna College of Technology, Coimbatore (2018–2022, CGPA 8.01/10). Award: Outstanding contribution and strong ownership, IncrescoTech, 2021.
-- Writes for 22,000+ developers on LinkedIn (10M+ impressions) about JavaScript, React and AI.
+Career start: 21 June 2021. Senior Software Engineer at Galent (May 2026 – present); before that five years at Incresco (June 2021 – May 2026): Software Development Engineer → SDE 1 → SDE 2, building AI and full-stack platforms for Global University Systems. B.Tech in Information Technology, Sri Krishna College of Technology, Coimbatore (2018–2022, CGPA 8.01/10). Writes for 22,000+ developers on LinkedIn (10M+ impressions) about JavaScript, React and AI.
 
-## Proof (all on the page)
-- Sole engineer on EF Academy's primary digital presence: 1.25M+ monthly users, 23+ languages.
-- Replaced a licensed TIBCO integration pipeline with AWS Glue before the contract ended: $24,000 → $840 a year (96.5% cut); the VP of Technology counts it as $30,000 saved.
-- AI document processing (GPT-4 Vision + OCR): 17+ document types at 95% accuracy, manual entry −70%, processing 7×.
-- Chrome extensions saving admins 3–5 hours a day at 99.9% uptime.
-- Nine named testimonials, quoted verbatim.
+Proof, all on the page: sole engineer on EF Academy's primary digital presence (1.25M+ monthly users, 23+ languages); replaced a licensed TIBCO integration pipeline with AWS Glue before the contract ended ($24,000 → $840 a year, a 96.5% cut); AI document processing with GPT-4 Vision + OCR (17+ document types at 95% accuracy, manual entry −70%, processing 7×); Chrome extensions saving admins 3–5 hours a day at 99.9% uptime; nine named testimonials quoted verbatim.
 
-## Pages
-- https://mk-comics.vercel.app/ — the whole portfolio on one page: cover, numbers, Chapter 1 (the migration), Chapter 2 (eight case files with context, decision and outcomes), Chapter 3 (nine witness statements), Chapter 4 (roles), resume preview and download, skills, 2020 Flutter apps, contact.
-- https://mk-comics.vercel.app/blog/ — the weekly strip: posts on the AI models and tools that matter to people shipping products (dates, prices, limits, sources). RSS at https://mk-comics.vercel.app/rss.xml
-- https://mk-comics.vercel.app/resume/Mubarak-Shajahan-Resume.pdf — resume PDF.
-- https://mk-comics.vercel.app/sitemap-index.xml — sitemap.
+## Portfolio
+
+- [Home: the full portfolio on one page](https://mk-comics.vercel.app/): cover, numbers, Chapter 1 (the TIBCO → AWS Glue migration), Chapter 2 (eight case files with context, decision and outcomes), Chapter 3 (nine witness statements), Chapter 4 (roles), resume preview, skills, 2020 Flutter apps, contact.
+- [Case file 01: AWS Glue migration](https://mk-comics.vercel.app/#file-adr-001-tibco-to-aws-glue): the $24,000 → $840 integration rebuild.
+- [Case file 07: AI document processing](https://mk-comics.vercel.app/#file-adr-007-ai-document-processing): GPT-4 Vision + OCR across 17 document types.
+- [Resume (PDF)](https://mk-comics.vercel.app/resume/Mubarak-Shajahan-Resume.pdf): one-page resume, updated 2026.
+
+## Blog
+
+- [The weekly strip](https://mk-comics.vercel.app/blog/): posts on the AI models and tools that matter to people shipping products, with dates, prices, limits and primary sources.
+- [Model watch](https://mk-comics.vercel.app/blog/topic/model-watch/): what Anthropic, OpenAI, Google and TypeSafe shipped, and what it means.
+- [Building with AI](https://mk-comics.vercel.app/blog/topic/building/): hands-on patterns for agents, caching, evals and tooling.
+- [From the case files](https://mk-comics.vercel.app/blog/topic/case-files/): lessons from production work.
+- [RSS feed](https://mk-comics.vercel.app/rss.xml): every post, newest first.
+
+## Machine-readable
+
+- [Sitemap index](https://mk-comics.vercel.app/sitemap-index.xml): every indexable URL.
+- [robots.txt](https://mk-comics.vercel.app/robots.txt): AI crawlers (GPTBot, ClaudeBot, PerplexityBot, Google-Extended) are allowed.
 
 ## Contact
-- Email: mohammedmubarakmk@gmail.com · WhatsApp/phone: +91 79041 00495
-- LinkedIn: https://linkedin.com/in/mohammed-mubarak · GitHub: https://github.com/MDmubarak786 · X: https://x.com/MMubarakoo7
+
+- [Email](mailto:mohammedmubarakmk@gmail.com): mohammedmubarakmk@gmail.com; WhatsApp/phone +91 79041 00495.
+- [LinkedIn](https://linkedin.com/in/mohammed-mubarak): where the writing lives.
+- [GitHub](https://github.com/MDmubarak786): code and the daily contribution strip.
+- [X](https://x.com/MMubarakoo7): short notes.

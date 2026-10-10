@@ -10,13 +10,31 @@ const size = 11, gap = 3, step = size + gap, w = weeks.length * step - gap, h = 
 const fill = [empty, ...levels];
 const months: { label: string; x: number }[] = [];
 weeks.forEach((wk, i) => { const d = wk.find(Boolean); if (!d) return; const dt = new Date(d.date + "T00:00:00Z"); if (dt.getUTCDate() <= 7) months.push({ label: dt.toLocaleDateString("en-US", { month: "short", timeZone: "UTC" }), x: i * step }); });
+// The 365-cell grid is the heaviest markup on the page, so it ships inert in a <template> and mounts when it comes
+// near the viewport. The slot keeps the grid's aspect ratio, so mounting moves nothing.
+const css = `rect{width:${size}px;height:${size}px;rx:2;stroke:${ink};stroke-opacity:.15}` + fill.map((f, i) => `.l${i}{fill:${f}}`).join("");
 ---
-<svg viewBox={`0 0 ${w} ${h + 16}`} role="img" aria-label={`${c.total} contributions on GitHub in the last year`} class="block w-full h-auto">
-  {months.map((m) => <text x={m.x} y={10} font-size="10" fill={ink} opacity=".7">{m.label}</text>)}
-  <g transform="translate(0 16)">
-  {weeks.map((wk, x) => wk.map((d, y) => d && <rect x={x * step} y={y * step} width={size} height={size} rx="2" fill={fill[Math.min(d.level, 4)]} stroke={ink} stroke-opacity=".15"><title>{d.count} on {d.date}</title></rect>))}
-  </g>
-</svg>
+<div class="w-full" style={`aspect-ratio:${w}/${h + 16}`} data-calendar-slot>
+  <template>
+    <svg viewBox={`0 0 ${w} ${h + 16}`} role="img" aria-label={`${c.total} contributions on GitHub in the last year`} class="block w-full h-auto">
+      <style set:html={css}></style>
+      {months.map((m) => <text x={m.x} y={10} font-size="10" fill={ink} opacity=".7">{m.label}</text>)}
+      <g transform="translate(0 16)">
+      {weeks.map((wk, x) => wk.map((d, y) => d && <rect x={x * step} y={y * step} class={`l${Math.min(d.level, 4)}`}><title>{d.count} on {d.date}</title></rect>))}
+      </g>
+    </svg>
+  </template>
+</div>
+<script is:inline>
+  (function () {
+    var slot = document.querySelector("[data-calendar-slot]"), tpl = slot && slot.querySelector("template");
+    if (!slot || !tpl) return;
+    var mount = function () { slot.appendChild(tpl.content); tpl.remove(); };
+    if (!("IntersectionObserver" in window)) return mount();
+    var io = new IntersectionObserver(function (entries) { if (entries.some(function (e) { return e.isIntersecting; })) { io.disconnect(); mount(); } }, { rootMargin: "800px" });
+    io.observe(slot);
+  })();
+</script>
 {showTotal && <p class={totalClass}>{c.total.toLocaleString("en-US")} contributions in the last twelve months{c.source === "fallback" ? ` (snapshot ${c.fetchedAt})` : ""}</p>}
 <p class="sr-only">{c.total} contributions in the last twelve months.</p>
 <span data-total hidden>{c.total}</span>

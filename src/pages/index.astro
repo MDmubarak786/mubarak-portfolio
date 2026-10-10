@@ -78,12 +78,15 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     items.forEach((a) => a.addEventListener("click", close));
     document.addEventListener("click", (e) => { if (menu?.open && !menu.contains(e.target as Node)) close(); });
     document.addEventListener("keydown", (e) => { if (e.key === "Escape" && menu?.open) { close(); menu.querySelector<HTMLElement>("summary")?.focus(); } });
+    // Section tops are measured once after load and on resize, never inside the scroll handler (no forced reflow).
     let queued = false;
+    let tops: number[] = [];
+    const measure = () => { tops = targets.map((t) => t.el!.offsetTop); };
     const update = () => {
       queued = false;
       const y = scrollY + 140;
       let current: (typeof targets)[number] | undefined;
-      for (const t of targets) if (t.el!.offsetTop <= y) current = t;
+      targets.forEach((t, i) => { if (tops[i] <= y) current = t; });
       items.forEach((a) => a.removeAttribute("aria-current"));
       const lbl = current?.a.dataset.label ?? "";
       if (current) items.filter((a) => a.getAttribute("href") === current!.a.getAttribute("href")).forEach((a) => a.setAttribute("aria-current", "true"));
@@ -91,8 +94,8 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
       if (bar) { const max = document.documentElement.scrollHeight - innerHeight; bar.style.setProperty("--p", String(max > 0 ? Math.min(1, scrollY / max) : 0)); }
     };
     addEventListener("scroll", () => { if (!queued) { queued = true; requestAnimationFrame(update); } }, { passive: true });
-    addEventListener("resize", update);
-    update();
+    addEventListener("resize", () => { measure(); update(); });
+    addEventListener("load", () => requestAnimationFrame(() => { measure(); update(); }), { once: true });
   </script>
 
   <main id="main" class="max-w-6xl mx-auto px-5 sm:px-8 pt-10 pb-28">
