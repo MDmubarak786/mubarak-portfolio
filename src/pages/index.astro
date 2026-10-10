@@ -113,7 +113,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     </section>
 
     <!-- NUMBERS -->
-    <section class="mt-10" aria-labelledby="num-h">
+    <section class="cv mt-10" aria-labelledby="num-h" style="contain-intrinsic-size:auto 560px">
       <h2 id="num-h" class="sr-only">By the numbers</h2>
       <ul class="grid gap-4 sm:gap-5 grid-cols-2 lg:grid-cols-4" role="list">
         {numbers.map((n, i) => (
@@ -292,7 +292,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
           </li>
         ))}
       </ul>
-      <div class="panel mt-8 p-6 pt-8"><span class="filetab">Daily strip</span><p class="text-lg">GitHub, the last twelve months · <a href={site.github} class="underline">@MDmubarak786</a></p><div class="mt-4"><Calendar empty="#fff" levels={["#ffd6e0", "#ff9ab5", "#ff5c8a", "#ff2e63"]} ink="#111" showTotal totalClass="mt-3 text-base" /></div></div>
+      <div class="panel mt-8 p-6 pt-8"><span class="filetab">Daily strip</span><p class="text-lg">GitHub, the last twelve months · <a href={site.github} class="underline">@MDmubarak786</a></p><div class="mt-4"><Calendar showTotal totalClass="mt-3 text-base" /></div></div>
     </section>
 
     <!-- BACK ISSUES -->
