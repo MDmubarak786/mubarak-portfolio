@@ -79,7 +79,7 @@ The chat-model race has become a pricing race, and that changes how I would arch
 
 ## Hands-on: the decision layer
 
-Here is the shape of a support-ticket router using TypeSafe's Python SDK, adapted from the quick start. Install with `pip install typesafe-sdk` (Python 3.10 or newer); check the current docs for the exact option parameter names before you copy it.
+Here is the shape of a support-ticket router using TypeSafe's Python SDK, following the quick start and the primitives docs. Install with `pip install typesafe-sdk` (Python 3.10 or newer).
 
 ```python
 from typesafe_sdk import Choice, Noul, Score, TypeSafeClient
@@ -93,10 +93,16 @@ response = client.system_one(
     questions={
         "department": Choice(
             instructions="Which team should handle this?",
-            options=["technical", "billing", "sales", "returns"],
+            criteria={"technical": "Errors, integrations, API access",
+                      "billing": "Invoices, refunds, payment failures",
+                      "sales": "Pricing, plans, demos",
+                      "returns": "Cancellations and refunds of orders"},
         ),
-        "frustration": Score(instructions="How frustrated is the customer, 0 calm to 1 furious?"),
-        "is_urgent": Noul(instructions="The customer has a deadline within a week."),
+        "frustration": Score(
+            instructions="How frustrated is the customer?",
+            criteria=["Calm", "Annoyed", "Furious"],
+        ),
+        "is_urgent": Noul(instructions="Does the customer have a deadline within a week?"),
     },
 )
 
@@ -106,8 +112,8 @@ if dept.confidence < 0.6:
 else:
     route(ticket, dept.choice)
 
-if response.answers["is_urgent"].noul > 0.8 and response.answers["frustration"].score > 0.7:
-    page_on_call(ticket)
+if response.answers["is_urgent"].noul > 0.8 and response.answers["frustration"].score >= 1.5:
+    page_on_call(ticket)   # score runs 0 (Calm) to 2 (Furious)
 ```
 
 Three things to notice. The questions are narrow on purpose; the docs recommend many small questions over one broad one. The confidence field is what makes the escalation branch possible, and it is computed from how spread the probabilities are, so a 50/50 split between two departments is caught rather than guessed. And nothing here is parsed: there is no JSON to repair, no regex over prose, no retry loop for malformed output.
