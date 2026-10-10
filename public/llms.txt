@@ -16,6 +16,7 @@
 
 ## Pages
 - https://mk-comics.vercel.app/ — the whole portfolio on one page: cover, numbers, Chapter 1 (the migration), Chapter 2 (eight case files with context, decision and outcomes), Chapter 3 (nine witness statements), Chapter 4 (roles), resume preview and download, skills, 2020 Flutter apps, contact.
+- https://mk-comics.vercel.app/blog/ — the weekly strip: posts on the AI models and tools that matter to people shipping products (dates, prices, limits, sources). RSS at https://mk-comics.vercel.app/rss.xml
 - https://mk-comics.vercel.app/resume/Mubarak-Shajahan-Resume.pdf — resume PDF.
 - https://mk-comics.vercel.app/sitemap-index.xml — sitemap.
 

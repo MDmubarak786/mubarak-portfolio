@@ -88,4 +88,22 @@ const stack = defineCollection({
   }),
 });
 
-export const collections = { witnesses, records, experience, projects, stack };
+/** Blog posts. Markdown with frontmatter; the body is the article. */
+const posts = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/posts" }),
+  schema: z.object({
+    title: z.string().max(90),
+    description: z.string().min(80).max(170),
+    date: z.coerce.date(),
+    updated: z.coerce.date().optional(),
+    tags: z.array(z.string()).default([]),
+    /** Series/pillar: model-watch, building, case-files */
+    pillar: z.enum(["model-watch", "building", "case-files"]),
+    /** Related case file id, e.g. "adr-007-ai-document-processing" */
+    related: z.string().optional(),
+    sources: z.array(z.object({ title: z.string(), url: z.url() })).default([]),
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = { witnesses, records, experience, projects, stack, posts };

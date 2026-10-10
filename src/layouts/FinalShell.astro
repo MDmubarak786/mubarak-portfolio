@@ -1,9 +1,10 @@
 ---
 import "../styles/variants.css";
+import "../styles/comic.css";
 import { Font } from "astro:assets";
 import { site } from "../lib/site";
-interface Props { title: string; description: string; fonts: string[]; theme: string }
-const { title, description, fonts, theme } = Astro.props;
+interface Props { title: string; description: string; fonts: string[]; theme: string; canonical?: string; image?: string; ogType?: string }
+const { title, description, fonts, theme, canonical = site.url, image = new URL("/og.png", site.url).href, ogType = "website" } = Astro.props;
 const GTM = import.meta.env.PUBLIC_GTM_ID as string | undefined;
 const GA = import.meta.env.PUBLIC_GA_ID as string | undefined;
 const CLARITY = import.meta.env.PUBLIC_CLARITY_ID as string | undefined;
@@ -30,12 +31,13 @@ const person = {
   <head>
     <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title><meta name="description" content={description} />
-    <meta name="theme-color" content={theme} /><link rel="canonical" href={site.url} />
+    <meta name="theme-color" content={theme} /><link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     {fonts.map((f) => <Font cssVariable={f as any} preload />)}
-    <meta property="og:type" content="website" /><meta property="og:url" content={site.url} /><meta property="og:site_name" content="MK Comics" /><meta property="og:title" content={title} /><meta property="og:description" content={description} /><meta property="og:image" content={new URL("/og.png", site.url).href} /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" />
-    <meta name="twitter:card" content="summary_large_image" /><meta name="twitter:site" content="@MMubarakoo7" /><meta name="twitter:creator" content="@MMubarakoo7" /><meta name="twitter:title" content={title} /><meta name="twitter:description" content={description} /><meta name="twitter:image" content={new URL("/og.png", site.url).href} />
-    <link rel="sitemap" href="/sitemap-index.xml" /><link rel="author" href="/llms.txt" />
+    <meta property="og:type" content={ogType} /><meta property="og:url" content={canonical} /><meta property="og:site_name" content="MK Comics" /><meta property="og:title" content={title} /><meta property="og:description" content={description} /><meta property="og:image" content={image} /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" /><meta name="twitter:site" content="@MMubarakoo7" /><meta name="twitter:creator" content="@MMubarakoo7" /><meta name="twitter:title" content={title} /><meta name="twitter:description" content={description} /><meta name="twitter:image" content={image} />
+    <link rel="sitemap" href="/sitemap-index.xml" /><link rel="author" href="/llms.txt" /><link rel="alternate" type="application/rss+xml" title="The strip – MK Comics" href="/rss.xml" />
+    <slot name="head" />
     <script type="application/ld+json" set:html={JSON.stringify(person)} />
     {GTM && <script is:inline define:vars={{ GTM }}>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer',GTM);</script>}
     {GA && <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA}`}></script>}

@@ -1,0 +1,34 @@
+---
+import { getCollection } from "astro:content";
+import FinalShell from "../../layouts/FinalShell.astro";
+import SiteHeader from "../../components/final/SiteHeader.astro";
+import { site } from "../../lib/site";
+const posts = (await getCollection("posts", ({ data }) => !data.draft)).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const fmt = (d: Date) => d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+const pillarName = { "model-watch": "Model watch", building: "Building with AI", "case-files": "From the case files" } as const;
+const words = (body?: string) => Math.max(1, Math.round((body ?? "").split(/\s+/).length / 220));
+---
+<FinalShell title={`The strip – ${site.name} on AI, models and shipping`} description="Weekly strips from Mubarak Shajahan: what shipped across Claude, GPT, Gemini and the new AI labs, and what it changes for people building products." fonts={["--font-bangers", "--font-patrick"]} theme="#fff8e7" canonical={`${site.url}/blog/`}>
+  <SiteHeader current="blog" />
+  <main id="main" class="max-w-6xl mx-auto px-5 sm:px-8 pt-10 pb-28">
+    <section class="panel p-6 sm:p-10" aria-labelledby="blog-h">
+      <p class="caption">The weekly strip · {posts.length} issue{posts.length === 1 ? "" : "s"}</p>
+      <h1 id="blog-h" class="mt-4 text-[clamp(2.6rem,6vw,5rem)] leading-[0.95] text-[#ff2e63]" style="-webkit-text-stroke: 2px #111">What shipped, and what to build with it</h1>
+      <p class="mt-4 text-xl lede"><span>One post a week on the AI models and tools that matter to people shipping products: dates, prices, limits, and what I would actually use. Primary sources only.</span></p>
+      <p class="mt-5 flex flex-wrap gap-3"><a href="/rss.xml" class="btn alt sm">RSS feed ▸</a><a href={site.linkedin} rel="noopener" target="_blank" class="btn alt sm">Follow on LinkedIn ▸</a></p>
+    </section>
+    <ol class="mt-10 grid gap-7 md:grid-cols-2" role="list">
+      {posts.map((p, i) => (
+        <li class="panel file p-6 pt-8">
+          <span class="filetab">Issue {String(posts.length - i).padStart(2, "0")}</span>
+          <p class="text-sm">{fmt(p.data.date)} · {pillarName[p.data.pillar]} · {words(p.body)} min read</p>
+          <h2 class="text-3xl mt-2 leading-tight"><a href={`/blog/${p.id}/`} class="hover:text-[#ff2e63]">{p.data.title}</a></h2>
+          <p class="mt-3 text-lg">{p.data.description}</p>
+          <ul class="mt-4 flex flex-wrap gap-2" aria-label="Tags">{p.data.tags.map((t) => <li class="tag">{t}</li>)}</ul>
+          <a href={`/blog/${p.id}/`} class="btn alt text-base py-1 mt-5 inline-block">Read the strip ▸</a>
+        </li>
+      ))}
+    </ol>
+  </main>
+  <script src="../../scripts/page-curtain.ts"></script>
+</FinalShell>

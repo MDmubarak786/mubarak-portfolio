@@ -1,0 +1,19 @@
+---
+/** Compact comic header for pages other than the cover (blog index and posts). */
+import { site, mailto } from "../../lib/site";
+interface Props { current?: "blog" }
+const { current } = Astro.props;
+---
+<a href="#main" class="skip btn sm">Skip to the article</a>
+<header class="sticky top-0 z-40 bg-[#fff8e7]/90 backdrop-blur border-b-4 border-[#111]">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-3 flex items-center justify-between gap-3 sm:gap-6">
+    <a href="/" class="bang text-2xl shrink-0 masthead" aria-label="MK Comics, back to the cover"><span class="pow" aria-hidden="true">POW!</span>{"MK".split("").map((l, i) => <span class="ml" style={`--i:${i}`}>{l}</span>)}<span class="ml-gap"></span>{"COMICS".split("").map((l, i) => <span class="ml ml-pink" style={`--i:${i + 2}`}>{l}</span>)}</a>
+    <nav class="flex items-center gap-3 sm:gap-5 text-lg" aria-label="Sections">
+      <a href="/blog" class="navlink" aria-current={current === "blog" ? "true" : undefined}>Blog</a>
+      <a href="/#cases" class="navlink hidden sm:inline">Case files</a>
+      <a href="/#resume" class="navlink hidden sm:inline">Resume</a>
+      <a href="/#contact" class="navlink hidden md:inline">Contact</a>
+    </nav>
+    <a href={mailto("A role")} class="btn sm shrink-0">Hire me</a>
+  </div>
+</header>
