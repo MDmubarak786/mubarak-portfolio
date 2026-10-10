@@ -2,6 +2,7 @@
 title: "GA4, Tag Manager and Clarity on a static site: what they cost in Lighthouse"
 description: "Env-var-gated GA4, Tag Manager and Clarity on an Astro site, with a measured PageSpeed run: the third-party bill, its effect on blocking time, and what I would cut."
 date: 2026-10-10T02:30:00Z
+updated: 2026-10-10T15:00:00Z
 tags: ["Google Analytics", "Tag Manager", "Clarity", "Lighthouse", "Astro", "performance"]
 pillar: building
 sources:
@@ -24,7 +25,7 @@ sources:
 draft: false
 ---
 
-Analytics on a static site is three snippets and a Lighthouse bill, and the bill is rarely itemised. On 10 October 2026 I ran PageSpeed Insights on this site's home page: mobile 68, desktop 88. The Tag Manager and Clarity scripts cost about 364 ms of main-thread time on the mobile run, which is real but is not the main reason the mobile score is low. Here is the code, the numbers and what I would change.
+Analytics on a static site is three snippets and a Lighthouse bill, and the bill is rarely itemised. On 10 October 2026 I ran PageSpeed Insights on this site's home page: mobile 68, desktop 88. The Tag Manager and Clarity scripts cost about 364 ms of main-thread time on the mobile run, which is real but is not the main reason the mobile score is low. Here is the code, the numbers and what I would change. Later the same day, after inlining the stylesheet, deferring the analytics tags until after load and skipping the greeting loader on phones, a fresh PageSpeed run on the same page measured mobile first contentful paint at 1.3 s and largest contentful paint at 1.7 s, down from 3.9 s and 6.3 s in the run before the change; the cumulative layout shift and blocking time stayed in the good range.
 
 ## How are the three snippets loaded on this site?
 
