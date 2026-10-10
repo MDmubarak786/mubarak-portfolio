@@ -6,10 +6,10 @@ export const me = {
   intro: `Senior Software Engineer at Galent, Chennai, with ${site.yearsExperience} years building full-stack (MERN) and AI-driven systems: LLMs, RAG and agentic workflows inside enterprise applications, legacy systems moved to a cloud-native AWS stack. Before that, five years at Incresco shipping AI and full-stack platforms for Global University Systems.`,
 };
 export const numbers = [
-  { v: "1.25M+", k: "monthly users", d: "on the multilingual platform, 23+ languages" },
-  { v: "95%", k: "accuracy", d: "AI document processing across 17+ document types" },
-  { v: "96.5%", k: "cost cut", d: "TIBCO → AWS Glue, $24k → $840 a year" },
-  { v: "22K+", k: "followers", d: "10M+ impressions writing about JavaScript, React and AI" },
+  { v: "1.25M+", k: "monthly users", d: "on the multilingual platform, 23+ languages", to: "#file-adr-002-ef-academy-multilingual-platform", cta: "Open file 02" },
+  { v: "95%", k: "accuracy", d: "AI document processing across 17+ document types", to: "#file-adr-007-ai-document-processing", cta: "Open file 07" },
+  { v: "96.5%", k: "cost cut", d: "TIBCO → AWS Glue, $24k → $840 a year", to: "#migration", cta: "Read chapter 1" },
+  { v: "22K+", k: "followers", d: "10M+ impressions writing about JavaScript, React and AI", to: site.linkedin, cta: "See LinkedIn" },
 ];
 /** The migration, told in beats. The spine of every story variant. */
 export const migration = [
