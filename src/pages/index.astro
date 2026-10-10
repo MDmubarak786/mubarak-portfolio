@@ -375,6 +375,9 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     document.querySelectorAll<HTMLAnchorElement>("[data-open-file]").forEach((a) => a.addEventListener("click", () => openFile(a.getAttribute("href") ?? "")));
     openFile(location.hash);
     addEventListener("hashchange", () => openFile(location.hash));
+    // Sections below the fold size themselves lazily (content-visibility), so a hash landing can settle a little off;
+    // re-align once everything has loaded.
+    addEventListener("load", () => { const t = location.hash && document.querySelector<HTMLElement>(location.hash); if (t) setTimeout(() => t.scrollIntoView(), 60); }, { once: true });
   </script>
   <script src="../scripts/comic-motion.ts"></script>
   <script src="../scripts/page-curtain.ts"></script>
