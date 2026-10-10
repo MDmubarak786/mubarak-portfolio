@@ -44,7 +44,16 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     .stat-v { font-family: var(--font-bangers); letter-spacing:.02em; line-height:1; -webkit-text-stroke:1.5px #111; text-shadow: 3px 3px 0 #111; }
     .btn.sm { font-size:1.1rem; padding:.35rem .8rem; }
     .skip { position:absolute; left:1.25rem; top:-6rem; z-index:60; } .skip:focus { top:1rem; }
-    .masthead:hover span { text-decoration: underline; text-decoration-thickness:3px; text-underline-offset:4px; }
+    .masthead { position:relative; display:inline-flex; align-items:baseline; isolation:isolate; }
+    .masthead .ml { display:inline-block; }
+    .masthead .ml-pink { color:#ff2e63; }
+    .masthead .ml-gap { width:.3em; }
+    .masthead:hover .ml, .masthead:focus-visible .ml { animation: ml-jump .55s cubic-bezier(.34,1.56,.64,1) both; animation-delay: calc(var(--i) * 45ms); text-shadow: 2px 2px 0 #ff2e63; }
+    .masthead:hover .ml-pink, .masthead:focus-visible .ml-pink { text-shadow: 2px 2px 0 #111; }
+    @keyframes ml-jump { 0% { transform: none } 35% { transform: translateY(-7px) rotate(-7deg) scale(1.18) } 70% { transform: translateY(1px) rotate(3deg) } 100% { transform: none } }
+    .masthead .pow { clip-path: polygon(50% 0%, 61% 12%, 77% 6%, 80% 23%, 96% 29%, 88% 44%, 100% 56%, 85% 65%, 88% 82%, 71% 82%, 63% 97%, 50% 87%, 37% 97%, 29% 82%, 12% 82%, 15% 65%, 0% 56%, 12% 44%, 4% 29%, 20% 23%, 23% 6%, 39% 12%); }
+    .masthead .pow { position:absolute; left:50%; top:50%; width:3.6rem; height:3.6rem; margin:-1.8rem 0 0 -1.8rem; background:#ffb703; display:grid; place-items:center; font-size:.85rem; letter-spacing:.04em; color:#111; z-index:-1; pointer-events:none; transform: scale(0) rotate(-20deg); transition: transform .3s cubic-bezier(.34,1.56,.64,1); }
+    .masthead:hover .pow, .masthead:focus-visible .pow { transform: scale(1) rotate(8deg); }
     .navlink { text-decoration-thickness:2px; text-underline-offset:5px; } .navlink:hover { text-decoration-line: underline; }
     .navlink[aria-current="true"] { text-decoration-line: underline; text-decoration-color:#ff2e63; text-decoration-thickness:3px; }
     header a:focus-visible, header summary:focus-visible, .skip:focus-visible { outline:3px solid #ff2e63; outline-offset:3px; }
@@ -115,7 +124,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
   <a href="#main" class="skip btn sm">Skip to the comic</a>
   <header class="sticky top-0 z-40 bg-[#fff8e7]/90 backdrop-blur border-b-4 border-[#111]">
     <div class="max-w-6xl mx-auto px-5 sm:px-8 py-3 flex items-center justify-between gap-3 sm:gap-6">
-      <a href="#main" class="bang text-2xl shrink-0 masthead">MK <span class="text-[#ff2e63]">COMICS</span></a>
+      <a href="#main" class="bang text-2xl shrink-0 masthead" aria-label="MK Comics, back to the cover"><span class="pow" aria-hidden="true">POW!</span>{"MK".split("").map((l, i) => <span class="ml" style={`--i:${i}`}>{l}</span>)}<span class="ml-gap"></span>{"COMICS".split("").map((l, i) => <span class="ml ml-pink" style={`--i:${i + 2}`}>{l}</span>)}</a>
       <nav class="flex items-center gap-3 lg:gap-5 text-lg" aria-label="Sections">
         <details class="menu" data-chapter-menu>
           <summary class="menu-btn" aria-label="Jump to a chapter"><span data-chapter-label>Chapters</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
