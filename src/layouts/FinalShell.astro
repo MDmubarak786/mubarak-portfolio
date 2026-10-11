@@ -54,7 +54,9 @@ const person = {
         if (CLARITY) add('https://www.clarity.ms/tag/' + CLARITY);
       }
       var later = function () { ('requestIdleCallback' in window ? requestIdleCallback : function (f) { setTimeout(f, 1); })(boot); };
-      if (document.readyState === 'complete') setTimeout(later, 4000); else addEventListener('load', function () { setTimeout(later, 4000); });
+      // Tags load on the first interaction (scroll, touch, pointer, key). A reader who sits still gets them after 15 s. Nothing
+      // on a timer inside the first seconds: analytics must never be what the browser is busy with while the page settles.
+      if (document.readyState === 'complete') setTimeout(later, 15000); else addEventListener('load', function () { setTimeout(later, 15000); });
       ['pointerdown', 'keydown', 'touchstart', 'scroll', 'wheel'].forEach(function (ev) { addEventListener(ev, boot, { once: true, passive: true }); });
     </script>}
   </head>
