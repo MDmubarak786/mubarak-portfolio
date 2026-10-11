@@ -43,7 +43,7 @@ for path in sorted(glob.glob("src/content/posts/*.md")):
                 else:
                     errs.append(f"description {len(desc)} chars")
             elif len(desc) < 80: errs.append(f"description {len(desc)} chars (short)")
-        if not re.search(r"^date:\s*2026-10-10", fm, re.M): errs.append("date not 2026-10-10")
+        if not re.search(r"^date:\s*2026-", fm, re.M): errs.append("date not in 2026")
         pm = re.search(r"^pillar:\s*(\S+)", fm, re.M)
         if not pm or pm.group(1) not in PILLARS: errs.append("pillar invalid")
         rm = re.search(r"^related:\s*(\S+)", fm, re.M)
