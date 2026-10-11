@@ -1,5 +1,5 @@
 ---
-import { Image, getImage } from "astro:assets";
+import { Image } from "astro:assets";
 import { getCollection, getEntries } from "astro:content";
 import FinalShell from "../layouts/FinalShell.astro";
 import Calendar from "../components/final/Calendar.astro";
@@ -8,7 +8,6 @@ import ResumeDialog from "../components/final/ResumeDialog.astro";
 import ComicArt from "../components/final/ComicArt.astro";
 import ComicLoader from "../components/final/ComicLoader.astro";
 import portrait from "../assets/portrait.jpg";
-// The portrait is the largest first-paint element on phones: preload it so the fetch starts with the fonts, not after the inline CSS is parsed.
 import avatar from "../assets/avatar.jpg";
 import resumePage from "../assets/resume-p1.png";
 import { site, mailto } from "../lib/site";
@@ -26,7 +25,6 @@ const projects = (await getCollection("projects")).sort((a, b) => a.data.order -
 const fmt = (ym: string | null) => ym ? new Date(ym + "-01T00:00:00Z").toLocaleDateString("en-GB", { month: "short", year: "numeric", timeZone: "UTC" }) : "Now";
 const sfx = ["TICK", "HMM", "PLAN!", "SWITCH!", "KA-CHING"];
 const ytId = (u: string) => (u.match(/[?&]v=([\w-]+)/) ?? u.match(/youtu\.be\/([\w-]+)/))?.[1];
-const portraitSrc = await getImage({ src: portrait, width: 520, height: 520, widths: [224, 448], format: "webp" });
 const colors = ["#ff2e63", "#1b998b", "#ffb703", "#3a86ff", "#8338ec"];
 // Text colour that reads at 4.5:1 on each fill (ink everywhere except the purple).
 const onColor = ["#111", "#111", "#111", "#111", "#fff"];
@@ -45,7 +43,6 @@ const extras = [
 const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.phoneDisplay, site.whatsapp], ["Call", site.phoneDisplay, `tel:${site.phoneE164}`], ["LinkedIn", "mohammed-mubarak", site.linkedin], ["GitHub", "MDmubarak786", site.github], ["X", "@MMubarakoo7", site.x], ["Instagram", "@scooby_doo.mk", site.instagram], ["YouTube", "@mohammedmubarak1478", site.youtube]];
 ---
 <FinalShell title={`${site.name} – ${site.role}, ${site.roleAlt}`} description={me.oneLiner} fonts={["--font-bangers", "--font-patrick"]} theme="#fff8e7">
-  <link slot="head" rel="preload" as="image" imagesrcset={portraitSrc.srcSet.attribute} imagesizes="(min-width: 640px) 288px, 256px" fetchpriority="high" />
   <ComicLoader />
   <a href="#main" class="skip btn sm">Skip to the comic</a>
   <header class="sticky top-0 z-40 bg-[#fff8e7]/90 backdrop-blur border-b-4 border-[#111]">

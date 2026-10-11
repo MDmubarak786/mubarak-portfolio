@@ -17,6 +17,6 @@ export default defineConfig({
   integrations: [icon(), sitemap({ changefreq: 'monthly', priority: 1, lastmod: new Date() })],
   fonts: [
     { provider: fontProviders.fontsource(), name: 'Bangers', cssVariable: '--font-bangers', weights: [400], subsets: ['latin'], fallbacks: ['Impact', 'sans-serif'] },
-    { provider: fontProviders.fontsource(), name: 'Patrick Hand', cssVariable: '--font-patrick', weights: [400], subsets: ['latin'], fallbacks: ['cursive'] },
+    { provider: fontProviders.fontsource(), name: 'Patrick Hand', cssVariable: '--font-patrick', weights: [400], subsets: ['latin'], fallbacks: ['Arial', 'sans-serif'] },
   ],
 });
