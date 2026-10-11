@@ -73,7 +73,9 @@ header a:focus-visible, header summary:focus-visible, .skip:focus-visible { outl
 /* Marker highlight: ink text on a brand fill, so coloured headlines keep AA contrast. */
 main h2[id] { scroll-margin-top: 6rem; }
 /* Below-the-fold chapters skip style/layout/paint until they come near the viewport (first paint only pays for the cover). */
-.cv { content-visibility: auto; contain-intrinsic-size: auto 1200px; }
+/* content-visibility brings paint containment, which clips anything overhanging the section box (panel numbers,
+   file tabs, hard shadows); the padding keeps that overhang inside, the negative margins cancel it visually. */
+.cv { content-visibility: auto; contain-intrinsic-size: auto 1200px; padding-inline: 1.25rem; margin-inline: -1.25rem; padding-bottom: 1rem; margin-bottom: -1rem; }
 .hl { display:inline; padding:.06em .35em; box-decoration-break:clone; -webkit-box-decoration-break:clone; box-shadow:2px 2px 0 #111; line-height:1.4; }
 .tile.tabbed { padding-top: 2rem; }
 .resume-dialog .btn { font-size: 1rem; padding: .35rem .8rem; }
