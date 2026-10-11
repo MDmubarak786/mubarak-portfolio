@@ -64,7 +64,7 @@ Performance on mobile sat at 95 with FCP 1.4 s, LCP 1.7 s, TBT 173 ms, CLS 0 and
 
 ## Where it landed
 
-| | Before | After |
+| Metric | Before | After |
 |---|---|---|
 | Mobile performance | 95 | 98 to 99 |
 | Mobile FCP / LCP | 1.4 s / 1.7 s | 1.24 s / 1.68 s |
