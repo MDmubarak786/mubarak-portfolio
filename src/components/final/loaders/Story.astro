@@ -2,7 +2,9 @@
 /** Loader S, "The story so far": a ~34 s motion comic. A camera dollies in on the closed issue, the cover opens, and on
  *  each of seven spreads the camera lands on the art, glides to the story as it inks itself in, and pulls back for the
  *  page turn. Then it dives into the last page, ink floods it, the masthead plates stamp, and the ink drains off the real
- *  page. No on-screen controls beyond "Skip intro": a click, Esc or a scroll skips to the ink; → and ← turn pages.
+ *  page. Sound is on by default: the first click anywhere (or any key) starts the score, because browsers allow audio
+ *  only after an interaction; after that a click, Esc or a scroll skips to the ink. → and ← turn pages; M toggles sound.
+ *  The orchestral score and the effects are synthesised with Web Audio.
  *  Pure CSS 3D + one SVG mask; every fact comes from the content collections. */
 import { getCollection } from "astro:content";
 import ComicArt from "../ComicArt.astro";
@@ -23,6 +25,8 @@ const pages: { tag: string; h: string; body: string; by?: string; sfx?: string; 
   { tag: "Today", h: site.role, body: `May 2026: ${site.employer}, Chennai. AI inside enterprise software, and notes for ${site.followers.replace("K+", ",000+")} developers on the side.`, sfx: "TO BE CONTINUED…", art: { type: "portrait", badge: String(year) } },
 ];
 const N = pages.length;
+// The sound effect each page's punchline gets (see the sound engine below).
+const cues = ["boot", "whoosh", "tick", "kaching", "zap", "faces", "continued"];
 const colors = ["#ff2e63", "#1b998b", "#ffb703", "#3a86ff", "#8338ec"];
 ---
 <template data-loader="s">
@@ -32,6 +36,8 @@ const colors = ["#ff2e63", "#1b998b", "#ffb703", "#3a86ff", "#8338ec"];
       <div class="st-float">
         <div class="st-shift" data-shift>
           <div class="st-book" data-book>
+            <div class="st-cast st-cast-r" data-cast-r></div>
+            <div class="st-cast st-cast-l" data-cast-l></div>
             <div class="st-base"><div class="st-face st-text" data-text={N}>
               <p class="st-tag">{pages[N - 1].tag}</p><h3 class="st-h">{pages[N - 1].h}</h3><p class="st-body">{pages[N - 1].body}</p>
               {pages[N - 1].sfx && <p class="st-sfx st-sfx-end">{pages[N - 1].sfx}</p>}<span class="st-num">{N}</span>
@@ -84,10 +90,12 @@ const colors = ["#ff2e63", "#1b998b", "#ffb703", "#3a86ff", "#8338ec"];
   <div class="st-plates" data-plates><span class="p1">MK COMICS</span><span class="p2">MK COMICS</span><span class="p3">MK COMICS</span><span class="p4">MK COMICS</span></div>
   <p class="st-plates-sub" data-plates-sub>Issue #1 · now reading</p>
   <div class="st-bars" data-bars></div>
+  <button type="button" tabindex="-1" class="st-sound" data-sound><span class="st-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span data-sound-label>Click anywhere for sound</span></button>
   <button type="button" tabindex="-1" class="st-skip" data-skipintro>Skip intro <span aria-hidden="true">›</span></button>
 </template>
 <style is:global>
-  .st-stage { position:absolute; inset:0; display:grid; place-items:center; background: radial-gradient(ellipse at 50% 42%, #29292c, #0b0b0c 70%); opacity:0; transition: opacity .8s; overflow:hidden; }
+  /* A dark desk under a warm lamp. */
+  .st-stage { position:absolute; inset:0; display:grid; place-items:center; background: radial-gradient(ellipse 58% 52% at 50% 44%, rgba(255,196,120,.16), rgba(255,196,120,0) 70%), radial-gradient(ellipse at 50% 46%, #2b2420, #141110 55%, #080808 85%); opacity:0; transition: opacity .8s; overflow:hidden; }
   .st-stage.is-in { opacity:1; }
   .st-presents { position:absolute; top: 12vh; left:0; right:0; text-align:center; margin:0; z-index:2; font-family: var(--font-bangers); letter-spacing:.32em; font-size: clamp(.9rem, 1.4vw, 1.2rem); color:#ffb703; opacity:0; transform: translateY(-8px); transition: opacity .8s .6s, transform .8s .6s; }
   .st-stage.is-in .st-presents { opacity:1; transform:none; }
@@ -98,10 +106,11 @@ const colors = ["#ff2e63", "#1b998b", "#ffb703", "#3a86ff", "#8338ec"];
   .st-shift { perspective: 1800px; transition: transform 1s cubic-bezier(.66,0,.3,1); }
   .st-shift.is-open { transform: translateX(50%); }
   .st-book { position:relative; width: min(calc(74vh * .72), 440px, 42vw); aspect-ratio:.72; transform-style: preserve-3d; transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform .4s ease-out; }
-  .st-shadow { position:absolute; left:50%; bottom:-7%; width:80%; height:9%; translate:-50% 0; background: radial-gradient(closest-side, rgba(0,0,0,.65), transparent); filter: blur(6px); transition: width 1s cubic-bezier(.66,0,.3,1); }
+  .st-shadow { position:absolute; left:50%; bottom:-6%; width:92%; height:12%; translate:-50% 0; background: radial-gradient(closest-side, rgba(0,0,0,.8), transparent); filter: blur(10px); transition: width 1s cubic-bezier(.66,0,.3,1); }
   .st-shift.is-open + .st-shadow { width:170%; }
   .st-base, .st-leaf { position:absolute; inset:0; transform-style: preserve-3d; }
-  .st-base { transform: translateZ(0); box-shadow: 3px 0 0 #ece2cc, 6px 0 0 #ded3bb, 9px 0 0 #111; }
+  /* The page block: a stack of sheets showing along the fore-edge and the foot. */
+  .st-base { transform: translateZ(0); box-shadow: 2px 1px 0 #efe6d2, 4px 2px 0 #e4d9c2, 6px 3px 0 #efe6d2, 8px 4px 0 #d9cdb4, 10px 5px 0 #111; }
   .st-leaf { transform-origin: left center; transform: rotateY(0deg) translateZ(var(--z)); transition: transform 1.1s cubic-bezier(.45,.05,.22,1); }
   .st-leaf.is-flipped { transform: rotateY(-180deg) translateZ(var(--z)); }
   .st-face { position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden; border:3px solid #111; overflow:hidden; container-type:size; background:#fff8e7; color:#111; }
@@ -109,6 +118,21 @@ const colors = ["#ff2e63", "#1b998b", "#ffb703", "#3a86ff", "#8338ec"];
   .st-leaf.is-turning .st-face::after { animation: st-shade 1.1s ease-in-out; }
   @keyframes st-shade { 50% { opacity:1; } }
   .st-back { transform: rotateY(180deg); }
+  /* The gutter: pages darken and curve into the spine. */
+  .st-text::before, .st-art::before { content:""; position:absolute; inset:0; pointer-events:none; z-index:1; }
+  .st-text::before { background: linear-gradient(90deg, rgba(0,0,0,.3), rgba(0,0,0,.1) 5%, rgba(0,0,0,0) 13%, rgba(0,0,0,0) 82%, rgba(255,255,255,.14) 92%, rgba(0,0,0,.05)); }
+  .st-art::before { background: linear-gradient(270deg, rgba(0,0,0,.3), rgba(0,0,0,.1) 5%, rgba(0,0,0,0) 13%, rgba(0,0,0,0) 82%, rgba(255,255,255,.12) 92%, rgba(0,0,0,.05)); }
+  .st-cover { border-radius: 2px 7px 7px 2px; }
+  .st-cover::after { content:""; position:absolute; inset:0 auto 0 0; width:5%; opacity:1; animation:none; background: linear-gradient(90deg, rgba(0,0,0,.28), rgba(255,255,255,.2) 45%, rgba(0,0,0,.18) 60%, rgba(0,0,0,0)); }
+  /* The paper turn. */
+  .st-turner { position:absolute; inset:0; transform-style: preserve-3d; pointer-events:none; }
+  .st-strip { position:absolute; top:0; height:100%; transform-style: preserve-3d; transform-origin: left center; }
+  .st-sface { position:absolute; inset:0; overflow:hidden; backface-visibility:hidden; -webkit-backface-visibility:hidden; }
+  .st-sback { transform: rotateY(180deg); }
+  .st-sshade { position:absolute; inset:0; pointer-events:none; z-index:2; }
+  .st-cast { position:absolute; top:0; bottom:0; width:100%; opacity:0; pointer-events:none; background-repeat:no-repeat; }
+  .st-cast-r { left:0; background-image: linear-gradient(90deg, rgba(0,0,0,.75), rgba(0,0,0,0)); background-size: 100% 100%; }
+  .st-cast-l { left:-100%; background-image: linear-gradient(270deg, rgba(0,0,0,.7), rgba(0,0,0,0) 70%); }
   /* Cover */
   .st-cover { background: radial-gradient(#111 .7px, transparent .8px) 0 0 / 6px 6px, #fff8e7; display:grid; grid-template-rows: auto auto 1fr auto auto; padding: 3.2cqw 3.6cqw 3.8cqw; gap: 1.6cqw; }
   .st-cover::before { content:""; position:absolute; inset:0; background: linear-gradient(112deg, rgba(255,255,255,0) 40%, rgba(255,255,255,.45) 50%, rgba(255,255,255,0) 60%); background-size: 260% 100%; background-position: var(--gx, 60%) 0; pointer-events:none; mix-blend-mode: screen; z-index:1; transition: background-position .4s ease-out; }
@@ -170,6 +194,17 @@ const colors = ["#ff2e63", "#1b998b", "#ffb703", "#3a86ff", "#8338ec"];
   .st-skip.is-on { opacity:1; }
   .st-skip:hover { color:#fff8e7; }
   .st-skip.is-off { opacity:0; pointer-events:none; }
+  .st-sound { position:absolute; left: clamp(1rem, 3vw, 2.5rem); bottom: 2.6vh; z-index:7; display:inline-flex; align-items:center; gap:.55rem; background:none; border:0; padding:.3rem .2rem; cursor:pointer; font: 500 .8rem/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing:.14em; text-transform:uppercase; color: rgba(255,248,231,.62); opacity:0; transition: opacity .6s, color .2s; }
+  .st-sound.is-on { opacity:1; animation: st-invite 1.4s ease-in-out .6s 2; }
+  .st-sound.is-on.is-waiting { color:#fff8e7; animation: st-invite 1.6s ease-in-out .4s infinite; }
+  .st-sound:hover, .st-sound.is-playing { color:#fff8e7; }
+  .st-sound.is-off { opacity:0; pointer-events:none; animation:none; }
+  .st-eq { display:inline-flex; align-items:flex-end; gap:2px; height:12px; }
+  .st-eq i { width:3px; height:3px; background: currentColor; }
+  .st-sound.is-playing .st-eq i { background:#ff2e63; animation: st-eq .9s ease-in-out infinite; }
+  .st-sound.is-playing .st-eq i:nth-child(2) { animation-delay:-.3s } .st-sound.is-playing .st-eq i:nth-child(3) { animation-delay:-.6s } .st-sound.is-playing .st-eq i:nth-child(4) { animation-delay:-.15s }
+  @keyframes st-eq { 50% { height:12px; } }
+  @keyframes st-invite { 50% { color:#ffb703; text-shadow: 0 0 12px rgba(255,183,3,.7); } }
   /* Ink ending */
   .st-ink { position:absolute; inset:0; width:100%; height:100%; display:block; pointer-events:none; z-index:3; }
   .st-plates { position:absolute; left:50%; top:46%; translate:-50% -50%; z-index:4; font-family: var(--font-bangers); font-size: clamp(3rem, 11vw, 11rem); line-height:1; letter-spacing:.02em; white-space:nowrap; width:max-content; opacity:0; transition: opacity .25s; pointer-events:none; }
@@ -185,14 +220,264 @@ const colors = ["#ff2e63", "#1b998b", "#ffb703", "#3a86ff", "#8338ec"];
   .st-plates-sub { position:absolute; left:50%; top: calc(46% + 7vw); translate:-50% 0; margin:0; z-index:4; font-family: var(--font-bangers); font-size: clamp(1rem, 2vw, 1.6rem); letter-spacing:.08em; color:#ffb703; opacity:0; transition: opacity .3s; pointer-events:none; }
   .st-plates-sub.is-on { opacity:1; }
 </style>
-<script is:inline define:vars={{ N }}>
+<script is:inline define:vars={{ N, cues }}>
   window.__loaders = window.__loaders || {};
   window.__loaders.s = (api) => {
     const root = api.root, $ = (q) => root.querySelector(q);
     $("[data-skip]")?.remove();
     const stage = $("[data-stage]"), cam = $("[data-cam]"), shift = $("[data-shift]"), book = $("[data-book]"), bars = $("[data-bars]"), skipBtn = $("[data-skipintro]");
     const leaves = [...root.querySelectorAll("[data-leaf]")];
+    const castR = $("[data-cast-r]"), castL = $("[data-cast-l]");
+
+    // ---- A paper page turn. The turning leaf is swapped for a "turner": the page cut into hinged vertical strips, each
+    // nested in the one before, so the rotation adds up along the sheet. The outer edge lifts first and leads, which bends
+    // the paper; shading follows the curve, and the page underneath catches the shadow.
+    const NS = 14, SPREAD = 0.42;
+    let turning = null;
+    const clamp01t = (v) => Math.max(0, Math.min(1, v)), smoothT = (p) => p * p * (3 - 2 * p), easeT = (p) => (p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2);
+    const angleAt = (u, p) => -180 * smoothT(clamp01t((p - (1 - u) * SPREAD) / (1 - SPREAD)));
+    const slice = (face, x, W, H) => {
+      const c = face.cloneNode(true);
+      c.removeAttribute("data-text"); c.removeAttribute("data-art");
+      if (c.classList.contains("is-live")) { c.classList.remove("is-live"); c.classList.add("is-seen"); }
+      c.style.cssText = `position:absolute;inset:auto;left:${x}px;top:0;width:${W}px;height:${H}px;transform:none;backface-visibility:visible;-webkit-backface-visibility:visible`;
+      return c;
+    };
+    const buildTurner = (leaf) => {
+      const front = leaf.querySelector(".st-front"), back = leaf.querySelector(".st-back");
+      const W = book.offsetWidth, H = book.offsetHeight, w = W / NS;
+      const el = document.createElement("div"); el.className = "st-turner";
+      let parent = el; const strips = [];
+      for (let i = 0; i < NS; i++) {
+        const st = document.createElement("div"); st.className = "st-strip"; st.style.width = `${w + 0.6}px`; st.style.left = i === 0 ? "0px" : `${w}px`;
+        const f = document.createElement("div"); f.className = "st-sface"; f.appendChild(slice(front, -i * w, W, H));
+        const bk = document.createElement("div"); bk.className = "st-sface st-sback"; bk.appendChild(slice(back, -(W - (i + 1) * w), W, H));
+        const sf = document.createElement("i"), sb = document.createElement("i"); sf.className = sb.className = "st-sshade"; f.appendChild(sf); bk.appendChild(sb);
+        st.append(f, bk); parent.appendChild(st); parent = st; strips.push({ st, sf, sb });
+      }
+      return { el, strips };
+    };
+    const applyCurl = (tn, p, L) => {
+      let prev = 0;
+      tn.strips.forEach((s, i) => {
+        const a0 = angleAt(i / NS, p), a1 = angleAt((i + 1) / NS, p), a = (a0 + a1) / 2;
+        s.st.style.transform = `rotateY(${(a - prev).toFixed(2)}deg)`; prev = a;
+        const k0 = Math.abs(Math.sin((a0 * Math.PI) / 180)), k1 = Math.abs(Math.sin((a1 * Math.PI) / 180));
+        s.sf.style.background = `linear-gradient(90deg, rgba(0,0,0,${(0.5 * k0).toFixed(3)}), rgba(0,0,0,${(0.5 * k1).toFixed(3)}))`;
+        s.sb.style.background = `linear-gradient(270deg, rgba(0,0,0,${(0.42 * k0).toFixed(3)}), rgba(0,0,0,${(0.42 * k1).toFixed(3)}))`;
+      });
+      const lift = Math.sin(Math.PI * p);
+      castR.style.opacity = (0.55 * lift).toFixed(3);
+      castR.style.backgroundSize = `${(20 + 80 * (1 - p)).toFixed(1)}% 100%`;
+      castL.style.opacity = L > 0 ? (0.45 * lift * p).toFixed(3) : "0";
+    };
+    const finishTurn = () => {
+      if (!turning) return;
+      const { leaf, tn, raf } = turning; turning = null;
+      cancelAnimationFrame(raf); tn.el.remove(); leaf.style.visibility = "";
+      castR.style.opacity = "0"; castL.style.opacity = "0";
+      requestAnimationFrame(() => requestAnimationFrame(() => { leaf.style.transition = ""; }));
+    };
+    const curlTurn = (L, forward) => {
+      finishTurn();
+      const leaf = leaves[L], tn = buildTurner(leaf);
+      tn.el.style.transform = `translateZ(${((N - L) * 1.2 + 2).toFixed(1)}px)`;
+      castR.style.transform = `translateZ(${((N - L - 1) * 1.2 + 0.6).toFixed(1)}px)`;
+      castL.style.transform = `translateZ(${(-(N - L + 1) * 1.2 + 0.6).toFixed(1)}px)`;
+      leaf.style.transition = "none"; leaf.classList.toggle("is-flipped", forward); leaf.style.visibility = "hidden";
+      book.appendChild(tn.el);
+      applyCurl(tn, forward ? 0 : 1, L);
+      const t0 = performance.now(), D = 1300;
+      const frame = (now) => {
+        if (!turning) return;
+        const q = Math.min(1, (now - t0) / D), p = forward ? easeT(q) : 1 - easeT(q);
+        applyCurl(tn, p, L);
+        if (q < 1) turning.raf = requestAnimationFrame(frame); else finishTurn();
+      };
+      turning = { leaf, tn, raf: requestAnimationFrame(frame) };
+    };
     root.querySelectorAll("[data-portrait-img]").forEach((i) => { i.src = api.portrait; });
+
+    // ---- Sound. A heroic orchestral score in the style of a superhero film (original material, nothing borrowed),
+    // synthesised with Web Audio: string ostinato, low strings, horns and trumpets, taiko, timpani, snare, cymbals, braams
+    // and a choir. D minor, 128 BPM, Dm–Bb–F–C, layered by how far into the story we are. Sound is armed by default;
+    // browsers only let it start after the visitor's first click or key press, so that first click unlocks it.
+    const makeSound = () => {
+      const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return null;
+      const ctx = new AC(), now = () => ctx.currentTime;
+      const master = ctx.createGain(); master.gain.value = 0.0001;
+      const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -18; comp.ratio.value = 3.5; comp.attack.value = 0.006; comp.release.value = 0.3;
+      master.connect(comp); comp.connect(ctx.destination);
+      // A concert-hall tail.
+      const verb = ctx.createConvolver(), irLen = Math.floor(ctx.sampleRate * 3.6), ir = ctx.createBuffer(2, irLen, ctx.sampleRate);
+      for (let c = 0; c < 2; c++) { const d = ir.getChannelData(c); for (let i = 0; i < irLen; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / irLen, 2.6) * (i < 400 ? i / 400 : 1); }
+      verb.buffer = ir; const verbOut = ctx.createGain(); verbOut.gain.value = 0.42; verb.connect(verbOut); verbOut.connect(master);
+      const verbSend = ctx.createGain(); verbSend.connect(verb);
+      const music = ctx.createGain(); music.gain.value = 0.62; music.connect(master);
+      const fx = ctx.createGain(); fx.gain.value = 0.8; fx.connect(master);
+      const fxVerb = ctx.createGain(); fxVerb.connect(fx); fxVerb.connect(verbSend);
+      const noise = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate); { const d = noise.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1; }
+      const driveCurve = new Float32Array(1024); for (let i = 0; i < 1024; i++) driveCurve[i] = Math.tanh(3 * (i / 512 - 1));
+      const hz = (m) => 440 * Math.pow(2, (m - 69) / 12);
+      const env = (g, t, a, peak, d) => { g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + a); g.gain.exponentialRampToValueAtTime(0.0001, t + a + d); };
+      const hold = (g, t, a, peak, dur, r) => { g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + a); g.gain.setValueAtTime(peak, t + Math.max(a, dur)); g.gain.exponentialRampToValueAtTime(0.0001, t + Math.max(a, dur) + r); };
+      const osc = (type, f, t, dur, peak, dest, o = {}) => {
+        const n = ctx.createOscillator(), g = ctx.createGain(); n.type = type; n.frequency.setValueAtTime(f, t);
+        if (o.glide) n.frequency.exponentialRampToValueAtTime(o.glide, t + (o.glideT || dur));
+        env(g, t, o.a || 0.005, peak, dur); n.connect(g); g.connect(dest); n.start(t); n.stop(t + (o.a || 0.005) + dur + 0.05);
+      };
+      const nz = (t, dur, peak, dest, f, swell) => {
+        const src = ctx.createBufferSource(), g = ctx.createGain(); src.buffer = noise; src.loop = true;
+        if (swell) { g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + dur); g.gain.linearRampToValueAtTime(0.0001, t + dur + 0.03); } else env(g, t, 0.003, peak, dur);
+        if (f) { const b = ctx.createBiquadFilter(); b.type = f.type; b.Q.value = f.q || 0.7; b.frequency.setValueAtTime(f.f, t); if (f.to) b.frequency.exponentialRampToValueAtTime(f.to, t + dur); src.connect(b); b.connect(g); } else src.connect(g);
+        g.connect(dest); src.start(t); src.stop(t + dur + 0.08);
+      };
+      // An ensemble of detuned saws through a filter: the basis of strings, brass and choir.
+      const section = (notes, t, dur, peak, o) => {
+        const b = ctx.createBiquadFilter(), g = ctx.createGain(); b.type = o.type || "lowpass"; b.Q.value = o.q || 0.8;
+        if (o.sweep) { b.frequency.setValueAtTime(o.sweep[0], t); b.frequency.exponentialRampToValueAtTime(o.sweep[1], t + o.sweep[2]); b.frequency.exponentialRampToValueAtTime(o.sweep[3], t + dur); } else b.frequency.value = o.bright || 2600;
+        if (o.short) env(g, t, o.a || 0.004, peak, dur); else hold(g, t, o.a || 0.02, peak, dur, o.r || 0.25);
+        b.connect(g); g.connect(o.dest || music); if (o.wet !== 0) { const w = ctx.createGain(); w.gain.value = o.wet ?? 0.5; g.connect(w); w.connect(verbSend); }
+        let lfo; if (o.vib) { lfo = ctx.createOscillator(); const lg = ctx.createGain(); lfo.frequency.value = 5.4; lg.gain.value = 9; lfo.connect(lg); o._vib = lg; lfo.start(t); lfo.stop(t + dur + (o.r || 0.25) + 0.1); }
+        const dets = o.det || [-8, 0, 8];
+        notes.forEach((m, ni) => dets.forEach((dt, di) => {
+          const n = ctx.createOscillator(); n.type = o.wave || "sawtooth"; n.frequency.value = hz(m); n.detune.value = dt; if (o._vib) o._vib.connect(n.detune);
+          // Spread the voices across the stereo field so the ensemble sounds like a section, not one synth.
+          if (ctx.createStereoPanner && o.width !== 0) { const pn = ctx.createStereoPanner(); pn.pan.value = Math.max(-1, Math.min(1, ((di / Math.max(1, dets.length - 1)) * 2 - 1) * (o.width ?? 0.55) + (ni % 2 ? 0.08 : -0.08))); n.connect(pn); pn.connect(b); } else n.connect(b);
+          n.start(t); n.stop(t + dur + (o.r || 0.25) + 0.1);
+        }));
+      };
+      const lowStr = (m, t, v) => section([m, m + 12], t, six * 1.7, 0.05 * v, { short: true, bright: 900, det: [-6, 6], wet: 0.3 });
+      const strPad = (notes, t, dur, peak) => section(notes, t, dur, peak, { a: 0.35, r: 0.8, bright: 2400, vib: true, wet: 0.7 });
+      const horn = (m, t, dur, peak) => section([m], t, dur, peak, { a: 0.05, r: 0.3, sweep: [380, 2200, 0.09, 1200], det: [-6, 0, 6], wet: 0.6 });
+      const trumpet = (m, t, dur, peak) => section([m], t, dur, peak, { a: 0.03, r: 0.2, sweep: [700, 3800, 0.06, 2200], det: [-4, 4], wet: 0.5 });
+      const choir = (notes, t, dur, peak) => { section(notes, t, dur, peak, { type: "bandpass", bright: 800, q: 6, a: 0.6, r: 1.2, det: [-10, -3, 3, 10], vib: true, wet: 0.9 }); section(notes, t, dur, peak * 0.6, { type: "bandpass", bright: 1150, q: 7, a: 0.6, r: 1.2, det: [-10, 10], vib: true, wet: 0.9 }); };
+      const taiko = (t, p = 0.8) => { osc("sine", 92, t, 0.55, p, music, { glide: 46, glideT: 0.3 }); nz(t, 0.09, p * 0.35, music, { type: "lowpass", f: 900 }); };
+      const timp = (m, t, p = 0.55) => { osc("sine", hz(m) * 1.4, t, 1.3, p, fxVerb, { glide: hz(m), glideT: 0.07 }); nz(t, 0.12, p * 0.25, music, { type: "lowpass", f: 500 }); };
+      const snare = (t, p = 0.22) => { nz(t, 0.13, p, music, { type: "highpass", f: 1300 }); osc("triangle", 205, t, 0.06, p * 0.7, music); };
+      const roll = (t, dur, p0 = 0.04, p1 = 0.22) => { const n = Math.floor(dur * 24); for (let i = 0; i < n; i++) snare(t + i / 24, p0 + (p1 - p0) * (i / n)); };
+      const crash = (t, p = 0.16, dur = 2.4) => nz(t, dur, p, fxVerb, { type: "highpass", f: 5200 });
+      const swellCym = (t, dur, p = 0.2) => nz(t, dur, p, fxVerb, { type: "highpass", f: 4500 }, true);
+      const braam = (t, dur = 2.6, p = 0.3) => {
+        const b = ctx.createBiquadFilter(), g = ctx.createGain(); b.type = "lowpass"; b.Q.value = 3; b.frequency.setValueAtTime(220, t); b.frequency.exponentialRampToValueAtTime(1500, t + 0.25); b.frequency.exponentialRampToValueAtTime(380, t + dur);
+        const drive = ctx.createWaveShaper(); drive.curve = driveCurve;
+        hold(g, t, 0.06, p, dur * 0.6, dur * 0.5); drive.connect(b); b.connect(g); g.connect(master); g.connect(verbSend);
+        [38, 45, 50].forEach((m) => [-12, 0, 12].forEach((dt) => { const n = ctx.createOscillator(); n.type = "sawtooth"; n.frequency.value = hz(m); n.detune.value = dt; n.connect(drive); n.start(t); n.stop(t + dur + 0.2); }));
+        osc("sine", hz(26), t, dur, p * 1.6, master);
+      };
+      const harp = (m, t, p = 0.14) => osc("triangle", hz(m), t, 0.9, p, fxVerb, { a: 0.002 });
+      // Thriller kit: a pumping sub, a ticking clock, short brass stabs.
+      const sub = (m, t, p = 0.24) => osc("sine", hz(m), t, six * 1.7, p, music, { a: 0.008 });
+      const tick = (t, p = 0.04) => nz(t, 0.018, p, music, { type: "highpass", f: 6500 });
+      const stab = (notes, t, p = 0.055) => section(notes.map((m) => m - 12), t, 0.17, p, { short: true, a: 0.006, sweep: [600, 3200, 0.03, 900], det: [-7, 0, 7], wet: 0.45 });
+
+      // ---- The score. 138 BPM, Dm – Bb – Gm – A: the A major's C# keeps pulling the ear back to D.
+      const BPM = 138, beat = 60 / BPM, six = beat / 4;
+      const CH = [[62, 65, 69], [58, 62, 65], [55, 58, 62], [57, 61, 64]], ROOT = [38, 46, 43, 45];
+      // Ostinato over each chord: r = root, R = root an octave up, f = fifth. Accents fall 3-3-2.
+      const OST = ["r", "r", "R", "r", "r", "R", "r", "r", "f", "r", "R", "r", "f", "R", "r", "R"];
+      const ACC = new Set([0, 3, 6, 8, 11, 14]);
+      const THEME = [
+        [[0, 62, 1.5], [1.5, 69, 0.5], [2, 74, 2]],
+        [[0, 74, 1], [1, 72, 0.5], [1.5, 70, 0.5], [2, 65, 2]],
+        [[0, 67, 1.5], [1.5, 70, 0.5], [2, 74, 1], [3, 79, 1]],
+        [[0, 76, 1], [1, 73, 1], [2, 69, 1], [3, 73, 1]],
+      ];
+      const BRIGHT = [0, 1700, 2600, 3600];
+      let level = 0, running = false, nextT = 0, idx = 0, timer = 0;
+      const play = (i, t) => {
+        const bar = Math.floor(i / 16) % 4, pos = i % 16, ch = CH[bar], acc = ACC.has(pos) ? 1 : 0.6;
+        const note = (k) => (k === "r" ? ch[0] : k === "R" ? ch[0] + 12 : ch[2]);
+        // Suspense, always: a clock ticking in 16ths and low strings pulsing in 8ths.
+        if (level < 3) tick(t, pos % 4 === 0 ? 0.05 : 0.022);
+        if (pos % 2 === 0) lowStr(ROOT[bar] + (level > 0 && (pos === 6 || pos === 14) ? 12 : 0), t, level === 0 ? 0.55 * acc : acc);
+        if (bar === 3 && pos === 8) { swellCym(t, beat * 2, level > 1 ? 0.22 : 0.1); roll(t, beat * 2, 0.02, level > 1 ? 0.26 : 0.1); }
+        if (level === 0) {
+          if (pos === 0) section([ROOT[bar] + 12, ROOT[bar] + 19], t, beat * 4, 0.045, { a: 0.4, r: 0.5, bright: 700, det: [-7, 7], wet: 0.6 });
+          if (pos === 0 || pos === 3) taiko(t, 0.45);
+          return;
+        }
+        section([note(OST[pos])], t, six * 0.8, 0.03 * acc, { short: true, bright: BRIGHT[level], wet: 0.35 });
+        if (pos % 2 === 0) sub(ROOT[bar], t, pos % 8 === 0 ? 0.26 : 0.17);
+        const groove = level === 1 ? pos === 0 || pos === 8 : ACC.has(pos) || (level > 2 && (pos === 10 || pos === 12));
+        if (groove) taiko(t, pos === 0 ? 0.85 : 0.6);
+        if (level < 2) return;
+        if (pos === 4 || pos === 12) snare(t, 0.24);
+        if (pos === 0) { timp(ROOT[bar] + 12, t, 0.5); if (bar === 0) crash(t, 0.14); }
+        if (level === 2 && bar < 3 && (pos === 0 || pos === 3 || pos === 6)) stab(ch, t);
+        if (level === 2 && bar === 3 && pos === 0) section(ch.map((m) => m - 12), t, beat * 2, 0.06, { a: 0.08, r: 0.3, sweep: [400, 2400, 0.1, 1200], wet: 0.6 });
+        if (level > 2 && pos === 0) {
+          THEME[bar].forEach(([b, m, d]) => { horn(m - 12, t + b * beat, d * beat, 0.1); trumpet(m, t + b * beat, d * beat, 0.05); });
+          choir(ch, t, beat * 4, 0.035); strPad([ch[0] + 12, ch[2] + 12], t, beat * 4, 0.022);
+        }
+      };
+      const loop = () => { while (nextT < now() + 0.14) { play(idx, nextT); nextT += six; idx = (idx + 1) % 64; } timer = setTimeout(loop, 25); };
+
+      // ---- Effects cued from the story.
+      const SFX = {
+        open: (t) => { braam(t, 2.8, 0.26); [[50, 0.55, 0.9], [57, 1.0, 0.9], [62, 1.45, 1.8]].forEach(([m, d, l]) => horn(m, t + d, l, 0.1)); timp(38 + 12, t + 1.45, 0.5); },
+        hit: (t) => { taiko(t, 0.9); timp(50, t, 0.5); crash(t, 0.14); },
+        turn: (t) => {
+          nz(t, 0.16, 0.07, fx, { type: "highpass", f: 2600 });                          // the corner lifts
+          nz(t + 0.1, 0.7, 0.15, fx, { type: "bandpass", f: 450, to: 2600, q: 0.8 });    // the sheet sweeps over
+          nz(t + 1.05, 0.06, 0.11, fx, { type: "lowpass", f: 1800 }); osc("sine", 110, t + 1.05, 0.1, 0.16, fx, { glide: 60 }); // and lands
+        },
+        cam: (t) => nz(t, 0.7, 0.06, fx, { type: "bandpass", f: 380, to: 1700, q: 1 }),
+        slam: (t) => { osc("sine", 120, t, 0.45, 0.6, fx, { glide: 38, glideT: 0.25 }); nz(t, 0.06, 0.2, fx, { type: "lowpass", f: 2200 }); },
+        pop: (t) => harp(74, t, 0.12),
+        boot: (t) => { section([62], t, 0.6, 0.06, { a: 0.02, r: 0.2, bright: 3000, wet: 0.5, dest: fx }); osc("sawtooth", hz(62), t, 0.5, 0.03, fxVerb, { glide: hz(86) }); },
+        whoosh: (t) => nz(t, 0.7, 0.24, fx, { type: "bandpass", f: 300, to: 4000, q: 1.2 }),
+        tick: (t) => { for (let i = 0; i < 6; i++) osc("triangle", i % 2 ? 900 : 1200, t + i * 0.5, 0.04, 0.22, fx); },
+        kaching: (t) => { nz(t, 0.08, 0.16, fx, { type: "highpass", f: 4000 }); osc("sine", 1568, t + 0.08, 0.9, 0.14, fxVerb); osc("sine", 2093, t + 0.16, 1.1, 0.12, fxVerb); },
+        zap: (t) => osc("sawtooth", 1800, t, 0.3, 0.05, fx, { glide: 140 }),
+        faces: (t) => [62, 65, 67, 69, 72, 74, 77, 79, 81].forEach((m, i) => harp(m, t + i * 0.09, 0.13)),
+        continued: (t) => { [50, 57, 62].forEach((m) => horn(m, t, 1.2, 0.08)); timp(38 + 12, t, 0.5); },
+        dive: (t) => { nz(t, 1.0, 0.28, fx, { type: "bandpass", f: 250, to: 6000, q: 1.4 }); roll(t, 1.0, 0.03, 0.26); section([50], t, 1.0, 0.05, { a: 0.6, r: 0.05, bright: 2400, wet: 0.4, dest: fx }); swellCym(t, 1.0, 0.18); },
+        boom: (t) => { braam(t, 2.4, 0.32); taiko(t, 1); timp(38 + 12, t, 0.7); },
+        stamp: (t) => {
+          // The logo hit: a triumphant D major from the whole orchestra.
+          [50, 57, 62, 66, 69].forEach((m) => horn(m, t, 2.6, 0.075)); [74, 78, 81].forEach((m) => trumpet(m, t, 2.4, 0.04));
+          strPad([62, 66, 69, 74], t, 2.8, 0.03); choir([62, 66, 69], t, 2.8, 0.05);
+          timp(38 + 12, t, 0.75); taiko(t, 1); crash(t, 0.2, 3.2); osc("sine", hz(26), t, 2.4, 0.5, master);
+        },
+        drain: (t) => [62, 64, 66, 69, 71, 74, 76, 78, 81, 83, 86].forEach((m, i) => harp(m, t + i * 0.055, 0.1)),
+      };
+      return {
+        ctx,
+        setLevel: (l) => { level = l; },
+        start: () => { if (running) return; running = true; nextT = now() + 0.06; idx = 0; loop(); master.gain.cancelScheduledValues(now()); master.gain.setTargetAtTime(0.85, now(), 0.12); },
+        mute: () => { running = false; clearTimeout(timer); master.gain.cancelScheduledValues(now()); master.gain.setTargetAtTime(0.0001, now(), 0.08); },
+        stopMusic: () => { running = false; clearTimeout(timer); },
+        cue: (name, delay) => SFX[name] && SFX[name](now() + (delay || 0)),
+        fadeOut: (ms) => { running = false; clearTimeout(timer); master.gain.setTargetAtTime(0.0001, now(), Math.max(0.01, ms / 3000)); setTimeout(() => ctx.close(), ms + 400); },
+      };
+    };
+    // Sound is wanted by default; a visitor who mutes it is remembered.
+    let wanted = true; try { wanted = localStorage.getItem("mk-sound") !== "off"; } catch {}
+    let sound = null, soundOn = false;
+    const soundBtn = $("[data-sound]"), soundLabel = $("[data-sound-label]");
+    const cue = (name, delay) => { if (soundOn && sound) sound.cue(name, delay); };
+    const levelFor = (k) => (k <= 0 ? 0 : k < 3 ? 1 : k < 6 ? 2 : 3);
+    const paintSound = () => {
+      soundBtn.classList.toggle("is-playing", soundOn);
+      soundBtn.classList.toggle("is-waiting", wanted && !soundOn);
+      soundLabel.textContent = soundOn ? "Sound on" : wanted ? "Click anywhere for sound" : "Sound off";
+    };
+    const remember = (v) => { try { localStorage.setItem("mk-sound", v); } catch {} };
+    // Starts the score in sync with wherever the story is. Must run inside a click or key press.
+    const startSound = async () => {
+      if (ended || soundOn) return;
+      if (!sound) sound = makeSound();
+      if (!sound) return;
+      try { await sound.ctx.resume(); } catch {}
+      if (sound.ctx.state !== "running" || soundOn || ended) return;
+      soundOn = true; sound.setLevel(levelFor(step)); sound.start(); if (step === 0) sound.cue("open", 0.05);
+      paintSound();
+    };
+    const stopSound = () => { if (sound) sound.mute(); soundOn = false; paintSound(); };
+    const toggleSound = () => { if (soundOn) { wanted = false; remember("off"); stopSound(); } else { wanted = true; remember("on"); startSound(); } };
+    soundBtn.addEventListener("click", (e) => { e.stopPropagation(); toggleSound(); });
+    paintSound();
 
     // Step 0 is the closed cover; steps 1..N are spreads. Each spread has its own length (ms).
     const DUR = [3400, 4100, 3700, 3900, 3700, 3500, 4200, 4100];
@@ -221,8 +506,15 @@ const colors = ["#ff2e63", "#1b998b", "#ffb703", "#3a86ff", "#8338ec"];
       const [text, art] = pageEls(k), toArt = 1050, toText = Math.round(toArt + (d - toArt) * 0.4), back = d - 950;
       return [
         { at: 0, run: () => camTo("wide", 950) },
-        { at: toArt, run: () => { camTo("art", 1250); setState(art, "live"); } },
-        { at: toText, run: () => { camTo("text", 1350); setState(text, "live"); } },
+        { at: toArt, run: () => {
+          camTo("art", 1250); setState(art, "live"); cue("cam");
+          const c = cues[k - 1];
+          if (c === "faces") cue("faces", 0.15); else { cue("pop", 0.1); if (c === "tick") cue("tick", 0.3); }
+        } },
+        { at: toText, run: () => {
+          camTo("text", 1350); setState(text, "live"); cue("cam"); cue("slam", 0.32);
+          const c = cues[k - 1]; if (c !== "tick" && c !== "faces") cue(c, 1.5);
+        } },
         { at: back, run: () => camTo("wide", 950) },
         { at: d, run: () => (k < N ? go(k + 1) : end()) },
       ];
@@ -236,17 +528,30 @@ const colors = ["#ff2e63", "#1b998b", "#ffb703", "#3a86ff", "#8338ec"];
       if (ended) return;
       k = Math.max(0, Math.min(N, k));
       if (k === step) return;
-      leaves.forEach((l, i) => {
-        const flip = i < k;
-        if (flip !== l.classList.contains("is-flipped")) { l.classList.add("is-turning"); setTimeout(() => l.classList.remove("is-turning"), 1150); }
-        l.classList.toggle("is-flipped", flip);
-      });
-      shift.classList.toggle("is-open", k > 0); stage.classList.toggle("is-open", k > 0);
+      // Page states first, so the turner copies the right content.
       for (let i = 1; i <= N; i++) pageEls(i).forEach((e) => setState(e, i < k ? "seen" : null));
+      let turned = false;
+      if (step >= 0 && Math.abs(k - step) === 1 && !document.hidden) {
+        // One page: a real paper turn.
+        curlTurn(k > step ? step : k, k > step); turned = true;
+      } else {
+        finishTurn();
+        leaves.forEach((l, i) => {
+          const flip = i < k;
+          if (flip !== l.classList.contains("is-flipped")) { turned = true; l.classList.add("is-turning"); setTimeout(() => l.classList.remove("is-turning"), 1150); }
+          l.classList.toggle("is-flipped", flip);
+        });
+      }
+      if (turned) cue("turn");
+      if (sound && soundOn && levelFor(k) > levelFor(step)) cue("hit");
+      if (sound) sound.setLevel(levelFor(k));
+      shift.classList.toggle("is-open", k > 0); stage.classList.toggle("is-open", k > 0);
       step = k; run(k, 0);
     };
     // A hidden tab holds the story where it was.
-    const onVis = () => { if (ended || step < 0) return; if (document.hidden) { offset = performance.now() - stepAt; clearBeats(); } else run(step, offset); };
+    const onVis = () => {
+      if (sound && soundOn) { if (document.hidden) sound.ctx.suspend(); else sound.ctx.resume(); }
+      if (ended || step < 0) return; if (document.hidden) { offset = performance.now() - stepAt; clearBeats(); } else run(step, offset); };
     document.addEventListener("visibilitychange", onVis);
 
     // Ending: dive into the page, ink floods it, the plates stamp, the ink drains off the real page.
@@ -255,8 +560,9 @@ const colors = ["#ff2e63", "#1b998b", "#ffb703", "#3a86ff", "#8338ec"];
     const anim = (ms, fn) => new Promise((res) => { const t0 = performance.now(); let seed = 2; const f = (now) => { const p = clamp01((now - t0) / ms); if (((now / 40) | 0) % 2) turb.setAttribute("seed", String(seed = (seed % 40) + 1)); fn(p); if (p < 1) requestAnimationFrame(f); else res(); }; requestAnimationFrame(f); });
     const wait = (ms) => new Promise((r) => setTimeout(r, ms));
     const end = async () => {
-      if (ended) return; ended = true; clearBeats(); detach(); document.removeEventListener("visibilitychange", onVis);
-      skipBtn.classList.add("is-off");
+      if (ended) return; ended = true; clearBeats(); detach(); document.removeEventListener("visibilitychange", onVis); finishTurn();
+      skipBtn.classList.add("is-off"); soundBtn.classList.add("is-off");
+      if (soundOn && sound) { sound.stopMusic(); cue("dive"); }
       // Measure the page with the camera at rest, then fly from wherever the camera is now.
       const cur = getComputedStyle(cam).transform;
       book.style.transition = "none"; book.style.setProperty("--rx", "0deg"); book.style.setProperty("--ry", "0deg");
@@ -268,27 +574,39 @@ const colors = ["#ff2e63", "#1b998b", "#ffb703", "#3a86ff", "#8338ec"];
       cam.style.transition = "transform .95s cubic-bezier(.7,0,.25,1)";
       cam.style.transform = `translate(${innerWidth / 2 - ox - s * (bx - ox)}px, ${innerHeight / 2 - oy - s * (by - oy)}px) scale(${s})`;
       await wait(700);
+      cue("boom");
       await anim(1000, (p) => blob.setAttribute("r", String(92 * smooth(p))));
       stage.style.display = "none"; root.style.background = "transparent";
-      plates.classList.add("is-on"); await wait(120); plates.classList.add("is-reg"); platesSub.classList.add("is-on");
+      plates.classList.add("is-on"); await wait(120); plates.classList.add("is-reg"); platesSub.classList.add("is-on"); cue("stamp");
       await wait(1150);
       api.ready();
       plates.classList.add("is-off"); platesSub.classList.remove("is-on"); bars.classList.add("is-out");
-      blob.setAttribute("cx", "84"); blob.setAttribute("cy", "-6");
+      blob.setAttribute("cx", "84"); blob.setAttribute("cy", "-6"); cue("drain");
       await anim(1150, (p) => blob.setAttribute("r", String(150 * (1 - easeIn(p)))));
       api.finish(30);
+      if (sound) sound.fadeOut(soundOn ? 2600 : 0);
     };
 
     // Input, captured at the window so the page underneath (and its smooth scroller) never sees it.
     const onKey = (e) => {
       const k = e.key;
+      if (k !== "Escape" && k.toLowerCase() !== "m" && wanted && !soundOn) startSound();
       if (k === "ArrowRight" || k === " " || k === "Enter" || k === "PageDown") { e.preventDefault(); e.stopImmediatePropagation(); step >= N ? end() : go(step + 1); }
       else if (k === "ArrowLeft" || k === "PageUp") { e.preventDefault(); e.stopImmediatePropagation(); go(step - 1); }
       else if (k === "Escape" || k.toLowerCase() === "s") { e.preventDefault(); e.stopImmediatePropagation(); end(); }
+      else if (k.toLowerCase() === "m") { e.preventDefault(); e.stopImmediatePropagation(); toggleSound(); }
     };
     const onWheel = (e) => { e.preventDefault(); e.stopImmediatePropagation(); end(); };
     const onTouch = (e) => { e.stopImmediatePropagation(); end(); };
-    const onDown = (e) => { e.stopImmediatePropagation(); end(); };
+    const onDown = (e) => {
+      if (e.target.closest && e.target.closest("[data-sound]")) return;
+      if (e.target.closest && e.target.closest("[data-skipintro]")) { e.stopImmediatePropagation(); return end(); }
+      e.stopImmediatePropagation();
+      if (wanted && !soundOn) { startSound(); return; } // the first click switches the sound on; it does not skip
+      end();
+    };
+    // Touch screens only grant audio on the lift of the finger, so try again there.
+    const onUp = () => { if (wanted && !soundOn) startSound(); };
     const tilt = (e) => {
       if (ended) return;
       const k = step > 0 ? 0.2 : 1;
@@ -300,10 +618,11 @@ const colors = ["#ff2e63", "#1b998b", "#ffb703", "#3a86ff", "#8338ec"];
     addEventListener("wheel", onWheel, { capture: true, passive: false });
     addEventListener("touchmove", onTouch, { capture: true, passive: true });
     root.addEventListener("pointerdown", onDown);
+    root.addEventListener("pointerup", onUp);
     addEventListener("pointermove", tilt, { passive: true });
     function detach() {
       removeEventListener("keydown", onKey, true); removeEventListener("wheel", onWheel, true); removeEventListener("touchmove", onTouch, true);
-      root.removeEventListener("pointerdown", onDown); removeEventListener("pointermove", tilt);
+      root.removeEventListener("pointerdown", onDown); root.removeEventListener("pointerup", onUp); removeEventListener("pointermove", tilt);
     }
 
     (async () => {
@@ -311,7 +630,8 @@ const colors = ["#ff2e63", "#1b998b", "#ffb703", "#3a86ff", "#8338ec"];
       // `&page=7` opens straight at a spread (design review only).
       const first = Math.max(0, Math.min(N, Number(new URLSearchParams(location.search).get("page")) || 0));
       requestAnimationFrame(() => { stage.classList.add("is-in"); bars.classList.add("is-in"); go(first); });
-      setTimeout(() => skipBtn.classList.add("is-on"), 1200);
+      try { if (wanted && navigator.getAutoplayPolicy && navigator.getAutoplayPolicy("audiocontext") === "allowed") startSound(); } catch {}
+      setTimeout(() => { skipBtn.classList.add("is-on"); soundBtn.classList.add("is-on"); }, 1200);
     })();
   };
 </script>
