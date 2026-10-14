@@ -48,7 +48,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
   <header class="sticky top-0 z-40 bg-[#fff8e7]/90 backdrop-blur border-b-4 border-[#111]">
     <div class="max-w-6xl mx-auto px-5 sm:px-8 py-3 flex items-center justify-between gap-3 sm:gap-6">
       <a href="#main" class="bang text-2xl shrink-0 masthead" aria-label="MK Comics, back to the cover"><span class="pow" aria-hidden="true">POW!</span>{"MK".split("").map((l, i) => <span class="ml" style={`--i:${i}`}>{l}</span>)}<span class="ml-gap"></span>{"COMICS".split("").map((l, i) => <span class="ml ml-pink" style={`--i:${i + 2}`}>{l}</span>)}</a>
-      <nav class="flex items-center gap-3 lg:gap-5 text-lg" aria-label="Sections">
+      <nav class="flex items-center gap-3 lg:gap-6 text-lg" aria-label="Sections">
         <details class="menu" data-chapter-menu>
           <summary class="menu-btn" aria-label="Jump to a chapter"><span data-chapter-label>Chapters</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
           <div class="menu-list">
@@ -61,6 +61,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
             </div>
           </div>
         </details>
+        <i class="nav-rule" aria-hidden="true"></i>
         {extras.map((e) => <a href={`#${e.id}`} data-label={e.t} class="navlink hidden lg:inline">{e.t}</a>)}
         <a href="/blog" class="navlink hidden lg:inline">Blog</a>
       </nav>
