@@ -1,7 +1,6 @@
 {
   "name": "Movie Lovers",
   "period": "2020-11",
-  "description": "Netflix-style catalogue focused on Marvel and DC titles.",
   "bullets": [
     "Custom splash screen, cached artwork, and toast-driven feedback.",
     "Each detail page surfaces runtime, synopsis, director, and trailers via WebView.",
