@@ -11,6 +11,7 @@ import PowerUps from "../components/final/PowerUps.astro";
 import Getaway from "../components/final/Getaway.astro";
 import Lineup from "../components/final/Lineup.astro";
 import CaseBoard from "../components/final/CaseBoard.astro";
+import HeroFigure from "../components/final/HeroFigure.astro";
 import portrait from "../assets/portrait.jpg";
 import avatar from "../assets/avatar.jpg";
 import resumePage from "../assets/resume-p1.png";
@@ -107,14 +108,30 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
 
   <main id="main" class="max-w-6xl mx-auto px-5 sm:px-8 pt-10 pb-28">
     <!-- COVER -->
-    <section class="panel p-6 sm:p-10 grid gap-8 md:grid-cols-[auto_1fr] items-center" aria-label="Cover" data-cover>
-      <div class="relative"><Image src={portrait} alt={`Portrait of ${site.name}`} width={520} height={520} widths={[224, 448]} sizes="(min-width: 640px) 288px, 256px" loading="eager" fetchpriority="high" class="w-64 sm:w-72 border-4 border-[#111] object-cover shadow-[6px_6px_0_#111]" /><span class="burst absolute -right-8 -top-8 bg-[#ffb703] size-28 grid place-items-center bang text-xl text-center leading-none rotate-12">2026<br />EDITION</span></div>
-      <div>
-        <p class="caption">Issue #1 · Chennai, India · {site.pronouns}</p>
-        <h1 class="mt-4 text-[clamp(3rem,8vw,7rem)] leading-[0.9] text-[#ff2e63]" style="-webkit-text-stroke: 2px #111">The Full-Stack<br />+ AI Chronicles</h1>
-        <p class="mt-5 text-xl sm:text-2xl max-w-[48ch]">Starring <strong class="whitespace-nowrap">{site.name}</strong> <Pronounce class="caption cursor-pointer" />, Senior Software Engineer at Galent, <span class="whitespace-nowrap" data-experience title={`Since ${careerStartLabel}`}>{exp.long}</span> into the IT sector. {me.oneLiner}</p>
-        <div class="mt-6 flex flex-wrap items-center gap-3"><a href={mailto("A role")} class="btn">Email me ▸</a><button type="button" class="btn alt" data-resume-open>Read the resume ▸</button><a href={site.linkedin} rel="noopener" target="_blank" class="btn alt">LinkedIn ▸</a><a href={site.whatsapp} rel="noopener" target="_blank" class="btn alt">WhatsApp ▸</a></div>
+    <section class="panel p-6 sm:p-10 cover" aria-label="Cover" data-cover>
+      <div class="cover-issue" aria-hidden="true"><span>No. 1</span><span>First printing · 2026</span></div>
+      <div class="cover-grid">
+        <div>
+          <button type="button" class="cover-swap" aria-pressed="false" aria-label="Show the real portrait">
+            <span class="cover-photo"><Image src={portrait} alt={`Portrait of ${site.name}`} width={520} height={520} widths={[224, 448]} sizes="(min-width: 640px) 288px, 256px" loading="eager" fetchpriority="high" /></span>
+            <span class="cover-hero" aria-hidden="true"><HeroFigure pose="stand" id="cover1" /></span>
+            <span class="cover-fx bang" aria-hidden="true">THE REAL ONE!</span>
+            <span class="burst cover-burst bang" aria-hidden="true">2026<br />EDITION</span>
+          </button>
+          <p class="cover-hint">Hover or tap for the real one.</p>
+        </div>
+        <div>
+          <p class="caption">Issue #1 · Chennai, India · {site.pronouns}</p>
+          <h1 class="mt-4 text-[clamp(3rem,8vw,7rem)] leading-[0.9] text-[#ff2e63]" style="-webkit-text-stroke: 2px #111">The Full-Stack<br />+ AI Chronicles</h1>
+          <p class="mt-5 text-xl sm:text-2xl max-w-[48ch]">Starring <strong class="whitespace-nowrap">{site.name}</strong> <Pronounce class="caption cursor-pointer" />, Senior Software Engineer at Galent, <span class="whitespace-nowrap" data-experience title={`Since ${careerStartLabel}`}>{exp.long}</span> into the IT sector. {me.oneLiner}</p>
+          <div class="mt-6 flex flex-wrap items-center gap-3"><a href={mailto("A role")} class="btn">Email me ▸</a><button type="button" class="btn alt" data-resume-open>Read the resume ▸</button><a href={site.linkedin} rel="noopener" target="_blank" class="btn alt">LinkedIn ▸</a><a href={site.whatsapp} rel="noopener" target="_blank" class="btn alt">WhatsApp ▸</a></div>
+        </div>
       </div>
+      <ul class="cover-teaser" aria-label="In this issue">
+        <li>In this issue</li>
+        <li><a href="#migration">1 · The Great Migration</a></li><li><a href="#cases">2 · Case files</a></li><li><a href="#witnesses">3 · Nine witnesses</a></li><li><a href="#origin">4 · Origin story</a></li><li><a href="#contact">Back cover</a></li>
+        <li class="cover-bar" aria-hidden="true"></li>
+      </ul>
     </section>
 
     <!-- NUMBERS -->
@@ -320,6 +337,9 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     document.querySelectorAll("[data-experience]").forEach((el) => { if (el.textContent !== t) el.textContent = t; });
   </script>
   <script>
+    // The cover portrait: the hero at rest, the real photo on hover or press.
+    const swap = document.querySelector<HTMLButtonElement>(".cover-swap");
+    swap?.addEventListener("click", () => swap.setAttribute("aria-pressed", String(swap.getAttribute("aria-pressed") !== "true")));
     // Sections below the fold size themselves lazily (content-visibility), so a hash landing can settle a little off;
     // re-align once everything has loaded.
     addEventListener("load", () => { const t = location.hash && document.querySelector<HTMLElement>(location.hash); if (t) setTimeout(() => t.scrollIntoView(), 60); }, { once: true });
