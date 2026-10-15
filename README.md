@@ -1,45 +1,77 @@
-# Mohammed Mubarak — portfolio
+# MK Comics — Mubarak Shajahan's portfolio
 
-Dark, cinematic single-page portfolio built with Astro 7, Tailwind CSS v4, Lenis and GSAP. Content lives in
-`src/content/` (records, witnesses, experience, projects) and `src/data/` (stack, GitHub snapshot) so copy can
-be edited without touching components.
+A senior software engineer's career, told as a comic book. Live at **https://mk-comics.vercel.app**.
+
+The site is one long issue: a cover, four chapters (the Great Migration, eight case files, nine witnesses on record,
+the origin story), a collector's insert for the resume, power-ups, back issues, the weekly strip, and a back cover.
+Every number on it is real and every quote is verbatim.
+
+## What is in the issue
+
+- **The intro.** A 34-second motion comic on desktop: a closed book that opens on click, seven spreads with camera
+  moves and a paper page curl, a dive and an ink reveal. Recorded trailer score and sound effects placed on their
+  visual peaks, a synth score as the fallback. Once per session, `?loader=s` replays it, Esc or scroll skips it.
+- **Build your hero.** The nine tool groups are nine outfits on a comic figure with the real head cut out as a
+  sticker: a word balloon, a shield, a wrench and belt, a data pack, a cape, a visor, a headset, a cable, a hardhat.
+  Tabs, arrow buttons and arrow keys change the gear.
+- **The getaway.** On the back cover the ways to reach me are balloons drifting over a ledge. The hero runs after the
+  pointer and his arm stretches for the far ones. Catch one and it pops, the link opens. Leave them too long and they
+  leak out of the top; `R` brings them back. A plain list of channels sits below for keyboards and readers.
+- **The weekly strip.** A blog about what shipped in AI and what to build with it, primary sources only, with topic
+  pages, an RSS feed and generated Open Graph images.
+- **Case files and witnesses.** Each piece of work carries its context, the decision and what it changed, with the
+  people who vouched for it on record, quoted word for word.
+
+## Stack
+
+Astro 7, Tailwind CSS v4, GSAP and Lenis, content collections, deployed on Vercel from `main`. Fonts are Bangers and
+Patrick Hand with metric-matched fallbacks. No framework on the client: the interactive parts are small inline scripts.
+
+Performance is a feature: 100 on PageSpeed for mobile and desktop in every category with the intro live, held by inlined
+styles, `content-visibility` below the fold, an SVG path for the Tamil name, a served SVG for the GitHub calendar, and
+analytics that boot on the first interaction. The write-ups are on the blog.
 
 ## Develop
 
 ```bash
 npm install
 npm run dev        # http://localhost:4321
-npm run build      # static output in dist/ (+ .vercel/output)
+npm run build      # static output in .vercel/output
 npx astro check    # types and content schemas
 ```
 
-## Edit content
+Sound and the intro need a real browser; the intro skips phones and `prefers-reduced-motion`.
 
-- `src/content/records/*.md` — the six pieces of work. Each file's front matter holds `title`, `index`
-  (short title for the rows), `context`, `options`, `decision`, `consequences`, `reviewedBy`. They are marked
-  `confirmed: false` until you check the drafted options.
-- `src/content/witnesses/*.json` — the nine testimonials, verbatim. `pull` is the line shown inside a work row.
-- `src/content/experience/*.json`, `src/content/projects/*.json`, `src/data/stack.json`.
-- `src/lib/site.ts` — name, role, contact links, greetings for the preloader.
-- `src/assets/portrait.png` — replace with a high-resolution portrait (at least 1200px tall, 4:5 crop works best).
+## Edit the content
+
+- `src/content/records/*.md` — the case files: `context`, `decision`, `consequences`, `reviewedBy`, `tags`.
+- `src/content/witnesses/*.json` — the testimonials, verbatim; `pull` is the line that gets highlighted.
+- `src/content/experience/*.json`, `src/content/projects/*.json` — the origin story and back issues.
+- `src/content/posts/*.md` — the weekly strip. `python3 scripts/check-posts.py` validates a post against the schema
+  and the editorial brief in `docs/blog-agent-brief.md`.
+- `src/data/stack.json` — the power-ups, grouped. `src/lib/site.ts` — name, role, links, numbers.
+- `src/assets/portrait.jpg` and `src/assets/head.png` — the cover portrait and the cut-out head on the hero.
+- `public/resume/` — the PDF; `npm run resume:thumb` regenerates its preview image.
 
 The GitHub calendar is fetched from the public contributions page at build time and falls back to
 `src/data/contributions.json`. No token is needed.
 
-## Deploy to the existing Vercel project
+## Audio
 
-1. Create an empty GitHub repository (for example `portfolio`), then from this folder:
-   ```bash
-   git remote add origin git@github.com:MDmubarak786/portfolio.git
-   git push -u origin main
-   ```
-2. In Vercel, open the project that serves `mk-full-stack-developer.vercel.app` → Settings → Git →
-   connect it to the new repository (or import the repo and move the domain). Framework preset: Astro.
-   Build command `npm run build`, output is handled by `@astrojs/vercel`. No environment variables required.
-3. Every push to `main` deploys. The old site is replaced on the first production deploy; the game stays
-   reachable at `/police-thief`.
+Music is a Pixabay Content License cue cut by `scripts/prepare-music.py`; the effects are Mixkit, trimmed, normalised
+and encoded by `scripts/prepare-sfx.py`. Both scripts record the sources they used. Sound is off until the first click,
+the choice is remembered, and `M` toggles it during the intro.
 
-## Design record
+## Layout of the repo
 
-`PRODUCT.md` is the product truth, `.impeccable/surfaces/src-pages-index-astro.md` the direction contract,
-`DESIGN.md` the shipped visual system, `docs/` the research, and `tasks/` the plan.
+```
+src/pages            index, blog (pages, topics, OG images), rss.xml, calendar.svg, og.png
+src/components/final the comic: loaders/Story (intro), HeroFigure, PowerUps, Getaway, Calendar, Pronounce, …
+src/layouts          FinalShell (head, fonts, analytics)
+src/lib              site facts, story copy, calendar, GitHub snapshot
+src/styles/comic.css the comic's own styles; Tailwind handles layout
+scripts              content checks, audio preparation, the Tamil name path, the resume thumbnail
+docs                 blog plan, calendar and agent brief; design research
+```
+
+`PRODUCT.md`, `DESIGN.md` and `.impeccable/` hold the product truth and the design record.
