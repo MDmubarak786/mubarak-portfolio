@@ -1,0 +1,130 @@
+---
+/** The evidence board: the eight case files pinned to a board as manila folders, one open at a time. The open file's
+ *  dossier lies flat under the folders (context, decision, consequences, witnesses, tags) with a CASE CLOSED stamp,
+ *  and pink string runs from the folder's pin to the dossier's pins. The hero stands beside the board as the
+ *  detective. Folders are a tablist (click, ←/→, Home/End); links to #file-<id> (the numbers on the cover) open that
+ *  file. Entrances run only on a change, so the first paint sits at rest. */
+import type { CollectionEntry } from "astro:content";
+import HeroFigure from "./HeroFigure.astro";
+interface Props { records: CollectionEntry<"records">[]; witnesses: CollectionEntry<"witnesses">[][]; colors: string[]; onColor: string[] }
+const { records, witnesses, colors, onColor } = Astro.props;
+const pad = (n: number) => String(n).padStart(2, "0");
+// What the detective says when a file opens, in board order.
+const reactions = ["AHA!", "NOTED", "GOT IT", "100%!", "LIVE!", "TEAM OF 4", "95%!", "CASE CLOSED"];
+---
+<div class="panel board p-5 pt-8 sm:p-8 sm:pt-9" data-board data-reactions={JSON.stringify(reactions)}>
+  <span class="filetab">The evidence board</span>
+  <div class="board-grid">
+    <div class="board-hero" aria-hidden="true">
+      <HeroFigure pose="reach" id="detective" />
+      <svg class="board-glass" viewBox="0 0 80 80" fill="none" stroke="#111" stroke-width="5" stroke-linecap="round"><circle cx="30" cy="30" r="22" fill="#fff" /><circle cx="30" cy="30" r="22" fill="#3a86ff" fill-opacity=".25" stroke="none" /><path d="M46 46 L72 72" stroke-width="9" /><path d="M46 46 L72 72" stroke="#ffb703" stroke-width="4" /><path d="M20 22 q6 -8 14 -6" stroke="#fff" stroke-width="4" /></svg>
+      <span class="react-fx board-fx" data-react></span>
+    </div>
+    <div class="board-wall">
+      <p class="caption board-cap">Eight files on the board. Open one for the context, the decision and what it changed.</p>
+      <div class="folders" role="tablist" aria-label="Case files">
+        {records.map((r, i) => {
+          const headline = r.data.consequences.find((c) => c.emphasis)?.value ?? "";
+          return (
+            <button type="button" role="tab" id={`file-${r.id}`} aria-controls={`dossier-${i}`} aria-selected={i === 0 ? "true" : "false"} tabindex={i === 0 ? 0 : -1} class="folder" style={`--c:${colors[i % 5]};--ink:${onColor[i % 5]};--tilt:${[-1.5, 1, -0.5, 1.5, -1, 0.5, -1.5, 1][i % 8]}deg`}>
+              <span class="pin" aria-hidden="true"></span>
+              <span class="folder-tab">File {pad(i + 1)}</span>
+              <span class="folder-meta">{r.data.organisation} · {r.data.date}</span>
+              <span class="folder-title">{r.data.index}</span>
+              <span class="folder-head"><span class:list={["hl", headline.length > 24 ? "font-bold text-sm" : "bang text-xl"]} style={`background:${colors[i % 5]}; color:${onColor[i % 5]}`}>{headline}</span></span>
+              <span class="folder-open bang" aria-hidden="true">Open ▸</span>
+            </button>
+          );
+        })}
+      </div>
+      <svg class="string" aria-hidden="true"><path data-string-a /><path data-string-b /></svg>
+      {records.map((r, i) => {
+        const ws = witnesses[i];
+        return (
+          <article role="tabpanel" id={`dossier-${i}`} aria-labelledby={`file-${r.id}`} hidden={i !== 0} class="dossier">
+            <span class="pin pin-l" aria-hidden="true"></span><span class="pin pin-r" aria-hidden="true"></span>
+            <span class="stamp-closed" aria-hidden="true">Case closed</span>
+            <p class="text-sm">{r.data.organisation} · {r.data.date} · {r.data.role}</p>
+            <h3 class="text-3xl mt-1 pr-32 sm:pr-40">{r.data.title}</h3>
+            <p class="mt-2 text-lg">{r.data.summary}</p>
+            <div class="mt-5 border-t-4 border-dashed border-[#111] pt-5 space-y-4">
+              <p><strong class="bang text-xl mr-1">Context.</strong> {r.data.context}</p>
+              <p><strong class="bang text-xl mr-1">Decision.</strong> {r.data.decision}</p>
+              <ul class="grid sm:grid-cols-2 gap-3">{r.data.consequences.map((c) => <li class="tile !p-3"><span class:list={["block", c.value.length > 24 ? "font-bold" : "bang text-2xl"]}>{c.value}</span><span class="text-sm">{c.label}</span></li>)}</ul>
+              {ws.length > 0 && <p class="flex flex-wrap items-center gap-2"><strong class="bang text-xl">Witnesses:</strong>{ws.map((w) => <a href={`#witness-${w.id}`} class="tag !bg-white hover:!bg-[#fff3b0]">{w.data.name}</a>)}</p>}
+              <ul class="flex flex-wrap gap-2" aria-label="Tags">{r.data.tags.map((t) => <li class="tag">{t}</li>)}</ul>
+            </div>
+          </article>
+        );
+      })}
+      <p class="board-hint text-sm text-[#555]"><span class="board-keys"><kbd>←</kbd> <kbd>→</kbd> move between files.</span><span class="board-tap">Tap a folder to open it.</span></p>
+    </div>
+  </div>
+</div>
+<script>
+  const root = document.querySelector<HTMLElement>("[data-board]");
+  if (root) {
+    const tabs = [...root.querySelectorAll<HTMLButtonElement>("[role=tab]")];
+    const panels = [...root.querySelectorAll<HTMLElement>("[role=tabpanel]")];
+    const wall = root.querySelector<HTMLElement>(".board-wall")!;
+    const hero = root.querySelector<HTMLElement>(".board-hero")!;
+    const react = root.querySelector<HTMLElement>("[data-react]")!;
+    const strA = root.querySelector<SVGPathElement>("[data-string-a]")!, strB = root.querySelector<SVGPathElement>("[data-string-b]")!;
+    const reactions: string[] = JSON.parse(root.dataset.reactions ?? "[]");
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let stamp: HTMLAudioElement | null = null;
+    const sound = () => {
+      try { if (localStorage.getItem("mk-sound") === "off") return; } catch {}
+      stamp ??= new Audio("/sfx/stamp.m4a"); stamp.currentTime = 0; stamp.volume = 0.45; stamp.play().catch(() => {});
+    };
+    const restart = (el: HTMLElement, cls: string) => { el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); };
+    let cur = 0;
+    // String from the open folder's pin to the dossier's two pins, in the wall's own coordinates.
+    const thread = () => {
+      const w = wall.getBoundingClientRect();
+      const pin = tabs[cur].querySelector(".pin")!.getBoundingClientRect();
+      const l = panels[cur].querySelector(".pin-l")!.getBoundingClientRect(), r = panels[cur].querySelector(".pin-r")!.getBoundingClientRect();
+      const x = pin.left + pin.width / 2 - w.left, y = pin.top + pin.height / 2 - w.top;
+      const seg = (p: DOMRect) => { const px = p.left + p.width / 2 - w.left, py = p.top + p.height / 2 - w.top; const sag = 22 + Math.abs(px - x) * 0.08; return `M${x} ${y} Q${(x + px) / 2} ${Math.max(y, py) + sag} ${px} ${py}`; };
+      strA.setAttribute("d", seg(l)); strB.setAttribute("d", seg(r));
+    };
+    const show = (i: number, focus = false, byHand: boolean | null = true) => {
+      i = (i + tabs.length) % tabs.length;
+      if (i === cur && byHand !== null && !focus) return;
+      cur = i;
+      tabs.forEach((t, k) => { t.setAttribute("aria-selected", String(k === i)); t.tabIndex = k === i ? 0 : -1; });
+      panels.forEach((p, k) => { p.hidden = k !== i; });
+      thread();
+      if (!reduce && byHand !== null) {
+        restart(panels[i], "in");
+        react.textContent = reactions[i % reactions.length] ?? "";
+        restart(react, "show");
+        if (byHand) restart(hero, "jump");
+      }
+      if (byHand) sound();
+      if (focus) tabs[i].focus();
+    };
+    tabs.forEach((t, i) => t.addEventListener("click", () => show(i)));
+    root.querySelector("[role=tablist]")!.addEventListener("keydown", (e: KeyboardEvent) => {
+      const k = e.key;
+      const to = k === "ArrowRight" ? cur + 1 : k === "ArrowLeft" ? cur - 1 : k === "Home" ? 0 : k === "End" ? tabs.length - 1 : null;
+      if (to === null) return;
+      e.preventDefault(); show(to, true);
+    });
+    // The cover's numbers link to #file-<id>. comic-motion.ts smooth-scrolls in-page links itself and swallows the
+    // hash, so clicks are picked up here; a shared URL arrives through the hash.
+    const byId = (id: string) => tabs.findIndex((t) => t.id === id);
+    const fromHash = () => { const i = byId(location.hash.slice(1)); if (i >= 0) show(i, false, false); };
+    addEventListener("hashchange", fromHash);
+    document.addEventListener("click", (e) => {
+      const a = (e.target as Element | null)?.closest?.<HTMLAnchorElement>('a[href^="#file-"]');
+      const i = a ? byId(a.getAttribute("href")!.slice(1)) : -1;
+      if (i >= 0) show(i, false, false);
+    });
+    addEventListener("resize", thread);
+    // The chapter is skipped (content-visibility) until it nears the viewport; the string is measured again on arrival.
+    new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) thread(); }), { threshold: 0.1 }).observe(root);
+    show(0, false, null);
+    fromHash();
+  }
+</script>

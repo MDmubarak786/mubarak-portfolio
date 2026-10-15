@@ -90,11 +90,6 @@ main h2[id] { scroll-margin-top: 6rem; }
 .tag { border:2px solid #111; background:#fff3b0; padding:.1rem .55rem; font-size:.95rem; }
 @media (max-width: 640px) { .origin-item { padding-left: 0; padding-top: 3.8rem; } .spine { width: 100%; height: 3.2rem; bottom:auto; align-items:flex-start; } .spine::before { display:none; } }
 .filetab { position:absolute; top:-16px; left:16px; background:#111; color:#fff; font-family: var(--font-bangers); letter-spacing:.06em; padding:.2rem .7rem; border:3px solid #111; }
-.file { transition: box-shadow .15s, transform .15s; }
-.file:hover { box-shadow: 10px 10px 0 #ff2e63; }
-.file summary::-webkit-details-marker { display:none; }
-.file .close-cta, .file details[open] .open-cta { display:none; }
-.file details[open] .close-cta { display:inline-block; }
 .cover { position:relative; border:3px solid #111; background:#fff; box-shadow: 5px 5px 0 #111; overflow:hidden; transition: transform .15s, box-shadow .15s; }
 .issue a:hover .cover { transform: translate(-2px,-2px); box-shadow: 7px 7px 0 #ff2e63; }
 .issue-no { position:absolute; top:8px; left:8px; background:#fff3b0; border:2px solid #111; font-family: var(--font-bangers); font-size:.85rem; padding:.05rem .45rem; letter-spacing:.04em; }
@@ -190,6 +185,63 @@ kbd { font: inherit; border:2px solid #111; padding:0 .35em; background:#fff; bo
 .gone { position:absolute; inset:0; z-index:5; display:grid; place-items:center; padding:1rem; }
 .gone[hidden] { display:none; }
 
+/* The hero's reaction sticker (shared by the board). */
+.react-fx { position:absolute; top:-.4rem; right:-.6rem; font-family: var(--font-bangers); font-size:1.45rem; letter-spacing:.03em; line-height:1; color:#ffb703; -webkit-text-stroke:1px #111; text-shadow:2px 2px 0 #111; white-space:nowrap; opacity:0; pointer-events:none; transform: rotate(-8deg); }
+@media (min-width: 768px) { .react-fx { font-size:1.8rem; } }
+.react-fx.show { animation: react-in 2.2s cubic-bezier(.2,.9,.3,1.4) both; }
+@keyframes react-in { 0% { opacity:0; transform: scale(0) rotate(-30deg) } 12% { opacity:1; transform: scale(1.25) rotate(-6deg) } 24% { transform: scale(1) rotate(-8deg) } 80% { opacity:1; transform: scale(1) rotate(-8deg) } 100% { opacity:0; transform: scale(1.1) rotate(-8deg) } }
+/* ── The evidence board (Chapter 2) ── */
+.board-grid { display:grid; gap:0; grid-template-columns: minmax(0,1fr); grid-template-areas: "wall" "hero"; align-items:start; }
+@media (min-width: 768px) { .board-grid { grid-template-columns: 170px minmax(0,1fr); grid-template-areas: "hero wall"; gap: 1.5rem 1.75rem; } }
+@media (min-width: 1024px) { .board-grid { grid-template-columns: 220px minmax(0,1fr); } }
+/* Phones: the detective tucks in under the board's lower-right corner. From 768px he stands beside it and follows the scroll. */
+.board-hero { grid-area:hero; position:relative; justify-self:end; width:120px; margin:-2.2rem .4rem 0 0; }
+@media (min-width: 768px) { .board-hero { position:sticky; top:5.5rem; align-self:start; justify-self:center; width:100%; margin:0; } }
+.board-hero .hero-figure { max-height: 480px; }
+.board-hero.jump .hero-figure { animation: hero-jump .55s cubic-bezier(.2,.9,.3,1.3); }
+/* The magnifying glass sits in the raised right hand (viewBox hand at 258,26 of 320×550). */
+.board-glass { position:absolute; left:74%; top:4%; width:30%; height:auto; transform: rotate(18deg); transform-origin: 30% 30%; }
+.board-fx { left:-1rem; right:auto; top:18%; transform: rotate(-8deg); }
+@media (min-width: 768px) { .board-fx { left:-1.4rem; top:14%; } }
+.board-wall { grid-area:wall; position:relative; min-width:0; padding:1rem .9rem 1.1rem; border:4px solid #111; background:#fff8e7 radial-gradient(#111 .9px, transparent 1px) 0 0/9px 9px; box-shadow: inset 0 0 0 6px #fff, inset 0 0 0 9px #111; }
+@media (min-width: 640px) { .board-wall { padding:1.4rem 1.3rem 1.3rem; } }
+.board-cap { margin-bottom:1.1rem; }
+.folders { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:1.1rem .8rem; position:relative; z-index:1; }
+@media (min-width: 640px) { .folders { grid-template-columns: repeat(4, minmax(0,1fr)); gap:1.4rem 1rem; } }
+.folder { position:relative; display:flex; flex-direction:column; align-items:flex-start; gap:.15rem; text-align:left; padding:1.1rem .7rem .6rem; margin-top:.9rem; background:#fff3b0; border:3px solid #111; box-shadow: 4px 4px 0 #111; cursor:pointer; color:#111; font: inherit; transform: rotate(var(--tilt, 0deg)); transition: transform .22s cubic-bezier(.2,.9,.3,1.3), box-shadow .22s, background .22s; }
+.folder::before { content:""; position:absolute; left:-3px; top:-.95rem; width:46%; height:1rem; background:#fff3b0; border:3px solid #111; border-bottom:0; }
+.folder:hover { transform: rotate(var(--tilt, 0deg)) translateY(-4px); box-shadow: 6px 6px 0 #ff2e63; }
+.folder:focus-visible { outline:4px solid #ff2e63; outline-offset:4px; }
+.folder[aria-selected="true"] { background:#fff; transform: rotate(0deg) translateY(-6px); box-shadow: 7px 7px 0 #ff2e63; z-index:1; }
+.folder[aria-selected="true"]::before { background:#fff; }
+.pin { position:absolute; width:16px; height:16px; border-radius:50%; border:3px solid #111; background:var(--c, #ff2e63); box-shadow:2px 2px 0 #111; z-index:2; }
+.folder .pin { left:50%; top:-.95rem; margin-left:-8px; margin-top:-8px; }
+.folder-tab { position:absolute; left:.35rem; top:-.85rem; font-family: var(--font-bangers); font-size:.8rem; letter-spacing:.08em; }
+.folder-meta { font-size:.8rem; color:#555; line-height:1.2; }
+.folder-title { font-family: var(--font-bangers); font-size:1.25rem; line-height:1.05; letter-spacing:.02em; margin-top:.1rem; }
+.folder-head { margin-top:.45rem; }
+.folder-head .hl { font-size:.95rem; line-height:1.3; padding:.04em .3em; }
+.folder-head .bang { font-size:1.2rem; }
+.folder-open { margin-top:.5rem; font-size:.95rem; letter-spacing:.05em; color:#b5123b; }
+.folder[aria-selected="true"] .folder-open { color:#111; }
+.folder[aria-selected="true"] .folder-open::after { content:" (open)"; font-family: var(--font-patrick); letter-spacing:0; color:#555; }
+.string { position:absolute; inset:0; width:100%; height:100%; overflow:visible; pointer-events:none; z-index:0; fill:none; stroke:#ff2e63; stroke-width:3; stroke-linecap:round; }
+.string path { stroke-dasharray: 2000; }
+.dossier { position:relative; margin-top:1.8rem; padding:1.6rem 1.2rem 1.3rem; background:#fff; border:4px solid #111; box-shadow: 8px 8px 0 #111; z-index:1; }
+@media (min-width: 640px) { .dossier { padding:1.8rem 1.6rem 1.5rem; margin-top:2.2rem; } }
+.dossier[hidden] { display:none; }
+.dossier .pin-l { left:1.2rem; top:-8px; } .dossier .pin-r { right:1.2rem; top:-8px; }
+.dossier.in { animation: dossier-in .4s cubic-bezier(.2,.9,.3,1.2) both; }
+@keyframes dossier-in { from { opacity:0; transform: translateY(14px) } }
+.stamp-closed { position:absolute; right:1rem; top:1rem; padding:.15rem .6rem; border:3px solid #b5123b; color:#b5123b; background:transparent; font-family: var(--font-bangers); font-size:1.1rem; letter-spacing:.14em; text-transform:uppercase; line-height:1.2; transform: rotate(-9deg); white-space:nowrap; }
+@media (min-width: 640px) { .stamp-closed { font-size:1.35rem; right:1.4rem; top:1.2rem; } }
+.dossier.in .stamp-closed { animation: stamp-in .45s cubic-bezier(.2,.9,.3,1.5) .12s both; }
+@keyframes stamp-in { 0% { opacity:0; transform: scale(2.4) rotate(-9deg) } 60% { opacity:1; transform: scale(.94) rotate(-9deg) } 100% { transform: scale(1) rotate(-9deg) } }
+.board-hint { margin-top:1rem; }
+.board-tap { display:none; }
+@media (pointer: coarse) { .board-keys { display:none; } .board-tap { display:inline; } }
+/* Below 640px the folders carry only the tab, the title and the headline. */
+@media (max-width: 639px) { .folder-meta, .folder-open { display:none; } .folder-title { font-size:1.1rem; } .folder { padding:.9rem .55rem .6rem; } }
 /* ── The line-up (Chapter 3) ── */
 .lu-intro { margin-top: 1.4rem; }
 .lu-wall { position:relative; display:flex; align-items:flex-end; gap:.4rem; margin-top:1.6rem; padding:2.2rem .9rem 0; border-bottom:8px solid #111; overflow-x:auto; scrollbar-width:thin; scrollbar-color:#111 #fff3b0; background-image: repeating-linear-gradient(180deg, transparent 0 34px, #111 34px 37px); background-size:100% 37px; background-position:0 6px; }
@@ -213,4 +265,4 @@ kbd { font: inherit; border:2px solid #111; padding:0 .35em; background:#fff; bo
 .lu-full summary:hover { color:#ff2e63; } .lu-full summary:focus-visible { outline:3px solid #ff2e63; outline-offset:2px; }
 .lu-full > div { margin-top:.5rem; font-size:1.05rem; line-height:1.5; display:grid; gap:.75rem; }
 .lu-hint { margin-top:1rem; font-size:.9rem; color:#555; }
-@media (prefers-reduced-motion: reduce) { .figure-wrap.jump .hero-figure, .gear-front > g.pop, .gear-back > g.pop, .pw-panel .sticker-sheet .tag, .catcher.grab .hero-figure, .catcher.run .hero-figure, .balloon.caught, .cloud { animation:none; } .catcher, .balloon::after, .lu-fig { transition:none; } }
+@media (prefers-reduced-motion: reduce) { .figure-wrap.jump .hero-figure, .gear-front > g.pop, .gear-back > g.pop, .pw-panel .sticker-sheet .tag, .catcher.grab .hero-figure, .catcher.run .hero-figure, .balloon.caught, .cloud, .react-fx.show, .board-hero.jump .hero-figure, .dossier.in, .dossier.in .stamp-closed { animation:none; } .catcher, .balloon::after, .lu-fig, .folder { transition:none; } }

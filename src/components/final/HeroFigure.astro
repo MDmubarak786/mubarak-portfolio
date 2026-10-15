@@ -3,11 +3,11 @@
  *  PowerUps.astro switches between (all hidden until one is chosen). The shirt colour is --shirt on the <svg>. */
 import { getImage } from "astro:assets";
 import headCut from "../../assets/head.png";
-interface Props { pose?: "stand" | "reach"; gear?: boolean; class?: string }
-const { pose = "stand", gear = false, class: cls = "" } = Astro.props;
+interface Props { pose?: "stand" | "reach"; gear?: boolean; class?: string; /** Overrides the id stem when two figures share a pose on one page. */ id?: string }
+const { pose = "stand", gear = false, class: cls = "", id } = Astro.props;
 const head = await getImage({ src: headCut, width: 300, format: "webp" });   // 828×1195 cut-out, keeps its alpha
 // Ids are per instance: two figures share one document, and a clipPath id must not collide.
-const uid = `hf-${pose}${gear ? "-gear" : ""}`;
+const uid = `hf-${id ?? pose}${gear ? "-gear" : ""}`;
 const ink = "#111", skin = "#b9743f";
 // Arms as polylines from the shoulder; the right arm is one group so a script can swing it from the shoulder.
 const arms = pose === "reach"

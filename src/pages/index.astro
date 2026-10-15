@@ -10,6 +10,7 @@ import ComicLoader from "../components/final/ComicLoader.astro";
 import PowerUps from "../components/final/PowerUps.astro";
 import Getaway from "../components/final/Getaway.astro";
 import Lineup from "../components/final/Lineup.astro";
+import CaseBoard from "../components/final/CaseBoard.astro";
 import portrait from "../assets/portrait.jpg";
 import avatar from "../assets/avatar.jpg";
 import resumePage from "../assets/resume-p1.png";
@@ -182,34 +183,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     <section id="cases" class="cv mt-16 scroll-mt-24" aria-labelledby="ch2">
       <h2 id="ch2" class="text-5xl sm:text-6xl">Chapter 2 · Case files</h2>
       <p class="mt-2 text-xl lede"><span>Eight cases. Open a file for the context, the decision and what it changed.</span></p>
-      <ol class="mt-8 grid gap-7 md:grid-cols-2 items-start">
-        {records.map((r, i) => {
-          const headline = r.data.consequences.find((c) => c.emphasis)?.value ?? "";
-          const ws = recordWitnesses[i];
-          return (
-            <li id={`file-${r.id}`} class="panel file p-6 pt-8 scroll-mt-24">
-              <span class="filetab">File {String(i + 1).padStart(2, "0")}</span>
-              <details class="group">
-                <summary class="cursor-pointer">
-                  <p class="text-sm">{r.data.organisation} · {r.data.date} · {r.data.tags[0]}</p>
-                  <h3 class="text-3xl mt-1">{r.data.index}</h3>
-                  <p class="mt-2 text-lg">{r.data.summary}</p>
-                  <p class="mt-3"><span class:list={["hl", headline.length > 24 ? "font-bold text-lg" : "bang text-3xl"]} style={`background:${colors[i % 5]}; color:${onColor[i % 5]}`}>{headline}</span></p>
-                  <span class="btn alt text-base py-1 mt-4 open-cta">Open the file ▸</span>
-                  <span class="btn alt text-base py-1 mt-4 close-cta">Close the file ▾</span>
-                </summary>
-                <div class="mt-5 border-t-4 border-dashed border-[#111] pt-5 space-y-4">
-                  <p><strong class="bang text-xl mr-1">Context.</strong> {r.data.context}</p>
-                  <p><strong class="bang text-xl mr-1">Decision.</strong> {r.data.decision}</p>
-                  <ul class="grid grid-cols-2 gap-3">{r.data.consequences.map((c) => <li class="tile !p-3"><span class:list={["block", c.value.length > 24 ? "font-bold" : "bang text-2xl"]}>{c.value}</span><span class="text-sm">{c.label}</span></li>)}</ul>
-                  {ws.length > 0 && <p class="flex flex-wrap items-center gap-2"><strong class="bang text-xl">Witnesses:</strong>{ws.map((w) => <a href={`#witness-${w.id}`} class="tag !bg-white hover:!bg-[#fff3b0]">{w.data.name}</a>)}</p>}
-                  <ul class="flex flex-wrap gap-2" aria-label="Tags">{r.data.tags.map((t) => <li class="tag">{t}</li>)}</ul>
-                </div>
-              </details>
-            </li>
-          );
-        })}
-      </ol>
+      <div class="mt-8"><CaseBoard records={records} witnesses={recordWitnesses} colors={colors} onColor={onColor} /></div>
     </section>
 
     <!-- WITNESSES -->
@@ -346,10 +320,6 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     document.querySelectorAll("[data-experience]").forEach((el) => { if (el.textContent !== t) el.textContent = t; });
   </script>
   <script>
-    const openFile = (hash: string) => { if (!hash.startsWith("#file-")) return; const d = document.querySelector<HTMLDetailsElement>(`${hash} details`); if (d) d.open = true; };
-    document.querySelectorAll<HTMLAnchorElement>("[data-open-file]").forEach((a) => a.addEventListener("click", () => openFile(a.getAttribute("href") ?? "")));
-    openFile(location.hash);
-    addEventListener("hashchange", () => openFile(location.hash));
     // Sections below the fold size themselves lazily (content-visibility), so a hash landing can settle a little off;
     // re-align once everything has loaded.
     addEventListener("load", () => { const t = location.hash && document.querySelector<HTMLElement>(location.hash); if (t) setTimeout(() => t.scrollIntoView(), 60); }, { once: true });
