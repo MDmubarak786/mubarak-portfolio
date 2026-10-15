@@ -9,7 +9,7 @@ import ComicArt from "../components/final/ComicArt.astro";
 import ComicLoader from "../components/final/ComicLoader.astro";
 import PowerUps from "../components/final/PowerUps.astro";
 import Getaway from "../components/final/Getaway.astro";
-import Witnesses from "../components/final/Witnesses.astro";
+import Lineup from "../components/final/Lineup.astro";
 import portrait from "../assets/portrait.jpg";
 import avatar from "../assets/avatar.jpg";
 import resumePage from "../assets/resume-p1.png";
@@ -216,7 +216,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     <section id="witnesses" class="cv mt-16 scroll-mt-24" aria-labelledby="ch3">
       <h2 id="ch3" class="text-5xl sm:text-6xl">Chapter 3 · Nine witnesses</h2>
       <p class="mt-2 text-xl lede"><span>Every word verbatim. Nothing paraphrased.</span></p>
-      <div class="mt-8"><Witnesses witnesses={witnesses} colors={colors} onColor={onColor} /></div>
+      <div class="mt-8"><Lineup witnesses={witnesses} colors={colors} onColor={onColor} /></div>
     </section>
 
     <!-- ORIGIN -->

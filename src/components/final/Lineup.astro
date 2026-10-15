@@ -1,0 +1,75 @@
+---
+/** The line-up: nine witnesses against a height-chart wall. Pick one and they step forward; their pulled line sits
+ *  large in a bubble under the wall with the full, verbatim statement one click below. The figures are a tablist
+ *  (click, ←/→, Home/End). Chosen by the user from three live variants on 2026-10-15 (over an autograph page and a
+ *  set of flip cards); the courtroom version it replaced lives on in Witnesses.astro. */
+import type { CollectionEntry } from "astro:content";
+interface Props { witnesses: CollectionEntry<"witnesses">[]; colors: string[]; onColor: string[] }
+const { witnesses, colors, onColor } = Astro.props;
+const N = witnesses.length;
+const initials = (name: string) => name.split(/\s+/).map((p) => p[0]).slice(0, 2).join("");
+/** Split a paragraph around the pulled line so it can be highlighted in context. */
+const mark = (para: string, pull: string) => { const k = pull ? para.indexOf(pull) : -1; return k < 0 ? [para] : [para.slice(0, k), pull, para.slice(k + pull.length)]; };
+---
+<div class="panel p-5 pt-8 sm:p-8 sm:pt-9" data-lineup>
+  <span class="filetab">The line-up</span>
+  <p class="caption lu-intro">Nine people who worked with me, against the wall. Pick one and they step forward.</p>
+  <div class="lu-wall" role="tablist" aria-label="Witnesses">
+    {witnesses.map((w, i) => (
+      <button type="button" role="tab" id={`witness-${w.id}`} aria-controls={`lu-${i}`} aria-selected={i === 0 ? "true" : "false"} tabindex={i === 0 ? 0 : -1} class="lu-fig" style={`--c:${colors[i % 5]};--ink:${onColor[i % 5]}`}>
+        <span class="lu-head" aria-hidden="true">{initials(w.data.name)}</span>
+        <svg class="lu-body" viewBox="0 0 80 72" aria-hidden="true" fill="none" stroke="#111" stroke-width="4" stroke-linejoin="round"><path d="M6 72 V44 Q6 20 40 20 Q74 20 74 44 V72" fill="var(--c)" /><path d="M30 20 v10 M50 20 v10" /></svg>
+        <span class="lu-card"><span class="sr-only">Witness {i + 1} of {N}: </span>{w.data.name}</span>
+      </button>
+    ))}
+  </div>
+  {witnesses.map((w, i) => {
+    const pull = w.data.pull ?? "";
+    const paras = w.data.quote.split(/\n\s*\n/);
+    return (
+      <div role="tabpanel" id={`lu-${i}`} aria-labelledby={`witness-${w.id}`} hidden={i !== 0} class="lu-say">
+        <blockquote class="bubble lu-bubble">
+          <p class="lu-pull"><span class="lu-hl">“{pull || paras[0]}”</span></p>
+          <details class="lu-full">
+            <summary>The full statement · {paras.length === 1 ? "one paragraph" : `${paras.length} paragraphs`}, verbatim</summary>
+            <div>{paras.map((para) => { const [a, b, c] = mark(para, pull); return <p>{a}{b !== undefined && <strong class="emph">{b}</strong>}{c}</p>; })}</div>
+          </details>
+        </blockquote>
+        <p class="caption mt-6 ml-4"><strong>{w.data.name}</strong> · {w.data.title}{w.data.organisation ? `, ${w.data.organisation}` : ""}</p>
+      </div>
+    );
+  })}
+  <p class="lu-hint"><kbd>←</kbd> <kbd>→</kbd> move along the line.</p>
+</div>
+<script>
+  const root = document.querySelector<HTMLElement>("[data-lineup]");
+  if (root) {
+    const tabs = [...root.querySelectorAll<HTMLButtonElement>("[role=tab]")];
+    const panels = [...root.querySelectorAll<HTMLElement>("[role=tabpanel]")];
+    let cur = 0;
+    const show = (i: number, focus = false) => {
+      i = (i + tabs.length) % tabs.length; cur = i;
+      tabs.forEach((t, k) => { t.setAttribute("aria-selected", String(k === i)); t.tabIndex = k === i ? 0 : -1; });
+      panels.forEach((p, k) => { p.hidden = k !== i; });
+      if (focus) tabs[i].focus();
+    };
+    tabs.forEach((t, i) => t.addEventListener("click", () => show(i)));
+    root.querySelector("[role=tablist]")!.addEventListener("keydown", (e: KeyboardEvent) => {
+      const k = e.key;
+      const to = k === "ArrowRight" ? cur + 1 : k === "ArrowLeft" ? cur - 1 : k === "Home" ? 0 : k === "End" ? tabs.length - 1 : null;
+      if (to === null) return;
+      e.preventDefault(); show(to, true);
+    });
+    // Links to #witness-<id> (the case files, the migration panel) land on that figure. comic-motion.ts smooth-scrolls
+    // in-page links itself and swallows the hash, so clicks are picked up here; a shared URL arrives through the hash.
+    const byId = (id: string) => tabs.findIndex((t) => t.id === id);
+    const fromHash = () => { const i = byId(location.hash.slice(1)); if (i >= 0) show(i); };
+    addEventListener("hashchange", fromHash);
+    document.addEventListener("click", (e) => {
+      const a = (e.target as Element | null)?.closest?.<HTMLAnchorElement>('a[href^="#witness-"]');
+      const i = a ? byId(a.getAttribute("href")!.slice(1)) : -1;
+      if (i >= 0) show(i);
+    });
+    fromHash();
+  }
+</script>
