@@ -7,6 +7,8 @@ import Pronounce from "../components/final/Pronounce.astro";
 import ResumeDialog from "../components/final/ResumeDialog.astro";
 import ComicArt from "../components/final/ComicArt.astro";
 import ComicLoader from "../components/final/ComicLoader.astro";
+import PowerUps from "../components/final/PowerUps.astro";
+import Getaway from "../components/final/Getaway.astro";
 import portrait from "../assets/portrait.jpg";
 import avatar from "../assets/avatar.jpg";
 import resumePage from "../assets/resume-p1.png";
@@ -283,16 +285,8 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     <!-- POWERS -->
     <section id="powers" class="cv mt-16 scroll-mt-24" aria-labelledby="pow-h" data-page="Power-ups">
       <h2 id="pow-h" class="text-5xl sm:text-6xl">Power-ups</h2>
-      <p class="mt-2 text-xl lede"><span>Nine groups of tools, collected over <span data-experience>{exp.long}</span>. The AI and cloud ones are the newest.</span></p>
-      <ul class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {skillGroups.map(([group, items], i) => (
-          <li class="panel p-5 pt-7">
-            <span class="filetab" style={`background:${colors[i % 5]}; border-color:#111; color:${onColor[i % 5]}`}>{String(i + 1).padStart(2, "0")}</span>
-            <h3 class="text-2xl">{group}</h3>
-            <ul class="mt-3 flex flex-wrap gap-2">{items.map((it) => <li class="tag">{it}</li>)}</ul>
-          </li>
-        ))}
-      </ul>
+      <p class="mt-2 text-xl lede"><span>Nine groups of tools, collected over <span data-experience>{exp.long}</span>, worn one at a time. The AI and cloud ones are the newest.</span></p>
+      <div class="mt-10"><PowerUps groups={skillGroups} colors={colors} /></div>
       <div class="panel mt-8 p-6 pt-8"><span class="filetab">Daily strip</span><p class="text-lg">GitHub, the last twelve months · <a href={site.github} class="underline">@MDmubarak786</a></p><div class="mt-4"><Calendar showTotal totalClass="mt-3 text-base" /></div></div>
     </section>
 
@@ -344,20 +338,16 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     <section id="contact" class="mt-16 scroll-mt-24 panel p-6 sm:p-12" aria-labelledby="ch5" data-page="Back cover">
       <div class="zig mb-6"></div>
       <h2 id="ch5" class="text-5xl sm:text-7xl text-[#ff2e63]" style="-webkit-text-stroke:2px #111">Next issue needs a publisher.</h2>
-      <div class="mt-8 grid gap-8 lg:grid-cols-[1.2fr_1fr] lg:items-start">
-        <div class="flex items-start gap-4 sm:gap-6">
+      <div class="mt-8">
+        <div class="flex items-start gap-4 sm:gap-6 max-w-[62ch]">
           <Image src={avatar} alt="" width={160} height={160} class="size-20 sm:size-28 rounded-full border-4 border-[#111] object-cover shrink-0" style="box-shadow: 4px 4px 0 #111" loading="lazy" />
           <div class="flex-1 min-w-0">
             <p class="bubble text-xl"><strong>Hiring for a senior or lead role?</strong> Write, call, or send a message. I read everything.</p>
             <p class="mt-5 ml-4 text-lg flex flex-wrap items-center gap-x-3 gap-y-2"><strong>{site.name}</strong><Pronounce class="caption cursor-pointer" /><span class="text-base text-[#555]">{site.pronouns} · {site.location}</span></p>
           </div>
         </div>
-        <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap lg:flex-col">
-          <a href={mailto("A role")} class="btn text-center">Email me ▸</a>
-          <a href={site.whatsapp} class="btn alt text-center">WhatsApp ▸</a>
-          <a href={site.linkedin} rel="noopener" target="_blank" class="btn alt text-center">LinkedIn ▸</a>
-        </div>
       </div>
+      <Getaway colors={colors} links={[{ label: "Email", href: mailto("A role"), icon: "envelope" }, { label: "WhatsApp", href: site.whatsapp, external: true, icon: "whatsapp" }, { label: "LinkedIn", href: site.linkedin, external: true, icon: "linkedin" }, { label: "GitHub", href: site.github, external: true, icon: "github" }, { label: "X", href: site.x, external: true, icon: "x" }]} />
       <dl class="mt-10 pt-6 border-t-4 border-dashed border-[#111] grid gap-x-6 gap-y-4 grid-cols-2 lg:grid-cols-4">
         {channels.map(([l, v, h]) => <div class="min-w-0"><dt class="bang text-lg">{l}</dt><dd><a href={h} class="underline [overflow-wrap:anywhere]">{v}</a></dd></div>)}
       </dl>

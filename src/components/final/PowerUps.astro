@@ -1,0 +1,81 @@
+---
+/** Build your hero: the nine tool groups are nine pieces of gear on the comic figure. Tabs pick a group; the figure
+ *  changes outfit and the group's tags appear as the sticker sheet. Arrow keys and the two arrow buttons cycle. */
+import HeroFigure from "./HeroFigure.astro";
+interface Props { groups: [string, string[]][]; colors: string[] }
+const { groups, colors } = Astro.props;
+const gear = [
+  ["The word balloon", "Five languages, one voice. Whatever the panel needs, he can say it."],
+  ["The shield", "Four frameworks for the front line. Astro built this very page."],
+  ["The wrench and belt", "Node and Python services, the APIs behind every case file."],
+  ["The data pack", "Document, relational, serverless and a vector store, carried everywhere."],
+  ["The cape", "Fourteen AWS services and the pipelines that ship them. Yes, he flies."],
+  ["The visor", "Models, retrieval, agents and tool calls: the newest power, used daily."],
+  ["The headset", "Four ways to hear a product cough before a user does."],
+  ["The cable", "Plugs into Salesforce, GitHub, LinkedIn, Facebook and Cloudflare."],
+  ["The hardhat and hammer", "Version control, tickets, docs, a CMS and a test runner."],
+];
+---
+<div class="panel powerups p-5 pt-8 sm:p-8 sm:pt-9" data-powerups>
+  <span class="filetab">Build your hero</span>
+  <div class="grid gap-6 lg:grid-cols-[minmax(0,340px)_1fr] lg:gap-10 items-start">
+    <div class="figure-wrap" style={`--shirt:${colors[0]}`}>
+      <button type="button" class="arrow" data-prev aria-label="Previous power-up">◀</button>
+      <HeroFigure pose="stand" gear />
+      <button type="button" class="arrow" data-next aria-label="Next power-up">▶</button>
+    </div>
+    <div class="min-w-0">
+      <div role="tablist" aria-label="Power-ups" class="flex flex-wrap gap-2">
+        {groups.map(([g], i) => <button type="button" role="tab" id={`pw-tab-${i}`} aria-controls={`pw-panel-${i}`} aria-selected={i === 0 ? "true" : "false"} tabindex={i === 0 ? 0 : -1} class="tag pw-tab" style={`--c:${colors[i % 5]}`}>{g}</button>)}
+      </div>
+      {groups.map(([g, items], i) => (
+        <div role="tabpanel" id={`pw-panel-${i}`} aria-labelledby={`pw-tab-${i}`} hidden={i !== 0} class="mt-6 pw-panel">
+          <p class="caption">Power-up {String(i + 1).padStart(2, "0")} of {String(groups.length).padStart(2, "0")} · {gear[i][0]}</p>
+          <h3 class="text-3xl sm:text-4xl mt-3">{g}</h3>
+          <p class="narr mt-2 max-w-[48ch]">{gear[i][1]}</p>
+          <ul class="mt-4 flex flex-wrap gap-2 sticker-sheet" aria-label={`${g} tools`}>{items.map((it) => <li class="tag">{it}</li>)}</ul>
+        </div>
+      ))}
+      <p class="mt-6 text-sm text-[#555]"><kbd>←</kbd> <kbd>→</kbd> change the gear. Nine outfits, no phone booth.</p>
+    </div>
+  </div>
+</div>
+<script>
+  const root = document.querySelector<HTMLElement>("[data-powerups]");
+  if (root) {
+    const tabs = [...root.querySelectorAll<HTMLButtonElement>("[role=tab]")];
+    const panels = [...root.querySelectorAll<HTMLElement>("[role=tabpanel]")];
+    const gears = [...root.querySelectorAll<SVGGElement>("[data-gear]")];
+    const wrap = root.querySelector<HTMLElement>(".figure-wrap")!;
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let pop: HTMLAudioElement | null = null;
+    const sound = () => {
+      try { if (localStorage.getItem("mk-sound") === "off") return; } catch {}
+      pop ??= new Audio("/sfx/pop.m4a"); pop.currentTime = 0; pop.volume = 0.5; pop.play().catch(() => {});
+    };
+    let cur = -1;
+    const show = (i: number, focus = false, noisy = true) => {
+      i = (i + tabs.length) % tabs.length;
+      if (i === cur && !focus) return;
+      cur = i;
+      tabs.forEach((t, k) => { t.setAttribute("aria-selected", String(k === i)); t.tabIndex = k === i ? 0 : -1; });
+      panels.forEach((p, k) => { p.hidden = k !== i; });
+      wrap.style.setProperty("--shirt", tabs[i].style.getPropertyValue("--c"));
+      gears.forEach((g) => { const on = g.dataset.gear === String(i); g.toggleAttribute("hidden", !on); g.classList.toggle("pop", on && !reduce); });
+      if (!reduce) { wrap.classList.remove("jump"); void wrap.offsetWidth; wrap.classList.add("jump"); }
+      if (noisy) sound();
+      if (focus) tabs[i].focus();
+    };
+    tabs.forEach((t, i) => t.addEventListener("click", () => show(i)));
+    root.querySelector("[data-prev]")!.addEventListener("click", () => show(cur - 1));
+    root.querySelector("[data-next]")!.addEventListener("click", () => show(cur + 1));
+    root.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight" || e.key === "ArrowDown") { e.preventDefault(); show(cur + 1, true); }
+      else if (e.key === "ArrowLeft" || e.key === "ArrowUp") { e.preventDefault(); show(cur - 1, true); }
+      else if (e.key === "Home") { e.preventDefault(); show(0, true); }
+      else if (e.key === "End") { e.preventDefault(); show(tabs.length - 1, true); }
+    });
+    // First outfit on, silently: the tabs start on group one and the figure should match.
+    show(0, false, false);
+  }
+</script>
