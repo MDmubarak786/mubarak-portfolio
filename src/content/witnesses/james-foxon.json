@@ -3,5 +3,6 @@
   "title": "Business Analyst",
   "quote": "Working with Mohammed has been a pleasure. He always gets the job done.\n\nWhen issues come up his technical and troubleshooting skills mean they're resolved quickly.",
   "pull": "When issues come up his technical and troubleshooting skills mean they're resolved quickly.",
-  "order": 7
+  "order": 7,
+  "_todo": "add \"linkedin\": \"https://www.linkedin.com/in/...\" for this person and delete this line"
 }

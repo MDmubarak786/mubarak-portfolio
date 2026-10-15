@@ -4,6 +4,8 @@
  *  (click, ←/→, Home/End). Chosen by the user from three live variants on 2026-10-15 (over an autograph page and a
  *  set of flip cards); it replaced the courtroom witness stand, which is recoverable from git history. */
 import type { CollectionEntry } from "astro:content";
+import { site } from "../../lib/site";
+const recommendations = `${site.linkedin.replace(/\/$/, "")}/details/recommendations/`;
 interface Props { witnesses: CollectionEntry<"witnesses">[]; colors: string[]; onColor: string[] }
 const { witnesses, colors, onColor } = Astro.props;
 const N = witnesses.length;
@@ -35,11 +37,14 @@ const mark = (para: string, pull: string) => { const k = pull ? para.indexOf(pul
             <div>{paras.map((para) => { const [a, b, c] = mark(para, pull); return <p>{a}{b !== undefined && <strong class="emph">{b}</strong>}{c}</p>; })}</div>
           </details>
         </blockquote>
-        <p class="caption mt-6 ml-4"><strong>{w.data.name}</strong> · {w.data.title}{w.data.organisation ? `, ${w.data.organisation}` : ""}</p>
+        <div class="mt-6 ml-4 flex flex-wrap items-center gap-3">
+          <p class="caption !m-0"><strong>{w.data.linkedin ? <a href={w.data.linkedin} rel="noopener" target="_blank" class="lu-name">{w.data.name}</a> : w.data.name}</strong> · {w.data.title}{w.data.organisation ? `, ${w.data.organisation}` : ""}</p>
+          <a href={recommendations} rel="noopener" target="_blank" class="btn alt sm">Read it on LinkedIn ▸</a>
+        </div>
       </div>
     );
   })}
-  <p class="lu-hint"><kbd>←</kbd> <kbd>→</kbd> move along the line.</p>
+  <p class="lu-hint"><button type="button" class="keybtn" data-prev aria-label="Previous witness">←</button> <button type="button" class="keybtn" data-next aria-label="Next witness">→</button> move along the line.</p>
 </div>
 <script>
   const root = document.querySelector<HTMLElement>("[data-lineup]");
@@ -54,6 +59,8 @@ const mark = (para: string, pull: string) => { const k = pull ? para.indexOf(pul
       if (focus) tabs[i].focus();
     };
     tabs.forEach((t, i) => t.addEventListener("click", () => show(i)));
+    root.querySelector("[data-prev]")!.addEventListener("click", () => show(cur - 1, true));
+    root.querySelector("[data-next]")!.addEventListener("click", () => show(cur + 1, true));
     root.querySelector("[role=tablist]")!.addEventListener("keydown", (e: KeyboardEvent) => {
       const k = e.key;
       const to = k === "ArrowRight" ? cur + 1 : k === "ArrowLeft" ? cur - 1 : k === "Home" ? 0 : k === "End" ? tabs.length - 1 : null;

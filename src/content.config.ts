@@ -9,6 +9,8 @@ const witnesses = defineCollection({
     name: z.string(),
     title: z.string(),
     organisation: z.string().optional(),
+    /** Their LinkedIn profile URL; the name links to it when set. */
+    linkedin: z.string().url().optional(),
     quote: z.string().min(20),
     /** A short line from the quote to surface in a reviewed-by block. */
     pull: z.string().optional(),

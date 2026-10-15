@@ -1,0 +1,59 @@
+---
+/** The rack: the four roles as comic issues on a shelf, newest first. Pull one down (click, ←/→, Home/End) and the
+ *  issue opens below it with the role's groups, bullets and tags. Chosen by the user from five live variants on
+ *  2026-10-15 (over a road with signposts, a flipbook, a four-panel strip and a ledger). */
+import type { CollectionEntry } from "astro:content";
+interface Props { roles: CollectionEntry<"experience">[]; colors: string[]; onColor: string[]; fmt: (ym: string | null) => string }
+const { roles, colors, onColor, fmt } = Astro.props;
+const promos = ["Now", "Promoted from SDE 1 · 3 years 8 months", "Promoted to SDE 2 within five months", "Promoted to SDE 1 within a year"];
+---
+<div class="panel p-5 pt-8 sm:p-8 sm:pt-9" data-rack>
+  <span class="filetab">The rack</span>
+  <div class="rack-shelf" role="tablist" aria-label="Issues">
+    {roles.map((r, i) => (
+      <button type="button" role="tab" id={`issue-tab-${i}`} aria-controls={`issue-${i}`} aria-selected={i === 0 ? "true" : "false"} tabindex={i === 0 ? 0 : -1} class="rack-cover" style={`--c:${colors[i % 5]}`}>
+        <span class="rack-no bang">No. {roles.length - i}</span>
+        <span class="rack-year bang">{r.data.start.slice(0, 4)}</span>
+        <span class="rack-title bang">{r.data.role}</span>
+        <span class="rack-co">{r.data.company}</span>
+        <span class="burst rack-burst bang" aria-hidden="true">{i === 0 ? "NOW" : "PROMO"}</span>
+      </button>
+    ))}
+  </div>
+  {roles.map((r, i) => (
+    <article role="tabpanel" id={`issue-${i}`} aria-labelledby={`issue-tab-${i}`} hidden={i !== 0} class="rack-issue">
+      <header class="grid gap-2 sm:grid-cols-[1fr_auto] sm:items-start">
+        <div><h3 class="text-3xl sm:text-4xl">{r.data.role}</h3><p class="text-lg">{r.data.company} · {r.data.type}</p></div>
+        <div class="flex flex-wrap gap-2 justify-self-start sm:justify-self-end sm:justify-end"><p class="caption">{fmt(r.data.start)} → {fmt(r.data.end)}</p><p class="caption !bg-[#1b998b]">{promos[i]}</p></div>
+      </header>
+      <div class:list={["mt-6 grid gap-6", r.data.groups.length > 1 && "lg:grid-cols-2"]}>
+        {r.data.groups.map((g) => <div class="tile"><p class="bang text-2xl"><span class="hl" style={`background:${colors[i % 5]}; color:${onColor[i % 5]}`}>{g.name}</span></p><ul class="mt-2 list-disc pl-5 space-y-2 max-w-[62ch]">{g.bullets.map((b) => <li>{b}</li>)}</ul></div>)}
+      </div>
+      <ul class="mt-6 flex flex-wrap gap-2" aria-label="Worked with">{r.data.skills.map((sk) => <li class="tag">{sk}</li>)}</ul>
+    </article>
+  ))}
+  <p class="rack-hint text-sm text-[#555]"><button type="button" class="keybtn" data-prev aria-label="Previous issue on the shelf">←</button> <button type="button" class="keybtn" data-next aria-label="Next issue on the shelf">→</button> move along the shelf.</p>
+</div>
+<script>
+  const root = document.querySelector<HTMLElement>("[data-rack]");
+  if (root) {
+    const tabs = [...root.querySelectorAll<HTMLButtonElement>("[role=tab]")];
+    const panels = [...root.querySelectorAll<HTMLElement>("[role=tabpanel]")];
+    let cur = 0;
+    const show = (i: number, focus = false) => {
+      i = (i + tabs.length) % tabs.length; cur = i;
+      tabs.forEach((t, k) => { t.setAttribute("aria-selected", String(k === i)); t.tabIndex = k === i ? 0 : -1; });
+      panels.forEach((p, k) => { p.hidden = k !== i; });
+      if (focus) tabs[i].focus();
+    };
+    tabs.forEach((t, i) => t.addEventListener("click", () => show(i)));
+    root.querySelector("[data-prev]")!.addEventListener("click", () => show(cur - 1, true));
+    root.querySelector("[data-next]")!.addEventListener("click", () => show(cur + 1, true));
+    root.querySelector("[role=tablist]")!.addEventListener("keydown", (e: KeyboardEvent) => {
+      const k = e.key;
+      const to = k === "ArrowRight" ? cur + 1 : k === "ArrowLeft" ? cur - 1 : k === "Home" ? 0 : k === "End" ? tabs.length - 1 : null;
+      if (to === null) return;
+      e.preventDefault(); show(to, true);
+    });
+  }
+</script>
