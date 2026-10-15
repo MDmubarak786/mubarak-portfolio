@@ -349,7 +349,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
       </div>
       <Getaway colors={colors} links={[{ label: "Email", href: mailto("A role"), icon: "envelope" }, { label: "WhatsApp", href: site.whatsapp, external: true, icon: "whatsapp" }, { label: "LinkedIn", href: site.linkedin, external: true, icon: "linkedin" }, { label: "GitHub", href: site.github, external: true, icon: "github" }, { label: "X", href: site.x, external: true, icon: "x" }]} />
       <dl class="mt-10 pt-6 border-t-4 border-dashed border-[#111] grid gap-x-6 gap-y-4 grid-cols-2 lg:grid-cols-4">
-        {channels.map(([l, v, h]) => <div class="min-w-0"><dt class="bang text-lg">{l}</dt><dd><a href={h} class="underline [overflow-wrap:anywhere]">{v}</a></dd></div>)}
+        {channels.map(([l, v, h]) => <div class="min-w-0"><dt class="bang text-lg">{l}</dt><dd><a href={h} class="underline [overflow-wrap:anywhere]" {...(/^https?:/.test(h) ? { target: "_blank", rel: "noopener" } : {})}>{v}</a></dd></div>)}
       </dl>
       <p class="mt-8 text-sm">© {new Date().getFullYear()} {site.name} · Built as a comic, with real numbers.</p>
     </section>

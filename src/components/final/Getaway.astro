@@ -21,7 +21,7 @@ const ink = (c: string) => (c.toLowerCase() === "#8338ec" ? "#fff" : "#111");
     <svg class="cloud c2" viewBox="-6 -12 132 78" aria-hidden="true"><path d="M22 52a16 16 0 0 1 6-31 23 23 0 0 1 44-7 15 15 0 0 1 27 11 14 14 0 0 1 1 27Z" /></svg>
     <svg class="cloud c3" viewBox="-6 -12 132 78" aria-hidden="true"><path d="M22 52a16 16 0 0 1 6-31 23 23 0 0 1 44-7 15 15 0 0 1 27 11 14 14 0 0 1 1 27Z" /></svg>
     {links.map((l, i) => (
-      <a href={l.href} class="balloon" style={`--c:${colors[i % 5]};--ink:${ink(colors[i % 5])}`} data-balloon {...(l.external ? { target: "_blank", rel: "noopener" } : {})}>
+      <a href={l.href} class="balloon" style={`--c:${colors[i % 5]};--ink:${ink(colors[i % 5])}`} data-balloon {...(/^https?:/.test(l.href) ? { target: "_blank", rel: "noopener" } : {})}>
         <svg class="mark" viewBox="0 0 24 24" aria-hidden="true" set:html={mark(l.icon)} /><span>{l.label}</span>
       </a>
     ))}
@@ -50,6 +50,25 @@ const ink = (c: string) => (c.toLowerCase() === "#8338ec" ? "#fff" : "#111");
     // The hero: where he is, where the pointer wants him, and where the pointer is (for the arm).
     let hx = 0, tx = 0, px = -1, py = -1, pointerIn = false;
     const audio: Record<string, HTMLAudioElement> = {};
+    let ac: AudioContext | null = null;
+    const burst = () => {
+      try { if (localStorage.getItem("mk-sound") === "off") return; } catch {}
+      try {
+        ac ??= new AudioContext(); if (ac.state === "suspended") ac.resume();
+        const t = ac.currentTime, out = ac.createGain(); out.gain.value = 0.9; out.connect(ac.destination);
+        // the crack: 70 ms of noise through a band-pass, snapped shut
+        const len = Math.floor(ac.sampleRate * 0.09), buf = ac.createBuffer(1, len, ac.sampleRate), d = buf.getChannelData(0);
+        for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.2);
+        const n = ac.createBufferSource(); n.buffer = buf;
+        const bp = ac.createBiquadFilter(); bp.type = "bandpass"; bp.frequency.setValueAtTime(2600 + Math.random() * 800, t); bp.frequency.exponentialRampToValueAtTime(900, t + 0.08); bp.Q.value = 0.8;
+        const ng = ac.createGain(); ng.gain.setValueAtTime(1, t); ng.gain.exponentialRampToValueAtTime(0.001, t + 0.09);
+        n.connect(bp).connect(ng).connect(out); n.start(t); n.stop(t + 0.1);
+        // the thump: the rubber letting go
+        const o = ac.createOscillator(); o.type = "sine"; o.frequency.setValueAtTime(190, t); o.frequency.exponentialRampToValueAtTime(55, t + 0.12);
+        const og = ac.createGain(); og.gain.setValueAtTime(0.7, t); og.gain.exponentialRampToValueAtTime(0.001, t + 0.14);
+        o.connect(og).connect(out); o.start(t); o.stop(t + 0.15);
+      } catch {}
+    };
     const sound = (name: string, vol = 0.5) => {
       try { if (localStorage.getItem("mk-sound") === "off") return; } catch {}
       const a = (audio[name] ??= new Audio(`/sfx/${name}.m4a`)); a.currentTime = 0; a.volume = vol; a.play().catch(() => {});
@@ -129,7 +148,7 @@ const ink = (c: string) => (c.toLowerCase() === "#8338ec" ? "#fff" : "#111");
         pow.textContent = WORDS[caught % WORDS.length]; caught++;
         pow.style.left = b.x + "px"; pow.style.top = b.y + "px"; pow.classList.remove("show"); void pow.offsetWidth; pow.classList.add("show");
         b.el.classList.add("caught"); setTimeout(() => { b.el.hidden = true; }, 420);
-        sound("pop", 0.55);
+        burst();
         if (!reduce) { hero.classList.remove("grab"); void hero.offsetWidth; hero.classList.add("grab"); }
         if (!bs.some((x) => x.live)) setTimeout(() => finish("You caught them all. Nice reflexes."), 500);
       });
