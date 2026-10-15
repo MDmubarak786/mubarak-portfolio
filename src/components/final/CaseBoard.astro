@@ -72,10 +72,11 @@ const reactions = ["AHA!", "NOTED", "GOT IT", "100%!", "LIVE!", "TEAM OF 4", "95
     const strA = root.querySelector<SVGPathElement>("[data-string-a]")!, strB = root.querySelector<SVGPathElement>("[data-string-b]")!;
     const reactions: string[] = JSON.parse(root.dataset.reactions ?? "[]");
     const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // The stamp hit is the loader's short bass hit (1.2 s); the long cinematic stamp.m4a belongs to the intro only.
     let stamp: HTMLAudioElement | null = null;
     const sound = () => {
       try { if (localStorage.getItem("mk-sound") === "off") return; } catch {}
-      stamp ??= new Audio("/sfx/stamp.m4a"); stamp.currentTime = 0; stamp.volume = 0.45; stamp.play().catch(() => {});
+      stamp ??= new Audio("/sfx/slam.m4a"); stamp.currentTime = 0; stamp.volume = 0.45; stamp.play().catch(() => {});
     };
     const restart = (el: HTMLElement, cls: string) => { el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); };
     let cur = 0;
