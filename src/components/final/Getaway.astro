@@ -142,8 +142,14 @@ const ink = (c: string) => (c.toLowerCase() === "#8338ec" ? "#fff" : "#111");
     bs.forEach((b) => {
       b.el.addEventListener("focus", () => { b.held = true; tx = b.x; });
       b.el.addEventListener("blur", () => { b.held = false; });
-      b.el.addEventListener("click", () => {
+      b.el.addEventListener("click", (e) => {
         if (!b.live) return;
+        // Let the catch play out before the link opens. Modified clicks (new tab by hand) keep the browser's own behaviour.
+        if (!(e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button)) {
+          e.preventDefault();
+          const href = b.el.href, blank = b.el.target === "_blank";
+          setTimeout(() => { if (blank) window.open(href, "_blank", "noopener"); else location.href = href; }, 620);
+        }
         b.live = false; lastCatch = performance.now();
         pow.textContent = WORDS[caught % WORDS.length]; caught++;
         pow.style.left = b.x + "px"; pow.style.top = b.y + "px"; pow.classList.remove("show"); void pow.offsetWidth; pow.classList.add("show");
