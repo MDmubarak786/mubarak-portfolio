@@ -1,0 +1,153 @@
+---
+/** The witness stand, drawn as a courtroom. The hero waits in the dock on the left; the witness who is speaking rises
+ *  into the witness box under the bubble, an EXHIBIT stamp hits their statement, and the other eight wait on the bench,
+ *  where the called witness's seat sits empty. Each statement shows its pulled line large with the full, verbatim text
+ *  one click below. Bench faces are a tablist: click, ←/→, Home/End. While the stand is in view and nobody is reading
+ *  closely (no pointer over it, no focus inside, no reduced-motion preference) the clerk calls the next witness every
+ *  few seconds; the first click or key press hands the gavel to the reader for good. */
+import type { CollectionEntry } from "astro:content";
+import HeroFigure from "./HeroFigure.astro";
+interface Props { witnesses: CollectionEntry<"witnesses">[]; colors: string[]; onColor: string[] }
+const { witnesses, colors, onColor } = Astro.props;
+const N = witnesses.length;
+const pad = (n: number) => String(n).padStart(2, "0");
+const initials = (name: string) => name.split(/\s+/).map((p) => p[0]).slice(0, 2).join("");
+/** Split a paragraph around the pulled line so it can be highlighted in context. */
+const mark = (para: string, pull: string) => { const k = pull ? para.indexOf(pull) : -1; return k < 0 ? [para] : [para.slice(0, k), pull, para.slice(k + pull.length)]; };
+// What the hero mutters in the dock when a witness speaks: one sticker per witness, in bench order.
+const reactions = ["AW, SHUCKS", "*BLUSHES*", "KA-CHING!", "ON TIME!", "TOO KIND", "THANKS, DAN", "GETS IT DONE", "*BEAMS*", "MUCH OBLIGED"];
+---
+<div class="panel stand p-5 pt-8 sm:p-8 sm:pt-9" data-stand data-reactions={JSON.stringify(reactions)}>
+  <span class="filetab">The witness stand</span>
+  {witnesses.map((w) => <span id={`witness-${w.id}`} class="stand-mark" aria-hidden="true"></span>)}
+  <div class="stand-grid">
+    <div class="stand-hero" aria-hidden="true">
+      <HeroFigure pose="stand" />
+      <svg class="dock" viewBox="0 0 200 92" fill="none" stroke="#111" stroke-width="4" stroke-linejoin="round">
+        <path d="M24 20v18M56 20v18M88 20v18M120 20v18M152 20v18M184 20v18" />
+        <rect x="2" y="6" width="196" height="14" fill="#ffb703" />
+        <rect x="2" y="38" width="196" height="52" fill="#fff" />
+        <path d="M52 46v36M100 46v36M148 46v36" stroke-width="2" />
+        <rect x="44" y="52" width="112" height="24" fill="#fff3b0" stroke-width="3" />
+        <text x="100" y="69" text-anchor="middle" font-size="13" letter-spacing="1" fill="#111" stroke="none" class="dock-plaque">THE CANDIDATE</text>
+      </svg>
+      <span class="react-fx" data-react></span>
+    </div>
+    <div class="stand-say">
+      {witnesses.map((w, i) => {
+        const pull = w.data.pull ?? "";
+        const paras = w.data.quote.split(/\n\s*\n/);
+        const who = `${w.data.title}${w.data.organisation ? `, ${w.data.organisation}` : ""}`;
+        return (
+          <div role="tabpanel" id={`stand-panel-${i}`} aria-labelledby={`face-${w.id}`} hidden={i !== 0} class="stand-panel">
+            <blockquote class="bubble stand-bubble">
+              <span class="exhibit" aria-hidden="true">Exhibit {pad(i + 1)}/{pad(N)}</span>
+              <p class="stand-pull"><span class="stand-hl">“{pull || paras[0]}”</span></p>
+              <details class="stand-full">
+                <summary>The full statement<span class="stand-len"> · {paras.length === 1 ? "one paragraph" : `${paras.length} paragraphs`}, verbatim</span></summary>
+                <div class="space-y-3">{paras.map((para) => { const [a, b, c] = mark(para, pull); return <p>{a}{b !== undefined && <strong class="emph">{b}</strong>}{c}</p>; })}</div>
+              </details>
+            </blockquote>
+            <div class="box-row">
+              <div class="wbox" aria-hidden="true">
+                <span class="face-big" style={`--c:${colors[i % 5]};--ink:${onColor[i % 5]}`}>{initials(w.data.name)}</span>
+                <svg class="wbox-front" viewBox="0 0 160 72" fill="none" stroke="#111" stroke-width="4" stroke-linejoin="round">
+                  <rect x="2" y="16" width="156" height="54" fill="#fff" />
+                  <path d="M42 24v38M82 24v38M122 24v38" stroke-width="2" />
+                  <rect x="2" y="4" width="156" height="14" fill="#ffb703" />
+                  <rect x="40" y="32" width="80" height="22" fill="#fff3b0" stroke-width="3" />
+                  <text x="80" y="48" text-anchor="middle" font-size="13" letter-spacing="1.5" fill="#111" stroke="none" class="dock-plaque">WITNESS</text>
+                </svg>
+              </div>
+              <p class="caption stand-cap"><span class="sr-only">Witness {i + 1} of {N}: </span><strong>{w.data.name}</strong> · {who}</p>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+    <div role="tablist" aria-label="Witnesses on the bench" class="bench">
+      {witnesses.map((w, i) => (
+        <button type="button" role="tab" id={`face-${w.id}`} data-witness={`witness-${w.id}`} aria-controls={`stand-panel-${i}`} aria-selected={i === 0 ? "true" : "false"} tabindex={i === 0 ? 0 : -1} class="face" style={`--c:${colors[i % 5]};--ink:${onColor[i % 5]}`} title={w.data.name}>
+          <span aria-hidden="true">{initials(w.data.name)}</span><span class="sr-only">{w.data.name}, {w.data.title}</span>
+        </button>
+      ))}
+      <span class="stand-timer" aria-hidden="true"><i></i></span>
+    </div>
+    <p class="stand-hint text-sm text-[#555]"><kbd>←</kbd> <kbd>→</kbd> call the next witness. <span data-hint>The clerk calls them in turn until you pick one.</span></p>
+  </div>
+</div>
+<script>
+  const root = document.querySelector<HTMLElement>("[data-stand]");
+  if (root) {
+    const tabs = [...root.querySelectorAll<HTMLButtonElement>("[role=tab]")];
+    const panels = [...root.querySelectorAll<HTMLElement>("[role=tabpanel]")];
+    const hero = root.querySelector<HTMLElement>(".stand-hero")!;
+    const react = root.querySelector<HTMLElement>("[data-react]")!;
+    const timer = root.querySelector<HTMLElement>(".stand-timer i")!;
+    const hint = root.querySelector<HTMLElement>("[data-hint]")!;
+    const reactions: string[] = JSON.parse(root.dataset.reactions ?? "[]");
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const TURN = 7000;
+    let stamp: HTMLAudioElement | null = null;
+    const sound = () => {
+      try { if (localStorage.getItem("mk-sound") === "off") return; } catch {}
+      stamp ??= new Audio("/sfx/stamp.m4a"); stamp.currentTime = 0; stamp.volume = 0.45; stamp.play().catch(() => {});
+    };
+    const restart = (el: HTMLElement, cls: string) => { el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); };
+    let cur = -1;
+    const show = (i: number, focus = false, byHand: boolean | null = true) => {
+      i = (i + tabs.length) % tabs.length;
+      if (i === cur && !focus) return;
+      cur = i;
+      tabs.forEach((t, k) => { t.setAttribute("aria-selected", String(k === i)); t.tabIndex = k === i ? 0 : -1; });
+      panels.forEach((p, k) => { p.hidden = k !== i; });
+      if (!reduce && byHand !== null) {
+        restart(panels[i], "in");
+        react.textContent = reactions[i % reactions.length] ?? "";
+        restart(react, "show");
+        if (byHand) restart(hero, "jump");
+      }
+      if (byHand) sound();
+      if (focus) tabs[i].focus();
+    };
+    // The clerk: only while in view, tab visible, nobody holding the stand (pointer over or focus inside), and until
+    // the reader takes over by clicking or pressing a key.
+    let auto = !reduce, inView = false, held = false, t: number | undefined;
+    const arm = () => {
+      clearTimeout(t); timer.style.animation = "none";
+      if (!auto || !inView || held || document.hidden) return;
+      void timer.offsetWidth; timer.style.animation = ""; timer.style.animationDuration = `${TURN}ms`;
+      t = window.setTimeout(() => { show(cur + 1, false, false); arm(); }, TURN);
+    };
+    const takeOver = () => { if (!auto) return; auto = false; root.classList.add("is-manual"); hint.textContent = "Your call now."; arm(); };
+    tabs.forEach((tab, i) => tab.addEventListener("click", () => { takeOver(); show(i); }));
+    root.querySelector("[role=tablist]")!.addEventListener("keydown", (e: KeyboardEvent) => {
+      const k = e.key;
+      const to = k === "ArrowRight" || k === "ArrowDown" ? cur + 1 : k === "ArrowLeft" || k === "ArrowUp" ? cur - 1 : k === "Home" ? 0 : k === "End" ? tabs.length - 1 : null;
+      if (to === null) return;
+      e.preventDefault(); takeOver(); show(to, true);
+    });
+    root.addEventListener("pointerenter", () => { held = true; arm(); });
+    root.addEventListener("pointerleave", () => { held = false; arm(); });
+    root.addEventListener("focusin", () => { held = true; arm(); });
+    root.addEventListener("focusout", (e) => { if (!root.contains(e.relatedTarget as Node | null)) { held = false; arm(); } });
+    new IntersectionObserver((es) => es.forEach((e) => { inView = e.isIntersecting; arm(); }), { threshold: 0.35 }).observe(root);
+    document.addEventListener("visibilitychange", arm);
+    // Links to #witness-<id> (the case files, the migration panel) target a marker at the top of the stand, so any
+    // scroll to them lands on the whole panel. comic-motion.ts smooth-scrolls in-page links itself and swallows the
+    // hash, so clicks are picked up here; a typed or shared URL still arrives through the hash. The chapters above
+    // size themselves lazily (content-visibility), so a jump can settle off: re-aim once the layout has caught up.
+    const byId = (id: string) => tabs.findIndex((tab) => tab.dataset.witness === id);
+    const nearTop = () => { const t = root.getBoundingClientRect().top; return t > -40 && t < innerHeight * 0.4; };
+    const land = () => { if (!nearTop()) root.scrollIntoView({ block: "start", behavior: "instant" }); };
+    const fromHash = () => { const i = byId(location.hash.slice(1)); if (i >= 0) { takeOver(); show(i, false, false); setTimeout(land, 80); setTimeout(land, 700); } };
+    addEventListener("hashchange", fromHash);
+    document.addEventListener("click", (e) => {
+      const a = (e.target as Element | null)?.closest?.<HTMLAnchorElement>('a[href^="#witness-"]');
+      const i = a ? byId(a.getAttribute("href")!.slice(1)) : -1;
+      if (i >= 0) { takeOver(); show(i, false, false); setTimeout(land, 1400); }
+    });
+    show(0, false, null);
+    fromHash();
+  }
+</script>

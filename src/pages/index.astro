@@ -9,6 +9,7 @@ import ComicArt from "../components/final/ComicArt.astro";
 import ComicLoader from "../components/final/ComicLoader.astro";
 import PowerUps from "../components/final/PowerUps.astro";
 import Getaway from "../components/final/Getaway.astro";
+import Witnesses from "../components/final/Witnesses.astro";
 import portrait from "../assets/portrait.jpg";
 import avatar from "../assets/avatar.jpg";
 import resumePage from "../assets/resume-p1.png";
@@ -215,24 +216,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     <section id="witnesses" class="cv mt-16 scroll-mt-24" aria-labelledby="ch3">
       <h2 id="ch3" class="text-5xl sm:text-6xl">Chapter 3 · Nine witnesses</h2>
       <p class="mt-2 text-xl lede"><span>Every word verbatim. Nothing paraphrased.</span></p>
-      <ul class="mt-8 md:columns-2 md:gap-10">
-        {witnesses.map((w, i) => {
-          const pull = w.data.pull ?? "";
-          const paras = w.data.quote.split(/\n\s*\n/);
-          const initials = w.data.name.split(" ").map((n) => n[0]).slice(0, 2).join("");
-          return (
-            <li id={`witness-${w.id}`} class="break-inside-avoid mb-10">
-              <blockquote class="bubble text-lg space-y-3">
-                {paras.map((para) => { const k = pull && para.includes(pull) ? para.indexOf(pull) : -1; return k < 0 ? <p>{para}</p> : <p>{para.slice(0, k)}<strong class="emph">{pull}</strong>{para.slice(k + pull.length)}</p>; })}
-              </blockquote>
-              <footer class="mt-6 ml-5 flex items-center gap-3">
-                <span class="badge" aria-hidden="true">{initials}</span>
-                <span class="caption"><span class="bang text-sm text-[#b5123b] mr-2">{String(i + 1).padStart(2, "0")}/09</span><strong>{w.data.name}</strong> · {w.data.title}{w.data.organisation ? `, ${w.data.organisation}` : ""}</span>
-              </footer>
-            </li>
-          );
-        })}
-      </ul>
+      <div class="mt-8"><Witnesses witnesses={witnesses} colors={colors} onColor={onColor} /></div>
     </section>
 
     <!-- ORIGIN -->
