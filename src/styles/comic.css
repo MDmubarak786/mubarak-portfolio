@@ -313,7 +313,9 @@ kbd { font: inherit; border:2px solid #111; padding:0 .35em; background:#fff; bo
 @media (max-width: 639px) { .folder-meta, .folder-open { display:none; } .folder-title { font-size:1.1rem; } .folder { padding:.9rem .55rem .6rem; } }
 /* ── The line-up (Chapter 3) ── */
 .lu-intro { margin-top: 1.4rem; }
-.lu-wall { position:relative; display:flex; align-items:flex-end; gap:.4rem; margin-top:1.6rem; padding:2.2rem .9rem 0; border-bottom:8px solid #111; overflow-x:auto; scrollbar-width:thin; scrollbar-color:#111 #fff3b0; background-image: repeating-linear-gradient(180deg, transparent 0 34px, #111 34px 37px); background-size:100% 37px; background-position:0 6px; }
+/* The wall scrolls sideways only on phones, where nine figures do not fit; elsewhere it stays open so a lifting figure never summons a scrollbar. */
+.lu-wall { position:relative; display:flex; align-items:flex-end; gap:.4rem; margin-top:1.6rem; padding:2.2rem .9rem 0; border-bottom:8px solid #111; background-image: repeating-linear-gradient(180deg, transparent 0 34px, #111 34px 37px); background-size:100% 37px; background-position:0 6px; }
+@media (max-width: 767px) { .lu-wall { overflow-x:auto; overflow-y:hidden; padding-bottom:.3rem; } .lu-wall::-webkit-scrollbar { height:12px; } }
 .lu-wall::before { content:"HEIGHT"; position:absolute; right:.6rem; top:.4rem; font-family: var(--font-bangers); font-size:.85rem; letter-spacing:.12em; color:#111; background:#fff3b0; border:2px solid #111; padding:0 .4rem; }
 .lu-fig { position:relative; flex:0 0 auto; display:grid; justify-items:center; width:5.6rem; padding-bottom:.4rem; border:0; background:none; cursor:pointer; transform-origin:50% 100%; transition: transform .28s cubic-bezier(.2,.9,.3,1.3); }
 .lu-fig:hover { transform: translateY(-6px); }
