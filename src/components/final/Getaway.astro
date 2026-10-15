@@ -17,9 +17,9 @@ const ink = (c: string) => (c.toLowerCase() === "#8338ec" ? "#fff" : "#111");
   <span class="filetab">The getaway</span>
   <p class="caption getaway-hint" data-hint>Five ways to reach me, and they are drifting off. Catch one.</p>
   <div class="stage" data-stage role="group" aria-label="Ways to reach me">
-    <svg class="cloud c1" viewBox="0 0 120 60" aria-hidden="true"><path d="M22 52a16 16 0 0 1 6-31 23 23 0 0 1 44-7 15 15 0 0 1 27 11 14 14 0 0 1 1 27Z" /></svg>
-    <svg class="cloud c2" viewBox="0 0 120 60" aria-hidden="true"><path d="M22 52a16 16 0 0 1 6-31 23 23 0 0 1 44-7 15 15 0 0 1 27 11 14 14 0 0 1 1 27Z" /></svg>
-    <svg class="cloud c3" viewBox="0 0 120 60" aria-hidden="true"><path d="M22 52a16 16 0 0 1 6-31 23 23 0 0 1 44-7 15 15 0 0 1 27 11 14 14 0 0 1 1 27Z" /></svg>
+    <svg class="cloud c1" viewBox="-6 -12 132 78" aria-hidden="true"><path d="M22 52a16 16 0 0 1 6-31 23 23 0 0 1 44-7 15 15 0 0 1 27 11 14 14 0 0 1 1 27Z" /></svg>
+    <svg class="cloud c2" viewBox="-6 -12 132 78" aria-hidden="true"><path d="M22 52a16 16 0 0 1 6-31 23 23 0 0 1 44-7 15 15 0 0 1 27 11 14 14 0 0 1 1 27Z" /></svg>
+    <svg class="cloud c3" viewBox="-6 -12 132 78" aria-hidden="true"><path d="M22 52a16 16 0 0 1 6-31 23 23 0 0 1 44-7 15 15 0 0 1 27 11 14 14 0 0 1 1 27Z" /></svg>
     {links.map((l, i) => (
       <a href={l.href} class="balloon" style={`--c:${colors[i % 5]};--ink:${ink(colors[i % 5])}`} data-balloon {...(l.external ? { target: "_blank", rel: "noopener" } : {})}>
         <svg class="mark" viewBox="0 0 24 24" aria-hidden="true" set:html={mark(l.icon)} /><span>{l.label}</span>
