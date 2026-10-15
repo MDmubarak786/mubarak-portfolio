@@ -36,3 +36,4 @@ pnpm-debug.log*
 .env*
 !.env.example
 .vercel
+src/assets/offpanel/originals/

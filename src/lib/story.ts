@@ -8,7 +8,7 @@ export const me = {
 export const numbers = [
   { v: "1.25M+", k: "monthly users", d: "on the multilingual platform, 23+ languages", to: "#file-adr-002-ef-academy-multilingual-platform", cta: "Open file 02" },
   { v: "95%", k: "accuracy", d: "AI document processing across 17+ document types", to: "#file-adr-007-ai-document-processing", cta: "Open file 07" },
-  { v: "96.5%", k: "cost cut", d: "TIBCO → AWS Glue, $24k → $840 a year", to: "#migration", cta: "Read chapter 1" },
+  { v: "96.5%", k: "cost cut", d: "TIBCO → AWS Glue, $24k → $840 a year", to: "#file-adr-001-tibco-to-aws-glue", cta: "Open file 01" },
   { v: "22K+", k: "followers", d: "10M+ impressions writing about JavaScript, React and AI", to: site.linkedin, cta: "See LinkedIn" },
 ];
 /** The migration, told in beats. The spine of every story variant. */
