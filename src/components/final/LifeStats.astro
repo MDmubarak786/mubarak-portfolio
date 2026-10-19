@@ -1,0 +1,138 @@
+---
+/** Guest star: you. The reader types any birthday and the panels fill in from it: days and seconds alive, heartbeats,
+ *  breaths and blinks ticking live, days asleep, distance travelled around the Sun and the Milky Way, moon orbits,
+ *  and how much the world's crowd has grown. Everything is
+ *  computed in the browser from constants and a small cited population table; the date is kept only in this
+ *  browser's storage so a return visit remembers it, and one click forgets it. Inspired by neal.fun/life-stats. */
+interface Props { colors: string[] }
+const { colors } = Astro.props;
+const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+const thisYear = new Date().getUTCFullYear();
+---
+<div class="panel p-5 pt-8 sm:p-8 sm:pt-9" data-lifestats>
+  <span class="filetab">Guest star: you</span>
+  <div class="ls-intro">
+    <p class="caption">Your turn in the comic. Type a birthday and the panels fill in. It never leaves this browser.</p>
+    <form class="ls-form" novalidate>
+      <label class="ls-field"><span>Day</span><input name="day" type="number" inputmode="numeric" min="1" max="31" placeholder="DD" required /></label>
+      <label class="ls-field ls-select"><span>Month</span><select name="month" required><option value="">Pick one</option>{months.map((m, i) => <option value={i + 1}>{m}</option>)}</select><span class="ls-arrow bang" aria-hidden="true">▾</span></label>
+      <label class="ls-field"><span>Year</span><input name="year" type="number" inputmode="numeric" min="1900" max={thisYear} placeholder="YYYY" required /></label>
+      <button type="submit" class="btn">Show my stats ▸</button>
+    </form>
+    <p class="ls-error" role="alert" hidden></p>
+  </div>
+  <div class="ls-pages" hidden>
+    <ol class="ls-grid">
+      <li class="panel ls-page" style={`--c:${colors[0]}`}>
+        <span class="pnum">1</span>
+        <svg class="ls-art" viewBox="0 0 80 80" aria-hidden="true"><rect x="10" y="16" width="60" height="54" fill="#fff" stroke="#111" stroke-width="4" /><rect x="10" y="16" width="60" height="16" fill="var(--c)" stroke="#111" stroke-width="4" /><path d="M24 10v12M56 10v12" stroke="#111" stroke-width="4" stroke-linecap="round" /><text x="40" y="60" text-anchor="middle" font-size="26" font-family="var(--font-bangers)" fill="#111" data-art-day>1</text></svg>
+        <p class="caption">The calendar</p>
+        <p class="ls-line">Born on a <strong data-weekday></strong>, <strong data-date></strong>. That was <span class="ls-big" data-days></span> days ago, or <span class="ls-big" data-seconds></span> seconds, and counting.</p>
+      </li>
+      <li class="panel ls-page" style={`--c:${colors[1]}`}>
+        <span class="pnum">2</span>
+        <svg class="ls-art ls-beat" viewBox="0 0 80 80" aria-hidden="true"><path d="M40 68 C20 54 8 42 8 28 a16 16 0 0 1 32 -6 a16 16 0 0 1 32 6 c0 14 -12 26 -32 40 Z" fill="#ff2e63" stroke="#111" stroke-width="4" stroke-linejoin="round" /><path d="M16 40h12l6-12 8 24 6-12h16" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" /></svg>
+        <p class="caption">The engine</p>
+        <p class="ls-line">Your heart has beaten about <span class="ls-big" data-beats></span> times and pumped around <span class="ls-big" data-litres></span> litres of blood. It added a few while you read that.</p>
+      </li>
+      <li class="panel ls-page" style={`--c:${colors[3]}`}>
+        <span class="pnum">3</span>
+        <svg class="ls-art" viewBox="0 0 80 80" aria-hidden="true"><path d="M6 40 Q40 10 74 40 Q40 70 6 40 Z" fill="#fff" stroke="#111" stroke-width="4" stroke-linejoin="round" /><circle cx="40" cy="40" r="13" fill="var(--c)" stroke="#111" stroke-width="4" /><circle cx="40" cy="40" r="5" fill="#111" /><circle cx="45" cy="35" r="2.5" fill="#fff" /></svg>
+        <p class="caption">The small print</p>
+        <p class="ls-line">About <span class="ls-big" data-breaths></span> breaths and <span class="ls-big" data-blinks></span> blinks. You just blinked. Add one.</p>
+      </li>
+      <li class="panel ls-page" style={`--c:${colors[4]}`}>
+        <span class="pnum">4</span>
+        <svg class="ls-art" viewBox="0 0 80 80" aria-hidden="true"><rect x="8" y="42" width="64" height="22" fill="var(--c)" stroke="#111" stroke-width="4" /><rect x="8" y="34" width="22" height="12" rx="4" fill="#fff" stroke="#111" stroke-width="4" /><path d="M8 64v8M72 64v8" stroke="#111" stroke-width="4" stroke-linecap="round" /><text x="52" y="30" font-size="14" font-family="var(--font-bangers)" fill="#111">z</text><text x="60" y="20" font-size="18" font-family="var(--font-bangers)" fill="#111">Z</text></svg>
+        <p class="caption">The nap</p>
+        <p class="ls-line">Roughly a third of it asleep: <span class="ls-big" data-sleep-days></span> days, which is about <span class="ls-big" data-sleep-years></span> years of dreaming.</p>
+      </li>
+      <li class="panel ls-page" style={`--c:${colors[2]}`}>
+        <span class="pnum">5</span>
+        <svg class="ls-art ls-spin" viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="12" fill="var(--c)" stroke="#111" stroke-width="4" /><ellipse cx="40" cy="40" rx="32" ry="14" fill="none" stroke="#111" stroke-width="3" stroke-dasharray="6 5" /><circle cx="72" cy="40" r="6" fill="#3a86ff" stroke="#111" stroke-width="3" /></svg>
+        <p class="caption">The commute</p>
+        <p class="ls-line">Sitting still, you have travelled <span class="ls-big" data-sun></span> km around the Sun and <span class="ls-big" data-galaxy></span> km around the Milky Way. The Moon has gone round you <span class="ls-big" data-moons></span> times, and drifted <span class="ls-big" data-moon-cm></span> cm further away.</p>
+      </li>
+      <li class="panel ls-page" style={`--c:${colors[1]}`}>
+        <span class="pnum">6</span>
+        <svg class="ls-art" viewBox="0 0 80 80" aria-hidden="true"><g fill="#fff" stroke="#111" stroke-width="3.5"><circle cx="20" cy="30" r="8" /><circle cx="40" cy="26" r="8" /><circle cx="60" cy="30" r="8" /><path d="M6 66 a14 14 0 0 1 28 0 Z" fill="var(--c)" /><path d="M26 62 a14 14 0 0 1 28 0 Z" fill="#ffb703" /><path d="M46 66 a14 14 0 0 1 28 0 Z" fill="#3a86ff" /></g></svg>
+        <p class="caption">The crowd</p>
+        <p class="ls-line">There are about <span class="ls-big" data-people></span> more people on Earth than the day you arrived: roughly <span data-pop-then></span> billion then, <span data-pop-now></span> billion now. <span class="ls-src">UN World Population Prospects, rounded.</span></p>
+      </li>
+      <li class="panel ls-page ls-end" style={`--c:${colors[4]}`}>
+        <span class="pnum">7</span>
+        <p class="sfx text-[clamp(2rem,5vw,3.6rem)]" style={`color:${colors[4]}`}>TO BE CONTINUED…</p>
+        <p class="ls-line">And you still have a long way to go. <button type="button" class="ls-forget" data-forget>Forget my date</button></p>
+      </li>
+    </ol>
+  </div>
+</div>
+<script>
+  const root = document.querySelector<HTMLElement>("[data-lifestats]");
+  if (root) {
+    const form = root.querySelector<HTMLFormElement>(".ls-form")!, err = root.querySelector<HTMLElement>(".ls-error")!, pages = root.querySelector<HTMLElement>(".ls-pages")!;
+    const q = (s: string) => root.querySelector<HTMLElement>(s)!;
+    const nf = new Intl.NumberFormat("en-GB");
+    const fmt = (n: number) => nf.format(Math.round(n));
+    // World population, billions, mid-year (UN World Population Prospects 2024, rounded); interpolated between rows.
+    const pop: [number, number][] = [[1900, 1.65], [1950, 2.5], [1960, 3.02], [1970, 3.7], [1980, 4.44], [1990, 5.32], [2000, 6.15], [2010, 6.99], [2020, 7.84], [2024, 8.16], [2030, 8.57]];
+    const popAt = (t: number) => { let a = pop[0], b = pop[pop.length - 1]; for (let i = 0; i < pop.length - 1; i++) if (t >= pop[i][0] && t <= pop[i + 1][0]) { a = pop[i]; b = pop[i + 1]; break; } return a[1] + (b[1] - a[1]) * ((t - a[0]) / (b[0] - a[0])); };
+    let born: Date | null = null, raf = 0;
+    // Ticking values are drawn as fixed-width digit cells so a changing digit never reflows the sentence.
+    const digits = (el: HTMLElement, text: string) => {
+      const cells = el.children;
+      if (cells.length !== text.length) { el.textContent = ""; for (const ch of text) { const c = document.createElement("span"); c.className = /\d/.test(ch) ? "ls-ch" : "ls-ch ls-ch-sep"; c.textContent = ch; el.appendChild(c); } return; }
+      for (let i = 0; i < text.length; i++) if (cells[i].textContent !== text[i]) cells[i].textContent = text[i];
+    };
+    const tick = () => {
+      if (!born) return;
+      const ms = Date.now() - born.getTime(), s = ms / 1000;
+      digits(q("[data-seconds]"), fmt(s));
+      digits(q("[data-beats]"), fmt(s / 60 * 72));                 // ~72 beats a minute
+      digits(q("[data-litres]"), fmt(s / 60 * 72 * 0.07));         // ~70 ml a beat
+      digits(q("[data-breaths]"), fmt(s / 60 * 16));               // ~16 breaths a minute
+      digits(q("[data-blinks]"), fmt(s / 60 * 15 * (2 / 3)));       // ~15 a minute, two thirds of the day awake
+      digits(q("[data-sun]"), fmt(s * 29.78));                      // Earth's orbital speed, km/s
+      digits(q("[data-galaxy]"), fmt(s * 230));                     // the Sun's galactic speed, km/s
+      raf = requestAnimationFrame(() => setTimeout(tick, 200));
+    };
+    const render = (d: Date, remember: boolean) => {
+      born = d;
+      const now = new Date(), days = (now.getTime() - d.getTime()) / 86400000, years = days / 365.25;
+      q("[data-weekday]").textContent = d.toLocaleDateString("en-GB", { weekday: "long", timeZone: "UTC" });
+      q("[data-date]").textContent = d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+      q("[data-art-day]").textContent = String(d.getUTCDate());
+      q("[data-days]").textContent = fmt(days);
+      q("[data-sleep-days]").textContent = fmt(days / 3);
+      q("[data-sleep-years]").textContent = (years / 3).toFixed(1);
+      q("[data-moons]").textContent = fmt(days / 29.53);
+      q("[data-moon-cm]").textContent = (years * 3.8).toFixed(0);
+      const yThen = d.getUTCFullYear() + d.getUTCMonth() / 12, yNow = now.getUTCFullYear() + now.getUTCMonth() / 12;
+      const pThen = popAt(yThen), pNow = popAt(yNow);
+      q("[data-people]").textContent = fmt((pNow - pThen) * 1e9); q("[data-pop-then]").textContent = pThen.toFixed(1); q("[data-pop-now]").textContent = pNow.toFixed(1);
+      pages.hidden = false; err.hidden = true;
+      cancelAnimationFrame(raf); tick();
+      try { if (remember) localStorage.setItem("mk-dob", d.toISOString().slice(0, 10)); } catch {}
+    };
+    const read = () => { const f = new FormData(form); return { day: Number(f.get("day")), month: Number(f.get("month")), year: Number(f.get("year")) }; };
+    form.addEventListener("change", () => { const { day, month, year } = read(); const d = new Date(Date.UTC(year, month - 1, day)); if (year >= 1900 && d.getUTCFullYear() === year && d.getUTCMonth() === month - 1 && d.getUTCDate() === day && d.getTime() <= Date.now()) render(d, true); });
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const { day, month, year } = read();
+      const d = new Date(Date.UTC(year, month - 1, day));
+      const missing = [!day && "the day", !month && "the month", !year && "the year"].filter(Boolean);
+      const real = d.getUTCFullYear() === year && d.getUTCMonth() === month - 1 && d.getUTCDate() === day;
+      const problem = missing.length ? `Still need ${missing.join(" and ")}.` : year < 1900 ? "Years before 1900 are out of print." : !real ? "That day does not exist in that month." : d.getTime() > Date.now() ? "That is in the future. Come back then." : "";
+      if (problem) { err.textContent = problem; err.hidden = false; (form.elements.namedItem(!day ? "day" : !month ? "month" : "year") as HTMLElement).focus(); return; }
+      render(d, true);
+      pages.scrollIntoView({ block: "start", behavior: "smooth" });
+    });
+    root.querySelector("[data-forget]")!.addEventListener("click", () => { try { localStorage.removeItem("mk-dob"); } catch {} born = null; cancelAnimationFrame(raf); pages.hidden = true; form.reset(); (form.elements.namedItem("day") as HTMLInputElement).focus(); });
+    document.addEventListener("visibilitychange", () => { if (document.hidden) cancelAnimationFrame(raf); else if (born) tick(); });
+    // A return visit: the date this browser remembered, pre-filled and rendered.
+    try {
+      const saved = localStorage.getItem("mk-dob");
+      if (saved) { const d = new Date(saved + "T00:00:00Z"); if (!isNaN(d.getTime())) { (form.elements.namedItem("day") as HTMLInputElement).value = String(d.getUTCDate()); (form.elements.namedItem("month") as HTMLSelectElement).value = String(d.getUTCMonth() + 1); (form.elements.namedItem("year") as HTMLInputElement).value = String(d.getUTCFullYear()); render(d, false); } }
+    } catch {}
+  }
+</script>

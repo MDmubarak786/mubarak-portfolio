@@ -13,6 +13,7 @@ import CaseBoard from "../components/final/CaseBoard.astro";
 import HeroFigure from "../components/final/HeroFigure.astro";
 import OffPanel from "../components/final/OffPanel.astro";
 import IssueRack from "../components/final/IssueRack.astro";
+import LifeStats from "../components/final/LifeStats.astro";
 import portrait from "../assets/portrait.jpg";
 import avatar from "../assets/avatar.jpg";
 import resumePage from "../assets/resume-p1.png";
@@ -39,6 +40,7 @@ const chapters = [
   { n: "3", t: "Origin story", id: "origin" },
 ];
 const extras = [
+  { t: "Guest star: you", id: "you", menuOnly: true },
   { t: "Resume", id: "resume" },
   { t: "Power-ups", id: "powers" },
   { t: "Back issues", id: "back-issues" },
@@ -170,6 +172,13 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
       <h2 id="ch4" class="text-5xl sm:text-6xl">Chapter 3 · Origin story</h2>
       <p class="mt-2 text-xl lede"><span>Four issues on the rack, newest first. Pull one down.</span></p>
       <div class="mt-8"><IssueRack roles={roles} colors={colors} onColor={onColor} fmt={fmt} /></div>
+    </section>
+
+    <!-- GUEST STAR -->
+    <section id="you" class="cv mt-16 scroll-mt-24" aria-labelledby="you-h" data-page="Guest star">
+      <h2 id="you-h" class="text-5xl sm:text-6xl">Guest star: you</h2>
+      <p class="mt-2 text-xl lede"><span>Every comic needs a reader. Type a birthday and the panels fill in from it.</span></p>
+      <div class="mt-8"><LifeStats colors={colors} /></div>
     </section>
 
     <!-- RESUME -->
