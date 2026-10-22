@@ -40,11 +40,11 @@ const chapters = [
   { n: "3", t: "Origin story", id: "origin" },
 ];
 const extras = [
-  { t: "Guest star: you", id: "you", menuOnly: true },
   { t: "Resume", id: "resume" },
   { t: "Power-ups", id: "powers" },
   { t: "Back issues", id: "back-issues" },
   { t: "Off panel", id: "off-panel", menuOnly: true },
+  { t: "Guest star: you", id: "you", menuOnly: true },
   { t: "Contact", id: "contact" },
 ];
 const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.phoneDisplay, site.whatsapp], ["Call", site.phoneDisplay, `tel:${site.phoneE164}`], ["LinkedIn", "mohammed-mubarak", site.linkedin], ["GitHub", "MDmubarak786", site.github], ["X", "@MMubarakoo7", site.x], ["Instagram", "@scooby_doo.mk", site.instagram], ["YouTube", "@mohammedmubarak1478", site.youtube]];
@@ -65,6 +65,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
               <p class="menu-cap mt-2">Also inside</p>
               {extras.map((e) => <a href={`#${e.id}`} data-label={e.t} class="menu-item pl-3">{e.t}</a>)}
               <a href="/blog" class="menu-item pl-3">Blog · the weekly strip</a>
+              <button type="button" class="menu-item pl-3 menu-sound" data-sound aria-pressed="false" aria-label="Sound effects on. Press to mute."><span data-sound-text>Sound effects: on</span></button>
             </div>
           </div>
         </details>
@@ -72,6 +73,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
         {extras.filter((e) => !e.menuOnly).map((e) => <a href={`#${e.id}`} data-label={e.t} class="navlink hidden lg:inline">{e.t}</a>)}
         <a href="/blog" class="navlink hidden lg:inline">Blog</a>
       </nav>
+      <button type="button" class="sound" data-sound aria-pressed="false" aria-label="Sound effects on. Press to mute." title="Sound effects"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4z" fill="currentColor" /><path class="sound-on" d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13" /><path class="sound-off" d="M16 9l6 6M22 9l-6 6" /></svg></button>
       <a href={mailto("A role")} class="btn sm shrink-0">Hire me</a>
     </div>
     <div class="progress" aria-hidden="true"><span data-progress></span></div>
@@ -131,7 +133,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
       </div>
       <ul class="cover-teaser" aria-label="In this issue">
         <li>In this issue</li>
-        <li><a href="#cases">1 · Case files</a></li><li><a href="#witnesses">2 · Nine witnesses</a></li><li><a href="#origin">3 · Origin story</a></li><li><a href="#off-panel">Off panel</a></li><li><a href="#contact">Back cover</a></li>
+        <li><a href="#cases">1 · Case files</a></li><li><a href="#witnesses">2 · Nine witnesses</a></li><li><a href="#origin">3 · Origin story</a></li><li><a href="#resume">The resume</a></li><li><a href="#off-panel">Off panel</a></li><li><a href="#you">Guest star: you</a></li><li><a href="#contact">Back cover</a></li>
         <li class="cover-bar" aria-hidden="true"></li>
       </ul>
     </section>
@@ -174,13 +176,6 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
       <div class="mt-8"><IssueRack roles={roles} colors={colors} onColor={onColor} fmt={fmt} /></div>
     </section>
 
-    <!-- GUEST STAR -->
-    <section id="you" class="cv mt-16 scroll-mt-24" aria-labelledby="you-h" data-page="Guest star">
-      <h2 id="you-h" class="text-5xl sm:text-6xl">Guest star: you</h2>
-      <p class="mt-2 text-xl lede"><span>Every comic needs a reader. Type a birthday and the panels fill in from it.</span></p>
-      <div class="mt-8"><LifeStats colors={colors} /></div>
-    </section>
-
     <!-- RESUME -->
     <section id="resume" class="mt-16 scroll-mt-24 panel p-6 sm:p-10 lg:p-12 grid gap-10 lg:grid-cols-[1.15fr_1fr] items-center" aria-labelledby="res-h" data-page="Collector’s insert">
       <div>
@@ -209,31 +204,6 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
       <div class="panel mt-8 p-6 pt-8"><span class="filetab">Daily strip</span><p class="text-lg">GitHub, the last twelve months · <a href={site.github} class="underline">@MDmubarak786</a></p><div class="mt-4"><Calendar showTotal totalClass="mt-3 text-base" /></div></div>
     </section>
 
-    <!-- BACK ISSUES -->
-    <section id="back-issues" class="cv mt-16 scroll-mt-24" aria-labelledby="back" data-page="Back issues">
-      <h2 id="back" class="text-5xl sm:text-6xl">Back issues · 2020</h2>
-      <p class="mt-2 text-xl lede"><span>Eight Flutter apps from the year I was learning mobile. Minor issues, but every one shipped with a demo.</span></p>
-      <ul class="mt-8 grid gap-5 grid-cols-2 lg:grid-cols-4">
-        {projects.map((p, i) => {
-          const id = p.data.link ? ytId(p.data.link) : undefined;
-          return (
-            <li class="issue">
-              <a href={p.data.link} rel="noopener" target="_blank" class="block group">
-                <div class="cover">
-                  {id ? <img src={`https://img.youtube.com/vi/${id}/hqdefault.jpg`} alt={`Demo video of ${p.data.name}`} width="480" height="360" loading="lazy" class="w-full aspect-[4/3] object-cover" /> : <div class="w-full aspect-[4/3] bg-[#fff3b0]"></div>}
-                  <span class="issue-no">No. {i + 1}</span>
-                  <span class="play"><span class="btn text-base py-1">▶ Watch demo</span></span>
-                </div>
-                <p class="mt-3 text-xs">{fmt(p.data.period)} · {p.data.tags[0]}</p>
-                <h3 class="text-xl sm:text-2xl leading-tight group-hover:text-[#ff2e63]">{p.data.name}</h3>
-                {p.data.description && <p class="text-sm mt-1">{p.data.description}</p>}
-              </a>
-            </li>
-          );
-        })}
-      </ul>
-    </section>
-
     <!-- THE STRIP -->
     {posts.length > 0 && (
       <section id="strip" class="cv mt-16 scroll-mt-24" aria-labelledby="strip-h" data-page="The strip">
@@ -253,11 +223,43 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
       </section>
     )}
 
+    <!-- BACK ISSUES -->
+    <section id="back-issues" class="cv mt-16 scroll-mt-24" aria-labelledby="back" data-page="Back issues">
+      <h2 id="back" class="text-5xl sm:text-6xl">Back issues · 2020</h2>
+      <p class="mt-2 text-xl lede"><span>Eight Flutter apps from the year I was learning mobile. Minor issues, but every one shipped with a demo.</span></p>
+      <ul class="mt-8 grid gap-5 grid-cols-2 lg:grid-cols-4">
+        {projects.map((p, i) => {
+          const id = p.data.link ? ytId(p.data.link) : undefined;
+          return (
+            <li class="issue">
+              <a href={p.data.link} rel="noopener" target="_blank" class="block group">
+                <div class="cover">
+                  {id ? <img src={`https://img.youtube.com/vi/${id}/hqdefault.jpg`} alt={`Demo video of ${p.data.name}`} width="480" height="360" loading="lazy" class="w-full aspect-[4/3] object-cover" /> : <div class="w-full aspect-[4/3] bg-[#fff3b0]"></div>}
+                  <span class="issue-no">No. {i + 1}</span>
+                  <span class="play"><span class="btn text-base py-1">▶ Watch demo</span></span>
+                </div>
+                <p class="mt-3 text-xs"><span class="knock">{fmt(p.data.period)} · {p.data.tags[0]}</span></p>
+                <h3 class="text-xl sm:text-2xl leading-tight group-hover:text-[#ff2e63]">{p.data.name}</h3>
+                {p.data.description && <p class="text-sm mt-1">{p.data.description}</p>}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+
     <!-- OFF PANEL -->
     <section id="off-panel" class="cv mt-16 scroll-mt-24" aria-labelledby="off-h" data-page="Off panel">
       <h2 id="off-h" class="text-5xl sm:text-6xl">Off panel</h2>
       <p class="mt-2 text-xl lede"><span>What happens outside the frames. Photos, a few clips, and the list.</span></p>
       <div class="mt-8"><OffPanel colors={colors} /></div>
+    </section>
+
+    <!-- GUEST STAR -->
+    <section id="you" class="cv mt-16 scroll-mt-24" aria-labelledby="you-h" data-page="Guest star">
+      <h2 id="you-h" class="text-5xl sm:text-6xl">Guest star: you</h2>
+      <p class="mt-2 text-xl lede"><span>Every comic needs a reader. Type a birthday and the panels fill in from it.</span></p>
+      <div class="mt-8"><LifeStats colors={colors} /></div>
     </section>
 
     <!-- CONTACT -->
@@ -288,9 +290,26 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     document.querySelectorAll("[data-experience]").forEach((el) => { if (el.textContent !== t) el.textContent = t; });
   </script>
   <script>
+  import { track, linkKind } from "../lib/track";
+    // Sound effects: one switch in the header, the same key every toy reads.
+    const snds = [...document.querySelectorAll<HTMLButtonElement>("[data-sound]")];
+    const paint = () => { let off = false; try { off = localStorage.getItem("mk-sound") === "off"; } catch {} snds.forEach((b) => { b.setAttribute("aria-pressed", String(off)); b.setAttribute("aria-label", off ? "Sound effects muted. Press to unmute." : "Sound effects on. Press to mute."); const t = b.querySelector("[data-sound-text]"); if (t) t.textContent = off ? "Sound effects: off" : "Sound effects: on"; }); };
+    snds.forEach((b) => b.addEventListener("click", () => { try { localStorage.setItem("mk-sound", localStorage.getItem("mk-sound") === "off" ? "on" : "off"); } catch {} paint(); track("sound", "toggle", snds[0]?.getAttribute("aria-pressed") === "true" ? "off" : "on"); }));
+    paint();
     // The cover portrait: the hero at rest, the real photo on hover or press.
     const swap = document.querySelector<HTMLButtonElement>(".cover-swap");
-    swap?.addEventListener("click", () => swap.setAttribute("aria-pressed", String(swap.getAttribute("aria-pressed") !== "true")));
+    swap?.addEventListener("click", () => { swap.setAttribute("aria-pressed", String(swap.getAttribute("aria-pressed") !== "true")); track("cover", "swap"); });
+    // Reader-facing links anywhere on the page: who did they try to reach, and from which section.
+    document.addEventListener("click", (e) => {
+      const a = (e.target as Element | null)?.closest?.<HTMLAnchorElement>("a[href]");
+      if (!a || a.classList.contains("balloon")) return;
+      const area = a.closest("section")?.id || (a.closest("header") ? "header" : "cover");
+      if (a.hasAttribute("download")) { track("resume", "download", area); return; }
+      const kind = linkKind(a.href);
+      if (kind) track("contact", kind, area);
+      else if (a.pathname.startsWith("/blog")) track("strip", "open", a.pathname);
+    });
+    document.querySelectorAll("[data-resume-open]").forEach((b) => b.addEventListener("click", () => track("resume", "open", b.closest("section")?.id || "cover")));
     // Sections below the fold size themselves lazily (content-visibility), so a hash landing can settle a little off;
     // re-align once everything has loaded.
     addEventListener("load", () => { const t = location.hash && document.querySelector<HTMLElement>(location.hash); if (t) setTimeout(() => t.scrollIntoView(), 60); }, { once: true });

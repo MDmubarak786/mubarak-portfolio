@@ -32,6 +32,7 @@ const ink = (c: string) => (c.toLowerCase() === "#8338ec" ? "#fff" : "#111");
   </div>
 </div>
 <script>
+  import { track, linkKind } from "../../lib/track";
   const root = document.querySelector<HTMLElement>("[data-getaway]");
   if (root) {
     const stage = root.querySelector<HTMLElement>("[data-stage]")!;
@@ -150,7 +151,7 @@ const ink = (c: string) => (c.toLowerCase() === "#8338ec" ? "#fff" : "#111");
           const href = b.el.href, blank = b.el.target === "_blank";
           setTimeout(() => { if (blank) window.open(href, "_blank", "noopener"); else location.href = href; }, 620);
         }
-        b.live = false; lastCatch = performance.now();
+        b.live = false; lastCatch = performance.now(); track("getaway", "catch", b.el.getAttribute("aria-label") || b.el.textContent?.trim() || "");
         pow.textContent = WORDS[caught % WORDS.length]; caught++;
         pow.style.left = b.x + "px"; pow.style.top = b.y + "px"; pow.classList.remove("show"); void pow.offsetWidth; pow.classList.add("show");
         b.el.classList.add("caught"); setTimeout(() => { b.el.hidden = true; }, 420);

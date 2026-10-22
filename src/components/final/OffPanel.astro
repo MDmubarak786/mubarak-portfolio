@@ -53,10 +53,12 @@ const icons: Record<string, string> = {
           );
         })}
       </ul>
+      <button type="button" class="btn alt sm op-more" data-more>Show all {stickers.length} ▸</button>
     </div>
   </div>
 </div>
 <script>
+  import { track, linkKind } from "../../lib/track";
   const root = document.querySelector<HTMLElement>("[data-offpanel]");
   if (root) {
     const board = root.querySelector<HTMLElement>("[data-board-area]")!;
@@ -77,19 +79,21 @@ const icons: Record<string, string> = {
         if (!el.classList.contains("is-held")) return;
         const dx = ox + e.clientX - sx, dy = oy + e.clientY - sy;
         el.dataset.dx = String(dx); el.dataset.dy = String(dy); el.style.setProperty("--dx", `${dx}px`); el.style.setProperty("--dy", `${dy}px`);
-        if (Math.abs(e.clientX - sx) + Math.abs(e.clientY - sy) > 6 && !moved) { moved = true; stamp.hidden = false; }
+        if (Math.abs(e.clientX - sx) + Math.abs(e.clientY - sy) > 6 && !moved) { moved = true; if (stamp.hidden) track("offpanel", "drag"); stamp.hidden = false; }
       });
       const drop = () => el.classList.remove("is-held");
       el.addEventListener("pointerup", drop); el.addEventListener("pointercancel", drop);
       el.addEventListener("dragstart", (e) => e.preventDefault());
     });
     // Clips: fetched when the chapter is near, played on hover (fine pointers) or on tap.
+    const more = root.querySelector<HTMLButtonElement>("[data-more]")!;
+    more.addEventListener("click", () => { root.querySelector(".op-stickers")!.classList.add("is-all"); more.hidden = true; });
     const clips = [...root.querySelectorAll<HTMLButtonElement>(".op-clip")];
     const load = (v: HTMLVideoElement) => { if (!v.src && v.dataset.src) { v.src = v.dataset.src; v.load(); } };
     new IntersectionObserver((es, io) => { if (es.some((e) => e.isIntersecting)) { clips.forEach((b) => load(b.querySelector("video")!)); io.disconnect(); } }, { rootMargin: "400px" }).observe(board);
     clips.forEach((b) => {
       const v = b.querySelector("video")!;
-      const play = () => { load(v); v.play().catch(() => {}); b.setAttribute("aria-pressed", "true"); };
+      const play = () => { load(v); v.play().catch(() => {}); if (b.getAttribute("aria-pressed") !== "true") track("offpanel", "play", v.dataset.src?.split("/").pop() ?? ""); b.setAttribute("aria-pressed", "true"); };
       const stop = () => { v.pause(); b.setAttribute("aria-pressed", "false"); };
       b.addEventListener("click", () => (v.paused ? play() : stop()));
       b.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse") play(); });

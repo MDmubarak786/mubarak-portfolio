@@ -44,9 +44,10 @@ const mark = (para: string, pull: string) => { const k = pull ? para.indexOf(pul
       </div>
     );
   })}
-  <p class="lu-hint"><button type="button" class="keybtn" data-prev aria-label="Previous witness">←</button> <button type="button" class="keybtn" data-next aria-label="Next witness">→</button> move along the line.</p>
+  <p class="lu-hint"><button type="button" class="keybtn" data-prev aria-label="Previous witness">←</button> <button type="button" class="keybtn" data-next aria-label="Next witness">→</button> move along the line. <span class="lu-count bang" data-count>1 of {N}</span></p>
 </div>
 <script>
+  import { track, linkKind } from "../../lib/track";
   const root = document.querySelector<HTMLElement>("[data-lineup]");
   if (root) {
     const tabs = [...root.querySelectorAll<HTMLButtonElement>("[role=tab]")];
@@ -56,16 +57,18 @@ const mark = (para: string, pull: string) => { const k = pull ? para.indexOf(pul
       i = (i + tabs.length) % tabs.length; cur = i;
       tabs.forEach((t, k) => { t.setAttribute("aria-selected", String(k === i)); t.tabIndex = k === i ? 0 : -1; });
       panels.forEach((p, k) => { p.hidden = k !== i; });
+      root.querySelector("[data-count]")!.textContent = `${i + 1} of ${tabs.length}`;
+      tabs[i].scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" });
       if (focus) tabs[i].focus();
     };
-    tabs.forEach((t, i) => t.addEventListener("click", () => show(i)));
+    tabs.forEach((t, i) => t.addEventListener("click", () => { show(i); track("witnesses", "pick", t.id.replace("witness-", "")); }));
     root.querySelector("[data-prev]")!.addEventListener("click", () => show(cur - 1, true));
     root.querySelector("[data-next]")!.addEventListener("click", () => show(cur + 1, true));
     root.querySelector("[role=tablist]")!.addEventListener("keydown", (e: KeyboardEvent) => {
       const k = e.key;
       const to = k === "ArrowRight" ? cur + 1 : k === "ArrowLeft" ? cur - 1 : k === "Home" ? 0 : k === "End" ? tabs.length - 1 : null;
       if (to === null) return;
-      e.preventDefault(); show(to, true);
+      e.preventDefault(); show(to, true); track("witnesses", "pick", tabs[cur].id.replace("witness-", ""));
     });
     // Links to #witness-<id> (the case files, the migration panel) land on that figure. comic-motion.ts smooth-scrolls
     // in-page links itself and swallows the hash, so clicks are picked up here; a shared URL arrives through the hash.

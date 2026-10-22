@@ -41,6 +41,7 @@ const gear = [
   </div>
 </div>
 <script>
+  import { track, linkKind } from "../../lib/track";
   const root = document.querySelector<HTMLElement>("[data-powerups]");
   if (root) {
     const tabs = [...root.querySelectorAll<HTMLButtonElement>("[role=tab]")];
@@ -63,7 +64,7 @@ const gear = [
       wrap.style.setProperty("--shirt", tabs[i].style.getPropertyValue("--c"));
       gears.forEach((g) => { const on = g.dataset.gear === String(i); g.toggleAttribute("hidden", !on); g.classList.toggle("pop", on && !reduce); });
       if (!reduce) { wrap.classList.remove("jump"); void wrap.offsetWidth; wrap.classList.add("jump"); }
-      if (noisy) sound();
+      if (noisy) { sound(); track("powers", "wear", tabs[i].textContent?.trim() ?? String(i)); }
       if (focus) tabs[i].focus();
     };
     tabs.forEach((t, i) => t.addEventListener("click", () => show(i)));

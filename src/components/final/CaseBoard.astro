@@ -45,7 +45,7 @@ const reactions = ["AHA!", "NOTED", "GOT IT", "100%!", "LIVE!", "TEAM OF 4", "95
             <span class="pin pin-l" aria-hidden="true"></span><span class="pin pin-r" aria-hidden="true"></span>
             <span class="stamp-closed" aria-hidden="true">Case closed</span>
             <p class="text-sm">{r.data.organisation} · {r.data.date} · {r.data.role}</p>
-            <h3 class="text-3xl mt-1 pr-32 sm:pr-40">{r.data.title}</h3>
+            <h3 class="text-3xl mt-1 text-balance">{r.data.title}</h3>
             <p class="mt-2 text-lg">{r.data.summary}</p>
             <div class="mt-5 border-t-4 border-dashed border-[#111] pt-5 space-y-4">
               <p><strong class="bang text-xl mr-1">Context.</strong> {r.data.context}</p>
@@ -57,11 +57,12 @@ const reactions = ["AHA!", "NOTED", "GOT IT", "100%!", "LIVE!", "TEAM OF 4", "95
           </article>
         );
       })}
-      <p class="board-hint text-sm text-[#555]"><span class="board-keys"><kbd>←</kbd> <kbd>→</kbd> move between files.</span><span class="board-tap">Tap a folder to open it.</span></p>
+      <p class="board-hint text-sm"><span class="board-keys knock"><kbd>←</kbd> <kbd>→</kbd> move between files.</span><span class="board-tap knock">Tap a folder to open it.</span></p>
     </div>
   </div>
 </div>
 <script>
+  import { track, linkKind } from "../../lib/track";
   const root = document.querySelector<HTMLElement>("[data-board]");
   if (root) {
     const tabs = [...root.querySelectorAll<HTMLButtonElement>("[role=tab]")];
@@ -98,11 +99,12 @@ const reactions = ["AHA!", "NOTED", "GOT IT", "100%!", "LIVE!", "TEAM OF 4", "95
       thread();
       if (!reduce && byHand !== null) {
         restart(panels[i], "in");
+        if (byHand && panels[i].getBoundingClientRect().top > innerHeight * 0.55) panels[i].scrollIntoView({ block: "start", behavior: "instant" });
         react.textContent = reactions[i % reactions.length] ?? "";
         restart(react, "show");
         if (byHand) restart(hero, "jump");
       }
-      if (byHand) sound();
+      if (byHand) { sound(); track("cases", "open", tabs[i].id.replace("file-", "")); }
       if (focus) tabs[i].focus();
     };
     tabs.forEach((t, i) => t.addEventListener("click", () => show(i)));
