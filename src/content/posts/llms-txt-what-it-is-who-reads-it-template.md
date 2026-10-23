@@ -88,7 +88,7 @@ Every number on the portfolio is real. Blog posts state dates, prices and limits
 ## Optional
 - [RSS feed](https://mk-comics.vercel.app/rss.xml)
 - [Sitemap](https://mk-comics.vercel.app/sitemap-index.xml)
-- [LinkedIn](https://linkedin.com/in/mohammed-mubarak)
+- [LinkedIn](https://linkedin.com/in/mubarak-shajahan)
 ```
 
 Then wire it up and check it:

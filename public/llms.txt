@@ -1,6 +1,6 @@
 # Mubarak Shajahan — MK Comics
 
-> Personal portfolio of Mubarak Shajahan (Mohammed Mubarak, முகமது முபாரக்), Senior Software Engineer at Galent, Chennai, India. Full-stack + AI: React, Next.js, Node.js, Python, AWS, LLMs, RAG, agentic workflows. The site is written as a comic book; every number and quote on it is real.
+> Personal portfolio of Mubarak Shajahan (முபாரக் ஷாஜஹான், also Mohammed Mubarak), Senior Software Engineer at Galent, Chennai, India. Full-stack + AI: React, Next.js, Node.js, Python, AWS, LLMs, RAG, agentic workflows. The site is written as a comic book; every number and quote on it is real.
 
 Career start: 21 June 2021. Senior Software Engineer at Galent (May 2026 – present); before that five years at Incresco (June 2021 – May 2026): Software Development Engineer → SDE 1 → SDE 2, building AI and full-stack platforms for Global University Systems. B.Tech in Information Technology, Sri Krishna College of Technology, Coimbatore (2018–2022, CGPA 8.01/10). Writes for 22,000+ developers on LinkedIn (10M+ impressions) about JavaScript, React and AI.
 
@@ -29,6 +29,6 @@ Proof, all on the page: sole engineer on EF Academy's primary digital presence (
 ## Contact
 
 - [Email](mailto:mohammedmubarakmk@gmail.com): mohammedmubarakmk@gmail.com; WhatsApp/phone +91 79041 00495.
-- [LinkedIn](https://linkedin.com/in/mohammed-mubarak): where the writing lives.
+- [LinkedIn](https://linkedin.com/in/mubarak-shajahan): where the writing lives.
 - [GitHub](https://github.com/MDmubarak786): code and the daily contribution strip.
 - [X](https://x.com/MMubarakoo7): short notes.

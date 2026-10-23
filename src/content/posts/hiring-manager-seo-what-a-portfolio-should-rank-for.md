@@ -57,12 +57,12 @@ Structured data helps Google understand who the page is about. For a person, sch
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Mubarak Shajahan",
-  "alternateName": ["Mohammed Mubarak", "முகமது முபாரக்"],
+  "alternateName": ["Mohammed Mubarak", "முபாரக் ஷாஜஹான்"],
   "jobTitle": "Senior Software Engineer",
   "url": "https://mk-comics.vercel.app",
   "worksFor": { "@type": "Organization", "name": "Galent" },
   "sameAs": [
-    "https://linkedin.com/in/mohammed-mubarak",
+    "https://linkedin.com/in/mubarak-shajahan",
     "https://github.com/MDmubarak786"
   ],
   "knowsAbout": ["React", "Next.js", "AWS", "LLMs", "RAG"]

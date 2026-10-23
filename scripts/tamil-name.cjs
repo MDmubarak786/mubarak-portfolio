@@ -1,7 +1,7 @@
 // Shapes a Tamil string with HarfBuzz (the wasm build Astro already depends on) and prints its glyph outlines as one SVG
 // path. The cover's pronounce chip inlines that path instead of Tamil text, because a page whose first frame needs a
 // system Tamil font stalls first paint on machines that have to search for one (PageSpeed's servers took ~600 ms).
-// Usage: node scripts/tamil-name.cjs "/System/Library/Fonts/Supplemental/Tamil Sangam MN.ttc" "முகமது முபாரக்" 0 > out.json
+// Usage: node scripts/tamil-name.cjs "/System/Library/Fonts/Supplemental/Tamil Sangam MN.ttc" "முபாரக் ஷாஜஹான்" 0 > out.json (then write {text, font, viewBox: "minX minY w h", d} to src/components/final/tamil-name.json)
 const fs = require("fs");
 const path = require("path");
 const hbjs = require(process.cwd() + "/node_modules/harfbuzzjs/hbjs.js");
