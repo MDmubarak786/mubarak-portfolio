@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite';
 import vercel from '@astrojs/vercel';
 import icon from 'astro-icon';
 import sitemap from '@astrojs/sitemap';
-import { readFileSync, readdirSync } from 'node:fs';
+import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
@@ -42,6 +42,15 @@ const cspGuard = {
       if (!pages) throw new Error('csp-guard found no HTML to check in ' + root);
       if (bad.length) throw new Error(`CSP would block ${bad.length} inline script(s):\n` + bad.slice(0, 10).join('\n'));
       logger.info(`every inline script on ${pages} pages is allowed by its CSP`);
+      // The adapter writes each page's CSP route as an exact path ("/blog/post"), but pages are linked and served with a
+      // trailing slash, which then got no policy. Vercel route srcs are regexes, so accept an optional slash.
+      try {
+        const file = '.vercel/output/config.json', cfg = JSON.parse(readFileSync(file, 'utf8'));
+        let n = 0;
+        for (const r of cfg.routes) if (r.headers?.['content-security-policy'] && r.src !== '/' && !r.src.endsWith('/?')) { r.src += '/?'; n++; }
+        writeFileSync(file, JSON.stringify(cfg, null, 2));
+        logger.info(`CSP header routes now match with or without a trailing slash (${n})`);
+      } catch (e) { if (Object.keys(headers).length) throw e; }
     },
   },
 };
