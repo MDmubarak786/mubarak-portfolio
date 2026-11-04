@@ -24,6 +24,8 @@ const person = {
   sameAs: [site.linkedin, site.github, site.x, site.instagram, site.youtube],
   knowsAbout: ["Full-stack engineering", "React", "Next.js", "Node.js", "Python", "AWS", "LLMs", "RAG", "Agentic workflows"],
 };
+// Google picks the result's site name from WebSite data; without it a *.vercel.app page is labelled "Vercel".
+const website = { "@context": "https://schema.org", "@type": "WebSite", name: "MK Comics", alternateName: [site.name, "MK Comics by Mubarak Shajahan"], url: `${site.url}/` };
 ---
 <!doctype html>
 <html lang="en">
@@ -31,15 +33,19 @@ const person = {
     <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title><meta name="description" content={description} />
     <meta name="theme-color" content={theme} /><link rel="canonical" href={canonical} />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" /><link rel="manifest" href="/manifest.webmanifest" />
     <meta name="google-site-verification" content="L0WEPb7xzY07_re74A0a5X_sxEs2H6Ko6WlHp6Pel5c" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" /><link rel="icon" type="image/svg+xml" href="/favicon.svg" /><link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" /><link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     {fonts.map((f) => <Font cssVariable={f as any} preload />)}
     <meta property="og:type" content={ogType} /><meta property="og:url" content={canonical} /><meta property="og:site_name" content="MK Comics" /><meta property="og:title" content={title} /><meta property="og:description" content={description} /><meta property="og:image" content={image} /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" /><meta name="twitter:site" content="@MMubarakoo7" /><meta name="twitter:creator" content="@MMubarakoo7" /><meta name="twitter:title" content={title} /><meta name="twitter:description" content={description} /><meta name="twitter:image" content={image} />
     <link rel="sitemap" href="/sitemap-index.xml" /><link rel="author" href="/llms.txt" /><link rel="alternate" type="application/rss+xml" title="The strip – MK Comics" href="/rss.xml" />
     <slot name="head" />
     <script type="application/ld+json" set:html={JSON.stringify(person)} />
-    {(GTM || CLARITY) && <script is:inline define:vars={{ GTM, CLARITY }}>
+    {canonical.replace(/\/$/, "") === site.url.replace(/\/$/, "") && <script type="application/ld+json" set:html={JSON.stringify(website)} />}
+    {(GTM || CLARITY) && <script is:inline data-gtm={GTM ?? ""} data-clarity={CLARITY ?? ""}>
+      (function () {
+      var cfg = document.currentScript.dataset, GTM = cfg.gtm, CLARITY = cfg.clarity;
       // Analytics load after the page is interactive so they never sit on the first-paint path.
       // GA4 is configured inside the Tag Manager container; window.gtag pushes custom events to the same dataLayer.
       window.dataLayer = window.dataLayer || [];
@@ -58,10 +64,19 @@ const person = {
       // on a timer inside the first seconds: analytics must never be what the browser is busy with while the page settles.
       if (document.readyState === 'complete') setTimeout(later, 15000); else addEventListener('load', function () { setTimeout(later, 15000); });
       ['pointerdown', 'keydown', 'touchstart', 'scroll', 'wheel'].forEach(function (ev) { addEventListener(ev, boot, { once: true, passive: true }); });
+      })();
     </script>}
   </head>
   <body>
     {GTM && <noscript><iframe src={`https://www.googletagmanager.com/ns.html?id=${GTM}`} height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>}
     <slot />
+    <footer class="max-w-6xl mx-auto px-5 sm:px-8 pb-10 flex flex-wrap items-center justify-between gap-x-6 text-base text-[#555]">
+      <p class="py-3">© {new Date().getFullYear()} {site.name} · Chennai, India</p>
+      <nav aria-label="Feeds" class="flex flex-wrap gap-x-4">
+        <a href="/rss.xml" class="inline-flex items-center justify-center min-h-12 min-w-12 px-1 underline underline-offset-4 text-[#111]">RSS</a>
+        <a href="/sitemap-index.xml" class="inline-flex items-center justify-center min-h-12 min-w-12 px-1 underline underline-offset-4 text-[#111]">Sitemap</a>
+        <a href="/llms.txt" class="inline-flex items-center justify-center min-h-12 min-w-12 px-1 underline underline-offset-4 text-[#111]">llms.txt</a>
+      </nav>
+    </footer>
   </body>
 </html>

@@ -53,7 +53,7 @@ const colors = ["#ff2e63", "#1b998b", "#ffb703", "#3a86ff", "#8338ec"];
                     <div class="st-face st-front st-cover">
                       <div class="st-mast"><span>MK</span> <span class="pink">COMICS</span></div>
                       <div class="st-meta"><span>No. 1</span><span>{year} edition</span><span>The story so far</span></div>
-                      <img class="st-cover-art" alt="" data-portrait-img width="520" height="520" />
+                      <img class="st-cover-art" alt="Mubarak Shajahan on the cover of issue No. 1" data-portrait-img width="520" height="520" />
                       <div class="st-burst">{site.role}</div>
                       <div class="st-title">The Full-Stack<br />+ AI Chronicles</div>
                     </div>
@@ -69,7 +69,7 @@ const colors = ["#ff2e63", "#1b998b", "#ffb703", "#3a86ff", "#8338ec"];
                     {art.type === "count" && <><p class="st-big st-count" data-count={art.value} data-dec={art.dec} data-suffix={art.suffix}>{art.value}{art.suffix}</p><p class="st-label">{art.label}</p><p class="caption st-cap">{art.sub}</p></>}
                     {art.type === "svg" && <><ComicArt kind={art.kind} class={`st-svg st-svg-${art.kind}`} /><p class="caption st-cap">{art.label}</p></>}
                     {art.type === "faces" && <div class="st-faces">{initials.map((t, j) => <span style={`--i:${j};background:${colors[j % 5]}`}>{t}</span>)}</div>}
-                    {art.type === "portrait" && <div class="st-port"><img alt="" data-portrait-img width="520" height="520" /><span class="st-badge">{art.badge}</span></div>}
+                    {art.type === "portrait" && <div class="st-port"><img alt="Portrait of Mubarak Shajahan" data-portrait-img width="520" height="520" /><span class="st-badge">{art.badge}</span></div>}
                     <span class="st-num st-num-l">{i + 1}</span>
                   </div>
                 </div>
@@ -201,11 +201,11 @@ const colors = ["#ff2e63", "#1b998b", "#ffb703", "#3a86ff", "#8338ec"];
   .st-bars::after { bottom:0; transform: translateY(100%); }
   .st-bars.is-in::before, .st-bars.is-in::after { transform:none; }
   .st-bars.is-out::before { transform: translateY(-100%); } .st-bars.is-out::after { transform: translateY(100%); }
-  .st-skip { position:absolute; right: clamp(1rem, 3vw, 2.5rem); bottom: 2.6vh; z-index:7; background:none; border:0; padding:.3rem .2rem; cursor:pointer; font: 500 .8rem/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing:.14em; text-transform:uppercase; color: rgba(255,248,231,.62); opacity:0; transition: opacity .6s, color .2s; }
+  .st-skip { position:absolute; right: clamp(1rem, 3vw, 2.5rem); bottom: 2.6vh; z-index:7; background:none; border:0; padding:calc(.3rem + 13px) .2rem; margin-block:-13px; cursor:pointer; font: 500 .8rem/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing:.14em; text-transform:uppercase; color: rgba(255,248,231,.62); opacity:0; transition: opacity .6s, color .2s; }
   .st-skip.is-on { opacity:1; }
   .st-skip:hover { color:#fff8e7; }
   .st-skip.is-off { opacity:0; pointer-events:none; }
-  .st-sound { position:absolute; left: clamp(1rem, 3vw, 2.5rem); bottom: 2.6vh; z-index:7; display:inline-flex; align-items:center; gap:.55rem; background:none; border:0; padding:.3rem .2rem; cursor:pointer; font: 500 .8rem/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing:.14em; text-transform:uppercase; color: rgba(255,248,231,.62); opacity:0; transition: opacity .6s, color .2s; }
+  .st-sound { position:absolute; left: clamp(1rem, 3vw, 2.5rem); bottom: 2.6vh; z-index:7; display:inline-flex; align-items:center; gap:.55rem; background:none; border:0; padding:calc(.3rem + 13px) .2rem; margin-block:-13px; cursor:pointer; font: 500 .8rem/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing:.14em; text-transform:uppercase; color: rgba(255,248,231,.62); opacity:0; transition: opacity .6s, color .2s; }
   .st-sound.is-on { opacity:1; animation: st-invite 1.4s ease-in-out .6s 2; }
   .st-sound.is-on.is-waiting { color:#fff8e7; animation: st-invite 1.6s ease-in-out .4s infinite; }
   .st-sound:hover, .st-sound.is-playing { color:#fff8e7; }
@@ -231,7 +231,9 @@ const colors = ["#ff2e63", "#1b998b", "#ffb703", "#3a86ff", "#8338ec"];
   .st-plates-sub { position:absolute; left:50%; top: calc(46% + 7vw); translate:-50% 0; margin:0; z-index:4; font-family: var(--font-bangers); font-size: clamp(1rem, 2vw, 1.6rem); letter-spacing:.08em; color:#ffb703; opacity:0; transition: opacity .3s; pointer-events:none; }
   .st-plates-sub.is-on { opacity:1; }
 </style>
-<script is:inline define:vars={{ N, cues }}>
+<script is:inline data-n={N} data-cues={JSON.stringify(cues)}>
+  (function () {
+  var story = document.currentScript.dataset, N = Number(story.n), cues = JSON.parse(story.cues);
   window.__loaders = window.__loaders || {};
   window.__loaders.s = (api) => {
     const root = api.root, $ = (q) => root.querySelector(q);
@@ -744,4 +746,5 @@ const colors = ["#ff2e63", "#1b998b", "#ffb703", "#3a86ff", "#8338ec"];
       setTimeout(() => { skipBtn.classList.add("is-on"); soundBtn.classList.add("is-on"); }, 1200);
     })();
   };
+  })();
 </script>

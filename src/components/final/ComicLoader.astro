@@ -6,7 +6,6 @@ import { getImage } from "astro:assets";
 import portrait from "../../assets/portrait.jpg";
 import Story from "./loaders/Story.astro";
 const art = await getImage({ src: portrait, width: 520, height: 520, widths: [448], format: "webp" });
-const DEFAULT = "s";
 ---
 <div class="press fixed inset-0 z-[90]" data-preloader aria-hidden="true" data-portrait={art.src}>
   <Story />
@@ -18,7 +17,9 @@ const DEFAULT = "s";
   .press-skip.is-on { opacity:1; }
   html.is-loading { overflow:hidden; }
 </style>
-<script define:vars={{ DEFAULT }}>
+<script is:inline>
+  (function () {
+  const DEFAULT = "s";
   const el = document.querySelector("[data-preloader]");
   const params = new URLSearchParams(location.search);
   const forced = params.get("loader");
@@ -46,4 +47,5 @@ const DEFAULT = "s";
     setTimeout(() => skip.classList.add("is-on"), 800);
     window.__loaders[variant](api);
   }
+  })();
 </script>
