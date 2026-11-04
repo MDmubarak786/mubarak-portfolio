@@ -58,7 +58,7 @@ const icons: Record<string, string> = {
   </div>
 </div>
 <script>
-  import { track, linkKind } from "../../lib/track";
+  const { track, linkKind } = window.mk;
   const root = document.querySelector<HTMLElement>("[data-offpanel]");
   if (root) {
     const board = root.querySelector<HTMLElement>("[data-board-area]")!;

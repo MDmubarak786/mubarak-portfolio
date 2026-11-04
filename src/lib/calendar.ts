@@ -5,17 +5,20 @@ import { getContributions } from "./github";
 const empty = "#fff", levels = ["#ffd6e0", "#ff9ab5", "#ff5c8a", "#ff2e63"], ink = "#111";
 const size = 11, gap = 3, step = size + gap;
 
+const fill = [empty, ...levels];
+/** The grid's own <style>. Scoped to the grid: once the SVG is inlined into the page it applies document-wide. It is
+ *  constant, so the page that inlines it adds its hash to the CSP (Calendar.astro); change it and the hash follows. */
+export const calendarCss = `.cal rect{width:${size}px;height:${size}px;rx:2;stroke:${ink};stroke-opacity:.15}` + fill.map((f, i) => `.cal .l${i}{fill:${f}}`).join("");
+
 export async function calendar() {
   const c = await getContributions();
   const offset = new Date(c.days[0].date + "T00:00:00Z").getUTCDay();
   const cells: (typeof c.days[number] | null)[] = [...Array(offset).fill(null), ...c.days];
   const weeks: (typeof cells)[] = []; for (let i = 0; i < cells.length; i += 7) weeks.push(cells.slice(i, i + 7));
   const w = weeks.length * step - gap, h = 7 * step - gap + 16;
-  const fill = [empty, ...levels];
   const months: string[] = [];
   weeks.forEach((wk, i) => { const d = wk.find(Boolean); if (!d) return; const dt = new Date(d.date + "T00:00:00Z"); if (dt.getUTCDate() <= 7) months.push(`<text x="${i * step}" y="10" font-size="10" fill="${ink}" opacity=".7">${dt.toLocaleDateString("en-US", { month: "short", timeZone: "UTC" })}</text>`); });
-  // Scoped to the grid: once the SVG is inlined into the page its <style> applies document-wide.
-  const css = `.cal rect{width:${size}px;height:${size}px;rx:2;stroke:${ink};stroke-opacity:.15}` + fill.map((f, i) => `.cal .l${i}{fill:${f}}`).join("");
+  const css = calendarCss;
   const rects = weeks.flatMap((wk, x) => wk.map((d, y) => d ? `<rect x="${x * step}" y="${y * step}" class="l${Math.min(d.level, 4)}"><title>${d.count} on ${d.date}</title></rect>` : "")).join("");
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" role="img" aria-label="${c.total} contributions on GitHub in the last year" class="cal block w-full h-auto"><style>${css}</style>${months.join("")}<g transform="translate(0 16)">${rects}</g></svg>`;
   return { svg, w, h, total: c.total, source: c.source, fetchedAt: c.fetchedAt };

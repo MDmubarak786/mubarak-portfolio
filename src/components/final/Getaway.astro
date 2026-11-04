@@ -32,7 +32,7 @@ const ink = (c: string) => (c.toLowerCase() === "#8338ec" ? "#fff" : "#111");
   </div>
 </div>
 <script>
-  import { track, linkKind } from "../../lib/track";
+  const { track, linkKind } = window.mk;
   const root = document.querySelector<HTMLElement>("[data-getaway]");
   if (root) {
     const stage = root.querySelector<HTMLElement>("[data-stage]")!;

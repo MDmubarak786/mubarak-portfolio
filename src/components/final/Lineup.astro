@@ -47,7 +47,7 @@ const mark = (para: string, pull: string) => { const k = pull ? para.indexOf(pul
   <p class="lu-hint"><button type="button" class="keybtn" data-prev aria-label="Previous witness">←</button> <button type="button" class="keybtn" data-next aria-label="Next witness">→</button> move along the line. <span class="lu-count bang" data-count>1 of {N}</span></p>
 </div>
 <script>
-  import { track, linkKind } from "../../lib/track";
+  const { track, linkKind } = window.mk;
   const root = document.querySelector<HTMLElement>("[data-lineup]");
   if (root) {
     const tabs = [...root.querySelectorAll<HTMLButtonElement>("[role=tab]")];

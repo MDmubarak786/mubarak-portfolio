@@ -43,6 +43,19 @@ const website = { "@context": "https://schema.org", "@type": "WebSite", name: "M
     <slot name="head" />
     <script type="application/ld+json" set:html={JSON.stringify(person)} />
     {canonical.replace(/\/$/, "") === site.url.replace(/\/$/, "") && <script type="application/ld+json" set:html={JSON.stringify(website)} />}
+    <script is:inline>
+      // One event for everything a reader does: `mk_action` with an area, an action and a label on the data layer. Tag
+      // Manager forwards it to GA4 ("GA4 - mk_action"); GA4 derives contact_click, resume_open, case_opened and
+      // witness_read from it as key events. Pushes queue until the tags load. No personal data: a submitted birthday
+      // counts as "submit", never the date. Inline (not a module) so component scripts import nothing and stay inlined.
+      (function () {
+        var kinds = [[/^mailto:/, "email"], [/^tel:/, "call"], [/wa\.me|whatsapp/, "whatsapp"], [/linkedin\.com/, "linkedin"], [/github\.com/, "github"], [/x\.com|twitter\.com/, "x"], [/instagram\.com/, "instagram"], [/youtube\.com|youtu\.be/, "youtube"]];
+        window.mk = {
+          track: function (area, action, label) { try { (window.dataLayer = window.dataLayer || []).push({ event: "mk_action", area: area, action: action, label: String(label == null ? "" : label).slice(0, 100) }); } catch (e) {} },
+          linkKind: function (href) { for (var i = 0; i < kinds.length; i++) if (kinds[i][0].test(href)) return kinds[i][1]; return ""; },
+        };
+      })();
+    </script>
     {(GTM || CLARITY) && <script is:inline data-gtm={GTM ?? ""} data-clarity={CLARITY ?? ""}>
       (function () {
       var cfg = document.currentScript.dataset, GTM = cfg.gtm, CLARITY = cfg.clarity;
@@ -73,9 +86,9 @@ const website = { "@context": "https://schema.org", "@type": "WebSite", name: "M
     <footer class="max-w-6xl mx-auto px-5 sm:px-8 pb-10 flex flex-wrap items-center justify-between gap-x-6 text-base text-[#555]">
       <p class="py-3">© {new Date().getFullYear()} {site.name} · Chennai, India</p>
       <nav aria-label="Feeds" class="flex flex-wrap gap-x-4">
-        <a href="/rss.xml" class="inline-flex items-center justify-center min-h-12 min-w-12 px-1 underline underline-offset-4 text-[#111]">RSS</a>
-        <a href="/sitemap-index.xml" class="inline-flex items-center justify-center min-h-12 min-w-12 px-1 underline underline-offset-4 text-[#111]">Sitemap</a>
-        <a href="/llms.txt" class="inline-flex items-center justify-center min-h-12 min-w-12 px-1 underline underline-offset-4 text-[#111]">llms.txt</a>
+        <a href="/rss.xml" class="inline-flex items-center justify-center min-h-[50px] min-w-[50px] px-1 underline underline-offset-4 text-[#111]">RSS</a>
+        <a href="/sitemap-index.xml" class="inline-flex items-center justify-center min-h-[50px] min-w-[50px] px-1 underline underline-offset-4 text-[#111]">Sitemap</a>
+        <a href="/llms.txt" class="inline-flex items-center justify-center min-h-[50px] min-w-[50px] px-1 underline underline-offset-4 text-[#111]">llms.txt</a>
       </nav>
     </footer>
   </body>

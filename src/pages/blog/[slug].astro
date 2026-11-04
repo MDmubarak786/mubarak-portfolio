@@ -35,6 +35,7 @@ const article = {
   inLanguage: "en",
 };
 const toc = headings.filter((h) => h.depth === 2);
+import PageCurtain from "../../components/final/PageCurtain.astro";
 ---
 <FinalShell title={`${post.data.title} – ${site.name}`} description={post.data.description} fonts={["--font-bangers", "--font-patrick"]} theme="#fff8e7" canonical={url} image={og} ogType="article">
   <Fragment slot="head">
@@ -92,5 +93,5 @@ const toc = headings.filter((h) => h.depth === 2);
       </div>
     </article>
   </main>
-  <script src="../../scripts/page-curtain.ts"></script>
+  <PageCurtain />
 </FinalShell>

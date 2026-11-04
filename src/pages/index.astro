@@ -48,6 +48,7 @@ const extras = [
   { t: "Contact", id: "contact" },
 ];
 const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.phoneDisplay, site.whatsapp], ["Call", site.phoneDisplay, `tel:${site.phoneE164}`], ["LinkedIn", "mubarak-shajahan", site.linkedin], ["GitHub", "MDmubarak786", site.github], ["X", "@MMubarakoo7", site.x], ["Instagram", "@scooby_doo.mk", site.instagram], ["YouTube", "@mohammedmubarak1478", site.youtube]];
+import PageCurtain from "../components/final/PageCurtain.astro";
 ---
 <FinalShell title={`${site.name} – ${site.role}, ${site.roleAlt}`} description={me.oneLiner} fonts={["--font-bangers", "--font-patrick"]} theme="#fff8e7">
   <ComicLoader />
@@ -139,7 +140,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     </section>
 
     <!-- NUMBERS -->
-    <section class="cv mt-10" aria-labelledby="num-h" style="contain-intrinsic-size:auto 560px">
+    <section class="cv mt-10" aria-labelledby="num-h" style="--cv-s:523px;--cv-m:476px;--cv-l:250px">
       <h2 id="num-h" class="sr-only">By the numbers</h2>
       <ul class="grid gap-4 sm:gap-5 grid-cols-2 lg:grid-cols-4" role="list">
         {numbers.map((n, i) => (
@@ -156,21 +157,21 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     </section>
 
     <!-- CASE FILES -->
-    <section id="cases" class="cv mt-16 scroll-mt-24" aria-labelledby="ch2">
+    <section id="cases" class="cv mt-16 scroll-mt-24" aria-labelledby="ch2" style="--cv-s:3018px;--cv-m:2175px;--cv-l:1640px">
       <h2 id="ch2" class="text-5xl sm:text-6xl">Chapter 1 · Case files</h2>
       <p class="mt-2 text-xl lede"><span>Eight cases. Open a file for the context, the decision and what it changed.</span></p>
       <div class="mt-8"><CaseBoard records={records} witnesses={recordWitnesses} colors={colors} onColor={onColor} /></div>
     </section>
 
     <!-- WITNESSES -->
-    <section id="witnesses" class="cv mt-16 scroll-mt-24" aria-labelledby="ch3">
+    <section id="witnesses" class="cv mt-16 scroll-mt-24" aria-labelledby="ch3" style="--cv-s:1100px;--cv-m:812px;--cv-l:800px">
       <h2 id="ch3" class="text-5xl sm:text-6xl">Chapter 2 · Nine witnesses</h2>
       <p class="mt-2 text-xl lede"><span>Every word verbatim. Nothing paraphrased.</span></p>
       <div class="mt-8"><Lineup witnesses={witnesses} colors={colors} onColor={onColor} /></div>
     </section>
 
     <!-- ORIGIN -->
-    <section id="origin" class="cv mt-16 scroll-mt-24" aria-labelledby="ch4">
+    <section id="origin" class="cv mt-16 scroll-mt-24" aria-labelledby="ch4" style="--cv-s:1580px;--cv-m:987px;--cv-l:968px">
       <h2 id="ch4" class="text-5xl sm:text-6xl">Chapter 3 · Origin story</h2>
       <p class="mt-2 text-xl lede"><span>Four issues on the rack, newest first. Pull one down.</span></p>
       <div class="mt-8"><IssueRack roles={roles} colors={colors} onColor={onColor} fmt={fmt} /></div>
@@ -197,7 +198,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     </section>
 
     <!-- POWERS -->
-    <section id="powers" class="cv mt-16 scroll-mt-24" aria-labelledby="pow-h" data-page="Power-ups">
+    <section id="powers" class="cv mt-16 scroll-mt-24" aria-labelledby="pow-h" data-page="Power-ups" style="--cv-s:1324px;--cv-m:1331px;--cv-l:1020px">
       <h2 id="pow-h" class="text-5xl sm:text-6xl">Power-ups</h2>
       <p class="mt-2 text-xl lede"><span>Nine groups of tools, collected over <span data-experience>{exp.long}</span>, worn one at a time. The AI and cloud ones are the newest.</span></p>
       <div class="mt-10"><PowerUps groups={skillGroups} colors={colors} /></div>
@@ -206,7 +207,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
 
     <!-- THE STRIP -->
     {posts.length > 0 && (
-      <section id="strip" class="cv mt-16 scroll-mt-24" aria-labelledby="strip-h" data-page="The strip">
+      <section id="strip" class="cv mt-16 scroll-mt-24" aria-labelledby="strip-h" data-page="The strip" style="--cv-s:1326px;--cv-m:740px;--cv-l:645px">
         <h2 id="strip-h" class="text-5xl sm:text-6xl">The weekly strip</h2>
         <p class="mt-2 text-xl lede"><span>What shipped in AI and what to build with it. New issue every week; primary sources only.</span></p>
         <ol class="mt-8 grid gap-6 md:grid-cols-3" role="list">
@@ -224,7 +225,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     )}
 
     <!-- BACK ISSUES -->
-    <section id="back-issues" class="cv mt-16 scroll-mt-24" aria-labelledby="back" data-page="Back issues">
+    <section id="back-issues" class="cv mt-16 scroll-mt-24" aria-labelledby="back" data-page="Back issues" style="--cv-s:1222px;--cv-m:1559px;--cv-l:690px">
       <h2 id="back" class="text-5xl sm:text-6xl">Back issues · 2020</h2>
       <p class="mt-2 text-xl lede"><span>Eight Flutter apps from the year I was learning mobile. Minor issues, but every one shipped with a demo.</span></p>
       <ul class="mt-8 grid gap-5 grid-cols-2 lg:grid-cols-4">
@@ -249,14 +250,14 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     </section>
 
     <!-- OFF PANEL -->
-    <section id="off-panel" class="cv mt-16 scroll-mt-24" aria-labelledby="off-h" data-page="Off panel">
+    <section id="off-panel" class="cv mt-16 scroll-mt-24" aria-labelledby="off-h" data-page="Off panel" style="--cv-s:1806px;--cv-m:1636px;--cv-l:1640px">
       <h2 id="off-h" class="text-5xl sm:text-6xl">Off panel</h2>
       <p class="mt-2 text-xl lede"><span>What happens outside the frames. Photos, a few clips, and the list.</span></p>
       <div class="mt-8"><OffPanel colors={colors} /></div>
     </section>
 
     <!-- GUEST STAR -->
-    <section id="you" class="cv mt-16 scroll-mt-24" aria-labelledby="you-h" data-page="Guest star">
+    <section id="you" class="cv mt-16 scroll-mt-24" aria-labelledby="you-h" data-page="Guest star" style="--cv-s:569px;--cv-m:356px;--cv-l:356px">
       <h2 id="you-h" class="text-5xl sm:text-6xl">Guest star: you</h2>
       <p class="mt-2 text-xl lede"><span>Every comic needs a reader. Type a birthday and the panels fill in from it.</span></p>
       <div class="mt-8"><LifeStats colors={colors} /></div>
@@ -291,7 +292,7 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     document.querySelectorAll("[data-experience]").forEach((el) => { if (el.textContent !== t) el.textContent = t; });
   </script>
   <script>
-  import { track, linkKind } from "../lib/track";
+  const { track, linkKind } = window.mk;
     // Sound effects: one switch in the header, the same key every toy reads.
     const snds = [...document.querySelectorAll<HTMLButtonElement>("[data-sound]")];
     const paint = () => { let off = false; try { off = localStorage.getItem("mk-sound") === "off"; } catch {} snds.forEach((b) => { b.setAttribute("aria-pressed", String(off)); b.setAttribute("aria-label", off ? "Sound effects muted. Press to unmute." : "Sound effects on. Press to mute."); const t = b.querySelector("[data-sound-text]"); if (t) t.textContent = off ? "Sound effects: off" : "Sound effects: on"; }); };
@@ -316,5 +317,5 @@ const channels = [["Email", site.email, mailto("A role")], ["WhatsApp", site.pho
     addEventListener("load", () => { const t = location.hash && document.querySelector<HTMLElement>(location.hash); if (t) setTimeout(() => t.scrollIntoView(), 60); }, { once: true });
   </script>
   <script src="../scripts/comic-motion.ts"></script>
-  <script src="../scripts/page-curtain.ts"></script>
+  <PageCurtain />
 </FinalShell>

@@ -41,7 +41,7 @@ const gear = [
   </div>
 </div>
 <script>
-  import { track, linkKind } from "../../lib/track";
+  const { track, linkKind } = window.mk;
   const root = document.querySelector<HTMLElement>("[data-powerups]");
   if (root) {
     const tabs = [...root.querySelectorAll<HTMLButtonElement>("[role=tab]")];

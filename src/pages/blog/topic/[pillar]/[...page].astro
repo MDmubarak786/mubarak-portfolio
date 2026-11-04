@@ -21,6 +21,7 @@ const all = (await getCollection("posts", ({ data }) => !data.draft)).sort((a, b
 const issueNo = new Map(all.map((p, i) => [p.id, all.length - i]));
 const base = `/blog/topic/${pillar}`;
 const canonical = page.currentPage === 1 ? `${site.url}${base}/` : `${site.url}${base}/${page.currentPage}/`;
+import PageCurtain from "../../../../components/final/PageCurtain.astro";
 ---
 <FinalShell title={`${pillarName[pillar]} – the strip, page ${page.currentPage} – ${site.name}`} description={pillarBlurb[pillar]} fonts={["--font-bangers", "--font-patrick"]} theme="#fff8e7" canonical={canonical}>
   <Fragment slot="head">
@@ -43,5 +44,5 @@ const canonical = page.currentPage === 1 ? `${site.url}${base}/` : `${site.url}$
     </ol>
     <Pagination current={page.currentPage} last={page.lastPage} base={base} prev={page.url.prev ? `${page.url.prev}/` : undefined} next={page.url.next ? `${page.url.next}/` : undefined} />
   </main>
-  <script src="../../../../scripts/page-curtain.ts"></script>
+  <PageCurtain />
 </FinalShell>

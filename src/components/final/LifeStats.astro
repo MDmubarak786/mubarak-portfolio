@@ -68,7 +68,7 @@ const thisYear = new Date().getUTCFullYear();
   </div>
 </div>
 <script>
-  import { track, linkKind } from "../../lib/track";
+  const { track, linkKind } = window.mk;
   const root = document.querySelector<HTMLElement>("[data-lifestats]");
   if (root) {
     const form = root.querySelector<HTMLFormElement>(".ls-form")!, err = root.querySelector<HTMLElement>(".ls-error")!, pages = root.querySelector<HTMLElement>(".ls-pages")!;

@@ -62,7 +62,7 @@ const reactions = ["AHA!", "NOTED", "GOT IT", "100%!", "LIVE!", "TEAM OF 4", "95
   </div>
 </div>
 <script>
-  import { track, linkKind } from "../../lib/track";
+  const { track, linkKind } = window.mk;
   const root = document.querySelector<HTMLElement>("[data-board]");
   if (root) {
     const tabs = [...root.querySelectorAll<HTMLButtonElement>("[role=tab]")];

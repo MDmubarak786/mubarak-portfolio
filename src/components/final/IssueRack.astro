@@ -35,7 +35,7 @@ const promos = ["Now", "Promoted from SDE 1 · 3 years 8 months", "Promoted to S
   <p class="rack-hint text-sm text-[#555]"><button type="button" class="keybtn" data-prev aria-label="Previous issue on the shelf">←</button> <button type="button" class="keybtn" data-next aria-label="Next issue on the shelf">→</button> move along the shelf.</p>
 </div>
 <script>
-  import { track, linkKind } from "../../lib/track";
+  const { track, linkKind } = window.mk;
   const root = document.querySelector<HTMLElement>("[data-rack]");
   if (root) {
     const tabs = [...root.querySelectorAll<HTMLButtonElement>("[role=tab]")];

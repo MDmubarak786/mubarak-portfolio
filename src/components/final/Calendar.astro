@@ -1,8 +1,11 @@
 ---
-import { calendar } from "../../lib/calendar";
+import { createHash } from "node:crypto";
+import { calendar, calendarCss } from "../../lib/calendar";
 interface Props { showTotal?: boolean; totalClass?: string }
 const { showTotal = false, totalClass = "" } = Astro.props;
 const c = await calendar();
+// The fetched SVG brings a <style>; allow exactly that one on this page's CSP.
+Astro.csp?.insertStyleHash(`sha256-${createHash("sha256").update(calendarCss).digest("base64")}`);
 // The grid itself lives at /calendar.svg (see src/lib/calendar.ts) and is fetched when this slot comes near the
 // viewport; the slot keeps the grid's aspect ratio, so mounting moves nothing.
 ---
