@@ -54,6 +54,11 @@ const website = { "@context": "https://schema.org", "@type": "WebSite", name: "M
           track: function (area, action, label) { try { (window.dataLayer = window.dataLayer || []).push({ event: "mk_action", area: area, action: action, label: String(label == null ? "" : label).slice(0, 100) }); } catch (e) {} },
           linkKind: function (href) { for (var i = 0; i < kinds.length; i++) if (kinds[i][0].test(href)) return kinds[i][1]; return ""; },
         };
+        // PostCraft links on any page: counted as area "postcraft", labelled by their utm_content placement.
+        document.addEventListener("click", function (e) {
+          var a = e.target.closest && e.target.closest('a[href*="post-craft-mk.vercel.app"]');
+          if (a) window.mk.track("postcraft", "open", (a.href.match(/utm_content=([^&]+)/) || [])[1] || "link");
+        }, true);
       })();
     </script>
     {(GTM || CLARITY) && <script is:inline data-gtm={GTM ?? ""} data-clarity={CLARITY ?? ""}>
